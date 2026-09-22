@@ -1,20 +1,21 @@
 /* ============================================================
-   Field & Play — Design Tokens
-   Single source of truth for the "Get Set Go" visual language.
-   Consumed by styles.css. Do not hard-code these values elsewhere.
+   Design Tokens — Taupō Athletics Club admin portal
+   Mirrors the website palette (steel blue from the club logo).
+   Single source of truth. Consumed by styles.css. Do not
+   hard-code these values elsewhere.
    ============================================================ */
 
 :root {
   /* ---- Brand & semantic colour (Material 3) ---- */
-  --primary: #a43c12;
+  --primary: #5b84a8;
   --on-primary: #ffffff;
-  --primary-container: #ff7f50;
-  --on-primary-container: #6c2000;
-  --inverse-primary: #ffb59c;
-  --primary-fixed: #ffdbcf;
-  --primary-fixed-dim: #ffb59c;
-  --on-primary-fixed: #380c00;
-  --on-primary-fixed-variant: #822800;
+  --primary-container: #cfe1f0;
+  --on-primary-container: #15344d;
+  --inverse-primary: #a9c6de;
+  --primary-fixed: #cfe1f0;
+  --primary-fixed-dim: #a9c6de;
+  --on-primary-fixed: #0f2a40;
+  --on-primary-fixed-variant: #274a68;
 
   --secondary: #705d00;
   --on-secondary: #ffffff;
@@ -56,18 +57,19 @@
   --inverse-on-surface: #f6f0e9;
   --outline: #8b7169;
   --outline-variant: #dec0b6;
-  --surface-tint: #a43c12;
+  --surface-tint: #5b84a8;
 
-  /* ---- Field & Play brand extras (traffic-light logic) ---- */
-  --coral-active: #ff7f50;      /* critical attention / primary action */
+  /* ---- Brand extras ---- */
+  --coral-active: #ff7f50;      /* primary action / CTA               */
+  --coral-shadow: #822800;      /* the "pressed" shadow under the CTA  */
   --sunflower-caution: #ffd700; /* transition / warning / progress      */
   --mint-go: #4fd1c5;           /* go / success / active status         */
   --sky-info: #0ea5e9;          /* informational links / instructional  */
   --surface-cream: #fff9f2;     /* page background                      */
   --text-ink: #1a202c;          /* high-contrast body text              */
 
-  /* ---- Typography (Baloo 2) ---- */
-  --font-family: 'Baloo 2', system-ui, sans-serif;
+  /* ---- Typography (Inter, matching the website body) ---- */
+  --font-family: 'Inter', system-ui, sans-serif;
   --font-headline-xl: 48px;
   --font-headline-lg: 32px;
   --font-headline-lg-mobile: 28px;

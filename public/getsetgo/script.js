@@ -140,11 +140,11 @@ function loadSessions() {
     season = data.season || null;
     series = data.series || [];
     finalNight = data.finalNight || null;
-    renderRunSheets();
+    if (adminLoggedIn && adminSection === 'runsheets') renderRunSheets();
   }).catch(() => {
     console.warn('Could not load sessions.json.');
     season = null; series = []; finalNight = null;
-    renderRunSheets();
+    if (adminLoggedIn && adminSection === 'runsheets') renderRunSheets();
   });
 }
 
@@ -284,9 +284,24 @@ function bindCards() {
 }
 
 function renderRunSheets() {
+  $('#admin-content').innerHTML = `
+    <div class="page-head">
+      <h1>Run Sheets</h1>
+      <p>Tonight, in four rotations — open a series and run each station exactly as written.</p>
+    </div>
+    <div id="season-info"></div>
+    <div class="block-tabs" id="block-tabs"></div>
+    <div class="lesson-grid" id="lesson-grid"></div>`;
   $('#season-info').innerHTML = seasonInfoHTML();
   renderTermTabs();
   renderLessons();
+  $('#block-tabs').addEventListener('click', (e) => {
+    const tab = e.target.closest('.block-tab');
+    if (!tab) return;
+    activeTerm = tab.dataset.term;
+    renderTermTabs();
+    renderLessons();
+  });
 }
 
 /* ============================================================
@@ -447,9 +462,9 @@ function bindAttendance() {
 function renderLogin() {
   $('#admin-login').innerHTML = `
     <div class="login-card">
-      <div class="logo-badge material-symbols-outlined filled">sports_score</div>
-      <h1>Get Set Go</h1>
-      <p class="sub">Admin Portal Login</p>
+      <img class="login-logo" src="/logo.svg" alt="Taupō Athletics Club logo">
+      <h1>Taupō Athletics Club</h1>
+      <p class="sub">Admin Portal</p>
       <form id="login-form">
         <div class="field">
           <label for="email">Email Address</label>
@@ -624,8 +639,8 @@ const RECORD_GRADES = ['7', '8', '9', '10', '11', '12', '13', '14'];
 let recordMembers = [];
 let recordAll = [];
 
-/** Which admin section is showing. Reset to check-in on login and logout. */
-let adminSection = 'checkin';
+/** Which admin section is showing. Resets to run sheets on login and logout. */
+let adminSection = 'runsheets';
 
 function renderAdmin() {
   $('#admin-login').classList.toggle('hidden', adminLoggedIn);
@@ -637,6 +652,7 @@ function renderAdmin() {
     `<span class="material-symbols-outlined filled">${icon}</span> ${label}</button>`;
 
   $('#sidenav').innerHTML = `
+    ${section('runsheets', 'description', 'Run Sheets')}
     ${section('checkin', 'how_to_reg', 'Check In')}
     ${section('records', 'emoji_events', 'Record Results')}
     ${section('lookup', 'manage_search', 'Member Records')}
@@ -651,13 +667,14 @@ function renderAdmin() {
 
   $('#logout-btn').addEventListener('click', () => {
     adminLoggedIn = false;
-    adminSection = 'checkin';
+    adminSection = 'runsheets';
     renderAdmin();
   });
 
   if (adminSection === 'records') renderRecordsEntry();
   else if (adminSection === 'lookup') renderMemberRecords();
-  else renderCheckin();
+  else if (adminSection === 'checkin') renderCheckin();
+  else renderRunSheets();
 }
 
 /**
@@ -916,51 +933,25 @@ async function saveRecord(member, overlay) {
 /* ============================================================
    Routing
    ============================================================ */
-function showView(name) {
-  ['runsheets', 'admin'].forEach(v => {
-    $('#view-' + v).classList.toggle('hidden', v !== name);
-  });
-  $$('.nav-link, .bottomnav__item').forEach(b => {
-    b.classList.toggle('active', b.dataset.view === name);
-  });
-  if (name === 'admin') renderAdmin();
-}
-
-function bindNav() {
-  $$('.nav-link, .bottomnav__item').forEach(b => {
-    b.addEventListener('click', () => showView(b.dataset.view));
-  });
-}
-
 /* ============================================================
    Init
    ============================================================ */
 function init() {
-  bindNav();
   renderLogin();
   loadSessions();
 
-  $('#block-tabs').addEventListener('click', e => {
-    const tab = e.target.closest('.block-tab');
-    if (!tab) return;
-    activeTerm = tab.dataset.term;
-    renderTermTabs();
-    renderLessons();
-  });
+  // The whole portal is the gated admin area — the login is the landing screen.
+  // renderAdmin() shows the passcode screen until someone signs in, then the
+  // dashboard (run sheets, check-in, records).
+  renderAdmin();
 
-  // Deep links. /attendance and /admin (and their ?view= equivalents) both open
-  // the gated admin area; check-in is the default section for /attendance.
+  // Deep link: /attendance (or ?view=attendance) opens the check-in section.
   const path = location.pathname.replace(/\/+$/, '');
   const param = new URLSearchParams(location.search).get('view');
-  if (path.endsWith('/attendance') || param === 'attendance') adminSection = 'checkin';
-  const wantsAdmin =
-    path.endsWith('/attendance') ||
-    path.endsWith('/admin') ||
-    param === 'attendance' ||
-    param === 'admin';
-  // showView('admin') calls renderAdmin(), which shows the passcode screen when
-  // nobody is signed in — a deep link cannot skip the gate.
-  showView(wantsAdmin ? 'admin' : 'runsheets');
+  if (path.endsWith('/attendance') || param === 'attendance') {
+    adminSection = 'checkin';
+    renderAdmin();
+  }
 }
 
 document.addEventListener('DOMContentLoaded', init);

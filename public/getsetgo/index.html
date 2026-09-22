@@ -3,71 +3,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Get Set Go — Volunteer Portal</title>
+  <title>Admin Portal — Taupō Athletics Club</title>
   <link rel="stylesheet" href="design-tokens.css">
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <header class="topbar">
     <a class="topbar__brand" href="/" aria-label="Back to homepage">
-      <span class="topbar__logo material-symbols-outlined filled">sports_score</span>
-      Get Set Go
+      <img class="topbar__logo" src="/logo.svg" alt="Taupō Athletics Club logo">
+      <span>Taupō Athletics Club</span>
     </a>
-    <nav class="topbar__nav" id="topnav">
-      <button class="nav-link active" data-view="runsheets">
-        <span class="material-symbols-outlined">description</span> Run Sheets
-      </button>
-      <button class="nav-link" data-view="admin">
-        <span class="material-symbols-outlined">dashboard</span> Admin
-      </button>
-    </nav>
-    <button class="icon-btn" aria-label="Account">
-      <span class="material-symbols-outlined filled">account_circle</span>
-    </button>
+    <a class="topbar__back" href="/">← Back to site</a>
   </header>
 
   <main class="app">
-
-    <!-- Run Sheets -->
-    <section id="view-runsheets" class="view">
-      <div class="page-head">
-        <h1>Run Sheets</h1>
-        <p>Tonight, in four rotations — open a series and run each station exactly as written.</p>
-      </div>
-      <div id="season-info"></div>
-      <div class="block-tabs" id="block-tabs"></div>
-      <div class="lesson-grid" id="lesson-grid"></div>
-    </section>
-
     <!--
-      Attendance (check-in) and Club Records both live inside the gated Admin
-      view, rendered into #admin-content by script.js. They are deliberately not
-      separate tabs: both read children's personal data, so they sit behind the
-      admin login.
+      The whole portal is the gated admin area now. The login is the landing
+      screen; run sheets, check-in and club records all live behind it as
+      sections of the admin dashboard (rendered into #admin-content by
+      script.js).
     -->
-
-    <!-- Admin -->
-    <section id="view-admin" class="view hidden">
+    <section id="view-admin" class="view">
       <div id="admin-login" class="login-wrap"></div>
       <div id="admin-dashboard" class="admin hidden">
         <aside class="sidenav" id="sidenav"></aside>
         <div id="admin-content"></div>
       </div>
     </section>
-
   </main>
-
-  <nav class="bottomnav" id="bottomnav">
-    <button class="bottomnav__item active" data-view="runsheets">
-      <span class="material-symbols-outlined filled">description</span> Sheets
-    </button>
-    <button class="bottomnav__item" data-view="admin">
-      <span class="material-symbols-outlined">dashboard</span> Admin
-    </button>
-  </nav>
 
   <script src="script.js"></script>
 </body>

@@ -67,12 +67,17 @@ body {
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-  display: grid;
-  place-content: center;
-  font-size: 24px;
+  background: #fff;
+  object-fit: contain;
 }
+.topbar__back {
+  margin-left: auto;
+  font-size: var(--font-label-bold);
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+}
+.topbar__back:hover { text-decoration: underline; }
 .topbar__nav { display: flex; align-items: center; gap: var(--space-base); height: 100%; }
 .nav-link {
   display: flex;
@@ -349,10 +354,10 @@ body {
 .btn-primary {
   background: var(--coral-active);
   color: var(--on-primary);
-  box-shadow: 0 4px 0 var(--on-primary-fixed-variant);
+  box-shadow: 0 4px 0 var(--coral-shadow);
 }
 .btn-primary:hover { background: var(--primary); }
-.btn-primary:active { transform: translateY(4px); box-shadow: 0 0 0 var(--on-primary-fixed-variant); }
+.btn-primary:active { transform: translateY(4px); box-shadow: 0 0 0 var(--coral-shadow); }
 .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; transform: none; }
 .btn-ghost {
   background: var(--surface-container-lowest);
@@ -568,16 +573,13 @@ body {
   max-width: 420px;
   text-align: center;
 }
-.login-card .logo-badge {
+.login-card .login-logo {
   width: 72px;
   height: 72px;
   margin: 0 auto 16px;
   border-radius: var(--radius-full);
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-  display: grid;
-  place-content: center;
-  font-size: 36px;
+  background: #fff;
+  object-fit: contain;
   box-shadow: var(--shadow-soft);
 }
 .login-card h1 { margin: 0 0 4px; font-size: var(--font-headline-lg); font-weight: 700; }
