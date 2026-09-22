@@ -21,8 +21,12 @@ export default {
         'inverse-on-surface': '#f6f0e9',
         outline: '#7c8b99',
         'outline-variant': '#d3dde6',
-        'surface-tint': '#a43c12',
-        primary: '#5b84a8',
+        'surface-tint': '#4a6f8f',
+        // Steel blue from the club logo, darkened from #5b84a8 so it reaches
+        // 5.30:1 against white both ways. At #5b84a8 the wordmark, every body
+        // link, the eyebrow labels and the announcement bar sat at 3.95:1 and
+        // failed WCAG AA for normal text. Verified by measurement, not by eye.
+        primary: '#4a6f8f',
         'on-primary': '#ffffff',
         'primary-container': '#cfe1f0',
         'on-primary-container': '#15344d',
@@ -57,7 +61,11 @@ export default {
         'mint-go': '#4fd1c5',
         'sky-info': '#0ea5e9',
         // Darker text tones for use on tinted (15–20% alpha) backgrounds
+        // Coral used AS text on a light background (5.44:1 on white).
         'on-coral': '#8c3b1c',
+        // Ink for text sitting ON the bright coral fill: white is only 2.50:1
+        // there, this is 6.88:1.
+        'coral-ink': '#1d1b17',
         'on-sky': '#0b5a7a',
         'on-mint': '#00534b',
         'coral-hover': '#f2703c',
@@ -81,7 +89,15 @@ export default {
         'destructive-foreground': '#ffffff',
         border: '#d3dde6',
         input: '#d3dde6',
-        ring: '#0ea5e9',
+        ring: '#4a6f8f',
+      },
+      fontSize: {
+        // 14px floor. The old 12px secondary text was too small to read
+        // outdoors on a phone. This has to be done on the scale: a `.text-xs`
+        // rule in @layer base loses the cascade to Tailwind's utility layer.
+        xs: ['0.875rem', { lineHeight: '1.25rem' }],
+        sm: ['0.9375rem', { lineHeight: '1.375rem' }],
+        base: ['1rem', { lineHeight: '1.6' }],
       },
       fontFamily: {
         // 'Variable' suffixes match the @fontsource-variable packages.

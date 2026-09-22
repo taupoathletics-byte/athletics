@@ -242,10 +242,10 @@ export default function Registration() {
             </div>
           </dl>
           <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">
-            <Link to="/club-nights" className="text-primary underline">
+            <Link to="/club-nights" className="inline-block py-1 text-primary underline">
               Club Nights
             </Link>
-            <Link to="/events" className="text-primary underline">
+            <Link to="/events" className="inline-block py-1 text-primary underline">
               Ribbon Days &amp; events
             </Link>
           </div>

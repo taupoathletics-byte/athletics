@@ -91,7 +91,7 @@ export default function ClubRecords() {
               href={recordsPdf}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+              className="mt-4 inline-flex min-h-[24px] items-center gap-2 py-1 text-sm font-semibold text-primary hover:underline"
             >
               <Download className="h-4 w-4" /> Open previous records (PDF, March 2025)
             </a>

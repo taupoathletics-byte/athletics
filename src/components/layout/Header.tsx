@@ -59,7 +59,7 @@ export function Header() {
             ),
           )}
           <a
-            href={links.getSetGoPortal}
+            href={links.adminPortal}
             className="ml-2 inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-lowest px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-surface-container-low focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
             <Lock className="h-4 w-4" aria-hidden />
@@ -112,7 +112,8 @@ export function Header() {
               ),
             )}
             <a
-              href={links.getSetGoPortal}
+              href={links.adminPortal}
+              onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-sm font-semibold text-primary"
             >
               <Lock className="h-4 w-4" aria-hidden />

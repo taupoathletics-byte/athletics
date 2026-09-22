@@ -9,17 +9,16 @@ import { clubName, links } from '@/data/site'
  * Deliberately the iframe form and NOT the JS SDK: the SDK injects third-party
  * tracking across the whole site, whereas the iframe is scoped to this one box.
  *
- * Sizing notes — the plugin's own chrome is what starves the feed:
- *   - 500px is the widest the Page Plugin allows (range 180–500). At 340 the
- *     post text wraps to ~30 characters and truncates mid-sentence.
- *   - `small_header` and `show_facepile=false` hand vertical room back to the
- *     posts; the follower count and avatar row are not what anyone comes for.
- *   - `adapt_container_width` lets it shrink on narrow screens.
- *   - 800px tall shows roughly three posts before the plugin's own scrollbar.
+ * Parameter choices, all aimed at showing posts rather than chrome:
+ * - width 500 is the plugin's maximum; at 340 the feed was a thin column with
+ *   an internal scrollbar and roughly one post visible.
+ * - small_header and show_facepile=false drop the cover image and the follower
+ *   avatar row, which together consumed ~150px above the first post.
+ * - 800px tall shows roughly three posts before the plugin's own scrollbar.
  *
  * Club night cancellations are announced here by 4pm on Thursday, so this is
- * load-bearing rather than decoration — a text fallback is always rendered,
- * even when the frame is collapsed, blocked or offline.
+ * load-bearing rather than decoration — hence the text fallback that is always
+ * rendered, even when the frame is collapsed, blocked or offline.
  */
 const PLUGIN_WIDTH = 500
 const PLUGIN_HEIGHT = 800
@@ -37,7 +36,17 @@ const PLUGIN_SRC =
     show_facepile: 'false',
   }).toString()
 
-export function FacebookFeed({ className = '' }: { className?: string }) {
+interface FacebookFeedProps {
+  className?: string
+  /**
+   * Hide the "cancellations are announced by 4pm" line. Club Nights already
+   * carries that message in a prominent strip immediately above this section,
+   * and printing it twice in a row reads as a mistake.
+   */
+  hideCancellationNote?: boolean
+}
+
+export function FacebookFeed({ className = '', hideCancellationNote = false }: FacebookFeedProps) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -69,8 +78,9 @@ export function FacebookFeed({ className = '' }: { className?: string }) {
               loading="lazy"
               width={PLUGIN_WIDTH}
               height={PLUGIN_HEIGHT}
-              className="h-[800px] w-full rounded-xl border border-outline-variant bg-white"
-              sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+              style={{ height: PLUGIN_HEIGHT, maxWidth: PLUGIN_WIDTH }}
+              className="w-full rounded-xl border border-outline-variant bg-white"
+              sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
             />
           </div>
         </div>
@@ -81,9 +91,11 @@ export function FacebookFeed({ className = '' }: { className?: string }) {
             results all land there first, usually before anywhere else.
           </p>
 
-          <p className="mt-4 font-semibold text-on-surface">
-            Club night cancellations are announced by 4pm on Thursday.
-          </p>
+          {!hideCancellationNote && (
+            <p className="mt-4 font-semibold text-on-surface">
+              Club night cancellations are announced by 4pm on Thursday.
+            </p>
+          )}
 
           <a
             href={links.facebook}

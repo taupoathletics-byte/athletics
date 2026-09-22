@@ -17,17 +17,17 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-3 text-sm font-bold uppercase tracking-wide">Club</h4>
+          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide">Club</h2>
           <ul className="space-y-2 text-sm text-white/70">
             {footerLinks.map((l) => (
               <li key={l.label}>
-                <Link className="hover:text-white" to={l.to!}>
+                <Link className="inline-block py-1 hover:text-white" to={l.to!}>
                   {l.label}
                 </Link>
               </li>
             ))}
             <li>
-              <a className="hover:text-white" href={links.getSetGoPortal}>
+              <a className="inline-block py-1 hover:text-white" href={links.getSetGoPortal}>
                 Get Set Go Lesson Plans
               </a>
             </li>
@@ -35,23 +35,23 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-3 text-sm font-bold uppercase tracking-wide">Contact</h4>
+          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide">Contact</h2>
           <ul className="space-y-2 text-sm text-white/70">
-            <li className="flex items-center gap-2">
+            <li className="flex items-center gap-2 py-1">
               <Mail className="h-4 w-4 shrink-0" /> {contactEmail}
             </li>
-            <li className="flex items-center gap-2">
+            <li className="flex items-center gap-2 py-1">
               <Mail className="h-4 w-4 shrink-0" /> {secretaryEmail}
             </li>
-            <li className="flex items-center gap-2">
+            <li className="flex items-center gap-2 py-1">
               <MapPin className="h-4 w-4 shrink-0" /> {venue.name}, {venue.address}
             </li>
-            <li className="flex items-center gap-2">
+            <li className="flex items-center gap-2 py-1">
               <Clock className="h-4 w-4 shrink-0" /> Thursdays from 5:30pm
             </li>
-            <li className="flex items-center gap-2">
+            <li className="flex items-center gap-2 py-1">
               <Facebook className="h-4 w-4 shrink-0" />
-              <a className="hover:text-white" href={links.facebook} target="_blank" rel="noopener noreferrer">
+              <a className="inline-block py-1 hover:text-white" href={links.facebook} target="_blank" rel="noopener noreferrer">
                 Facebook
               </a>
             </li>
@@ -59,12 +59,12 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-3 text-sm font-bold uppercase tracking-wide">Supporters</h4>
+          <h2 className="mb-3 text-sm font-bold uppercase tracking-wide">Supporters</h2>
           <ul className="space-y-2 text-sm text-white/70">
             {sponsors.map((s) => (
               <li key={s.name}>
                 {s.url ? (
-                  <a className="hover:text-white" href={s.url} target="_blank" rel="noopener noreferrer">
+                  <a className="inline-block py-1 hover:text-white" href={s.url} target="_blank" rel="noopener noreferrer">
                     {s.name}
                   </a>
                 ) : (

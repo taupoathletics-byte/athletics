@@ -65,7 +65,7 @@ export function RegisterButton({ className, children = 'Register', pulse = true 
         burst(ref.current)
       }}
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-full bg-coral-active px-5 py-2.5 text-sm font-semibold text-white',
+        'inline-flex items-center justify-center gap-2 rounded-full bg-coral-active px-5 py-2.5 text-sm font-bold text-coral-ink',
         'shadow-coral-sm transition-all hover:bg-coral-hover active:translate-y-[2px] active:shadow-none',
         'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
         pulse && registration.isOpen && 'animate-register-pulse',

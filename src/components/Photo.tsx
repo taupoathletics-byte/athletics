@@ -31,10 +31,16 @@ export function focalStyle(p: PhotoData) {
 export function Photo({ id, className, sizes = '100vw', priority = false, alt }: PhotoProps) {
   const p = lookup(id)
   return (
-    // `contents` removes the <picture> box so the <img> participates directly
-    // in the parent's layout — without it, h-full/aspect-* on the img has no
-    // containing box and the image collapses to nothing.
-    <picture className="contents">
+    // The layout classes go on <picture>, not the <img>.
+    //
+    // <picture> is display:inline by default, which gives the <img> no
+    // containing box and collapses every aspect-ratio and h-full crop. The
+    // obvious fix — display:contents — is worse: it promotes the <source>
+    // elements to layout items too, so inside a two-column grid the sources
+    // took the spare cells and pushed the image onto a second row, leaving a
+    // dead band under the heading. Making <picture> an ordinary block keeps
+    // one element in the layout and lets the image fill it.
+    <picture className={cn('block overflow-hidden', className)}>
       <source type="image/avif" srcSet={srcset(id, 'avif')} sizes={sizes} />
       <source type="image/webp" srcSet={srcset(id, 'webp')} sizes={sizes} />
       <img
@@ -48,7 +54,7 @@ export function Photo({ id, className, sizes = '100vw', priority = false, alt }:
         decoding={priority ? 'sync' : 'async'}
         {...(priority ? { fetchPriority: 'high' as const } : {})}
         style={focalStyle(p)}
-        className={cn('object-cover', className)}
+        className="h-full w-full object-cover"
       />
     </picture>
   )

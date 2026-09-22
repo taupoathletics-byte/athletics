@@ -948,12 +948,19 @@ function init() {
     renderLessons();
   });
 
-  // Old /attendance deep links still work — they open the gated check-in.
+  // Deep links. /attendance and /admin (and their ?view= equivalents) both open
+  // the gated admin area; check-in is the default section for /attendance.
   const path = location.pathname.replace(/\/+$/, '');
-  const wantsCheckin =
-    path.endsWith('/attendance') || new URLSearchParams(location.search).get('view') === 'attendance';
-  if (wantsCheckin) adminSection = 'checkin';
-  showView(wantsCheckin ? 'admin' : 'runsheets');
+  const param = new URLSearchParams(location.search).get('view');
+  if (path.endsWith('/attendance') || param === 'attendance') adminSection = 'checkin';
+  const wantsAdmin =
+    path.endsWith('/attendance') ||
+    path.endsWith('/admin') ||
+    param === 'attendance' ||
+    param === 'admin';
+  // showView('admin') calls renderAdmin(), which shows the passcode screen when
+  // nobody is signed in — a deep link cannot skip the gate.
+  showView(wantsAdmin ? 'admin' : 'runsheets');
 }
 
 document.addEventListener('DOMContentLoaded', init);

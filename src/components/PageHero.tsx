@@ -11,8 +11,14 @@ interface PageHeroProps {
 
 /**
  * One page-header pattern for every page: eyebrow, serif H1, one-line intro,
- * and a photo on the right. A low-opacity lane motif keeps it from reading as
- * a flat block of colour.
+ * and a photo alongside. A low-opacity lane motif keeps it from reading as a
+ * flat block of colour.
+ *
+ * The photo is height-capped rather than aspect-driven. Page headings are two
+ * or three lines, so an aspect-ratio photo in a 1fr column grew far taller
+ * than the text and left a dead band under the heading — the header ended up
+ * ~500px tall to carry three lines of copy. Capping the height keeps the photo
+ * an accent and lets the header size to its text.
  */
 export function PageHero({ eyebrow, title, subtitle, photo }: PageHeroProps) {
   return (
@@ -27,7 +33,7 @@ export function PageHero({ eyebrow, title, subtitle, photo }: PageHeroProps) {
         <path d="M-60 285 C 320 225, 720 335, 1500 265" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.07" />
       </svg>
 
-      <div className="container-page relative grid items-center gap-8 py-10 md:py-14 lg:grid-cols-[1.4fr_1fr]">
+      <div className="container-page relative grid items-center gap-8 py-8 md:py-10 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <div>
           {eyebrow && (
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">{eyebrow}</p>
@@ -41,8 +47,8 @@ export function PageHero({ eyebrow, title, subtitle, photo }: PageHeroProps) {
         {photo !== undefined && (
           <Photo
             id={photo}
-            sizes="(min-width: 1024px) 34vw, 100vw"
-            className="hidden aspect-[16/10] w-full rounded-xl shadow-soft lg:block"
+            sizes="(min-width: 1024px) 30vw, 100vw"
+            className="hidden h-[180px] w-full rounded-xl shadow-soft lg:block xl:h-[200px]"
           />
         )}
       </div>

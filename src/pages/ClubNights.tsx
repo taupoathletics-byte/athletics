@@ -68,7 +68,7 @@ export default function ClubNights() {
 
       {/* The feed itself, so a family never has to leave the page to check. */}
       <section className="container-page pt-gutter-md">
-        <FacebookFeed />
+        <FacebookFeed hideCancellationNote />
       </section>
 
       <section className="container-page section-pad">
@@ -97,9 +97,9 @@ export default function ClubNights() {
           <article className="overflow-hidden rounded-xl border-l-4 border-l-coral-active bg-white shadow-soft">
             <Photo id={35} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[16/9] w-full" />
             <div className="p-gutter-sm">
-              <Badge className="bg-coral-active text-white">Club night rotation</Badge>
+              <Badge className="bg-coral-active text-coral-ink">Club night rotation</Badge>
               <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">7 yrs +</h2>
-              <p className="mt-1 font-semibold text-coral-active">Thursdays 5:30–7:00pm</p>
+              <p className="mt-1 font-semibold text-on-coral">Thursdays 5:30–7:00pm</p>
               <p className="mt-3 text-on-surface-variant">
                 Older athletes work through a rotation of 3&ndash;4 events with coaching on safe and proper use of
                 equipment — usually one running event and two field events, plus some skills.
@@ -172,7 +172,7 @@ export default function ClubNights() {
           </div>
 
           <div className="rounded-xl border-l-4 border-l-coral-active bg-white p-gutter-sm shadow-soft">
-            <div className="flex items-center gap-2 text-coral-active">
+            <div className="flex items-center gap-2 text-on-coral">
               <HandHeart className="h-5 w-5" aria-hidden />
               <h2 className="font-display text-xl font-bold text-on-surface">Parent help</h2>
             </div>

@@ -33,13 +33,6 @@
     line-height: 1.6;
   }
 
-  /* Secondary text never goes below 14px. */
-  small,
-  .text-xs {
-    font-size: 0.875rem;
-    line-height: 1.5;
-  }
-
   ::selection {
     @apply bg-primary-fixed text-on-primary-fixed;
   }

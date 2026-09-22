@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AlertTriangle, Clock, Heart, MapPin, Sparkles, Users } from 'lucide-react'
+import { AlertTriangle, Clock, Heart, Mail, MapPin, Sparkles, Users } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
+import { CopyEmail } from '@/components/CopyEmail'
 import { Photo } from '@/components/Photo'
 import { PhotoGallery } from '@/components/PhotoGallery'
 import { RegisterButton } from '@/components/RegisterButton'
@@ -164,6 +165,7 @@ export default function Home() {
 
       {/* Quick facts */}
       <section className="container-page section-pad">
+        <h2 className="sr-only">Club night essentials</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {[
             { icon: Users, title: 'Ages 3–14', text: 'Club nights for athletes from 3 to 14 years old.' },
@@ -271,22 +273,72 @@ export default function Home() {
                   Search Facebook for the closed group{' '}
                   <span className="font-semibold">&lsquo;{developmentSquad.facebookGroup}&rsquo;</span>.
                 </p>
-                <a
-                  href={`mailto:${contactEmail}?subject=Development%20Squad`}
-                  className={`${buttonVariants({ variant: 'outline' })} mt-4`}
-                >
-                  Talk to coach Leah
-                </a>
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <a
+                    href={`mailto:${contactEmail}?subject=Development%20Squad%20enquiry`}
+                    className={buttonVariants({ variant: 'outline' })}
+                  >
+                    <Mail className="mr-2 h-4 w-4" aria-hidden />
+                    Email about the squad
+                  </a>
+                  <CopyEmail email={contactEmail} />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Facebook feed — cancellations are announced here by 4pm on club night */}
+      {/* Facebook feed — cancellations are announced here by 4pm on club night.
+          Two columns so the 500px-capped plugin does not leave a dead half-page
+          beside it, which is what a full-width band did. */}
       <section className="band-alt">
         <div className="container-page section-pad">
-          <FacebookFeed />
+          <div className="grid items-start gap-10 lg:grid-cols-[1fr_500px]">
+            <div>
+              <h2 className="font-display text-3xl font-bold text-on-surface">Stay in the loop</h2>
+              <p className="mt-3 text-on-surface-variant">
+                Everything time-sensitive goes to our Facebook page first — weather calls, Ribbon Day
+                entry deadlines, and what is on at the next club night.
+              </p>
+
+              {next && (
+                <div className="mt-6 rounded-xl bg-white p-gutter-sm shadow-soft">
+                  <div className="flex items-center gap-2 text-primary">
+                    <Clock className="h-5 w-5" aria-hidden />
+                    <h3 className="font-bold text-on-surface">Next club night</h3>
+                  </div>
+                  <p className="mt-2 text-on-surface-variant">
+                    {next.isTonight
+                      ? 'Tonight — check Facebook by 4pm for the weather call.'
+                      : `${formatClubNightLabel(next.iso)} from 5:30pm at ${venue.name}.`}
+                  </p>
+                </div>
+              )}
+
+              <div className="mt-4 rounded-xl border-l-4 border-l-coral-active bg-white p-gutter-sm shadow-soft">
+                <div className="flex items-center gap-2 text-on-coral">
+                  <AlertTriangle className="h-5 w-5" aria-hidden />
+                  <h3 className="font-bold text-on-surface">Weather cancellations</h3>
+                </div>
+                <p className="mt-2 text-on-surface-variant">
+                  If a club night is cancelled we post it by 4pm on Thursday. Check Facebook before
+                  you leave home.
+                </p>
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link to="/club-nights" className={buttonVariants({ variant: 'outline' })}>
+                  How club nights run
+                </Link>
+                <Link to="/events" className={buttonVariants({ variant: 'outline' })}>
+                  Upcoming events
+                </Link>
+              </div>
+            </div>
+
+            <FacebookFeed />
+          </div>
         </div>
       </section>
 

@@ -1,8 +1,8 @@
 import { Mail } from 'lucide-react'
+import { CopyEmail } from '@/components/CopyEmail'
 import { PageHero } from '@/components/PageHero'
 import { buttonVariants } from '@/components/ui/button'
 import { contactEmail } from '@/data/site'
-import { capsNote } from '@/data/fees'
 import { volunteerRoles } from '@/data/volunteers'
 
 export default function Volunteer() {
@@ -20,7 +20,12 @@ export default function Volunteer() {
           <h2 className="font-display text-2xl font-bold text-on-surface">Can you help?</h2>
           <p className="mt-3 text-on-surface-variant">
             We are always after helpers on club nights — setting up, timing and recording, moving groups between
-            events, and pack-down. {capsNote}
+            events, and pack-down. No athletics experience is needed: our Get Set Go sessions are planned for you,
+            with the equipment ready and plenty of support.
+          </p>
+          <p className="mt-3 text-on-surface-variant">
+            More helpers also means more places for children. Our junior grades are capped by how many adults we
+            have on the field, so every extra pair of hands lets us take more athletes.
           </p>
         </div>
 
@@ -110,17 +115,23 @@ export default function Volunteer() {
           ))}
         </ul>
 
-        <div className="mt-10 flex flex-col items-start gap-4 rounded-xl bg-surface-container-low p-gutter-sm sm:flex-row sm:items-center">
-          <p className="text-on-surface-variant">
-            Keen, or just want to know more? We would love to hear from you.
+        <div className="mt-10 rounded-xl bg-surface-container-low p-gutter-sm">
+          <h2 className="font-display text-xl font-bold text-on-surface">
+            Keen, or just want to know more?
+          </h2>
+          <p className="mt-2 text-on-surface-variant">
+            We would love to hear from you — email us, or talk to one of the team on Thursday night.
           </p>
-          <a
-            href={`mailto:${contactEmail}`}
-            className={`${buttonVariants({ variant: 'mint' })} sm:ml-auto`}
-          >
-            <Mail className="mr-2 h-4 w-4" aria-hidden />
-            Email the club
-          </a>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <a href={`mailto:${contactEmail}`} className={buttonVariants({ variant: 'mint' })}>
+              <Mail className="mr-2 h-4 w-4" aria-hidden />
+              Email the club
+            </a>
+            {/* The mailto opens a mail client, which many desktop browsers have
+                never been given. The address is shown and copyable so the page
+                still works when nothing happens on click. */}
+            <CopyEmail email={contactEmail} />
+          </div>
         </div>
       </section>
     </>

@@ -37,5 +37,13 @@ export const links = {
   codesport: 'https://codesport.co.nz/catalog/TaupoAthleticsClub%20-1107583.htmx',
   grassroots: 'https://www.grassrootstrust.co.nz/trust/',
   cheal: 'https://www.cheal.co.nz/',
+  /** Get Set Go run sheets — the coach and helper lesson plans. */
   getSetGoPortal: '/getsetgo/',
+  /**
+   * The gated admin area of the same portal (results entry, attendance).
+   * ?view=admin opens the passcode screen directly — without it the portal
+   * always opened on the run sheets, so "Admin Portal" dropped people on the
+   * lesson plans and left them to find the admin tab themselves.
+   */
+  adminPortal: '/getsetgo/?view=admin',
 }
