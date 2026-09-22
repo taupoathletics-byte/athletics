@@ -67,9 +67,9 @@ These are marked `TODO confirm` in the code and should not be guessed:
 4. **Alt text for photos 26 and 34.** Both were wired up from the club's
    filename requests without a visual check, so the descriptions describe the
    slot each fills rather than what is actually in frame. `src/data/photos.ts`.
-5. **Cards for the five people without one** — Ben McHale, Nicola, and the Get
-   Set Go assistants Esme, Jordyn and Libby currently fall back to initials
-   placeholders. This also needs a decision on Noel Bennett's role: his own
+5. **Cards for the five people without one** — Ben McHale, Nicola Chamberlain,
+   and the Get Set Go assistants Esme, Jordyn and Libby currently fall back to
+   initials placeholders. This also needs a decision on Noel Bennett's role: his own
    profile card reads "Friend of the Committee" while the committee list has him
    as a Committee Member. `src/data/committee.ts`.
 

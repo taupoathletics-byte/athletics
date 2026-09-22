@@ -122,7 +122,7 @@ export const committee: PeopleGroup[] = [
       },
       { name: 'Ben McHale', role: 'Committee Member' },
       { name: 'Erin Lempriere-Webb', role: 'Committee Member' },
-      { name: 'Nicola', role: 'Secretary' },
+      { name: 'Nicola Chamberlain', role: 'Secretary' },
     ],
   },
   {
