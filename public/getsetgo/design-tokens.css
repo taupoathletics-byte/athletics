@@ -1,0 +1,99 @@
+/* ============================================================
+   Field & Play — Design Tokens
+   Single source of truth for the "Get Set Go" visual language.
+   Consumed by styles.css. Do not hard-code these values elsewhere.
+   ============================================================ */
+
+:root {
+  /* ---- Brand & semantic colour (Material 3) ---- */
+  --primary: #a43c12;
+  --on-primary: #ffffff;
+  --primary-container: #ff7f50;
+  --on-primary-container: #6c2000;
+  --inverse-primary: #ffb59c;
+  --primary-fixed: #ffdbcf;
+  --primary-fixed-dim: #ffb59c;
+  --on-primary-fixed: #380c00;
+  --on-primary-fixed-variant: #822800;
+
+  --secondary: #705d00;
+  --on-secondary: #ffffff;
+  --secondary-container: #fcd400;
+  --on-secondary-container: #6e5c00;
+  --secondary-fixed: #ffe16d;
+  --secondary-fixed-dim: #e9c400;
+  --on-secondary-fixed: #221b00;
+  --on-secondary-fixed-variant: #544600;
+
+  --tertiary: #006a63;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #29b6ab;
+  --on-tertiary-container: #00423d;
+  --tertiary-fixed: #79f7ea;
+  --tertiary-fixed-dim: #5adace;
+  --on-tertiary-fixed: #00201d;
+  --on-tertiary-fixed-variant: #00504a;
+
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+
+  /* ---- Surfaces ---- */
+  --surface: #fef8f1;
+  --surface-dim: #dfd9d2;
+  --surface-bright: #fef8f1;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f9f3ec;
+  --surface-container: #f3ede6;
+  --surface-container-high: #ede7e0;
+  --surface-container-highest: #e7e2db;
+  --surface-variant: #e7e2db;
+  --on-surface: #1d1b17;
+  --on-surface-variant: #57423b;
+  --on-background: #1d1b17;
+  --inverse-surface: #32302c;
+  --inverse-on-surface: #f6f0e9;
+  --outline: #8b7169;
+  --outline-variant: #dec0b6;
+  --surface-tint: #a43c12;
+
+  /* ---- Field & Play brand extras (traffic-light logic) ---- */
+  --coral-active: #ff7f50;      /* critical attention / primary action */
+  --sunflower-caution: #ffd700; /* transition / warning / progress      */
+  --mint-go: #4fd1c5;           /* go / success / active status         */
+  --sky-info: #0ea5e9;          /* informational links / instructional  */
+  --surface-cream: #fff9f2;     /* page background                      */
+  --text-ink: #1a202c;          /* high-contrast body text              */
+
+  /* ---- Typography (Baloo 2) ---- */
+  --font-family: 'Baloo 2', system-ui, sans-serif;
+  --font-headline-xl: 48px;
+  --font-headline-lg: 32px;
+  --font-headline-lg-mobile: 28px;
+  --font-headline-md: 24px;
+  --font-body-lg: 18px;
+  --font-body-md: 16px;
+  --font-label-bold: 14px;
+  --font-caption: 12px;
+
+  /* ---- Spacing (8px base rhythm) ---- */
+  --space-base: 8px;
+  --space-gutter-sm: 16px;
+  --space-gutter-md: 24px;
+  --space-margin-mobile: 16px;
+  --space-margin-desktop: 48px;
+  --max-width: 1280px;
+
+  /* ---- Radius (rounded shape language) ---- */
+  --radius-sm: 0.25rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ---- Elevation (soft-touch shadows) ---- */
+  --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  --shadow-soft-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+}

@@ -1,0 +1,128 @@
+import csv
+import json
+from pathlib import Path
+
+DETAILED = Path(r"c:\Users\grant\Downloads\files (17)\getsetgo-athletics-3to6-DETAILED.csv")
+GAMES = Path(r"c:\Users\grant\Downloads\files (17)\getsetgo-games-library.csv")
+OUT = Path(__file__).parents[1] / 'sessions.json'
+
+def load_games():
+    games = {}
+    with GAMES.open(newline='', encoding='utf-8-sig') as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        # normalize header names
+        hdr = [h.strip() for h in header]
+        try:
+            gi = hdr.index('Game')
+        except ValueError:
+            # fallback to first column
+            gi = 0
+        try:
+            si = hdr.index('Set up')
+        except ValueError:
+            si = None
+        try:
+            hi = hdr.index('How to play')
+        except ValueError:
+            hi = None
+        try:
+            ei = hdr.index('Equipment')
+        except ValueError:
+            ei = None
+        for row in reader:
+            if not any(row):
+                continue
+            name = row[gi].strip()
+            setup = row[si].strip() if si is not None and si < len(row) else ''
+            how = row[hi].strip() if hi is not None and hi < len(row) else ''
+            equip = row[ei].strip() if ei is not None and ei < len(row) else ''
+            games[name] = {'setup': setup, 'how': how, 'equipment': equip}
+    return games
+
+def make_extension(fms_category, skill_focus, games_text):
+    # simple heuristic to create a 6yr extension
+    if 'Running' in skill_focus or 'running' in games_text.lower() or 'Locomotor' in fms_category:
+        return 'Increase distance or add a small competitive element (timed run or extra lap).'
+    if 'throw' in skill_focus.lower() or 'throw' in games_text.lower() or 'Manipulative' in fms_category:
+        return 'Increase distance and introduce a smaller target or tennis balls for accuracy challenge.'
+    if 'balance' in fms_category.lower() or 'Stability' in fms_category:
+        return 'Increase hold time, introduce single-leg holds or add a small dynamic challenge (eyes closed briefly).'
+    if 'jump' in skill_focus.lower() or 'Jump' in games_text:
+        return 'Add a measured run-up or one-foot hop challenge; encourage personal bests.'
+    return 'Add a small progression: increased distance, reduced target size, or extra repetitions for challenge.'
+
+def parse():
+    games = load_games()
+    sessions = {}
+    with DETAILED.open(newline='', encoding='utf-8-sig') as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        hdr = [h.strip().lower() for h in header]
+
+        def get_field(row, candidates):
+            for c in candidates:
+                if c in hdr:
+                    i = hdr.index(c)
+                    if i < len(row):
+                        return row[i].strip()
+            return ''
+
+        for row in reader:
+            if not any(cell.strip() for cell in row):
+                continue
+            lesson_raw = get_field(row, ['lesson', 'lesson #', 'lesson_no', 'lesson number', 'lesson_no.'])
+            if not lesson_raw:
+                continue
+            try:
+                lesson = int(lesson_raw)
+            except ValueError:
+                continue
+            order = get_field(row, ['order', 'station order', 'order#'])
+            order = order or ''
+            if lesson not in sessions:
+                sessions[lesson] = {
+                    'lesson': lesson,
+                    'name': get_field(row, ['name', 'session name', 'lesson name']),
+                    'block': get_field(row, ['skill focus', 'block', 'intro / demo', 'intro/demo']),
+                    'equipment': '',
+                    'warmup': '',
+                    'stations': [],
+                    'warmdown': ''
+                }
+            s = sessions[lesson]
+            if order in ('0',''):
+                s['equipment'] = get_field(row, ['equipment', 'equipment for this station', 'equipment:'])
+                s['block'] = get_field(row, ['intro / demo', 'intro/demo']) or s['block']
+            elif order in ('1','2','3','4'):
+                station = {}
+                station['title'] = get_field(row, ['name', 'station name'])
+                station['led_by'] = get_field(row, ['led by', 'lead by', 'leader'])
+                station['fms_category'] = get_field(row, ['fms category', 'category'])
+                station['skill_focus'] = get_field(row, ['skill focus', 'focus'])
+                station['intro_demo'] = get_field(row, ['intro / demo', 'intro/demo'])
+                station['learning_cues'] = get_field(row, ['learning cues', 'learning cue'])
+                games_text = get_field(row, ['games — how to run them', 'games - how to run them', 'games', 'how to run'])
+                station['games_raw'] = games_text
+                parts = [p.strip() for p in games_text.split('\n\n') if p.strip()]
+                station['games'] = parts
+                station['equipment'] = get_field(row, ['equipment for this station', 'equipment'])
+                station['adaptation_3_4'] = get_field(row, ['adaptation 3-4yrs', 'adaptation 3-4', '3-4 year olds', '3–4 year olds'])
+                station['watch_for'] = get_field(row, ['watch for / common problems', 'watch for', 'watch for.'])
+                station['extension_6yrs'] = make_extension(station['fms_category'], station['skill_focus'], games_text)
+                enriched = []
+                for g in parts:
+                    key = g.split('\n')[0].strip().split('—')[0].strip()
+                    info = games.get(key)
+                    enriched.append({'name': key, 'library': info, 'raw': g})
+                station['games_parsed'] = enriched
+                s['stations'].append(station)
+            elif order == '5':
+                s['warmdown'] = get_field(row, ['games — how to run them', 'warm down', 'warmdown', 'name'])
+    # sort sessions by lesson
+    out = [sessions[k] for k in sorted(sessions.keys())]
+    OUT.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding='utf-8')
+    print(f'Wrote {OUT}')
+
+if __name__ == '__main__':
+    parse()

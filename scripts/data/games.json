@@ -1,0 +1,227 @@
+{
+  "Traffic Lights": {
+    "setup": "Mark a wide playing area with cones. Everyone spreads out inside it.",
+    "how": "Call GREEN and everyone jogs, ORANGE and they walk, RED and they freeze. Add CROSSING (walk sideways) and ROUNDABOUT (turn on the spot). Nobody is ever out — if a child moves on red they simply do a big star jump and carry on.",
+    "equipment": "20 cones"
+  },
+  "Dodgems": {
+    "setup": "Cones scattered randomly across the whole area.",
+    "how": "Children move around the area without touching a cone or another person. Call out the 'gear' — first gear is a walk, fourth gear is a run. Beep the horn (a whistle) and everyone stops still. The skill is looking up and finding gaps.",
+    "equipment": "30 cones, whistle"
+  },
+  "Frogs and Flies": {
+    "setup": "Lay hoops or flat markers as lily pads, roughly a small jump apart.",
+    "how": "Children are frogs jumping from lily pad to lily pad with two-foot take-offs and two-foot landings. Coach walks around waving a soft ball as a fly; frogs jump up to catch it. The point is a quiet, bent-knee landing.",
+    "equipment": "12 hoops or flat markers, 2 soft balls"
+  },
+  "River Crossing": {
+    "setup": "Two lines of cones about 2m apart to start, marking the river banks.",
+    "how": "Children leap from one bank to the other. Widen the river a little each round for those who want it, and keep a narrow crossing open at all times so every child can always cross something. Add stepping stones (flat markers) in the middle.",
+    "equipment": "20 cones, 8 flat markers"
+  },
+  "Monsters and Fairies": {
+    "setup": "Wide area. Two or three children in bibs are monsters, two are fairies with wands (pool noodles).",
+    "how": "Monsters tag; a tagged child freezes with arms out. A fairy touches them with the wand and they are back in. Because fairies keep unfreezing people, nobody is out for more than a few seconds.",
+    "equipment": "Bibs, 2 pool noodles, 20 cones"
+  },
+  "Catch the Magpies": {
+    "setup": "Wide open area, boundary cones.",
+    "how": "One or two magpies (bibs) hop and try to tag. Tagged children become magpies too, so the number of chasers grows and the game naturally ends. Everyone hops — this is a hopping game, not a running one.",
+    "equipment": "Bibs, 20 cones"
+  },
+  "Fox and Rabbits": {
+    "setup": "A large area with 4-5 hoops as burrows.",
+    "how": "Rabbits hop around the area. The fox (a coach, or a child with a bib) hops too — everyone hops, which slows the game right down and keeps it safe. A tagged rabbit hops to a burrow, counts to five, and rejoins. Nobody sits out.",
+    "equipment": "8 hoops, bibs, 20 cones"
+  },
+  "Fruit Salad": {
+    "setup": "Everyone stands in a large circle.",
+    "how": "Give each child a fruit — apple, banana, kiwifruit. Call a fruit and those children skip across the circle to a new space. Call FRUIT SALAD and everyone moves. Change the travel each round: skip, hop, gallop, walk backwards.",
+    "equipment": "20 cones to mark the circle"
+  },
+  "Bus Stop": {
+    "setup": "Four or five hoops spread widely as bus stops.",
+    "how": "Children move around the space in whatever way you call — jogging, hopping, skipping. When you call BUS STOP they run to any hoop and stand in it. No hoop is ever full and no child is out; if a hoop has six children in it, that is a funny bus.",
+    "equipment": "8 hoops, 20 cones"
+  },
+  "Blob": {
+    "setup": "Wide area with clear boundaries.",
+    "how": "One chaser. When someone is tagged they join hands and chase together as a blob. The blob grows to three, then splits into two blobs of two. Nobody is ever out — being caught means joining in.",
+    "equipment": "20 cones, bibs"
+  },
+  "Farmers and Chickens": {
+    "setup": "Mark a farmyard with cones and a fenced pen at one end.",
+    "how": "Chickens run from one end of the farmyard to the other. Farmers (2-3 children) try to tag them. A tagged chicken becomes a farmer. Run the whole width so everyone gets a long run every round.",
+    "equipment": "30 cones, bibs"
+  },
+  "Jumping Beans": {
+    "setup": "Open space, everyone spread out.",
+    "how": "Call a bean and the children do the action. Jelly bean — wobble. Runner bean — run on the spot. String bean — stretch tall. Baked bean — curl up small. Jumping bean — two-foot jumps. Frozen bean — freeze. Add a new bean each week and let a child invent one.",
+    "equipment": "None"
+  },
+  "Chain Tag": {
+    "setup": "Wide area with boundaries.",
+    "how": "Same as Blob but the chain never splits — it grows into a long line that has to work together. Chaos is the point. Stop it when the chain reaches about six.",
+    "equipment": "20 cones, bibs"
+  },
+  "Fast Cars": {
+    "setup": "A large oval marked with cones.",
+    "how": "Children run laps at their own pace, changing 'gear' on your call. First gear a walk, third a jog, fifth a sprint. Everyone keeps moving for the whole two minutes.",
+    "equipment": "20 cones"
+  },
+  "Red Light Green Light": {
+    "setup": "A start line and a finish line about 15m apart.",
+    "how": "Children move on green, freeze on red. Anyone caught moving takes two steps back rather than going out. Vary the movement: running, hopping, skipping, crab walking.",
+    "equipment": "20 cones"
+  },
+  "Circus Throws": {
+    "setup": "A row of targets — hoops on the ground, buckets, a hoop held up by a coach.",
+    "how": "Children move along the row throwing at each target in turn, underarm. Every child gets three throws at every target. Cheer every attempt, not just the ones that go in.",
+    "equipment": "40 beanbags, 8 hoops, 4 buckets"
+  },
+  "Bin It": {
+    "setup": "Buckets, hoops or bins at three distances — close, medium, far.",
+    "how": "Children throw beanbags into whichever target they choose. They keep their own count, out loud, and try to beat it next round. No competing against each other. Move the close target closer if anyone is struggling.",
+    "equipment": "40 beanbags, 4 buckets, 8 hoops"
+  },
+  "Clever Catchers": {
+    "setup": "Partners about 2m apart, or a child and an adult.",
+    "how": "Progression, in this order: roll the ball, bounce and catch, throw and catch with a bounce, throw and catch in the air. Only move up when the child is catching most of them. Scarves first for the youngest — they float and can actually be caught.",
+    "equipment": "20 soft balls, 20 scarves"
+  },
+  "Bean Bag Catch Tag": {
+    "setup": "Wide area, boundaries.",
+    "how": "Children move around throwing and catching a beanbag to themselves. Two taggers (bibs) try to tag them, but a child holding the beanbag safely in two hands is 'safe' for three seconds. Encourages catching while moving.",
+    "equipment": "20 beanbags, bibs, 20 cones"
+  },
+  "Knock the Witch's Hat": {
+    "setup": "A line of cones (witches' hats) on a bench or on the ground, 3-5m from a throwing line.",
+    "how": "Throw beanbags overarm to knock the cones over. Reset constantly so there is no waiting. Move the line closer for anyone missing — never make the target harder for everyone at once.",
+    "equipment": "40 beanbags, 20 cones"
+  },
+  "Mushroom Swipe": {
+    "setup": "Cones with a soft ball balanced on top, in a row.",
+    "how": "Children throw or roll to knock the ball off the cone without knocking the cone. Great for accuracy and it gives instant, obvious feedback.",
+    "equipment": "20 cones, 20 soft balls, 40 beanbags"
+  },
+  "Partner Kicking": {
+    "setup": "Partners about 3m apart with a cone goal each.",
+    "how": "Kick a stationary ball to your partner, who traps it with a foot before kicking back. Widen the gap only when they are consistently connecting.",
+    "equipment": "20 soft footballs, 30 cones"
+  },
+  "Kick and Chase": {
+    "setup": "A line of children at one end of the space.",
+    "how": "Kick your own ball as far as you can, chase it, stop it, bring it back dribbling. Simple, active, and every child has their own ball so there is no waiting.",
+    "equipment": "20 soft footballs, 20 cones"
+  },
+  "Crazy Kickers": {
+    "setup": "A course of cones to dribble around, ending at a goal made of two cones.",
+    "how": "Dribble through the cones with small touches, then kick into the goal. Two or three courses running at once so the queue never builds.",
+    "equipment": "20 soft footballs, 30 cones"
+  },
+  "Large Ball Strike": {
+    "setup": "Batting tees or cones with a large soft ball on top. A fielding area marked with cones.",
+    "how": "Strike the ball off the tee with a soft bat, then run to a cone and back. Everyone bats every round — set up four tees so four children hit at once and nobody queues.",
+    "equipment": "8 soft bats, 8 tees, 20 soft balls, 20 cones"
+  },
+  "Super Strikers": {
+    "setup": "Two tees, a marked running lane, fielders spread out.",
+    "how": "Strike off the tee, run to the far cone and back while the fielders collect the ball and return it to the coach. Rotate every child through batting and fielding. No scores kept.",
+    "equipment": "8 soft bats, 8 tees, 20 soft balls, 30 cones"
+  },
+  "Clear the Circle": {
+    "setup": "A large circle or square of cones, split down the middle. Half the beanbags on each side.",
+    "how": "On GO, everyone throws beanbags underarm onto the other side. Nobody may cross the line. Stop after 60 seconds and count together — usually both sides still have plenty, which is the joke. Reset and go again.",
+    "equipment": "40 beanbags, 30 cones"
+  },
+  "Measure Your Hop": {
+    "setup": "A start line and a long open run.",
+    "how": "Each child jumps or hops from the line and places their own cone where they landed. Next turn they try to beat their own cone. Nobody compares to anybody else — that is the whole design.",
+    "equipment": "30 cones, long jump mat or sandpit"
+  },
+  "Wiggly Snakes": {
+    "setup": "Two adults or older children hold a rope at each end, lying on the ground.",
+    "how": "The rope wiggles side to side along the floor. Children run up and jump over the moving snake. Raise it very slightly for those who want it. Everybody jumps every round — there is no 'out'.",
+    "equipment": "2 long soft ropes"
+  },
+  "Sprints in Age Groups": {
+    "setup": "Lanes marked with cones. Distance by age: 3-4yrs 15m, 5yrs 20m, 6yrs 25-30m.",
+    "how": "Children run in their age group, three or four at a time, two runs each. Every child is named and cheered as they cross. Run THROUGH the line, not to it. This is the same every week and that is the point — they get to feel themselves getting faster.",
+    "equipment": "30 cones"
+  },
+  "Half and Half Relay": {
+    "setup": "Teams of three, split either end of a 15m run.",
+    "how": "Run to the other end, hand the beanbag over, join the back of that line. Everyone runs multiple times. Do not announce a winner — announce when every team has finished.",
+    "equipment": "12 beanbags, 20 cones, bibs"
+  },
+  "Jump and Touch": {
+    "setup": "Hold a soft ball, streamer or your hand just above each child's reach; mark a take-off spot with a flat marker.",
+    "how": "The child bends their knees and jumps straight up to touch the target with both hands. Raise it a tiny bit each successful turn. Cheer the jump, not the height.",
+    "equipment": "1 soft ball or streamer on a stick, flat markers, 4 cones"
+  },
+  "Scissor Jump": {
+    "setup": "Stretch a low elastic (never rope) between two cones at ankle-to-knee height, with a clear run-up of flat markers.",
+    "how": "The child runs (or walks) in, scissors one leg over the elastic, then the other, and lands on two feet with knees bent. SAFETY: land on feet only — never on the back, no Fosbury flop, no high jump mats at this age.",
+    "equipment": "1 low elastic, 2 cones, flat markers"
+  },
+  "Step and Run": {
+    "setup": "A line of foam hurdles (the kind that collapse if clipped) at shin height, spaced close together.",
+    "how": "Run toward the hurdles and step over each one without stopping, then run through the finish cone. If they stop, move the hurdles closer together. Never use rigid hurdles.",
+    "equipment": "8 foam hurdles, 20 cones"
+  },
+  "Shuttle Relay": {
+    "setup": "Teams of three or four in a line, a cone about 10m away, one beanbag per team.",
+    "how": "The first child runs to the cone and back, hands the beanbag to the next (place it in their hand, don't throw it), and joins the back. Everyone runs twice. Announce when every team has finished — no winner.",
+    "equipment": "4 beanbags, 8 cones, bibs"
+  },
+  "Dodgeball": {
+    "setup": "A marked area with a line down the middle; soft dodgeballs ready.",
+    "how": "Roll or gently throw dodgeballs (underarm, below the knees) to tag the other side. Tagged children run to the sideline, do five star jumps, and rejoin. Soft balls only, nobody is out for long.",
+    "equipment": "6 dodgeballs, 20 cones"
+  },
+  "Dead Ants": {
+    "setup": "Wide area with clear boundaries.",
+    "how": "Two taggers chase. When tagged, lie on your back with arms and legs in the air like a dead ant. A free friend tags your hand to bring you back to life. Swap the taggers often.",
+    "equipment": "Bibs, 20 cones"
+  },
+  "Ballrush": {
+    "setup": "A start line and a finish line about 20m apart.",
+    "how": "Everyone lines up on one side. Two or three taggers stand in the middle. On GO everyone runs to the other side without being tagged. Tagged children join the taggers in the middle. Repeat until only a few are left, then start again.",
+    "equipment": "20 cones, bibs"
+  },
+  "Rippa Tag": {
+    "setup": "Wide area. Everyone wearing a rippa belt with two tags (or a team band).",
+    "how": "Everyone runs and everyone rips. When both tags are gone, put them straight back on and rejoin. No teams, no score, no sitting out — two minutes on, one minute off.",
+    "equipment": "20 rippa belts & tags (or team bands), 20 cones"
+  },
+  "Target Toys": {
+    "setup": "A row of hula hoops on the ground at three distances — close, middle, far.",
+    "how": "Children throw soft toys underarm into the hoops, choosing which one to aim at. Three throws each, cheer every attempt. Move the close hoop closer for anyone struggling.",
+    "equipment": "8 hula hoops, soft toys"
+  },
+  "T-ball Strike": {
+    "setup": "A batting tee with a large soft ball on top; a fielding area marked with cones.",
+    "how": "Strike the ball off the tee with the bat, then run to a cone and back. Set up two or three tees so several children hit at once and nobody queues. Everyone bats every round.",
+    "equipment": "T-ball set (bat, tee, 8 soft balls), 20 cones"
+  },
+  "Cricket Hit": {
+    "setup": "A cricket bat, a ball on a low tee (or a gently rolled ball), and a target area marked with cones.",
+    "how": "Hit the ball off the tee with the cricket bat (or hit a gently rolled ball), then run to a cone and back. Keep it gentle and close — this is about the swing, not power.",
+    "equipment": "Cricket set (bat, ball, stumps), 20 cones"
+  },
+  "Force Back": {
+    "setup": "Two lines of cones about 8m apart. Partners face each other, one on each line.",
+    "how": "Throw the beanbag to your partner. Wherever it lands, they throw from there. The aim is to push your partner backwards. Beanbags first, tennis balls only for the confident. Everybody throws every turn.",
+    "equipment": "20 beanbags, 20 cones"
+  },
+  "Cat & Mouse": {
+    "setup": "A wide area with one or two \"mouse holes\" (hoops or a square of cones) as safe zones.",
+    "how": "The cat chases the mice. Mice are safe inside a mouse hole, but only for a slow count of five, then they must run again. When tagged, a mouse becomes a cat too. Swap the first cat often so everyone gets a turn chasing.",
+    "equipment": "Bibs, 20 cones, 4 hoops"
+  },
+  "Tigers and Cheetahs": {
+    "setup": "Two lines about 20m apart. Half the children are tigers on one line, half are cheetahs on the other.",
+    "how": "On GO, one animal chases the other across to the opposite line. Tagged children swap sides and join the other animal. Swap which animal chases each round so everyone runs and everyone chases.",
+    "equipment": "20 cones, bibs"
+  }
+}

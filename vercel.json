@@ -1,0 +1,17 @@
+{
+  "rewrites": [
+    { "source": "/getsetgo/(.*)", "destination": "/getsetgo/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-src https://www.facebook.com https://web.facebook.com https://athleticswaikatobayofplenty.org.nz https://www.athleticswaikatobayofplenty.org.nz;"
+        }
+      ]
+    }
+  ]
+}

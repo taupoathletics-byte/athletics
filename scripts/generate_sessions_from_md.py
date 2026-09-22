@@ -1,0 +1,207 @@
+import json
+import re
+from pathlib import Path
+
+SRC = Path(r"c:\Users\grant\Downloads\files (17)\getsetgo-volunteer-run-sheets.md")
+OUT = Path(__file__).parents[1] / 'public' / 'getsetgo' / 'sessions.json'
+
+SESSION_RE = re.compile(r'^## Session (\d+) — (.+)$')
+STATION_RE = re.compile(r'^Station (\d+) · (.+?) · (.+?)\s+\((.+?), 10 min\)$')
+BOLD_RE = re.compile(r'^\*\*(.+?)\*\*\s*(.*)$')
+ITALIC_RE = re.compile(r'^\*(Set up|How to play|Equipment)\.\*\s*(.*)$')
+NUMBERED_RE = re.compile(r'^\d+\.\s+(.*)$')
+
+FMS_CATEGORY = {'Locomotor': 'Locomotor', 'Manipulative': 'Manipulative',
+                'Stability': 'Stability', 'Athletics': 'Athletics'}
+
+
+def clean(value):
+    if value is None:
+        return ''
+    value = value.strip()
+    return '' if value.lower() in ('none', 'none.') else value
+
+
+def parse_warmup(lines):
+    games = []
+    for ln in lines:
+        m = BOLD_RE.match(ln.strip())
+        if m:
+            name = m.group(1).strip()
+            name = re.sub(r'^Game\s*[—–-]\s*', '', name).strip()
+            description = re.sub(r'^[—–-]\s*', '', m.group(2)).strip()
+            games.append({'name': name, 'description': description})
+    return games
+
+
+def parse_station(header, lines):
+    m = STATION_RE.match(header)
+    number = int(m.group(1))
+    fms = m.group(2)
+    skill = m.group(3)
+    led = m.group(4)
+    st = {
+        'number': number,
+        'fms_category': FMS_CATEGORY.get(fms, fms),
+        'skill_focus': skill,
+        'led_by': led,
+        'intro_demo': '',
+        'learning_cues': [],
+        'games': [],
+        'adaptation_3_4': '',
+        'watch_for': ''
+    }
+
+    cur_game = None
+    i = 0
+    while i < len(lines):
+        ln = lines[i].strip()
+        if not ln:
+            i += 1
+            continue
+        m = BOLD_RE.match(ln)
+        if m:
+            label = m.group(1).strip()
+            rest = clean(m.group(2))
+            if label == 'Show them first.':
+                st['intro_demo'] = rest
+            elif label == 'Learning cues':
+                i += 1
+                cues = []
+                while i < len(lines):
+                    s = lines[i].strip()
+                    if not s:
+                        i += 1
+                        continue
+                    nm = NUMBERED_RE.match(s)
+                    if not nm:
+                        break
+                    cues.append(nm.group(1).strip())
+                    i += 1
+                st['learning_cues'] = cues
+                continue
+            elif label.startswith('Game'):
+                name = re.sub(r'^Game\s*[—–-]\s*', '', label).strip()
+                cur_game = {'name': name, 'setup': '', 'how': '', 'equipment': ''}
+                st['games'].append(cur_game)
+            elif label in ('3–4 year olds.', '3-4 year olds.'):
+                st['adaptation_3_4'] = rest
+            elif label == 'Watch for.':
+                st['watch_for'] = rest
+            i += 1
+            continue
+        m2 = ITALIC_RE.match(ln)
+        if m2 and cur_game is not None:
+            key = {'Set up': 'setup', 'How to play': 'how', 'Equipment': 'equipment'}[m2.group(1)]
+            cur_game[key] = clean(m2.group(2))
+        i += 1
+
+    st['games'] = [g for g in st['games'] if g['name']]
+    st['adaptation_3_4'] = clean(st['adaptation_3_4'])
+    st['watch_for'] = clean(st['watch_for'])
+    return st
+
+
+def parse_warmdown(header, lines):
+    name = header.split('·', 1)[-1].strip() if '·' in header else header
+    wd = {'name': name, 'setup': '', 'how': '', 'adaptation_3_4': '', 'watch_for': ''}
+    for ln in lines:
+        s = ln.strip()
+        if not s:
+            continue
+        m = ITALIC_RE.match(s)
+        if m:
+            key = {'Set up': 'setup', 'How to play': 'how', 'Equipment': 'equipment'}[m.group(1)]
+            wd[key] = clean(m.group(2))
+            continue
+        m = BOLD_RE.match(s)
+        if m:
+            label = m.group(1).strip()
+            rest = clean(m.group(2))
+            if label in ('3–4 year olds.', '3-4 year olds.'):
+                wd['adaptation_3_4'] = rest
+            elif label == 'Watch for.':
+                wd['watch_for'] = rest
+    wd['adaptation_3_4'] = clean(wd['adaptation_3_4'])
+    wd['watch_for'] = clean(wd['watch_for'])
+    return wd
+
+
+def parse():
+    lines = SRC.read_text(encoding='utf-8').splitlines()
+
+    chunks = []
+    current = None
+    for ln in lines:
+        m = SESSION_RE.match(ln)
+        if m:
+            if current is not None:
+                chunks.append(current)
+            current = {'n': int(m.group(1)), 'name': m.group(2).strip(), 'body': []}
+        elif current is not None:
+            current['body'].append(ln)
+    if current is not None:
+        chunks.append(current)
+
+    sessions = []
+    for c in chunks:
+        s = {
+            'lesson': c['n'],
+            'name': c['name'],
+            'block': '',
+            'equipment': '',
+            'coach_note': '',
+            'warmup': [],
+            'stations': [],
+            'warmdown': {}
+        }
+
+        sections = []
+        preamble = []
+        cur_header = None
+        cur_lines = []
+
+        for ln in c['body']:
+            if ln.startswith('### '):
+                if cur_header is not None:
+                    sections.append((cur_header, cur_lines))
+                cur_header = ln[4:]
+                cur_lines = []
+            elif cur_header is not None:
+                cur_lines.append(ln)
+            else:
+                preamble.append(ln)
+        if cur_header is not None:
+            sections.append((cur_header, cur_lines))
+
+        # Preamble: block, equipment, coach note
+        for ln in preamble:
+            bm = re.match(r'^\*Block \d+ · (.+?)\*$', ln.strip())
+            if bm:
+                s['block'] = bm.group(1).strip()
+                continue
+            m = BOLD_RE.match(ln.strip())
+            if m:
+                label = m.group(1).strip()
+                rest = clean(m.group(2))
+                if label == 'Equipment:':
+                    s['equipment'] = rest
+                elif label == 'Coach note.':
+                    s['coach_note'] = rest
+
+        for header, ls in sections:
+            if header.startswith('Warm-up'):
+                s['warmup'] = parse_warmup(ls)
+            elif header.startswith('Warm down'):
+                s['warmdown'] = parse_warmdown(header, ls)
+            elif header.startswith('Station '):
+                s['stations'].append(parse_station(header, ls))
+
+        sessions.append(s)
+
+    OUT.write_text(json.dumps(sessions, indent=2, ensure_ascii=False), encoding='utf-8')
+    print(f'Wrote {OUT} ({len(sessions)} sessions)')
+
+
+if __name__ == '__main__':
+    parse()
