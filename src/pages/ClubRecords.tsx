@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Download, Trophy } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
+import { buttonVariants } from '@/components/ui/button'
 import { recordsPdf } from '@/data/site'
 
 interface RecordRow {
@@ -66,6 +68,17 @@ export default function ClubRecords() {
       />
 
       <section className="container-page section-pad">
+        {/* Family self-service: full record behind the access code. */}
+        <div className="mx-auto mb-8 flex max-w-3xl flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/20 bg-primary-container/40 px-4 py-3">
+          <p className="text-sm text-on-surface">
+            <span className="font-semibold">Athletes &amp; families:</span> see your own full record with your access
+            code.
+          </p>
+          <Link to="/my-results" className={buttonVariants({ variant: 'outline', size: 'sm' })}>
+            View my results
+          </Link>
+        </div>
+
         {loading ? (
           <p className="text-center text-on-surface-variant">Loading records…</p>
         ) : board.length === 0 ? (

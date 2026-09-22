@@ -10,6 +10,7 @@ import Calendar from '@/pages/Calendar'
 import Faqs from '@/pages/Faqs'
 import Volunteer from '@/pages/Volunteer'
 import Brand from '@/pages/Brand'
+import MyResults from '@/pages/MyResults'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="events" element={<Events />} />
         <Route path="team" element={<Team />} />
         <Route path="club-records" element={<ClubRecords />} />
+        <Route path="my-results" element={<MyResults />} />
         <Route path="calendar" element={<Calendar />} />
         <Route path="faqs" element={<Faqs />} />
         <Route path="volunteer" element={<Volunteer />} />

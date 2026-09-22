@@ -94,6 +94,7 @@ export default async function handler(req, res) {
           gender: (m.properties.Gender?.select?.name) || '',
           birthDate: birth,
           grade: age >= 7 && age <= 14 ? String(age) : '',
+          accessCode: ((m.properties['Access code']?.rich_text) || []).map((t) => t.plain_text).join(''),
         });
       }
       members.sort((a, b) => a.name.localeCompare(b.name));

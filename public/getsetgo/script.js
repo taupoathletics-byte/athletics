@@ -622,6 +622,7 @@ function renderDashboard() {
 const RECORD_EVENTS = ['60m', '100m', '200m', '400m', '800m', '1500m', 'Long Jump', 'High Jump', 'Shot Put', 'Discus'];
 const RECORD_GRADES = ['7', '8', '9', '10', '11', '12', '13', '14'];
 let recordMembers = [];
+let recordAll = [];
 
 /** Which admin section is showing. Reset to check-in on login and logout. */
 let adminSection = 'checkin';
@@ -638,6 +639,7 @@ function renderAdmin() {
   $('#sidenav').innerHTML = `
     ${section('checkin', 'how_to_reg', 'Check In')}
     ${section('records', 'emoji_events', 'Record Results')}
+    ${section('lookup', 'manage_search', 'Member Records')}
     <button class="sidenav__item" id="logout-btn"><span class="material-symbols-outlined">logout</span> Logout</button>`;
 
   $$('#sidenav [data-section]').forEach((b) => {
@@ -654,6 +656,7 @@ function renderAdmin() {
   });
 
   if (adminSection === 'records') renderRecordsEntry();
+  else if (adminSection === 'lookup') renderMemberRecords();
   else renderCheckin();
 }
 
@@ -718,15 +721,87 @@ function renderRecordsEntry() {
 
 async function loadRecordMembers() {
   try {
-    // authedFetch so the member list carries gender/grade/birth date for the
-    // form — the public GET returns names only.
+    // authedFetch so the member list carries gender/grade/birth date and access
+    // codes — the public GET returns names only.
     const res = await authedFetch('/api/records');
     if (!res.ok) throw new Error();
     const data = await res.json();
     recordMembers = data.members || [];
+    recordAll = data.records || [];
   } catch (e) {
     recordMembers = [];
+    recordAll = [];
   }
+}
+
+/** Admin lookup: search a member and see their results + family access code. */
+function renderMemberRecords() {
+  $('#admin-content').innerHTML = `
+    <div class="page-head">
+      <h1>Member Records</h1>
+      <p>Look up a member's results and their family access code.</p>
+    </div>
+    <div class="records-box">
+      <div class="checkin-search">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" id="lookup-search" placeholder="Type a member's name…" autocomplete="off">
+        <div class="checkin-dropdown hidden" id="lookup-dropdown"></div>
+      </div>
+    </div>
+    <div id="lookup-result"></div>`;
+
+  const search = $('#lookup-search');
+  const dd = $('#lookup-dropdown');
+  search.addEventListener('input', renderLookupDropdown);
+  search.addEventListener('focus', renderLookupDropdown);
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#lookup-search, #lookup-dropdown')) dd.classList.add('hidden');
+  });
+
+  loadRecordMembers();
+}
+
+function renderLookupDropdown() {
+  const dd = $('#lookup-dropdown');
+  const t = ($('#lookup-search').value || '').toLowerCase().trim();
+  const matches = t ? recordMembers.filter((m) => m.name.toLowerCase().includes(t)).slice(0, 8) : [];
+  if (!matches.length) { dd.classList.add('hidden'); dd.innerHTML = ''; return; }
+  dd.innerHTML = matches.map((m) => `
+    <button type="button" class="checkin-option" data-id="${esc(m.id)}">
+      <span class="checkin-option__name">${esc(m.name)}</span>
+      ${m.ageGroup ? `<span class="checkin-option__meta">${esc(m.ageGroup)}</span>` : ''}
+    </button>`).join('');
+  dd.classList.remove('hidden');
+  $$('#lookup-dropdown .checkin-option').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const member = recordMembers.find((m) => m.id === btn.dataset.id);
+      $('#lookup-search').value = '';
+      dd.classList.add('hidden');
+      if (member) showMemberRecords(member);
+    });
+  });
+}
+
+function showMemberRecords(member) {
+  const rows = (recordAll || []).filter((r) => r.memberId === member.id);
+  const fmt = (r) => (r.isTime ? `${r.result}s` : `${r.result}m`);
+  $('#lookup-result').innerHTML = `
+    <div class="record-form">
+      <h2>${esc(member.name)}</h2>
+      <p class="lookup-code">Access code&nbsp; <strong>${esc(member.accessCode || 'Not assigned')}</strong></p>
+      ${rows.length ? `
+        <table class="lookup-table">
+          <thead><tr><th>Event</th><th>Grade</th><th>Result</th><th>Date</th><th>Season</th></tr></thead>
+          <tbody>${rows.map((r) => `
+            <tr>
+              <td>${esc(r.event)}</td>
+              <td>${esc(r.grade)}${esc(r.gender)}</td>
+              <td>${esc(fmt(r))}</td>
+              <td>${esc(r.date)}</td>
+              <td>${esc(r.season)}</td>
+            </tr>`).join('')}</tbody>
+        </table>` : '<p>No results recorded yet.</p>'}
+    </div>`;
 }
 
 function bindRecordSearch() {

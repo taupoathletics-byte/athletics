@@ -974,3 +974,27 @@ body {
   body { padding-bottom: 0; }
   .action-bar { bottom: 32px; }
 }
+
+/* ---------- Member Records lookup ---------- */
+.lookup-code strong {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+}
+.lookup-table {
+  width: 100%;
+  margin-top: var(--space-gutter-sm, 12px);
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.lookup-table th,
+.lookup-table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--outline-variant, #e7e2db);
+}
+.lookup-table th {
+  font-weight: 700;
+  color: var(--on-surface-variant, #57423b);
+}
+
