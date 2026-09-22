@@ -68,7 +68,7 @@ export default function ClubNights() {
 
       {/* The feed itself, so a family never has to leave the page to check. */}
       <section className="container-page pt-gutter-md">
-        <FacebookFeed hideCancellationNote />
+        <FacebookFeed />
       </section>
 
       <section className="container-page section-pad">
