@@ -25,3 +25,8 @@ Thumbs.db
 
 # Vercel
 .vercel/
+
+# Secrets
+.env
+.env.*
+!.env.example
