@@ -31,6 +31,11 @@ export function Footer() {
                 Get Set Go Lesson Plans
               </a>
             </li>
+            <li>
+              <Link className="inline-block py-1 hover:text-white" to="/check-in">
+                Self check-in
+              </Link>
+            </li>
           </ul>
         </div>
 
