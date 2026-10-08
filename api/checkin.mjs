@@ -111,36 +111,52 @@ export default async function handler(req, res) {
   else rec.count += 1;
 
   const body = await readBody(req);
-  const name = String(body.name || '').trim().toLowerCase();
+  // Batch check-in: accept { names: [...] } for a whole family at once, with
+  // { name } still accepted for a single member (backward compatible). Names are
+  // deduplicated so tapping the same child twice can't double-mark them.
+  const raw = Array.isArray(body.names) ? body.names : (body.name != null ? [body.name] : []);
+  const names = [...new Set(raw.map((n) => String(n || '').trim().toLowerCase()).filter(Boolean))];
   const date = String(body.date || '').trim();
-  if (!name) return send(res, 400, { error: 'Enter your full name.' });
+  if (!names.length) return send(res, 400, { error: 'Enter a name.' });
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return send(res, 400, { error: 'Invalid date.' });
 
   try {
     const members = await queryAll(MEMBERS_DB);
-    const member = members.find((m) => title(m.properties.Name).toLowerCase() === name);
-    if (!member) return send(res, 404, { error: "We couldn't find that name — check the spelling or ask at the desk." });
+    const results = [];
+    let created = 0;
+    let already = 0;
+    for (const name of names) {
+      const member = members.find((m) => title(m.properties.Name).toLowerCase() === name);
+      if (!member) {
+        results.push({ name, firstName: null, status: 'notfound' });
+        continue;
+      }
+      const fullName = title(member.properties.Name);
+      const firstName = richText(member.properties['First Name']) || fullName.split(' ')[0];
 
-    const fullName = title(member.properties.Name);
-    const firstName = richText(member.properties['First Name']) || fullName.split(' ')[0];
-
-    const existing = await queryAll(ATTENDANCE_DB, {
-      and: [
-        { property: 'Member', relation: { contains: member.id } },
-        { property: 'Date', date: { equals: date } },
-      ],
-    });
-    if (existing.length) return send(res, 200, { ok: true, already: true, firstName });
-
-    await notion('POST', '/pages', {
-      parent: { database_id: ATTENDANCE_DB },
-      properties: {
-        Name: { title: [{ type: 'text', text: { content: `${fullName} — ${date}` } }] },
-        Member: { relation: [{ id: member.id }] },
-        Date: { date: { start: date } },
-      },
-    });
-    return send(res, 200, { ok: true, firstName });
+      const existing = await queryAll(ATTENDANCE_DB, {
+        and: [
+          { property: 'Member', relation: { contains: member.id } },
+          { property: 'Date', date: { equals: date } },
+        ],
+      });
+      if (existing.length) {
+        results.push({ name: fullName, firstName, status: 'already' });
+        already += 1;
+        continue;
+      }
+      await notion('POST', '/pages', {
+        parent: { database_id: ATTENDANCE_DB },
+        properties: {
+          Name: { title: [{ type: 'text', text: { content: `${fullName} — ${date}` } }] },
+          Member: { relation: [{ id: member.id }] },
+          Date: { date: { start: date } },
+        },
+      });
+      results.push({ name: fullName, firstName, status: 'ok' });
+      created += 1;
+    }
+    return send(res, 200, { ok: true, created, already, results });
   } catch (e) {
     return send(res, 500, { error: e.message });
   }

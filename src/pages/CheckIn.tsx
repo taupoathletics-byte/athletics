@@ -19,21 +19,24 @@ function clubNightForToday() {
 }
 
 type Suggestion = { name: string; firstName: string }
+type CheckResult = { name: string; firstName: string | null; status: 'ok' | 'already' | 'notfound' }
 
 /**
- * Public self check-in — the target of the QR poster. A member starts typing
- * their name, taps it from the suggestions, and is marked present; no login is
- * needed.
+ * Public self check-in — the target of the QR poster. A family types each
+ * member's name, taps it from the suggestions, and checks the whole group in
+ * together; no login is needed.
  */
 export default function CheckIn() {
   const [name, setName] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
   const [message, setMessage] = useState('')
-  const [already, setAlready] = useState(false)
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
   const [open, setOpen] = useState(false)
+  const [selected, setSelected] = useState<Suggestion[]>([])
+  const [result, setResult] = useState<{ created: number; already: number; results: CheckResult[] } | null>(null)
   const debounce = useRef<number | undefined>(undefined)
   const boxRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   function search(q: string) {
     window.clearTimeout(debounce.current)
@@ -64,45 +67,48 @@ export default function CheckIn() {
   }, [])
 
   function pick(s: Suggestion) {
-    setName(s.name)
+    if (!selected.some((x) => x.name === s.name)) setSelected((prev) => [...prev, s])
+    setName('')
     setSuggestions([])
     setOpen(false)
+    inputRef.current?.focus()
+  }
+
+  function remove(i: number) {
+    setSelected((prev) => prev.filter((_, idx) => idx !== i))
   }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault()
-    const n = name.trim()
-    if (n.length < 2) {
-      setStatus('error')
-      setMessage('Enter your full name.')
-      return
-    }
+    if (!selected.length) return
     setStatus('loading')
     setMessage('')
     try {
       const res = await fetch('/api/checkin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: n, date: clubNightForToday() }),
+        body: JSON.stringify({ names: selected.map((s) => s.name), date: clubNightForToday() }),
       })
       const json = await res.json().catch(() => ({}))
-      if (res.status === 404) {
-        setStatus('error')
-        setMessage(json.error || "We couldn't find that name.")
-        return
-      }
       if (!res.ok) {
         setStatus('error')
         setMessage(json.error || 'Something went wrong. Try again.')
         return
       }
-      setStatus('ok')
-      setAlready(Boolean(json.already))
-      setMessage(json.firstName || '')
+      setResult(json as { created: number; already: number; results: CheckResult[] })
+      setStatus('done')
     } catch {
       setStatus('error')
       setMessage('Could not reach the server. Try again shortly.')
     }
+  }
+
+  function reset() {
+    setStatus('idle')
+    setName('')
+    setSelected([])
+    setResult(null)
+    setMessage('')
   }
 
   return (
@@ -110,29 +116,38 @@ export default function CheckIn() {
       <PageHero
         eyebrow="Club night"
         title="Check in"
-        subtitle="Welcome! Type your name to mark yourself here tonight."
+        subtitle="Welcome! Type each name to check your family in together."
         photo={38}
       />
 
       <section className="container-page section-pad">
         <div className="mx-auto max-w-md rounded-2xl bg-white p-gutter-md text-center shadow-soft">
-          {status === 'ok' ? (
+          {status === 'done' && result ? (
             <div>
               <CheckCircle2 className="mx-auto h-12 w-12 text-tertiary" aria-hidden />
               <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">
-                {already ? 'Already checked in' : "You're checked in"}
-                {message ? `, ${message}!` : '!'}
+                {result.created === 0
+                  ? 'Already checked in'
+                  : `${result.created} checked in`}
+                {result.already > 0 ? ` · ${result.already} already in` : ''}
               </h2>
-              <p className="mt-2 text-on-surface-variant">See you on the field — have a great night!</p>
+              <ul className="mx-auto mt-4 max-w-xs space-y-1 text-left text-sm">
+                {result.results.map((r) => (
+                  <li key={r.name} className="flex items-center gap-2">
+                    <span className="flex-1 truncate text-on-surface">{r.name}</span>
+                    {r.status === 'ok' && <span className="text-xs font-semibold text-tertiary">✓ in</span>}
+                    {r.status === 'already' && <span className="text-xs font-semibold text-on-surface-variant">already in</span>}
+                    {r.status === 'notfound' && <span className="text-xs font-semibold text-error">not found</span>}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-3 text-on-surface-variant">See you on the field — have a great night!</p>
               <button
                 type="button"
                 className={`${buttonVariants({ variant: 'outline' })} mt-4`}
-                onClick={() => {
-                  setStatus('idle')
-                  setName('')
-                }}
+                onClick={reset}
               >
-                Check in someone else
+                Check in more people
               </button>
             </div>
           ) : (
@@ -140,18 +155,20 @@ export default function CheckIn() {
               <QrCode className="mx-auto h-10 w-10 text-primary" aria-hidden />
               <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">Self check-in</h2>
               <p className="mt-1 text-sm text-on-surface-variant">Scan and go — no sign-in needed.</p>
+
               <label htmlFor="checkin-name" className="sr-only">
-                Your full name
+                A family member's full name
               </label>
               <div className="relative mt-5" ref={boxRef}>
                 <input
                   id="checkin-name"
+                  ref={inputRef}
                   value={name}
                   onChange={(e) => {
                     setName(e.target.value)
                     search(e.target.value)
                   }}
-                  placeholder="Start typing your name…"
+                  placeholder="Start typing a name…"
                   autoComplete="off"
                   autoCapitalize="words"
                   autoFocus
@@ -173,12 +190,38 @@ export default function CheckIn() {
                   </ul>
                 )}
               </div>
+
+              {selected.length > 0 && (
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  {selected.map((s, i) => (
+                    <span
+                      key={s.name}
+                      className="inline-flex items-center gap-1 rounded-full bg-primary-container px-3 py-1 text-sm font-semibold text-on-primary-container"
+                    >
+                      {s.firstName || s.name.split(' ')[0]}
+                      <button
+                        type="button"
+                        onClick={() => remove(i)}
+                        aria-label={`Remove ${s.name}`}
+                        className="ml-1 font-bold text-on-primary-container/70 transition-colors hover:text-on-primary-container"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
+
               <button
                 type="submit"
                 className={`${buttonVariants({ size: 'lg' })} mt-4 w-full`}
-                disabled={status === 'loading'}
+                disabled={status === 'loading' || selected.length === 0}
               >
-                {status === 'loading' ? 'Checking in…' : 'Check in'}
+                {status === 'loading'
+                  ? 'Checking in…'
+                  : selected.length
+                    ? `Check in ${selected.length} ${selected.length === 1 ? 'person' : 'people'}`
+                    : 'Add a name to check in'}
               </button>
               {status === 'error' && <p className="mt-3 text-sm font-semibold text-error">{message}</p>}
             </form>
