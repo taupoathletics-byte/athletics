@@ -44,15 +44,15 @@ const eq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 check(eq(g['Grade 7'].F, ['Anna', 'Zoe']), 'grade 7 girls should be Anna, Zoe (A–Z): ' + JSON.stringify(g['Grade 7'] && g['Grade 7'].F));
 check(eq(g['Grade 7'].M, ['Adam', 'Ben']), 'grade 7 boys should be Adam, Ben (A–Z)');
-check(eq(g['Get Set Go (6 & under)'].F, ['Cara', 'Dora']), '6 & under girls should be Cara, Dora');
+check(eq(g['Grade 5'].F, ['Cara', 'Dora']), 'grade 5 girls should be Cara, Dora');
 check(eq(g['Grade 10'].M, ['Noah']), 'grade 10 boys should be Noah');
 check(eq(g['Grade 8'].X, ['Alex']), 'the no-gender member should land in the X bucket');
 check(eq(g['15 & over'].M, ['Eli']), 'a 15-year-old should land in 15 & over');
 check(eq(g['Age not set'].M, ['Sam']), 'a member with no age should land in "Age not set"');
 
 // The grade ordering used by the printout.
-const order = ['Get Set Go (6 & under)'];
-for (let n = 7; n <= 14; n += 1) order.push('Grade ' + n);
+const order = ['Under 3'];
+for (let n = 3; n <= 14; n += 1) order.push('Grade ' + n);
 order.push('15 & over', 'Age not set');
 for (const grp of order) {
   if (g[grp] !== undefined) check(Array.isArray(g[grp].F) && Array.isArray(g[grp].M), `bucket ${grp} is malformed`);
@@ -61,7 +61,7 @@ for (const grp of order) {
 console.log('Attendance sheet grouping');
 console.log('  buckets:', Object.keys(g).join(', '));
 console.log('  Grade 7 girls:', g['Grade 7'].F.join(', '), '| boys:', g['Grade 7'].M.join(', '));
-console.log('  6 & under girls:', g['Get Set Go (6 & under)'].F.join(', '));
+console.log('  Grade 5 girls:', g['Grade 5'].F.join(', '));
 
 if (problems.length) {
   console.error('\nFAILED:');
