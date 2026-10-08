@@ -1426,5 +1426,12 @@ body {
   margin: 0;
 }
 
+.lookup-delete { width: 44px; text-align: right; }
+.lookup-delete .record-delete {
+  color: var(--on-surface-variant, #57423b);
+  padding: 4px 6px;
+}
+.lookup-delete .record-delete:hover { color: var(--error, #ba1a1a); }
+
 
 

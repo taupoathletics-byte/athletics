@@ -160,6 +160,16 @@ export default async function handler(req, res) {
         return send(res, 200, { ok: true, created, skipped });
       }
 
+      // Delete a record (archive it) — fixes a result entered against the wrong
+      // member or a bad measurement. Archive rather than hard-delete so it stays
+      // recoverable from Notion's trash.
+      if (body.action === 'delete') {
+        const { id } = body;
+        if (!id) return send(res, 400, { error: 'record id is required.' });
+        await notion('PATCH', `/pages/${id}`, { archived: true });
+        return send(res, 200, { ok: true });
+      }
+
       const { memberId, memberName, event, grade, gender, date, result, season } = body;
       if (!memberId || !event || !result) return send(res, 400, { error: 'memberId, event and result are required.' });
 

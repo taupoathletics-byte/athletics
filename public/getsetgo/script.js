@@ -1262,7 +1262,7 @@ function showMemberRecords(member) {
       <p class="lookup-code">Access code&nbsp; <strong>${esc(member.accessCode || 'Not assigned')}</strong></p>
       ${rows.length ? `
         <table class="lookup-table">
-          <thead><tr><th>Event</th><th>Grade</th><th>Result</th><th>Date</th><th>Season</th></tr></thead>
+          <thead><tr><th>Event</th><th>Grade</th><th>Result</th><th>Date</th><th>Season</th><th></th></tr></thead>
           <tbody>${rows.map((r) => `
             <tr>
               <td>${esc(r.event)}</td>
@@ -1270,9 +1270,37 @@ function showMemberRecords(member) {
               <td>${esc(fmt(r))}</td>
               <td>${esc(r.date)}</td>
               <td>${esc(r.season)}</td>
+              <td class="lookup-delete">
+                <button type="button" class="btn btn-ghost record-delete" data-id="${esc(r.id)}" data-event="${esc(r.event)}" data-result="${esc(fmt(r))}" title="Delete this result">
+                  <span class="material-symbols-outlined">delete</span>
+                </button>
+              </td>
             </tr>`).join('')}</tbody>
         </table>` : '<p>No results recorded yet.</p>'}
     </div>`;
+
+  $$('#lookup-result .record-delete').forEach((btn) => {
+    btn.addEventListener('click', () => deleteRecord(member, btn));
+  });
+}
+
+/** Archive a result from the Club Records board (soft delete). */
+async function deleteRecord(member, btn) {
+  const label = `${btn.dataset.event} (${btn.dataset.result})`;
+  if (!confirm(`Delete ${label} for ${member.name}?`)) return;
+  try {
+    const res = await authedFetch('/api/records', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id: btn.dataset.id }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Delete failed');
+    await loadRecordMembers();
+    showMemberRecords(member);
+  } catch (e) {
+    alert(e.message);
+  }
 }
 
 function bindRecordSearch() {
