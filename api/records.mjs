@@ -126,6 +126,40 @@ export default async function handler(req, res) {
       // are meant to be read by everyone).
       if (!requireAdmin(req, res)) return;
       const body = await readBody(req);
+
+      // Bulk measure-night entry: one event + grade, with a result for each
+      // member. Empty results are skipped so only entered rows are written.
+      if (body.action === 'bulk') {
+        const { event, grade, date, season, results } = body;
+        if (!event || !Array.isArray(results)) return send(res, 400, { error: 'event and a results array are required.' });
+        let created = 0;
+        const skipped = [];
+        for (const r of results) {
+          const memberId = r && r.memberId;
+          const resultText = String((r && r.result) || '').trim();
+          if (!memberId || !resultText) continue;
+          try {
+            await notion('POST', '/pages', {
+              parent: { database_id: RECORDS_DB },
+              properties: {
+                Name: { title: rich(`${(r && r.memberName) || memberId} — ${event}${grade || ''}${(r && r.gender) || ''}`) },
+                Member: { relation: [{ id: memberId }] },
+                Event: { select: { name: event } },
+                Grade: grade ? { select: { name: grade } } : {},
+                Gender: (r && r.gender) ? { select: { name: r.gender } } : {},
+                Date: date ? { date: { start: date } } : {},
+                Result: { rich_text: rich(resultText) },
+                Season: season ? { select: { name: season } } : {},
+              },
+            });
+            created += 1;
+          } catch (e) {
+            skipped.push(`${(r && r.memberName) || memberId}: ${e.message}`);
+          }
+        }
+        return send(res, 200, { ok: true, created, skipped });
+      }
+
       const { memberId, memberName, event, grade, gender, date, result, season } = body;
       if (!memberId || !event || !result) return send(res, 400, { error: 'memberId, event and result are required.' });
 

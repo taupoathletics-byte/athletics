@@ -991,7 +991,7 @@ function renderRecordsEntry() {
   $('#admin-content').innerHTML = `
     <div class="page-head">
       <h1>Record a Result</h1>
-      <p>Search a member, then enter their event result.</p>
+      <p>Search a member for a single result, or use the measure-night grid to enter a whole grade at once.</p>
     </div>
     <div class="records-box">
       <div class="checkin-search">
@@ -1000,9 +1000,108 @@ function renderRecordsEntry() {
         <div class="checkin-dropdown hidden" id="record-dropdown"></div>
       </div>
       <p class="record-saved hidden" id="record-saved"></p>
+    </div>
+    <div class="panel">
+      <div class="panel__head"><h2><span class="material-symbols-outlined">groups</span> Measure night — bulk entry</h2></div>
+      <p>Pick the event and grade, then enter a result next to each name in the girls and boys tables (A–Z) and save once.</p>
+      <div class="bulk-controls">
+        <div class="field">
+          <label for="bulk-event">Event</label>
+          <select id="bulk-event">${RECORD_EVENTS.map((e) => `<option value="${e}">${e}</option>`).join('')}</select>
+        </div>
+        <div class="field">
+          <label for="bulk-grade">Grade</label>
+          <select id="bulk-grade">${RECORD_GRADES.map((g) => `<option value="${g}">${g}</option>`).join('')}</select>
+        </div>
+        <div class="field">
+          <label for="bulk-date">Date</label>
+          <input type="date" id="bulk-date" value="${localDateString()}">
+        </div>
+        <div class="field">
+          <label for="bulk-season">Season</label>
+          <select id="bulk-season"><option value="2026-27">2026-27</option><option value="2025-26">2025-26</option><option value="2024-25">2024-25</option></select>
+        </div>
+      </div>
+      <div id="bulk-tables"></div>
+      <button class="btn btn-primary" id="bulk-save" disabled>Save results</button>
+      <p class="record-saved hidden" id="bulk-saved"></p>
     </div>`;
   bindRecordSearch();
-  loadRecordMembers();
+  bindBulk();
+  loadRecordMembers().then(renderBulkTables);
+}
+
+/** The measure-night grid: girls and boys tables for the selected grade. */
+function renderBulkTables() {
+  const grade = $('#bulk-grade').value;
+  const girls = recordMembers.filter((m) => m.grade === grade && m.gender === 'F').sort((a, b) => a.name.localeCompare(b.name));
+  const boys = recordMembers.filter((m) => m.grade === grade && m.gender === 'M').sort((a, b) => a.name.localeCompare(b.name));
+
+  const tableHTML = (title, list, gender) => `
+    <div class="bulk-table">
+      <h3>${esc(title)} <span class="bulk-table__count">${list.length}</span></h3>
+      ${list.length ? `
+      <div class="table-wrap">
+        <table class="data-table bulk-rows">
+          <thead><tr><th>Name</th><th class="bulk-result-col">Result</th></tr></thead>
+          <tbody>
+            ${list.map((m) => `
+              <tr>
+                <td>${esc(m.name)}</td>
+                <td><input type="text" class="bulk-result" data-id="${esc(m.id)}" data-name="${esc(m.name)}" data-gender="${gender}" placeholder="e.g. 10.73"></td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>` : `<p class="bulk-empty">No ${gender === 'F' ? 'girls' : 'boys'} in grade ${esc(grade)}.</p>`}
+    </div>`;
+
+  $('#bulk-tables').innerHTML = tableHTML('Girls', girls, 'F') + tableHTML('Boys', boys, 'M');
+  $('#bulk-save').disabled = !(girls.length || boys.length);
+}
+
+function bindBulk() {
+  $('#bulk-grade').addEventListener('change', renderBulkTables);
+  $('#bulk-save').addEventListener('click', saveBulk);
+}
+
+async function saveBulk() {
+  const event = $('#bulk-event').value;
+  const grade = $('#bulk-grade').value;
+  const date = $('#bulk-date').value;
+  const season = $('#bulk-season').value;
+  const results = [];
+  $$('#bulk-tables .bulk-result').forEach((input) => {
+    const v = input.value.trim();
+    if (v) results.push({ memberId: input.dataset.id, memberName: input.dataset.name, gender: input.dataset.gender, result: v });
+  });
+  if (!results.length) {
+    const saved = $('#bulk-saved');
+    saved.textContent = 'Enter at least one result first.';
+    saved.classList.remove('hidden');
+    return;
+  }
+  const btn = $('#bulk-save');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  try {
+    const res = await authedFetch('/api/records', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'bulk', event, grade, date, season, results }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Save failed');
+    const saved = $('#bulk-saved');
+    saved.textContent = `\u2713 Saved ${data.created} \u00d7 ${event} for grade ${grade}` + (data.skipped && data.skipped.length ? ` — ${data.skipped.length} failed, see console.` : '');
+    saved.classList.remove('hidden');
+    if (data.skipped && data.skipped.length) console.warn('bulk save skipped:', data.skipped);
+    $$('#bulk-tables .bulk-result').forEach((i) => { i.value = ''; });
+  } catch (e) {
+    alert(e.message);
+  } finally {
+    btn.disabled = !$$('#bulk-tables .bulk-result').length;
+    btn.textContent = 'Save results';
+  }
 }
 
 async function loadRecordMembers() {

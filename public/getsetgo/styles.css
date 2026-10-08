@@ -1360,5 +1360,71 @@ body {
   flex-shrink: 0;
 }
 
+/* ============================================================
+   Measure night — bulk result entry
+   ============================================================ */
+.bulk-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 12px 0 18px;
+}
+.bulk-controls .field label {
+  display: block;
+  font-size: var(--font-caption);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--on-surface-variant);
+  margin-bottom: 4px;
+}
+.bulk-controls .field select,
+.bulk-controls .field input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--outline-variant, #dec0b6);
+  border-radius: var(--radius-sm);
+  background: var(--surface-container-lowest, #fff);
+  font-size: 0.95rem;
+}
+.bulk-table { margin-bottom: 18px; }
+.bulk-table h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  margin: 0 0 8px;
+}
+.bulk-table__count {
+  font-size: var(--font-caption);
+  font-weight: 700;
+  color: var(--on-surface-variant);
+  background: var(--surface-container, #f3ede6);
+  border-radius: var(--radius-full);
+  padding: 1px 8px;
+}
+.bulk-rows td { vertical-align: middle; }
+.bulk-result-col { width: 140px; }
+.bulk-rows .bulk-result {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--outline-variant, #dec0b6);
+  border-radius: var(--radius-sm);
+  background: var(--surface-container-lowest, #fff);
+  font-size: 0.95rem;
+  text-align: center;
+}
+.bulk-rows .bulk-result:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-container, #cfe1f0);
+}
+.bulk-empty {
+  color: var(--on-surface-variant);
+  font-style: italic;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
 
 
