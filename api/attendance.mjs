@@ -99,6 +99,10 @@ export default async function handler(req, res) {
             present: presentIds.has(m.id),
           };
         })
+        // Only the registered athletes check in — exclude committee members,
+        // volunteers and social members (their Member Type does not start with
+        // "Active"). This keeps the desk search and the printed sheet clean.
+        .filter((m) => String(m.memberType || '').startsWith('Active'))
         .sort((a, b) => a.name.localeCompare(b.name));
       return send(res, 200, { date, members: list, total: list.length });
     }
