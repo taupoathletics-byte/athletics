@@ -66,7 +66,7 @@ export default {
         "Thu 15 Oct 2026",
         "Thu 22 Oct 2026"
       ],
-      "athleticsEvent": "Long jump",
+      "athleticsEvent": "High jump",
       "manipulative": "Underarm throwing",
       "fitnessCircuit": "Animal Trail",
       "coachNote": "First two weeks. Names before anything else — every helper learns the four or five children at their station and uses them out loud. Walk the boundary cones with the group on night one.",
@@ -202,34 +202,34 @@ export default {
         {
           "order": 4,
           "category": "Athletics",
-          "skill": "Jumping for distance",
+          "skill": "Jumping for height",
           "ledBy": "Coach",
-          "event": "Long jump",
+          "event": "High jump",
           "skillsCovered": [
             "Jumping"
           ],
           "course": "",
           "weekA": {
-            "challenge": "Jump and Freeze",
-            "cues": "Swing and spring; land quietly."
+            "challenge": "Scissor Basics",
+            "cues": "Eyes forward; lift knee; feet-first landing."
           },
           "weekB": {
-            "challenge": "Beat Your Own Marker",
-            "cues": "Bend; swing; spring; freeze."
+            "challenge": "Scissor Rhythm",
+            "cues": "Tall approach; lift; land on feet."
           },
-          "discovery": "Jump and Freeze: Stand at a take-off line and find a comfortable bent-knee shape.",
-          "developing": "Swing arms back then up; two-foot take-off, two-foot quiet landing on a mat/flat surface.",
-          "consolidating": "Use own marker to show landing point; try again focusing on still landing, never compare children.",
-          "weekBProgression": "Beat Your Own Marker: Discover — Explore two short standing jumps and select one safe landing. Develop — Aim to use arm swing and two-foot push to travel farther while controlling landing. Apply — Move personal landing marker from last week if appropriate; coach celebrates safe repeatability, not rank.",
-          "setup": "A start line and a long open run.",
-          "how": "Each child jumps or hops from the line and places their own cone where they landed. Next turn they try to beat their own cone. Nobody compares to anybody else — that is the whole design.",
-          "equipment": "30 cones, long jump mat or sandpit",
-          "adaptation": "Week A: Tiny standing jumps with hand support if needed. Week B: Short jumps; marker optional.",
-          "extension": "Add stronger arm swing and forward reach. Week B: Small run-in only if able to plant and jump safely.",
-          "watchFor": "Comparing with each other. Redirect: 'beat your own cone'.",
-          "coachObservation": "Can both feet take off together and land bent? Week B: Is distance gained without stiff-knee landing?",
-          "backup": "Frog Jump Freeze",
-          "backupSummary": "Jump forward with two feet, then freeze the landing in a bent-knee shape."
+          "discovery": "Scissor Basics: Walk beside a very low elastic and explore stepping over with one foot then other.",
+          "developing": "Approach diagonally at walking pace; scissor lead leg over low elastic, trail leg follows, land on feet.",
+          "consolidating": "Choose comfortable low elastic height; repeat with a smoother rhythm, land in control.",
+          "weekBProgression": "Scissor Rhythm: Discover — Practise stepping over a low elastic and choose the leading foot. Develop — Approach with a few light steps; lead one leg and then second across in scissor action. Apply — Apply arm drive and a more continuous approach while maintaining feet-first landing.",
+          "setup": "Stretch a low elastic (never rope) between two cones at ankle-to-knee height, with a clear run-up of flat markers.",
+          "how": "The child runs (or walks) in, scissors one leg over the elastic, then the other, and lands on two feet with knees bent. SAFETY: land on feet only — never on the back, no Fosbury flop, no high jump mats at this age.",
+          "equipment": "1 low elastic, 2 cones, flat markers",
+          "adaptation": "Week A: Step over elastic set very low. Week B: Walk-through over a very low elastic.",
+          "extension": "Short diagonal run-up only if controlled. Week B: Slightly longer run-in, elastic stays low.",
+          "watchFor": "Trying to land on the back. Stop immediately and reset the technique.",
+          "coachObservation": "No back landings or flop; use breakaway elastic. Week B: Is a faster approach degrading balance?",
+          "backup": "Elastic Step-Over",
+          "backupSummary": "Walk in and step over the low elastic, one leg then the other, then walk out the far side."
         }
       ]
     },
@@ -242,10 +242,10 @@ export default {
         "Thu 29 Oct 2026",
         "Thu 5 Nov 2026"
       ],
-      "athleticsEvent": "High jump",
+      "athleticsEvent": "Hurdles",
       "manipulative": "Catching",
       "fitnessCircuit": "Jungle Jaunt",
-      "coachNote": "Never rank the jumps. Every child marks their own landing with their own cone, and in Week B they try to beat the cone they set in Week A. Keep the cones from week one if you can.",
+      "coachNote": "Foam hurdles only — the kind that fall over when clipped. Never rigid hurdles at this age.",
       "isFinal": false,
       "weeks": [
         {
@@ -377,34 +377,35 @@ export default {
         {
           "order": 4,
           "category": "Athletics",
-          "skill": "Jumping for height",
+          "skill": "Hurdling",
           "ledBy": "Coach",
-          "event": "High jump",
+          "event": "Hurdles",
           "skillsCovered": [
-            "Jumping"
+            "Hurdling",
+            "Running"
           ],
           "course": "",
           "weekA": {
-            "challenge": "Scissor Basics",
-            "cues": "Eyes forward; lift knee; feet-first landing."
+            "challenge": "Step and Run — hurdles",
+            "cues": "Eyes up; knee lift; run through."
           },
           "weekB": {
-            "challenge": "Scissor Rhythm",
-            "cues": "Tall approach; lift; land on feet."
+            "challenge": "Hurdle Rhythm",
+            "cues": "High knees; land light; keep moving."
           },
-          "discovery": "Scissor Basics: Walk beside a very low elastic and explore stepping over with one foot then other.",
-          "developing": "Approach diagonally at walking pace; scissor lead leg over low elastic, trail leg follows, land on feet.",
-          "consolidating": "Choose comfortable low elastic height; repeat with a smoother rhythm, land in control.",
-          "weekBProgression": "Scissor Rhythm: Discover — Practise stepping over a low elastic and choose the leading foot. Develop — Approach with a few light steps; lead one leg and then second across in scissor action. Apply — Apply arm drive and a more continuous approach while maintaining feet-first landing.",
-          "setup": "Stretch a low elastic (never rope) between two cones at ankle-to-knee height, with a clear run-up of flat markers.",
-          "how": "The child runs (or walks) in, scissors one leg over the elastic, then the other, and lands on two feet with knees bent. SAFETY: land on feet only — never on the back, no Fosbury flop, no high jump mats at this age.",
-          "equipment": "1 low elastic, 2 cones, flat markers",
-          "adaptation": "Week A: Step over elastic set very low. Week B: Walk-through over a very low elastic.",
-          "extension": "Short diagonal run-up only if controlled. Week B: Slightly longer run-in, elastic stays low.",
-          "watchFor": "Trying to land on the back. Stop immediately and reset the technique.",
-          "coachObservation": "No back landings or flop; use breakaway elastic. Week B: Is a faster approach degrading balance?",
-          "backup": "Elastic Step-Over",
-          "backupSummary": "Walk in and step over the low elastic, one leg then the other, then walk out the far side."
+          "discovery": "Step and Run — hurdles: Walk over widely spaced flat markers, lifting knees and looking ahead.",
+          "developing": "Step over three foam hurdles in rhythm and run on to finish.",
+          "consolidating": "Try connected approach and clearance without stopping; never race into a fallen hurdle.",
+          "weekBProgression": "Hurdle Rhythm: Discover — Explore two-foot jump and stepping over one low obstacle. Develop — Jog and step over 3 soft hurdles with consistent spacing; eyes ahead. Apply — Run through 4 low hurdles smoothly, finding a rhythm rather than the fastest time.",
+          "setup": "A line of foam hurdles (the kind that collapse if clipped) at shin height, spaced close together.",
+          "how": "Run toward the hurdles and step over each one without stopping, then run through the finish cone. If they stop, move the hurdles closer together. Never use rigid hurdles.",
+          "equipment": "8 foam hurdles, 20 cones",
+          "adaptation": "Week A: Very low foam markers; walk. Week B: Flat markers instead of hurdles.",
+          "extension": "Jog in continuous rhythm over knock-over hurdles. Week B: Adjust spacing to practise more continuous strides.",
+          "watchFor": "Stopping before each hurdle. Space them closer together.",
+          "coachObservation": "Rushed foot contact or rigid hurdles: stop and simplify. Week B: Change obstacle spacing to suit child, not vice versa.",
+          "backup": "Hurdle Hop",
+          "backupSummary": "Hop over each low foam hurdle on two feet, one hop per hurdle."
         }
       ]
     },
@@ -417,10 +418,10 @@ export default {
         "Thu 12 Nov 2026",
         "Thu 19 Nov 2026"
       ],
-      "athleticsEvent": "Hurdles",
+      "athleticsEvent": "Relays",
       "manipulative": "Overarm throwing",
       "fitnessCircuit": "Superhero Training",
-      "coachNote": "Foam hurdles only — the kind that fall over when clipped. Never rigid hurdles at this age. Soft or foam footballs only for the kicking station; a real ball to the face ends the night.",
+      "coachNote": "Hand the beanbag over — never throw it — and keep the changeover zone clear. Announce when every team has finished, never who finished first.",
       "isFinal": false,
       "weeks": [
         {
@@ -552,35 +553,35 @@ export default {
         {
           "order": 4,
           "category": "Athletics",
-          "skill": "Hurdling",
+          "skill": "Relay changeover",
           "ledBy": "Coach",
-          "event": "Hurdles",
+          "event": "Relays",
           "skillsCovered": [
-            "Hurdling",
+            "Relay Changeover",
             "Running"
           ],
           "course": "",
           "weekA": {
-            "challenge": "Step and Run — hurdles",
-            "cues": "Eyes up; knee lift; run through."
+            "challenge": "Half-and-Half Relays",
+            "cues": "Look; offer hand; pass, don't throw."
           },
           "weekB": {
-            "challenge": "Hurdle Rhythm",
-            "cues": "High knees; land light; keep moving."
+            "challenge": "Move and Exchange",
+            "cues": "Eyes on partner; hand it over."
           },
-          "discovery": "Step and Run — hurdles: Walk over widely spaced flat markers, lifting knees and looking ahead.",
-          "developing": "Step over three foam hurdles in rhythm and run on to finish.",
-          "consolidating": "Try connected approach and clearance without stopping; never race into a fallen hurdle.",
-          "weekBProgression": "Hurdle Rhythm: Discover — Explore two-foot jump and stepping over one low obstacle. Develop — Jog and step over 3 soft hurdles with consistent spacing; eyes ahead. Apply — Run through 4 low hurdles smoothly, finding a rhythm rather than the fastest time.",
-          "setup": "A line of foam hurdles (the kind that collapse if clipped) at shin height, spaced close together.",
-          "how": "Run toward the hurdles and step over each one without stopping, then run through the finish cone. If they stop, move the hurdles closer together. Never use rigid hurdles.",
-          "equipment": "8 foam hurdles, 20 cones",
-          "adaptation": "Week A: Very low foam markers; walk. Week B: Flat markers instead of hurdles.",
-          "extension": "Jog in continuous rhythm over knock-over hurdles. Week B: Adjust spacing to practise more continuous strides.",
-          "watchFor": "Stopping before each hurdle. Space them closer together.",
-          "coachObservation": "Rushed foot contact or rigid hurdles: stop and simplify. Week B: Change obstacle spacing to suit child, not vice versa.",
-          "backup": "Hurdle Hop",
-          "backupSummary": "Hop over each low foam hurdle on two feet, one hop per hurdle."
+          "discovery": "Half-and-Half Relays: Walk a beanbag to a partner and put it directly into their open hand.",
+          "developing": "Jog over 10–15 m, slow near partner, complete hand-to-hand exchange.",
+          "consolidating": "Groups repeat several short relay rounds; focus on smooth movement and cheering, not winners.",
+          "weekBProgression": "Move and Exchange: Discover — Practise standing handover with both hand orientations. Develop — Short jog, agree which hand receives and make exchange while walking. Apply — Complete 3 smooth handovers per child; choose which changeover was easiest and why.",
+          "setup": "Teams of three, split either end of a 15m run.",
+          "how": "Run to the other end, hand the beanbag over, join the back of that line. Everyone runs multiple times. Do not announce a winner — announce when every team has finished.",
+          "equipment": "12 beanbags, 20 cones, bibs",
+          "adaptation": "Week A: Walking handover with helper at 5 m. Week B: Walk and stop for transfer.",
+          "extension": "Begin jogging before exchange only if safe. Week B: Add brief moving handover in marked change zone.",
+          "watchFor": "Throwing the baton. Cue 'place it in the hand'.",
+          "coachObservation": "Children setting off before holding object. Week B: No blind handovers for this age.",
+          "backup": "Shuttle Relay",
+          "backupSummary": "Run out, touch the cone, run back, and tag the next runner."
         }
       ]
     },
@@ -593,10 +594,10 @@ export default {
         "Thu 26 Nov 2026",
         "Thu 3 Dec 2026"
       ],
-      "athleticsEvent": "Relays",
+      "athleticsEvent": "Long jump",
       "manipulative": "Kicking",
       "fitnessCircuit": "Pirate Island",
-      "coachNote": "IMPORTANT: no Fosbury flop, no landing on the back, no high jump mats at this age. Scissor over a low ELASTIC — never a rope — landing on the feet, every time.",
+      "coachNote": "Never rank the jumps. Every child marks their own landing with their own cone, and in Week B they try to beat the cone they set in Week A.",
       "isFinal": false,
       "weeks": [
         {
@@ -729,35 +730,34 @@ export default {
         {
           "order": 4,
           "category": "Athletics",
-          "skill": "Relay changeover",
+          "skill": "Jumping for distance",
           "ledBy": "Coach",
-          "event": "Relays",
+          "event": "Long jump",
           "skillsCovered": [
-            "Relay Changeover",
-            "Running"
+            "Jumping"
           ],
           "course": "",
           "weekA": {
-            "challenge": "Half-and-Half Relays",
-            "cues": "Look; offer hand; pass, don't throw."
+            "challenge": "Jump and Freeze",
+            "cues": "Swing and spring; land quietly."
           },
           "weekB": {
-            "challenge": "Move and Exchange",
-            "cues": "Eyes on partner; hand it over."
+            "challenge": "Beat Your Own Marker",
+            "cues": "Bend; swing; spring; freeze."
           },
-          "discovery": "Half-and-Half Relays: Walk a beanbag to a partner and put it directly into their open hand.",
-          "developing": "Jog over 10–15 m, slow near partner, complete hand-to-hand exchange.",
-          "consolidating": "Groups repeat several short relay rounds; focus on smooth movement and cheering, not winners.",
-          "weekBProgression": "Move and Exchange: Discover — Practise standing handover with both hand orientations. Develop — Short jog, agree which hand receives and make exchange while walking. Apply — Complete 3 smooth handovers per child; choose which changeover was easiest and why.",
-          "setup": "Teams of three, split either end of a 15m run.",
-          "how": "Run to the other end, hand the beanbag over, join the back of that line. Everyone runs multiple times. Do not announce a winner — announce when every team has finished.",
-          "equipment": "12 beanbags, 20 cones, bibs",
-          "adaptation": "Week A: Walking handover with helper at 5 m. Week B: Walk and stop for transfer.",
-          "extension": "Begin jogging before exchange only if safe. Week B: Add brief moving handover in marked change zone.",
-          "watchFor": "Throwing the baton. Cue 'place it in the hand'.",
-          "coachObservation": "Children setting off before holding object. Week B: No blind handovers for this age.",
-          "backup": "Shuttle Relay",
-          "backupSummary": "Run out, touch the cone, run back, and tag the next runner."
+          "discovery": "Jump and Freeze: Stand at a take-off line and find a comfortable bent-knee shape.",
+          "developing": "Swing arms back then up; two-foot take-off, two-foot quiet landing on a mat/flat surface.",
+          "consolidating": "Use own marker to show landing point; try again focusing on still landing, never compare children.",
+          "weekBProgression": "Beat Your Own Marker: Discover — Explore two short standing jumps and select one safe landing. Develop — Aim to use arm swing and two-foot push to travel farther while controlling landing. Apply — Move personal landing marker from last week if appropriate; coach celebrates safe repeatability, not rank.",
+          "setup": "A start line and a long open run.",
+          "how": "Each child jumps or hops from the line and places their own cone where they landed. Next turn they try to beat their own cone. Nobody compares to anybody else — that is the whole design.",
+          "equipment": "30 cones, long jump mat or sandpit",
+          "adaptation": "Week A: Tiny standing jumps with hand support if needed. Week B: Short jumps; marker optional.",
+          "extension": "Add stronger arm swing and forward reach. Week B: Small run-in only if able to plant and jump safely.",
+          "watchFor": "Comparing with each other. Redirect: 'beat your own cone'.",
+          "coachObservation": "Can both feet take off together and land bent? Week B: Is distance gained without stiff-knee landing?",
+          "backup": "Frog Jump Freeze",
+          "backupSummary": "Jump forward with two feet, then freeze the landing in a bent-knee shape."
         }
       ]
     },
@@ -945,10 +945,10 @@ export default {
         "Thu 4 Feb 2027",
         "Thu 11 Feb 2027"
       ],
-      "athleticsEvent": "High jump",
+      "athleticsEvent": "Hurdles",
       "manipulative": "Catching",
       "fitnessCircuit": "Space Station",
-      "coachNote": "First two weeks back after the summer break — expect rusty legs and some new faces. Re-walk the boundaries and re-learn names. Beanbags and foam balls only for the push throw, never a real shot.",
+      "coachNote": "First two weeks back after the break — re-walk the boundaries and re-learn names. Foam hurdles only for the hurdle station.",
       "isFinal": false,
       "weeks": [
         {
@@ -1080,34 +1080,35 @@ export default {
         {
           "order": 4,
           "category": "Athletics",
-          "skill": "Jumping for height",
+          "skill": "Hurdling",
           "ledBy": "Coach",
-          "event": "High jump",
+          "event": "Hurdles",
           "skillsCovered": [
-            "Jumping"
+            "Hurdling",
+            "Running"
           ],
           "course": "",
           "weekA": {
-            "challenge": "Scissor Jump Review",
-            "cues": "Approach; lift leg; land on feet."
+            "challenge": "Step and Run — recap",
+            "cues": "Eyes ahead; lift knees; keep moving."
           },
           "weekB": {
-            "challenge": "High Jump Choices",
-            "cues": "Tall; lift; land softly."
+            "challenge": "Hurdle Trail",
+            "cues": "Run tall; knee lift; soft contact."
           },
-          "discovery": "Scissor Jump Review: Walk through two leg lifts beside elastic.",
-          "developing": "Scissor over low elastic with controlled approach and feet-first landing.",
-          "consolidating": "Add a gentle arm reach and consistent lead leg while keeping elastic low.",
-          "weekBProgression": "High Jump Choices: Discover — Experiment with lead foot over ground marker. Develop — Step-run rhythm to low elastic, lead leg then trailing leg, feet-first landing. Apply — Choose and explain the approach that feels most balanced; optionally vary take-off side.",
-          "setup": "Stretch a low elastic (never rope) between two cones at ankle-to-knee height, with a clear run-up of flat markers.",
-          "how": "The child runs (or walks) in, scissors one leg over the elastic, then the other, and lands on two feet with knees bent. SAFETY: land on feet only — never on the back, no Fosbury flop, no high jump mats at this age.",
-          "equipment": "1 low elastic, 2 cones, flat markers",
-          "adaptation": "Week A: Step over with no jump. Week B: Walk-over, adult alongside.",
-          "extension": "Smooth short approach if controlled. Week B: Short angled run-up with stable landing.",
-          "watchFor": "Trying to land on the back. Stop immediately and reset the technique.",
-          "coachObservation": "Use low elastic, never rigid bar or flop. Week B: No elevated height targets that encourage dangerous technique.",
-          "backup": "Elastic Step-Over",
-          "backupSummary": "Walk in and step over the low elastic, one leg then the other, then walk out the far side."
+          "discovery": "Step and Run — recap: Step across flat markers in a walking line.",
+          "developing": "Jog to 3 very low foam hurdles, clear each without stopping.",
+          "consolidating": "Run through a series at child-selected pace with balanced finishes.",
+          "weekBProgression": "Hurdle Trail: Discover — Explore different lead feet over flat markers. Develop — Run and step over 4 soft foam hurdles, maintaining head-up posture. Apply — Combine short starting sprint plus safe hurdle path and finish-line run-through.",
+          "setup": "A line of foam hurdles (the kind that collapse if clipped) at shin height, spaced close together.",
+          "how": "Run toward the hurdles and step over each one without stopping, then run through the finish cone. If they stop, move the hurdles closer together. Never use rigid hurdles.",
+          "equipment": "8 foam hurdles, 20 cones",
+          "adaptation": "Week A: Walk across flat spots. Week B: Use 2 markers and walking pace.",
+          "extension": "Smooth multi-step rhythm. Week B: Try a regular rhythm without racing.",
+          "watchFor": "Stopping before each hurdle. Space them closer together.",
+          "coachObservation": "Use collapsing hurdles only. Week B: Never force a height or stride pattern.",
+          "backup": "Hurdle Hop",
+          "backupSummary": "Hop over each low foam hurdle on two feet, one hop per hurdle."
         }
       ]
     },
@@ -1120,10 +1121,10 @@ export default {
         "Thu 18 Feb 2027",
         "Thu 25 Feb 2027"
       ],
-      "athleticsEvent": "Hurdles",
+      "athleticsEvent": "High jump",
       "manipulative": "Kicking",
       "fitnessCircuit": "Farmyard Fitness",
-      "coachNote": "Second long jump block. The sixes can now add a short run-up; threes and fours stay with a standing jump. Both are the right activity for that child.",
+      "coachNote": "IMPORTANT: no Fosbury flop, no landing on the back, no high jump mats at this age. Scissor over a low ELASTIC — never a rope — landing on the feet, every time.",
       "isFinal": false,
       "weeks": [
         {
@@ -1257,35 +1258,34 @@ export default {
         {
           "order": 4,
           "category": "Athletics",
-          "skill": "Hurdling",
+          "skill": "Jumping for height",
           "ledBy": "Coach",
-          "event": "Hurdles",
+          "event": "High jump",
           "skillsCovered": [
-            "Hurdling",
-            "Running"
+            "Jumping"
           ],
           "course": "",
           "weekA": {
-            "challenge": "Step and Run — recap",
-            "cues": "Eyes ahead; lift knees; keep moving."
+            "challenge": "Scissor Jump Review",
+            "cues": "Approach; lift leg; land on feet."
           },
           "weekB": {
-            "challenge": "Hurdle Trail",
-            "cues": "Run tall; knee lift; soft contact."
+            "challenge": "High Jump Choices",
+            "cues": "Tall; lift; land softly."
           },
-          "discovery": "Step and Run — recap: Step across flat markers in a walking line.",
-          "developing": "Jog to 3 very low foam hurdles, clear each without stopping.",
-          "consolidating": "Run through a series at child-selected pace with balanced finishes.",
-          "weekBProgression": "Hurdle Trail: Discover — Explore different lead feet over flat markers. Develop — Run and step over 4 soft foam hurdles, maintaining head-up posture. Apply — Combine short starting sprint plus safe hurdle path and finish-line run-through.",
-          "setup": "A line of foam hurdles (the kind that collapse if clipped) at shin height, spaced close together.",
-          "how": "Run toward the hurdles and step over each one without stopping, then run through the finish cone. If they stop, move the hurdles closer together. Never use rigid hurdles.",
-          "equipment": "8 foam hurdles, 20 cones",
-          "adaptation": "Week A: Walk across flat spots. Week B: Use 2 markers and walking pace.",
-          "extension": "Smooth multi-step rhythm. Week B: Try a regular rhythm without racing.",
-          "watchFor": "Stopping before each hurdle. Space them closer together.",
-          "coachObservation": "Use collapsing hurdles only. Week B: Never force a height or stride pattern.",
-          "backup": "Hurdle Hop",
-          "backupSummary": "Hop over each low foam hurdle on two feet, one hop per hurdle."
+          "discovery": "Scissor Jump Review: Walk through two leg lifts beside elastic.",
+          "developing": "Scissor over low elastic with controlled approach and feet-first landing.",
+          "consolidating": "Add a gentle arm reach and consistent lead leg while keeping elastic low.",
+          "weekBProgression": "High Jump Choices: Discover — Experiment with lead foot over ground marker. Develop — Step-run rhythm to low elastic, lead leg then trailing leg, feet-first landing. Apply — Choose and explain the approach that feels most balanced; optionally vary take-off side.",
+          "setup": "Stretch a low elastic (never rope) between two cones at ankle-to-knee height, with a clear run-up of flat markers.",
+          "how": "The child runs (or walks) in, scissors one leg over the elastic, then the other, and lands on two feet with knees bent. SAFETY: land on feet only — never on the back, no Fosbury flop, no high jump mats at this age.",
+          "equipment": "1 low elastic, 2 cones, flat markers",
+          "adaptation": "Week A: Step over with no jump. Week B: Walk-over, adult alongside.",
+          "extension": "Smooth short approach if controlled. Week B: Short angled run-up with stable landing.",
+          "watchFor": "Trying to land on the back. Stop immediately and reset the technique.",
+          "coachObservation": "Use low elastic, never rigid bar or flop. Week B: No elevated height targets that encourage dangerous technique.",
+          "backup": "Elastic Step-Over",
+          "backupSummary": "Walk in and step over the low elastic, one leg then the other, then walk out the far side."
         }
       ]
     },
@@ -1301,7 +1301,7 @@ export default {
       "athleticsEvent": "Relays",
       "manipulative": "Striking",
       "fitnessCircuit": "Power Circuit",
-      "coachNote": "Second high jump block. Same rules as series 4: low ELASTIC only, never a rope, land on the feet. Never a real discus for the rolling station — a quoit or soft disc gives the same shape safely.",
+      "coachNote": "Hand the beanbag over — never throw it — and keep the changeover zone clear.",
       "isFinal": false,
       "weeks": [
         {
