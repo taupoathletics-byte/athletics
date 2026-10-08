@@ -710,12 +710,97 @@ function bindAttendance() {
     attendanceOutsideClickBound = true;
   }
   $('#checkin-submit').addEventListener('click', submitCheckin);
+  $('#print-sheet').addEventListener('click', openPrintSheet);
   const dateInput = $('#attendance-date-input');
   dateInput.value = attendanceDate;
   dateInput.addEventListener('change', () => {
     attendanceDate = dateInput.value || localDateString();
     loadAttendance();
   });
+}
+
+/* ---- printable attendance sheet (paper backup) ---- */
+
+/** Group the roster for printing: grade → girls / boys / unassigned, A–Z. */
+function buildAttendanceGroups(members) {
+  const buckets = {};
+  const bucketFor = (group) => (buckets[group] || (buckets[group] = { F: [], M: [], X: [] }));
+  for (const m of members || []) {
+    const age = m.age;
+    let group;
+    if (age == null) group = 'Age not set';
+    else if (age <= 6) group = 'Get Set Go (6 & under)';
+    else if (age <= 14) group = 'Grade ' + age;
+    else group = '15 & over';
+    const g = String(m.gender || '').toUpperCase();
+    bucketFor(group)[g === 'F' ? 'F' : g === 'M' ? 'M' : 'X'].push(m.name);
+  }
+  for (const b of Object.values(buckets)) {
+    b.F.sort((x, y) => x.localeCompare(y));
+    b.M.sort((x, y) => x.localeCompare(y));
+    b.X.sort((x, y) => x.localeCompare(y));
+  }
+  return buckets;
+}
+
+/** Open a print-friendly roster (grouped by grade, boys/girls, A–Z) in a new tab. */
+function openPrintSheet() {
+  const buckets = buildAttendanceGroups(attendanceMembers);
+  const order = ['Get Set Go (6 & under)'];
+  for (let g = 7; g <= 14; g += 1) order.push('Grade ' + g);
+  order.push('15 & over', 'Age not set');
+
+  const namesHTML = (list) => list.map((n) => `<span class="name"><span class="box">\u2610</span>${esc(n)}</span>`).join('');
+  const col = (title, list) => `
+    <div class="col">
+      <h3>${esc(title)} <span class="count">${list.length}</span></h3>
+      ${list.length ? namesHTML(list) : '<p class="empty">\u2014</p>'}
+    </div>`;
+
+  const sections = order
+    .filter((g) => buckets[g])
+    .map((g) => {
+      const b = buckets[g];
+      return `<section class="grade">
+        <h2>${esc(g)}</h2>
+        <div class="cols">
+          ${col('Girls', b.F)}
+          ${col('Boys', b.M)}
+          ${b.X.length ? col('No gender', b.X) : ''}
+        </div>
+      </section>`;
+    }).join('');
+
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>Attendance — ${esc(formatDateLabel(attendanceDate))}</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; margin: 18px; color: #1d1b17; }
+  header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #5b84a8; padding-bottom: 6px; margin-bottom: 12px; }
+  header h1 { font-size: 20px; margin: 0; }
+  header .date { color: #57423b; }
+  .grade { margin-bottom: 16px; }
+  .grade h2 { font-size: 15px; margin: 0 0 6px; background: #cfe1f0; padding: 3px 8px; }
+  .cols { display: flex; gap: 20px; }
+  .col { flex: 1; }
+  .col h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: #57423b; margin: 4px 0; }
+  .count { font-weight: 400; }
+  .name { display: block; font-size: 13px; padding: 1px 0; white-space: nowrap; }
+  .box { display: inline-block; width: 14px; }
+  .empty { color: #8b7169; font-style: italic; margin: 0; }
+  button.print { margin: 10px 0 4px; padding: 8px 16px; font-size: 14px; }
+  @media print { button.print { display: none; } .grade { page-break-inside: avoid; } }
+</style></head><body>
+<header><h1>Taupō Athletics — Attendance</h1><div class="date">${esc(formatDateLabel(attendanceDate))}</div></header>
+<button class="print" onclick="window.print()">🖨 Print / Save as PDF</button>
+${sections}
+</body></html>`;
+
+  const w = window.open('', '_blank', 'width=900,height=700');
+  if (!w) { alert('Please allow pop-ups to print the attendance sheet.'); return; }
+  w.document.write(html);
+  w.document.close();
+  w.focus();
 }
 
 /* ============================================================
@@ -965,6 +1050,7 @@ function renderCheckin() {
         <input type="date" id="attendance-date-input" title="Club night">
       </label>
       <span class="chip status-delivered"><span class="dot"></span><span id="checkedin-count">0</span>&nbsp;here tonight</span>
+      <button class="btn btn-ghost" id="print-sheet"><span class="material-symbols-outlined">print</span> Print sheet</button>
     </div>
 
     <div class="checkin-box">

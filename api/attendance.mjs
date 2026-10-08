@@ -93,6 +93,7 @@ export default async function handler(req, res) {
             name: (m.properties.Name && m.properties.Name.title || []).map((t) => t.plain_text).join(''),
             ageGroup: (m.properties['Age Group'] && m.properties['Age Group'].select && m.properties['Age Group'].select.name) || '',
             memberType: (m.properties['Member Type'] && m.properties['Member Type'].rich_text || []).map((t) => t.plain_text).join(''),
+            gender: (m.properties.Gender && m.properties.Gender.select && m.properties.Gender.select.name) || '',
             age: ageInYears(birth, date),
             nights: (m.properties['Nights attended'] && m.properties['Nights attended'].rollup && m.properties['Nights attended'].rollup.number) || 0,
             present: presentIds.has(m.id),
