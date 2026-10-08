@@ -1000,3 +1000,237 @@ body {
   color: var(--on-surface-variant, #57423b);
 }
 
+/* ============================================================
+   Run Jump Throw — the weekly circuit timetable
+   ============================================================ */
+.rjt-term {
+  margin: var(--space-gutter-md) 0 var(--space-gutter-sm);
+  font-size: 1.15rem;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.rjt-term__sub {
+  font-size: var(--font-caption);
+  font-weight: 400;
+  color: var(--on-surface-variant);
+}
+
+.rjt-night {
+  background: var(--surface-container-lowest, #fff);
+  border: 1px solid var(--outline-variant, #dec0b6);
+  border-radius: var(--radius-lg);
+  padding: var(--space-gutter-sm);
+  margin-bottom: var(--space-gutter-sm);
+  box-shadow: var(--shadow-soft-sm);
+}
+.rjt-night--blank {
+  background: var(--surface-container-low, #f9f3ec);
+  border-style: dashed;
+}
+.rjt-night__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.rjt-night__date {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.rjt-night__note {
+  font-size: var(--font-caption);
+  color: var(--on-surface-variant);
+}
+
+.rjt-stations {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.rjt-station {
+  background: var(--surface-container-low, #f9f3ec);
+  border: 1px solid var(--outline-variant, #dec0b6);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.rjt-station--empty {
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--on-surface-variant);
+  border-style: dashed;
+}
+.rjt-station > summary {
+  cursor: pointer;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  list-style: none;
+}
+.rjt-station > summary::-webkit-details-marker { display: none; }
+.rjt-station > summary::after {
+  content: 'expand_more';
+  font-family: 'Material Symbols Outlined';
+  margin-left: auto;
+  color: var(--on-surface-variant);
+  transition: transform 0.2s ease;
+}
+.rjt-station[open] > summary::after { transform: rotate(180deg); }
+.rjt-station[open] > summary { background: var(--surface-container, #f3ede6); }
+.rjt-station__slot {
+  font-size: var(--font-caption);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  white-space: nowrap;
+}
+.rjt-station__name { font-weight: 600; }
+
+.rjt-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--primary-container, #cfe1f0);
+  color: var(--on-primary-container, #15344d);
+}
+.rjt-flag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--sunflower-caution, #ffd700);
+  color: #3d3000;
+}
+
+.rjt-detail {
+  padding: 12px;
+  border-top: 1px solid var(--outline-variant, #dec0b6);
+  background: var(--surface-container-lowest, #fff);
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+.rjt-detail h4 {
+  margin: 12px 0 4px;
+  font-size: var(--font-label-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--on-surface-variant);
+}
+.rjt-detail__what { margin: 0 0 8px; }
+.rjt-detail p { margin: 6px 0; }
+.rjt-watch {
+  background: rgba(255, 215, 0, 0.14);
+  border-left: 3px solid var(--sunflower-caution, #ffd700);
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.rjt-cues { margin: 0; padding-left: 20px; }
+.rjt-cues li { margin: 3px 0; }
+.rjt-modify {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--on-surface-variant);
+}
+.rjt-modify li { margin: 3px 0; }
+
+.rjt-structure {
+  font-weight: 600;
+  color: var(--primary);
+}
+.rjt-phases {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0;
+}
+.rjt-phases > div {
+  background: var(--surface-container-low, #f9f3ec);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: grid;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+.rjt-phases strong { color: var(--primary); }
+
+.rjt-step { margin: 16px 0; }
+.rjt-step__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.rjt-step__card {
+  background: var(--surface-container-low, #f9f3ec);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: grid;
+  gap: 4px;
+  font-size: 0.88rem;
+}
+.rjt-step__letter {
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--tertiary);
+  line-height: 1;
+}
+
+.rjt-list { margin: 8px 0; padding-left: 20px; }
+.rjt-list li { margin: 5px 0; }
+.rjt-muted { color: var(--on-surface-variant); font-style: italic; }
+.rjt-source {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--outline-variant, #dec0b6);
+  font-size: var(--font-caption);
+  color: var(--on-surface-variant);
+}
+.rjt-attention {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(255, 215, 0, 0.16);
+  border-left: 3px solid var(--sunflower-caution, #ffd700);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 0.88rem;
+  margin: 8px 0;
+}
+.rjt-attention .material-symbols-outlined {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* Activity / event cards from āhei, listed per station */
+.rjt-cards {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.rjt-cards li {
+  background: var(--surface-container-low, #f9f3ec);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius-sm);
+  padding: 7px 10px;
+  font-size: 0.87rem;
+  line-height: 1.4;
+}
+.rjt-cards li strong { display: block; }
+
+
+

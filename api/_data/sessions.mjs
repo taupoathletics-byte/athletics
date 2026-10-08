@@ -1,4 +1,16 @@
-{
+/**
+ * Get Set Go run sheets — the coach and helper lesson plans.
+ *
+ * GATED: served only through /api/sessions behind the admin passcode.
+ * This file lives in api/_data/ deliberately — it used to be a static file at
+ * public/getsetgo/sessions.json, which meant anyone could download the run
+ * sheets without signing in. Files here are never served statically and are not
+ * routed as functions (the "_" prefix).
+ *
+ * Regenerate with: npm run build:sessions
+ */
+
+export default {
   "season": {
     "title": "Get Set Go",
     "subtitle": "Taupō Athletics — 3 to 6 year olds",
@@ -1170,4 +1182,4 @@
     ],
     "equipment": "30 cones, long jump mat or sandpit, 1 low elastic, 8 foam hurdles, 12 beanbags, bibs, Parachute, 10 soft balls, certificates"
   }
-}
+};

@@ -132,9 +132,12 @@ let adminLoggedIn = false;
 /* ============================================================
    Run Sheets
    ============================================================ */
+/* The run sheets are fetched from the gated /api/sessions endpoint, not from a
+   static file. They used to live at public/getsetgo/sessions.json, which anyone
+   could download without signing in. */
 function loadSessions() {
-  fetch('sessions.json').then(r => {
-    if (!r.ok) throw new Error('no sessions.json');
+  authedFetch('/api/sessions').then(r => {
+    if (!r.ok) throw new Error('no sessions');
     return r.json();
   }).then(data => {
     season = data.season || null;
@@ -142,7 +145,7 @@ function loadSessions() {
     finalNight = data.finalNight || null;
     if (adminLoggedIn && adminSection === 'runsheets') renderRunSheets();
   }).catch(() => {
-    console.warn('Could not load sessions.json.');
+    console.warn('Could not load the run sheets.');
     season = null; series = []; finalNight = null;
     if (adminLoggedIn && adminSection === 'runsheets') renderRunSheets();
   });
@@ -301,6 +304,246 @@ function renderRunSheets() {
     activeTerm = tab.dataset.term;
     renderTermTabs();
     renderLessons();
+  });
+}
+
+/* ============================================================
+   Run Jump Throw — the weekly circuit timetable
+   ============================================================ */
+let rjt = null;
+let rjtTerm = 'all';
+let rjtFailed = false;
+
+/* Gated: served by /api/rjt, which returns 401 without an admin session. The
+   station content comes from ANZ's Run Jump Throw coaching material used under
+   the club's resource-provider licence, so it is never publicly fetchable. */
+function loadRJT() {
+  authedFetch('/api/rjt').then(r => {
+    if (!r.ok) throw new Error('no rjt');
+    return r.json();
+  }).then(data => {
+    rjt = data;
+    rjtFailed = false;
+    if (adminLoggedIn && adminSection === 'rjt') renderRJT();
+  }).catch(() => {
+    console.warn('Could not load the Run Jump Throw timetable.');
+    rjt = null;
+    rjtFailed = true;
+    if (adminLoggedIn && adminSection === 'rjt') renderRJT();
+  });
+}
+
+function rjtSkill(id) {
+  return (rjt && id && rjt.skills && rjt.skills[id]) ? rjt.skills[id] : null;
+}
+
+function rjtBullets(arr, cls) {
+  if (!arr || !arr.length) return '';
+  return `<ul class="${cls}">${arr.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+}
+
+/* The activity / event cards from āhei, each tagged with the skill category it
+   belongs to. Rendered as a plain list of what to run at this station — the full
+   card (set-up, how to play, video) is on āhei. */
+function rjtCardsHTML(items, cls) {
+  if (!items || !items.length) return '';
+  return `<ul class="${cls}">${items.map((a) => {
+    const flag = a.benchmark ? ' <span class="rjt-flag">benchmark</span>' : '';
+    return `<li><strong>${esc(a.name)}</strong> — ${esc(a.description)}${flag}</li>`;
+  }).join('')}</ul>`;
+}
+
+function rjtSkillBodyHTML(sk) {
+  if (!sk) return '<p class="rjt-muted">No station detail recorded.</p>';
+  const cues = rjtBullets(sk.cues, 'rjt-cues');
+  const modify = rjtBullets(sk.modify, 'rjt-modify');
+  const activities = rjtCardsHTML(sk.activities, 'rjt-cards');
+  const events = rjtCardsHTML(sk.events, 'rjt-cards');
+  const parts = [
+    activities ? `<h4>Activities for this station${sk.activities.length ? ` (${sk.activities.length})` : ''}</h4>${activities}` : '',
+    events ? `<h4>Event cards</h4>${events}` : '',
+    sk.setup ? `<p><strong>Set up.</strong> ${esc(sk.setup)}</p>` : '',
+    sk.equipment ? `<p><strong>Equipment.</strong> ${esc(sk.equipment)}</p>` : '',
+    /* Headings are only emitted when there is actually a list under them. */
+    cues ? `<h4>Coaching points</h4>${cues}` : '',
+    modify ? `<h4>Adapt &amp; include</h4>${modify}` : '',
+    sk.watchFor ? `<p class="rjt-watch"><strong>Watch for.</strong> ${esc(sk.watchFor)}</p>` : '',
+    `<p class="rjt-source">Cards from āhei (Athletics NZ). Open the card in āhei for the full set-up and video.</p>`,
+  ].filter(Boolean).join('');
+  return `<div class="rjt-detail">
+    <p class="rjt-detail__what">${esc(sk.what || '')}</p>
+    ${parts}
+  </div>`;
+}
+
+function rjtStationHTML(st) {
+  if (!st) return '';
+  if (!st.station) {
+    return `<li class="rjt-station rjt-station--empty">
+      <span class="rjt-station__slot">Station ${esc(String(st.slot || ''))}</span>
+      <span class="rjt-station__name">Not running this week</span>
+    </li>`;
+  }
+  const sk = rjtSkill(st.skill);
+  return `<li>
+    <details class="rjt-station">
+      <summary>
+        <span class="rjt-station__slot">Station ${esc(String(st.slot))}</span>
+        <span class="rjt-station__name">${esc(st.station)}</span>
+        ${sk ? `<span class="rjt-tag">${esc(sk.category)}</span>` : ''}
+        ${st.unconfirmed ? '<span class="rjt-flag">to confirm</span>' : ''}
+      </summary>
+      ${rjtSkillBodyHTML(sk)}
+    </details>
+  </li>`;
+}
+
+function rjtNightHTML(n) {
+  const head = `<div class="rjt-night__head">
+      <span class="rjt-night__date">${esc(n.label || n.date || '')}</span>
+      ${n.measure ? '<span class="chip status-ordered">Measure night</span>' : ''}
+      ${n.note ? `<span class="rjt-night__note">${esc(n.note)}</span>` : ''}
+    </div>`;
+  if (n.blank || !n.stations || !n.stations.length) {
+    return `<article class="rjt-night rjt-night--blank">${head}</article>`;
+  }
+  return `<article class="rjt-night">
+    ${head}
+    ${n.needsAttention ? `<p class="rjt-attention"><span class="material-symbols-outlined">help</span> ${esc(n.needsAttention)}</p>` : ''}
+    <ol class="rjt-stations">${n.stations.map(rjtStationHTML).join('')}</ol>
+  </article>`;
+}
+
+function rjtProgrammeHTML(p) {
+  const step = p.step ? `
+    <div class="rjt-step">
+      <h3>${esc(p.step.title)}</h3>
+      <div class="rjt-step__grid">
+        ${p.step.items.map(i => `<div class="rjt-step__card">
+          <span class="rjt-step__letter">${esc(i.letter)}</span>
+          <strong>${esc(i.label)}</strong>
+          <span>${esc(i.detail)}</span>
+        </div>`).join('')}
+      </div>
+    </div>` : '';
+  return `
+    <div class="panel">
+      <div class="panel__head"><h2><span class="material-symbols-outlined">sports_score</span> ${esc(p.title)}</h2></div>
+      <p>${esc(p.about)}</p>
+      <p class="rjt-structure">${esc(p.structure)}</p>
+      <h3>How a night runs</h3>
+      ${rjtBullets(p.howItRuns, 'rjt-list')}
+      <div class="rjt-phases">
+        <div><strong>Jumping</strong><span>${esc(p.phases.jumping)}</span></div>
+        <div><strong>Throwing</strong><span>${esc(p.phases.throwing)}</span></div>
+        <div><strong>Running</strong><span>${esc(p.phases.running)}</span></div>
+      </div>
+      ${step}
+      <h3>Adapt &amp; include</h3>
+      ${rjtBullets(p.inclusionNotes, 'rjt-list')}
+      <p class="rjt-source">${esc(p.source.skills)} · ${esc(p.source.manualNote)}</p>
+    </div>`;
+}
+
+function rjtRotationHTML(rot) {
+  if (!rot) return '';
+  const head = rot.stations.map(s => `<th>${esc(s)}</th>`).join('');
+  const rows = rot.weeks.map(w => `<tr>
+      <td><strong>Week ${esc(String(w.week))}</strong>${w.derived ? ' <span class="rjt-flag">derived</span>' : ''}</td>
+      ${w.grades.map(g => `<td>${esc(g)}</td>`).join('')}
+    </tr>`).join('');
+  return `
+    <div class="panel">
+      <div class="panel__head"><h2><span class="material-symbols-outlined">autorenew</span> Weekly grade rotation</h2></div>
+      <p>${esc(rot.note)}</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Rotation</th>${head}</tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <p class="rjt-attention"><span class="material-symbols-outlined">help</span> ${esc(rot.derivedNote)}</p>
+    </div>`;
+}
+
+function rjtPentathlonHTML(pen) {
+  if (!pen) return '';
+  return `
+    <div class="panel">
+      <div class="panel__head"><h2><span class="material-symbols-outlined">emoji_events</span> ${esc(pen.title)}</h2></div>
+      <p>${esc(pen.about)}</p>
+      <ol class="rjt-list">${pen.events.map(e => `<li>${esc(e)}</li>`).join('')}</ol>
+    </div>`;
+}
+
+/* Warm-up games, plus the cards whose category tag was cut off in the capture.
+   Those are shown rather than guessed at, so nothing is silently misfiled. */
+function rjtLibraryHTML(lib) {
+  if (!lib) return '';
+  const warmUp = rjtCardsHTML(lib.warmUp, 'rjt-cards');
+  const adaptive = rjtCardsHTML(lib.adaptiveEvents, 'rjt-cards');
+  const unfiled = rjtCardsHTML(lib.uncategorised, 'rjt-cards');
+  return `
+    <div class="panel">
+      <div class="panel__head"><h2><span class="material-symbols-outlined">sports_martial_arts</span> Warm-up games</h2></div>
+      <p>Run one of these before the circuit starts.</p>
+      ${warmUp || '<p class="rjt-muted">None captured.</p>'}
+      ${adaptive ? `
+        <h3>Adaptive &amp; seated events</h3>
+        <p class="rjt-muted">From Athletics NZ's Adaptive Run Jump Throw resource — the alternatives to reach for when a station needs adapting.</p>
+        ${adaptive}` : ''}
+      ${unfiled ? `
+        <h3>Not yet filed to a station</h3>
+        <p class="rjt-muted">The category tag on these cards fell below the screen edge when they were captured, so they are listed here rather than guessed into a station. Most are obviously run, jump or throw.</p>
+        ${unfiled}` : ''}
+      <p class="rjt-source">${esc(lib.source || '')}</p>
+    </div>`;
+}
+
+function renderRJTNights() {
+  const terms = (rjt.terms || []).filter(t => rjtTerm === 'all' || t.term === rjtTerm);
+  const html = terms.map(t => `
+    <h3 class="rjt-term">${esc(t.term)}<span class="rjt-term__sub">${esc(t.weeksLabel || '')}</span></h3>
+    ${t.nights.map(rjtNightHTML).join('')}`).join('');
+  $('#rjt-nights').innerHTML = html || '<p>No nights found.</p>';
+}
+
+function renderRJTTabs() {
+  const tabs = [
+    { id: 'all', label: 'All nights' },
+    ...(rjt.terms || []).map(t => ({ id: t.term, label: t.term })),
+  ];
+  $('#rjt-tabs').innerHTML = tabs.map(t =>
+    `<button class="block-tab ${t.id === rjtTerm ? 'active' : ''}" data-term="${esc(t.id)}">${esc(t.label)}</button>`
+  ).join('');
+}
+
+function renderRJT() {
+  if (!rjt) {
+    $('#admin-content').innerHTML = `
+      <div class="page-head"><h1>Run Jump Throw</h1></div>
+      <p>${rjtFailed ? 'Could not load the Run Jump Throw timetable.' : 'Loading the timetable\u2026'}</p>`;
+    return;
+  }
+  $('#admin-content').innerHTML = `
+    <div class="page-head">
+      <h1>Run Jump Throw</h1>
+      <p>Five stations a night — a different circuit every week. Tap a station for the set-up and coaching points.</p>
+    </div>
+    ${rjtProgrammeHTML(rjt.programme)}
+    <div class="block-tabs" id="rjt-tabs"></div>
+    <div id="rjt-nights"></div>
+    ${rjtRotationHTML(rjt.rotation)}
+    ${rjtLibraryHTML(rjt.library)}
+    ${rjtPentathlonHTML(rjt.pentathlon)}`;
+  renderRJTTabs();
+  renderRJTNights();
+  $('#rjt-tabs').addEventListener('click', (e) => {
+    const tab = e.target.closest('.block-tab');
+    if (!tab) return;
+    rjtTerm = tab.dataset.term;
+    renderRJTTabs();
+    renderRJTNights();
   });
 }
 
@@ -506,6 +749,11 @@ function renderLogin() {
     }
     adminLoggedIn = true;
     renderAdmin();
+    // Run sheets and the RJT timetable are gated, so they are fetched only once
+    // there is a session — fetching them here rather than at page load avoids
+    // firing the passcode prompt at someone who has not signed in yet.
+    loadSessions();
+    loadRJT();
   });
 }
 
@@ -653,6 +901,7 @@ function renderAdmin() {
 
   $('#sidenav').innerHTML = `
     ${section('runsheets', 'description', 'Run Sheets')}
+    ${section('rjt', 'sports_score', 'Run Jump Throw')}
     ${section('checkin', 'how_to_reg', 'Check In')}
     ${section('records', 'emoji_events', 'Record Results')}
     ${section('lookup', 'manage_search', 'Member Records')}
@@ -674,6 +923,7 @@ function renderAdmin() {
   if (adminSection === 'records') renderRecordsEntry();
   else if (adminSection === 'lookup') renderMemberRecords();
   else if (adminSection === 'checkin') renderCheckin();
+  else if (adminSection === 'rjt') renderRJT();
   else renderRunSheets();
 }
 
@@ -938,11 +1188,11 @@ async function saveRecord(member, overlay) {
    ============================================================ */
 function init() {
   renderLogin();
-  loadSessions();
 
   // The whole portal is the gated admin area — the login is the landing screen.
   // renderAdmin() shows the passcode screen until someone signs in, then the
-  // dashboard (run sheets, check-in, records).
+  // dashboard (run sheets, RJT timetable, check-in, records). The gated data is
+  // loaded by the login handler once a session exists.
   renderAdmin();
 
   // Deep link: /attendance (or ?view=attendance) opens the check-in section.
