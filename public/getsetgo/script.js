@@ -125,7 +125,6 @@ const MOCK_ORDERS = [
 /* ---------- state ---------- */
 let season = null;
 let series = [];
-let finalNight = null;
 let activeTerm = 'all';
 let adminLoggedIn = false;
 
@@ -142,11 +141,10 @@ function loadSessions() {
   }).then(data => {
     season = data.season || null;
     series = data.series || [];
-    finalNight = data.finalNight || null;
     if (adminLoggedIn && adminSection === 'runsheets') renderRunSheets();
   }).catch(() => {
     console.warn('Could not load the run sheets.');
-    season = null; series = []; finalNight = null;
+    season = null; series = [];
     if (adminLoggedIn && adminSection === 'runsheets') renderRunSheets();
   });
 }
@@ -167,28 +165,41 @@ function renderTermTabs() {
   ).join('');
 }
 
-function gameHTML(g) {
-  if (!g) return '';
+/* One of the three phases offered inside every 11-minute station: a 2–3 minute
+   Discovery invitation, 3–4 minutes of Developing practice, then 4–5 minutes
+   Consolidating through a game. Nobody has to progress past their readiness. */
+function phaseHTML(label, text, mins) {
+  if (!text) return '';
   return `
-    <div class="game">
-      <span class="game__name">${esc(g.name)}</span>
-      ${g.setup ? `<div><em>Set up.</em> ${esc(g.setup)}</div>` : ''}
-      ${g.how ? `<div><em>How to play.</em> ${esc(g.how)}</div>` : ''}
+    <div class="phase">
+      <div class="phase__head"><span class="phase__label">${esc(label)}</span><span class="phase__mins">${esc(mins)}</span></div>
+      <p>${esc(text)}</p>
     </div>`;
 }
 
+function weekPairHTML(r) {
+  const a = r.weekA || {};
+  const b = r.weekB || {};
+  if (!a.challenge && !b.challenge) return '';
+  const block = (label, w, cls) => `
+    <div class="week-block ${cls}">
+      <span class="week-block__label">${label}</span>
+      ${w.challenge ? `<strong>${esc(w.challenge)}</strong>` : ''}
+      ${w.cues ? `<p>${esc(w.cues)}</p>` : ''}
+    </div>`;
+  return `<div class="week-pair">
+    ${block('Week A', a, 'week-block--a')}
+    ${block('Week B', b, 'week-block--b')}
+  </div>`;
+}
+
 function rotationHTML(r) {
-  const cues = (r.cues || []).map(c => `<li>${esc(c)}</li>`).join('');
-  const gameHtml = gameHTML(r.game);
-  const backupHtml = r.backup ? `
-    <div class="backup"><strong>If they get restless:</strong> ${esc(r.backup)} <em>(same gear)</em></div>` : '';
-  const stationsHtml = (r.stations && r.stations.length) ? `
-    <div class="course">
-      <p class="course__title">Obstacle course — ${esc(r.course || '')} <span class="course__note">(same both weeks)</span></p>
-      <ol class="course__list">
-        ${r.stations.map(s => `<li><strong>${esc(s.move)}</strong> — ${esc(s.how)}</li>`).join('')}
-      </ol>
-    </div>` : '';
+  const skills = (r.skillsCovered || []).map(s => `<span class="skill-tag">${esc(s)}</span>`).join('');
+  const phases = [
+    phaseHTML('Discovery', r.discovery, '2–3 min'),
+    phaseHTML('Developing', r.developing, '3–4 min'),
+    phaseHTML('Consolidating', r.consolidating, '4–5 min'),
+  ].filter(Boolean).join('');
 
   return `
     <div class="rotation ${categoryClass(r.category)}">
@@ -196,33 +207,60 @@ function rotationHTML(r) {
         <div>
           <div class="rotation__num">Rotation ${r.order} · ${esc(r.category)}</div>
           <h4 class="rotation__title">${esc(r.skill)}${r.event ? ' — ' + esc(r.event) : ''}</h4>
+          ${skills ? `<div class="skill-tags">${skills}</div>` : ''}
         </div>
         ${r.ledBy ? `<span class="chip ${ledClass(r.ledBy)}">${esc(r.ledBy)}</span>` : ''}
       </div>
+      ${r.course ? `<p class="course-name"><span class="material-symbols-outlined">route</span> ${esc(r.course)}</p>` : ''}
+      ${weekPairHTML(r)}
       ${r.equipment ? `<div class="equip-bar"><span class="material-symbols-outlined">shopping_basket</span><div><strong>You need:</strong> ${esc(r.equipment)}</div></div>` : ''}
-      ${cues ? `<p class="mini-label">Learning cues</p><ol class="cue-list">${cues}</ol>` : ''}
-      ${gameHtml}
-      ${backupHtml}
-      ${stationsHtml}
+      ${r.setup ? `<p><strong>Set up.</strong> ${esc(r.setup)}</p>` : ''}
+      ${r.how ? `<p><strong>How to play.</strong> ${esc(r.how)}</p>` : ''}
+      ${phases ? `<div class="phases">${phases}</div>` : ''}
+      ${r.weekBProgression ? `<details class="weekb"><summary>Week B progression</summary><p>${esc(r.weekBProgression)}</p></details>` : ''}
       ${r.adaptation ? `<div class="adaptation"><strong>3–4 year olds:</strong> ${esc(r.adaptation)}</div>` : ''}
+      ${r.extension ? `<div class="adaptation adapt-56"><strong>5–6 year extension:</strong> ${esc(r.extension)}</div>` : ''}
       ${r.watchFor ? `<div class="watchfor"><strong>Watch for:</strong> ${esc(r.watchFor)}</div>` : ''}
+      ${r.coachObservation ? `<div class="observe"><strong>Coach observation:</strong> ${esc(r.coachObservation)}</div>` : ''}
+      ${r.backup ? `<div class="backup"><strong>If they get restless:</strong> ${esc(r.backup)}</div>` : ''}
+    </div>`;
+}
+
+/** One week of a series, with its intended learning and timed run of show. */
+function weekHTML(w) {
+  const run = (w.runOfShow || []).map(x => `<li>${esc(x)}</li>`).join('');
+  return `
+    <div class="week-card">
+      <div class="week-card__head">
+        <span class="week-card__num">Week ${esc(String(w.week))}</span>
+        ${w.phase ? `<span class="week-card__phase">${esc(w.phase)}</span>` : ''}
+      </div>
+      ${w.header ? `<p class="week-card__header">${esc(w.header)}</p>` : ''}
+      ${w.intendedLearning ? `<p class="week-card__learning"><strong>Intended learning.</strong> ${esc(w.intendedLearning)}</p>` : ''}
+      ${run ? `<p class="mini-label">Run of show</p><ol class="run-list">${run}</ol>` : ''}
     </div>`;
 }
 
 function seriesHTML(s) {
   const rotations = (s.rotations || []).map(r => rotationHTML(r)).join('');
+  const weeks = (s.weeks || []).map(weekHTML).join('');
   return `
     <article class="series-card">
       <div class="series-card__head">
         <div>
-          <div class="session-card__meta">Series ${s.series} · ${esc(s.term)} · ${esc(s.weeksLabel)}</div>
+          <div class="session-card__meta">${s.isFinal ? 'Final night' : 'Series ' + s.series} · ${esc(s.term)}${s.weeksLabel ? ' · ' + esc(s.weeksLabel) : ''}</div>
           <h3 class="series-card__title">${esc(s.name)}</h3>
-          ${s.athleticsEvent ? `<div class="series-card__event">Athletics event: <strong>${esc(s.athleticsEvent)}</strong></div>` : ''}
+          <div class="series-card__event">
+            ${s.athleticsEvent ? `Athletics event: <strong>${esc(s.athleticsEvent)}</strong>` : ''}
+            ${s.manipulative ? ` · Object skill: <strong>${esc(s.manipulative)}</strong>` : ''}
+            ${s.fitnessCircuit && s.fitnessCircuit !== '—' ? ` · Circuit: <strong>${esc(s.fitnessCircuit)}</strong>` : ''}
+          </div>
         </div>
         <span class="material-symbols-outlined chev">keyboard_arrow_down</span>
       </div>
       <div class="series-details">
         ${s.coachNote ? `<div class="coach-note"><strong>Coach note.</strong> ${esc(s.coachNote)}</div>` : ''}
+        ${weeks}
         ${rotations}
       </div>
     </article>`;
@@ -232,6 +270,9 @@ function seasonInfoHTML() {
   if (!season) return '';
   const rules = (season.rules || []).map(r => `<li>${esc(r)}</li>`).join('');
   const w = season.warmdown || {};
+  const hw = season.howEverySessionWorks || {};
+  const steps = (hw.steps || []).map(s => `<li>${esc(s)}</li>`).join('');
+  const principles = (season.coachingPrinciples || []).map(s => `<li>${esc(s)}</li>`).join('');
   return `
     <div class="season-banner">
       <div class="season-banner__time"><span class="material-symbols-outlined">schedule</span> ${esc(season.time)}</div>
@@ -242,40 +283,28 @@ function seasonInfoHTML() {
       <div class="season-banner__final"><span class="material-symbols-outlined">celebration</span> ${esc(season.finalNight)}</div>
     </div>
     <div class="warmdown-card">
-      <p class="section-label">Every night</p>
+      <p class="section-label">${esc(hw.title || 'How every session works')}</p>
+      ${steps ? `<ol class="run-list">${steps}</ol>` : ''}
+      ${hw.stationStructure ? `<p class="station-structure">${esc(hw.stationStructure)}</p>` : ''}
+      ${principles ? `<details class="rules"><summary>Coaching principles</summary><ul>${principles}</ul></details>` : ''}
+    </div>
+    <div class="warmdown-card">
+      <p class="section-label">Warm-down — every night</p>
       <p><strong>${esc(w.name)}</strong></p>
       ${w.setup ? `<p><em>Set up.</em> ${esc(w.setup)}</p>` : ''}
       ${w.how ? `<p><em>How to play.</em> ${esc(w.how)}</p>` : ''}
       ${w.equipment && w.equipment !== 'None' ? `<p><em>Equipment.</em> ${esc(w.equipment)}</p>` : ''}
       ${w.adaptation ? `<div class="adaptation"><strong>3–4 year olds:</strong> ${esc(w.adaptation)}</div>` : ''}
       ${w.watchFor ? `<div class="watchfor"><strong>Watch for:</strong> ${esc(w.watchFor)}</div>` : ''}
-      <details class="rules"><summary>Standing rules for every night</summary><ul>${rules}</ul></details>
+      ${rules ? `<details class="rules"><summary>Standing rules for every night</summary><ul>${rules}</ul></details>` : ''}
     </div>`;
-}
-
-function finalNightHTML() {
-  if (!finalNight) return '';
-  const stations = (finalNight.stations || []).map(s => `<li>${esc(s)}</li>`).join('');
-  return `
-    <article class="final-night-card">
-      <div class="final-night-card__head">
-        <div>
-          <div class="session-card__meta">Final night</div>
-          <h3 class="series-card__title">${esc(finalNight.name)} — ${esc(finalNight.date)}</h3>
-        </div>
-        <span class="material-symbols-outlined celebration">celebration</span>
-      </div>
-      <p>${esc(finalNight.description)}</p>
-      <ul class="final-night__stations">${stations}</ul>
-      <div class="equip-bar"><span class="material-symbols-outlined">shopping_basket</span><div><strong>You need:</strong> ${esc(finalNight.equipment)}</div></div>
-    </article>`;
 }
 
 function renderLessons() {
   const grid = $('#lesson-grid');
   const list = series.filter(s => activeTerm === 'all' || s.term === activeTerm);
   grid.innerHTML = list.length
-    ? list.map(seriesHTML).join('') + (activeTerm === 'all' ? finalNightHTML() : '')
+    ? list.map(seriesHTML).join('')
     : '<p>No nights found for this term.</p>';
   bindCards();
 }
@@ -290,7 +319,7 @@ function renderRunSheets() {
   $('#admin-content').innerHTML = `
     <div class="page-head">
       <h1>Run Sheets</h1>
-      <p>Tonight, in four rotations — open a series and run each station exactly as written.</p>
+      <p>Two weeks per series. Open a series for the run of show and all four rotations — each one gives a Discovery invitation, Developing practice and a Consolidating game.</p>
     </div>
     <div id="season-info"></div>
     <div class="block-tabs" id="block-tabs"></div>

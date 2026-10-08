@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "pull:lessons": "node scripts/notion_pull_lessons.mjs",
     "build:sessions": "node scripts/build_sessions.mjs",
     "preview": "vite preview"
   },

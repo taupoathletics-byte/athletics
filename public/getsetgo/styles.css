@@ -1232,5 +1232,108 @@ body {
 }
 .rjt-cards li strong { display: block; }
 
+/* ============================================================
+   Get Set Go run sheets — two-week series, phased stations
+   ============================================================ */
+.week-card {
+  background: var(--surface-container-low, #f9f3ec);
+  border: 1px solid var(--outline-variant, #dec0b6);
+  border-radius: var(--radius-md);
+  padding: var(--space-gutter-sm);
+  margin-bottom: 12px;
+}
+.week-card__head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.week-card__num { font-weight: 800; }
+.week-card__phase {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.week-card__header { font-size: 0.85rem; color: var(--on-surface-variant); margin: 0 0 6px; }
+.week-card__learning { margin: 6px 0; }
+.run-list { margin: 6px 0; padding-left: 20px; font-size: 0.9rem; }
+.run-list li { margin: 5px 0; }
+.station-structure { font-size: 0.9rem; color: var(--on-surface-variant); }
+
+/* Week A / Week B challenges sit side by side */
+.week-pair {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin: 10px 0;
+}
+.week-block {
+  background: var(--surface-container-lowest, #fff);
+  border-left: 3px solid var(--outline);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 0.9rem;
+}
+.week-block--a { border-left-color: var(--sky-info, #0ea5e9); }
+.week-block--b { border-left-color: var(--coral-active, #ff7f50); }
+.week-block__label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--on-surface-variant);
+}
+.week-block strong { display: block; margin-top: 2px; }
+.week-block p { margin: 4px 0 0; }
+
+/* Discovery → Developing → Consolidating inside each station */
+.phases { display: grid; gap: 8px; margin: 10px 0; }
+.phase {
+  background: var(--surface-container-lowest, #fff);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+}
+.phase__head { display: flex; align-items: baseline; gap: 8px; }
+.phase__label {
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--tertiary);
+}
+.phase__mins { font-size: 11px; color: var(--on-surface-variant); }
+.phase p { margin: 4px 0 0; font-size: 0.9rem; }
+
+.skill-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.skill-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: var(--primary-container, #cfe1f0);
+  color: var(--on-primary-container, #15344d);
+}
+.course-name { display: flex; align-items: center; gap: 6px; font-weight: 600; margin: 6px 0; }
+.course-name .material-symbols-outlined { font-size: 18px; color: var(--tertiary); }
+.adapt-56 { border-left-color: var(--mint-go, #4fd1c5); }
+.observe {
+  background: rgba(14, 165, 233, 0.08);
+  border-left: 3px solid var(--sky-info, #0ea5e9);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+.weekb { margin-top: 8px; }
+.weekb > summary { cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+.weekb p { margin: 6px 0 0; font-size: 0.88rem; color: var(--on-surface-variant); }
+
+@media (max-width: 640px) {
+  .week-pair { grid-template-columns: 1fr; }
+}
+
 
 
