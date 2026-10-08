@@ -64,9 +64,16 @@ check(weeksWithRun.length === 18, `expected 18 weeks with a run of show, found $
 
 // Programme-level content a coach needs before the first night.
 check(season.howEverySessionWorks?.steps?.length >= 3, 'missing the run-of-show structure for every session');
-check(season.coachingPrinciples?.length >= 4, 'missing coaching principles');
+check(season.coachingPrinciples?.length === 7, `expected 7 coaching principles, found ${season.coachingPrinciples?.length}`);
+check(season.howEverySessionWorks?.teachingNote, 'missing the finish-line teaching note');
+check(season.athleticsNote, 'missing the athletics-equipment note');
 check(season.warmdown?.name, 'missing the warm-down');
 check(season.rules?.length >= 4, 'missing the standing rules');
+
+// Every rotation that names a backup game must have a "how to play" summary.
+const withBackup = teaching.flatMap((s) => s.rotations).filter((r) => r.backup);
+const missingSummary = withBackup.filter((r) => !r.backupSummary).map((r) => `${r.backup} (series ${r.series ?? '?'})`);
+check(missingSummary.length === 0, `backup games missing a summary: ${missingSummary.join(', ')}`);
 
 /* ---------- 2. render ---------- */
 
@@ -109,13 +116,18 @@ const page = els.get('#admin-content')?.innerHTML || '';
 const grid = els.get('#lesson-grid')?.innerHTML || '';
 const info = els.get('#season-info')?.innerHTML || '';
 
-check(page.includes('Run Sheets'), 'the Run Sheets heading is missing');
+check(page.includes('Get Set Go Sessions'), 'the "Get Set Go Sessions" heading is missing');
 check(info.includes(season.warmdown.name.slice(0, 25)), 'the warm-down is not rendered');
+check(info.includes('How the night runs'), 'the "How the night runs" section is missing');
+check(info.includes('Teaching note'), 'the finish-line teaching note is not rendered');
+check(info.includes('Coaching principles'), 'the coaching principles are not rendered');
 check(grid.includes('series-card'), 'no series cards rendered');
-check(grid.includes('week-card'), 'no week cards (run of show) rendered');
+check(!grid.includes('week-card'), 'week cards should have been removed — series go straight to rotations');
 check(grid.includes('class="phase"'), 'no Discovery/Developing/Consolidating phases rendered');
+check(!grid.includes('Run of show'), 'the per-week "Run of show" blocks should have been removed');
+check(grid.includes('long jump pit'), 'the athletics-equipment note is not rendered on Athletics stations');
 
-for (const needle of ['Discovery', 'Developing', 'Consolidating', 'Week A', 'Week B', 'Run of show']) {
+for (const needle of ['Discovery', 'Developing', 'Consolidating', 'Week A', 'Week B']) {
   if (!grid.includes(needle)) problems.push(`rendered run sheets are missing "${needle}"`);
 }
 

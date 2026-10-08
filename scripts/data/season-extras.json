@@ -1,21 +1,64 @@
 {
-  "_note": "Season-level editorial content for the Get Set Go run sheets. This does NOT come from Notion — the Season Plan and Series Rotations boards hold the per-week and per-rotation lesson content, but nothing for the warm-down or the standing rules. Kept here so the run sheets retain it. Edit by hand.",
+  "_note": "Season-level editorial content for the Get Set Go run sheets, edited by hand. This overrides what the Notion pull provides for the shared 'how the night runs' and 'coaching principles' sections, and supplies the warm-down, standing rules and the backup-game summaries — none of which live cleanly in the Notion boards. Keep this file committed; it is the source of truth for this text.",
   "subtitle": "Taupō Athletics — 3 to 6 year olds",
   "time": "Thursdays · 5:30–6:30 pm",
+  "howNightRuns": {
+    "title": "How the night runs (Juniors)",
+    "steps": [
+      "5:15–5:30 — Sign in at the Registration Desk. Pick up an age flash if it isn't already pinned onto the T-shirt.",
+      "5:30–5:40 — Whole-group warm-up (ages 3–14+).",
+      "5:40–6:24 — Four simultaneous rotations, changing every 11 minutes: Movement Game; Object skill; Fitness Circuit; Athletics event. Every group visits all four. Coaches stay at their assigned station and the kids rotate around.",
+      "6:24–6:30 — Warm-down sprints to finish. Kids sit in age groups behind labelled cones (3Yrs Girls, 3Yrs Boys etc) and are called up to run in their groups. Parents meet them at the finish line (about 25m)."
+    ],
+    "teachingNote": "Kids run THROUGH the finish line, not up to it — set up two finish lines."
+  },
+  "stationNote": "Each station runs in four lines of about 4–5 children (20–25 kids per group) so they rotate through quickly without waiting long.",
+  "coachingPrinciples": [
+    "First demonstrate, then let children practise; aim for frequent turns, small groups and no long queues.",
+    "Cue one movement feature at a time and reinforce effort.",
+    "Offer a lower, closer, slower or supported option; stronger movers may extend the same task.",
+    "No elimination for long periods. Rotate chasers frequently; use a gentle tag only.",
+    "Foam or soft balls and knock-over foam hurdles; low elastic only for scissor high jump, landing on feet.",
+    "Never rigid hurdles, real shots or real discus, high jump flop, or an unsecured overhead beam.",
+    "Teach hopping accurately: one foot takes off and the same foot lands."
+  ],
+  "athleticsNote": "The Athletics rotation uses the real athletics equipment (long jump pit, high jump mat, running track). Use the games as warm-ups to demonstrate the skill — for example, jump into the long jump pit, then try to beat your previous jump.",
   "warmdown": {
-    "name": "Warm-down — Sprints in age groups (8 min, every week)",
-    "setup": "Lanes marked with cones. Distance by age: 3-4yrs 15m, 5yrs 20m, 6yrs 25-30m.",
-    "how": "Children run in their age group, three or four at a time, two runs each. Every child is named and cheered as they cross. Run THROUGH the line, not to it. This is the same every week and that is the point — they get to feel themselves getting faster.",
-    "adaptation": "15m, running toward a coach with open arms. Two runs, not three.",
-    "watchFor": "Slowing down before the line. Put a cone 3m past the finish and ask them to run to that one.",
-    "equipment": "30 cones"
+    "name": "Warm-down — Sprints in age groups",
+    "setup": "Kids sit in age groups behind labelled cones (3Yrs Girls, 3Yrs Boys, and so on). Parents meet them at the finish line, about 25m away.",
+    "how": "Groups are called up one at a time to sprint through the finish line. Set up two finish lines — run THROUGH the first, not up to it.",
+    "adaptation": "15m, running toward a coach with open arms.",
+    "watchFor": "Slowing down before the line. The second finish line (a cone a few metres past) is the real target.",
+    "equipment": "Labelled cones, two finish-line cones"
   },
   "rules": [
     "No separate warm-up — the Game rotation IS the warm-up. Go straight in.",
     "Each series runs two weeks: the same four rotations both weeks, a fresh challenge and game the second week.",
-    "Warm-down is the same every week: sprints in age groups, two runs each, every child named and cheered.",
+    "Warm-down is the same every week: sprints in age groups, every child named and cheered.",
     "Never rank children against each other. Each child beats their own cone.",
     "Beanbags before balls. Foam before real. No rigid hurdles, no real discus, no high jump mats at this age.",
     "3-4 year olds: success first — make the task small enough that they succeed, then grow it."
-  ]
+  ],
+  "backupGames": {
+    "Ball Roll Catch": "In pairs, roll a soft ball to your partner, who catches it and rolls it straight back.",
+    "Chain Tag": "The chaser tags someone, then they join hands to form a growing chain that chases together.",
+    "Chase Tag": "One child chases; whoever is tagged becomes the new chaser.",
+    "Cricket Roll and Hit": "Hit a gently rolled ball with the foam bat.",
+    "Dodgeball Roll": "Roll a ball along the ground to touch another player's feet; swap roles when you make a touch.",
+    "Elastic Step-Over": "Walk in and step over the low elastic, one leg then the other, then walk out the far side.",
+    "Farmers and Chickens": "Chickens run the width; tagged chickens become farmers and join the chase.",
+    "Fast Cars": "Run laps around the marked area; on the coach's call, change gear — walk, jog, run, then sprint.",
+    "Frog Jump Freeze": "Jump forward with two feet, then freeze the landing in a bent-knee shape.",
+    "Hurdle Hop": "Hop over each low foam hurdle on two feet, one hop per hurdle.",
+    "Jump and Reach": "Jump up to touch a target held just above head height.",
+    "Kick and Chase": "Kick the ball far, chase after it, then dribble it back.",
+    "Knock the Witch's Hat": "Knock the cone over by throwing at it; after each hit, step back and knock it again from further away.",
+    "Lily Pad Dash": "Hop from hoop to hoop with quick feet.",
+    "Octopus": "Tagged children become seaweed, standing still with arms waving, and tag runners who come near.",
+    "Rush Hour": "Everyone wears rippa tags and everyone rips; put your tags straight back on and keep running.",
+    "Scarf Pop": "Toss a scarf high, clap once, then catch it.",
+    "Shuttle Relay": "Run out, touch the cone, run back, and tag the next runner.",
+    "T-ball Bases": "Hit the ball off the tee, then run to a cone and back.",
+    "Toy Basketball": "One person holds a hoop up as the basket; the front of the line throws the toy in, then swaps with the holder. Four lines of about five, so everyone rotates through quickly."
+  }
 }

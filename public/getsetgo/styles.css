@@ -1335,5 +1335,30 @@ body {
   .week-pair { grid-template-columns: 1fr; }
 }
 
+.teaching-note {
+  background: rgba(255, 215, 0, 0.16);
+  border-left: 3px solid var(--sunflower-caution, #ffd700);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  margin: 8px 0;
+}
+.athletics-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(0, 106, 99, 0.08);
+  border-left: 3px solid var(--tertiary);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+.athletics-note .material-symbols-outlined {
+  font-size: 18px;
+  color: var(--tertiary);
+  flex-shrink: 0;
+}
+
 
 

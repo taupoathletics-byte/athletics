@@ -18,35 +18,39 @@ export default {
     "term1": "Term 1 2027 · Thu 4 Feb 2027 – Thu 25 Mar 2027",
     "finalNight": "Thu 1 Apr 2027 — Week 19 — Mini Meet & prizegiving",
     "howEverySessionWorks": {
-      "title": "How every teaching session works",
+      "title": "How the night runs (Juniors)",
       "steps": [
-        "5:30–5:40: whole-group welcome, names, warm-up and skill discovery.",
-        "5:40–6:24: four simultaneous rotations, changing every 11 minutes: movement game; object skill; six-station fitness/balance circuit; athletics event. Every group visits all four.",
-        "6:24–6:30: age-group run-through-the-line sprints (3–4 years 15 m; age 5 20 m; age 6 25–30 m), water and one reflection question."
+        "5:15–5:30 — Sign in at the Registration Desk. Pick up an age flash if it isn't already pinned onto the T-shirt.",
+        "5:30–5:40 — Whole-group warm-up (ages 3–14+).",
+        "5:40–6:24 — Four simultaneous rotations, changing every 11 minutes: Movement Game; Object skill; Fitness Circuit; Athletics event. Every group visits all four. Coaches stay at their assigned station and the kids rotate around.",
+        "6:24–6:30 — Warm-down sprints to finish. Kids sit in age groups behind labelled cones (3Yrs Girls, 3Yrs Boys etc) and are called up to run in their groups. Parents meet them at the finish line (about 25m)."
       ],
-      "stationStructure": "At each 11-minute station, offer a 2–3 minute Discovery invitation, 3–4 minute Developing practice, and 4–5 minute Consolidating game/application. Children choose a comfortable level; these are opportunities, not a requirement to achieve maturity in 11 minutes."
+      "teachingNote": "Kids run THROUGH the finish line, not up to it — set up two finish lines.",
+      "stationStructure": "Each station runs in four lines of about 4–5 children (20–25 kids per group) so they rotate through quickly without waiting long."
     },
     "coachingPrinciples": [
       "First demonstrate, then let children practise; aim for frequent turns, small groups and no long queues.",
-      "Cue one movement feature at a time and reinforce effort, safe control, creativity and helping.",
+      "Cue one movement feature at a time and reinforce effort.",
       "Offer a lower, closer, slower or supported option; stronger movers may extend the same task.",
       "No elimination for long periods. Rotate chasers frequently; use a gentle tag only.",
-      "Foam or soft balls and knock-over foam hurdles; low elastic only for scissor high jump, landing on feet. Never rigid hurdles, real shots or real discus, high jump flop, or an unsecured overhead beam.",
-      "Teach hopping accurately: one foot takes off and the same foot lands. Two-foot hopping between hoops is classified as jumping."
+      "Foam or soft balls and knock-over foam hurdles; low elastic only for scissor high jump, landing on feet.",
+      "Never rigid hurdles, real shots or real discus, high jump flop, or an unsecured overhead beam.",
+      "Teach hopping accurately: one foot takes off and the same foot lands."
     ],
+    "athleticsNote": "The Athletics rotation uses the real athletics equipment (long jump pit, high jump mat, running track). Use the games as warm-ups to demonstrate the skill — for example, jump into the long jump pit, then try to beat your previous jump.",
     "recordWhatMatters": "Coach each child with a simple Saw / Trying / Next note: what they demonstrated, what they are exploring and one next-step cue. Avoid formal comparisons between children or prescriptive age-based milestones.",
     "warmdown": {
-      "name": "Warm-down — Sprints in age groups (8 min, every week)",
-      "setup": "Lanes marked with cones. Distance by age: 3-4yrs 15m, 5yrs 20m, 6yrs 25-30m.",
-      "how": "Children run in their age group, three or four at a time, two runs each. Every child is named and cheered as they cross. Run THROUGH the line, not to it. This is the same every week and that is the point — they get to feel themselves getting faster.",
-      "adaptation": "15m, running toward a coach with open arms. Two runs, not three.",
-      "watchFor": "Slowing down before the line. Put a cone 3m past the finish and ask them to run to that one.",
-      "equipment": "30 cones"
+      "name": "Warm-down — Sprints in age groups",
+      "setup": "Kids sit in age groups behind labelled cones (3Yrs Girls, 3Yrs Boys, and so on). Parents meet them at the finish line, about 25m away.",
+      "how": "Groups are called up one at a time to sprint through the finish line. Set up two finish lines — run THROUGH the first, not up to it.",
+      "adaptation": "15m, running toward a coach with open arms.",
+      "watchFor": "Slowing down before the line. The second finish line (a cone a few metres past) is the real target.",
+      "equipment": "Labelled cones, two finish-line cones"
     },
     "rules": [
       "No separate warm-up — the Game rotation IS the warm-up. Go straight in.",
       "Each series runs two weeks: the same four rotations both weeks, a fresh challenge and game the second week.",
-      "Warm-down is the same every week: sprints in age groups, two runs each, every child named and cheered.",
+      "Warm-down is the same every week: sprints in age groups, every child named and cheered.",
       "Never rank children against each other. Each child beats their own cone.",
       "Beanbags before balls. Foam before real. No rigid hurdles, no real discus, no high jump mats at this age.",
       "3-4 year olds: success first — make the task small enough that they succeed, then grow it."
@@ -126,7 +130,8 @@ export default {
           "extension": "Add changing direction on command. Week B: Let confident children weave around two safe taggers.",
           "watchFor": "Children watching the floor instead of the space. Cue 'eyes up'.",
           "coachObservation": "Are eyes looking ahead, and are children avoiding collisions? Week B: Can the child change direction without crashing into others?",
-          "backup": "Fast Cars — run laps, change gear on call"
+          "backup": "Fast Cars",
+          "backupSummary": "Run laps around the marked area; on the coach's call, change gear — walk, jog, run, then sprint."
         },
         {
           "order": 2,
@@ -157,7 +162,8 @@ export default {
           "extension": "Aim at smaller hoops or farther buckets. Week B: Change target height and distance.",
           "watchFor": "Throwing with the same foot forward as the throwing arm. Chalk a footprint.",
           "coachObservation": "Are feet opposite the throwing arm? Week B: Does child adjust force rather than simply throwing harder?",
-          "backup": "Toy Basketball — throw into the high hoop"
+          "backup": "Toy Basketball",
+          "backupSummary": "One person holds a hoop up as the basket; the front of the line throws the toy in, then swaps with the holder. Four lines of about five, so everyone rotates through quickly."
         },
         {
           "order": 3,
@@ -190,7 +196,8 @@ export default {
           "extension": "Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height. Week B: Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height.",
           "watchFor": "Queueing. Run the loop so everyone starts at a different station.",
           "coachObservation": "Queues, fatigue, collisions and unstable or unsecured equipment. Week B: Queues, fatigue, collisions and unstable or unsecured equipment.",
-          "backup": ""
+          "backup": "",
+          "backupSummary": ""
         },
         {
           "order": 4,
@@ -221,7 +228,8 @@ export default {
           "extension": "Add stronger arm swing and forward reach. Week B: Small run-in only if able to plant and jump safely.",
           "watchFor": "Comparing with each other. Redirect: 'beat your own cone'.",
           "coachObservation": "Can both feet take off together and land bent? Week B: Is distance gained without stiff-knee landing?",
-          "backup": "Frog Jump Freeze — two-foot jump, freeze the landing"
+          "backup": "Frog Jump Freeze",
+          "backupSummary": "Jump forward with two feet, then freeze the landing in a bent-knee shape."
         }
       ]
     },
@@ -298,7 +306,8 @@ export default {
           "extension": "Add reach to a ribbon overhead, not a high barrier. Week B: Two or three connected same-foot hops, change legs.",
           "watchFor": "No arm swing. Cue ‘swing your arms up’.",
           "coachObservation": "Can children land softly while staying in control? Week B: Do children confuse single-leg hopping with two-foot jumping?",
-          "backup": "Jump and Reach — jump up to touch a held target"
+          "backup": "Jump and Reach",
+          "backupSummary": "Jump up to touch a target held just above head height."
         },
         {
           "order": 2,
@@ -329,7 +338,8 @@ export default {
           "extension": "Move one step before catching soft ball. Week B: Catch while moving into clear safe space.",
           "watchFor": "Closing eyes as the ball arrives. Use a bigger, softer, slower ball.",
           "coachObservation": "Do eyes follow the object all the way in? Week B: Are hands adjusted for ball size and impact?",
-          "backup": "Scarf Pop — toss a scarf high, clap once, catch"
+          "backup": "Scarf Pop",
+          "backupSummary": "Toss a scarf high, clap once, then catch it."
         },
         {
           "order": 3,
@@ -361,7 +371,8 @@ export default {
           "extension": "Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height. Week B: Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height.",
           "watchFor": "Landing on straight legs. Demonstrate the ninja landing yourself.",
           "coachObservation": "Queues, fatigue, collisions and unstable or unsecured equipment. Week B: Queues, fatigue, collisions and unstable or unsecured equipment.",
-          "backup": ""
+          "backup": "",
+          "backupSummary": ""
         },
         {
           "order": 4,
@@ -392,7 +403,8 @@ export default {
           "extension": "Short diagonal run-up only if controlled. Week B: Slightly longer run-in, elastic stays low.",
           "watchFor": "Trying to land on the back. Stop immediately and reset the technique.",
           "coachObservation": "No back landings or flop; use breakaway elastic. Week B: Is a faster approach degrading balance?",
-          "backup": "Elastic Step-Over — walk in and step over the elastic"
+          "backup": "Elastic Step-Over",
+          "backupSummary": "Walk in and step over the low elastic, one leg then the other, then walk out the far side."
         }
       ]
     },
@@ -469,7 +481,8 @@ export default {
           "extension": "Quick changes of direction around two slow rollers. Week B: Let child lead and decide direction strategically.",
           "watchFor": "Throwing too hard. Cue ‘below the knees, gentle’.",
           "coachObservation": "Keep balls rolling slowly with no head-height launches. Week B: Avoid pulling clothing, grabbing or collision.",
-          "backup": "Dodgeball Roll — roll the ball to tag feet"
+          "backup": "Dodgeball Roll",
+          "backupSummary": "Roll a ball along the ground to touch another player's feet; swap roles when you make a touch."
         },
         {
           "order": 2,
@@ -500,7 +513,8 @@ export default {
           "extension": "Experiment with back-to-front weight shift. Week B: Choose farther target or varying angles.",
           "watchFor": "Throwing from the elbow with no step. Model it exaggeratedly.",
           "coachObservation": "Ensure all throws travel one way into a clear zone. Week B: No retrieving across another child's throwing lane.",
-          "backup": "Knock the Witch’s Hat — step back and knock them again"
+          "backup": "Knock the Witch’s Hat",
+          "backupSummary": "step back and knock them again"
         },
         {
           "order": 3,
@@ -532,7 +546,8 @@ export default {
           "extension": "Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height. Week B: Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height.",
           "watchFor": "Running instead of walking. Make the lines curvy to slow them down.",
           "coachObservation": "Queues, fatigue, collisions and unstable or unsecured equipment. Week B: Queues, fatigue, collisions and unstable or unsecured equipment.",
-          "backup": ""
+          "backup": "",
+          "backupSummary": ""
         },
         {
           "order": 4,
@@ -564,7 +579,8 @@ export default {
           "extension": "Jog in continuous rhythm over knock-over hurdles. Week B: Adjust spacing to practise more continuous strides.",
           "watchFor": "Stopping before each hurdle. Space them closer together.",
           "coachObservation": "Rushed foot contact or rigid hurdles: stop and simplify. Week B: Change obstacle spacing to suit child, not vice versa.",
-          "backup": "Hurdle Hop — two-foot hop over each hurdle"
+          "backup": "Hurdle Hop",
+          "backupSummary": "Hop over each low foam hurdle on two feet, one hop per hurdle."
         }
       ]
     },
@@ -642,7 +658,8 @@ export default {
           "extension": "Quick controlled changes of speed and direction. Week B: Alternating legs and fluid rhythm with arms.",
           "watchFor": "Collisions — keep the area wide.",
           "coachObservation": "Avoid lying in running lanes; move tagged children to safe ant zones. Week B: Look for rhythm rather than speed; gallop if not yet skipping.",
-          "backup": "Chain Tag — one long chain chases"
+          "backup": "Chain Tag",
+          "backupSummary": "The chaser tags someone, then they join hands to form a growing chain that chases together."
         },
         {
           "order": 2,
@@ -673,7 +690,8 @@ export default {
           "extension": "Use inside foot for accurate passes. Week B: Alternate feet while dribbling then aim kick.",
           "watchFor": "Toe-poking. Cue 'inside of the foot, like passing'.",
           "coachObservation": "Safety: one ball per pair and no kicks when partner retrieving. Week B: Avoid overcrowding goalmouth and retrieving from active lane.",
-          "backup": "Kick and Chase — kick far, chase it, dribble back"
+          "backup": "Kick and Chase",
+          "backupSummary": "Kick the ball far, chase after it, then dribble it back."
         },
         {
           "order": 3,
@@ -705,7 +723,8 @@ export default {
           "extension": "Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height. Week B: Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height.",
           "watchFor": "Rushing the plank. Ask them to do it slowly once.",
           "coachObservation": "Queues, fatigue, collisions and unstable or unsecured equipment. Week B: Queues, fatigue, collisions and unstable or unsecured equipment.",
-          "backup": ""
+          "backup": "",
+          "backupSummary": ""
         },
         {
           "order": 4,
@@ -737,7 +756,8 @@ export default {
           "extension": "Begin jogging before exchange only if safe. Week B: Add brief moving handover in marked change zone.",
           "watchFor": "Throwing the baton. Cue 'place it in the hand'.",
           "coachObservation": "Children setting off before holding object. Week B: No blind handovers for this age.",
-          "backup": "Shuttle Relay — run out, touch the cone, run back"
+          "backup": "Shuttle Relay",
+          "backupSummary": "Run out, touch the cone, run back, and tag the next runner."
         }
       ]
     },
@@ -814,7 +834,8 @@ export default {
           "extension": "Reach higher while retaining balanced landing. Week B: 2–3 connected hops only if softly controlled.",
           "watchFor": "Landing stiff-legged. Cue ‘land quiet, bend your knees’.",
           "coachObservation": "Do children jump into occupied hoops? Set a hoop per child. Week B: Distinguish HOP from two-foot long JUMP.",
-          "backup": "Lily Pad Dash — hop hoop-to-hoop, quick feet"
+          "backup": "Lily Pad Dash",
+          "backupSummary": "Hop from hoop to hoop with quick feet."
         },
         {
           "order": 2,
@@ -845,7 +866,8 @@ export default {
           "extension": "Smaller ball or adjusted tee and more follow-through. Week B: Gently rolled ball only with skilled feeder and clear area.",
           "watchFor": "Two-handed grip separating. Tape the hand position on the bat.",
           "coachObservation": "No child behind or within swing zone; each tee fenced by cones. Week B: Ball must never be struck toward another group.",
-          "backup": "T-ball Bases — hit and run to a cone"
+          "backup": "T-ball Bases",
+          "backupSummary": "Hit the ball off the tee, then run to a cone and back."
         },
         {
           "order": 3,
@@ -877,7 +899,8 @@ export default {
           "extension": "Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height. Week B: Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height.",
           "watchFor": "Jumping off one foot. Cue 'two feet to land'.",
           "coachObservation": "Queues, fatigue, collisions and unstable or unsecured equipment. Week B: Queues, fatigue, collisions and unstable or unsecured equipment.",
-          "backup": ""
+          "backup": "",
+          "backupSummary": ""
         },
         {
           "order": 4,
@@ -908,7 +931,8 @@ export default {
           "extension": "Add controlled short approach for ready six-year-olds. Week B: Short run-up only with proper space.",
           "watchFor": "Comparing with each other. Redirect: 'beat your own cone'.",
           "coachObservation": "Watch for landing with hands behind hips. Week B: Don't sacrifice stable two-foot landing for distance.",
-          "backup": "Frog Jump Freeze — two-foot jump, freeze the landing"
+          "backup": "Frog Jump Freeze",
+          "backupSummary": "Jump forward with two feet, then freeze the landing in a bent-knee shape."
         }
       ]
     },
@@ -985,7 +1009,8 @@ export default {
           "extension": "Use quicker but controlled routes between holes. Week B: Aim chest pass at moving adult target or vary distance.",
           "watchFor": "Collisions — keep the area wide and cap the number of cats.",
           "coachObservation": "Limit hoop crowding and keep chase rounds short. Week B: Don't throw at another child without readiness.",
-          "backup": "Chase Tag — a simple game of tag"
+          "backup": "Chase Tag",
+          "backupSummary": "One child chases; whoever is tagged becomes the new chaser."
         },
         {
           "order": 2,
@@ -1016,7 +1041,8 @@ export default {
           "extension": "Two steps to catch in space. Week B: Catch after small safe movement in any direction.",
           "watchFor": "Catching against the body. Cue 'catch it out in front'.",
           "coachObservation": "Hands tense or eyes closing as ball arrives. Week B: Coach checks throw distance and ready signal.",
-          "backup": "Ball Roll Catch — roll the soft ball, catch it"
+          "backup": "Ball Roll Catch",
+          "backupSummary": "In pairs, roll a soft ball to your partner, who catches it and rolls it straight back."
         },
         {
           "order": 3,
@@ -1048,7 +1074,8 @@ export default {
           "extension": "Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height. Week B: Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height.",
           "watchFor": "Landing hard on the rocket launch. Cue 'bend your knees'.",
           "coachObservation": "Queues, fatigue, collisions and unstable or unsecured equipment. Week B: Queues, fatigue, collisions and unstable or unsecured equipment.",
-          "backup": ""
+          "backup": "",
+          "backupSummary": ""
         },
         {
           "order": 4,
@@ -1079,7 +1106,8 @@ export default {
           "extension": "Smooth short approach if controlled. Week B: Short angled run-up with stable landing.",
           "watchFor": "Trying to land on the back. Stop immediately and reset the technique.",
           "coachObservation": "Use low elastic, never rigid bar or flop. Week B: No elevated height targets that encourage dangerous technique.",
-          "backup": "Elastic Step-Over — walk in and step over the elastic"
+          "backup": "Elastic Step-Over",
+          "backupSummary": "Walk in and step over the low elastic, one leg then the other, then walk out the far side."
         }
       ]
     },
@@ -1156,7 +1184,8 @@ export default {
           "extension": "Add feints and controlled acceleration. Week B: Change tempo and dodge in both directions.",
           "watchFor": "Collisions in the middle. Keep the run wide.",
           "coachObservation": "Avoid elimination chain that leaves most children tagging. Week B: No pulling clothing or blocking; rotate roles.",
-          "backup": "Octopus — tagged kids become seaweed"
+          "backup": "Octopus",
+          "backupSummary": "Tagged children become seaweed, standing still with arms waving, and tag runners who come near."
         },
         {
           "order": 2,
@@ -1187,7 +1216,8 @@ export default {
           "extension": "Kick through smaller target after control. Week B: Choose inside-foot placement vs shoelace drive.",
           "watchFor": "Kicking too hard and chasing. Cue 'small touches'.",
           "coachObservation": "Safe ball lanes, lots of touches instead of queues. Week B: Do not kick at partner who is not watching.",
-          "backup": "Kick and Chase — kick far, chase it, dribble back"
+          "backup": "Kick and Chase",
+          "backupSummary": "Kick the ball far, chase after it, then dribble it back."
         },
         {
           "order": 3,
@@ -1221,7 +1251,8 @@ export default {
           "extension": "Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height. Week B: Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height.",
           "watchFor": "Losing balance on the fence. Hold a hand to start.",
           "coachObservation": "Queues, fatigue, collisions and unstable or unsecured equipment. Week B: Queues, fatigue, collisions and unstable or unsecured equipment.",
-          "backup": ""
+          "backup": "",
+          "backupSummary": ""
         },
         {
           "order": 4,
@@ -1253,7 +1284,8 @@ export default {
           "extension": "Smooth multi-step rhythm. Week B: Try a regular rhythm without racing.",
           "watchFor": "Stopping before each hurdle. Space them closer together.",
           "coachObservation": "Use collapsing hurdles only. Week B: Never force a height or stride pattern.",
-          "backup": "Hurdle Hop — two-foot hop over each hurdle"
+          "backup": "Hurdle Hop",
+          "backupSummary": "Hop over each low foam hurdle on two feet, one hop per hurdle."
         }
       ]
     },
@@ -1330,7 +1362,8 @@ export default {
           "extension": "Decide best dodge lane before accelerating. Week B: Connected alternating skipping steps.",
           "watchFor": "Grabbing instead of ripping. Cue ‘rip the tag, not the shirt’.",
           "coachObservation": "No grabbing clothing and no 'out' players. Week B: Avoid dragging links; hold soft ribbon or maintain space instead.",
-          "backup": "Rush Hour — everyone rips, everyone runs"
+          "backup": "Rush Hour",
+          "backupSummary": "Everyone wears rippa tags and everyone rips; put your tags straight back on and keep running."
         },
         {
           "order": 2,
@@ -1361,7 +1394,8 @@ export default {
           "extension": "Control direction and force. Week B: Very slow roll and timed swing.",
           "watchFor": "Two-handed grip separating. Tape the hand position on the bat.",
           "coachObservation": "Safe bat swing exclusion zone. Week B: Soft bat and adult supervision for rolling-ball version.",
-          "backup": "Cricket Roll and Hit — hit a gently rolled ball"
+          "backup": "Cricket Roll and Hit",
+          "backupSummary": "Hit a gently rolled ball with the foam bat."
         },
         {
           "order": 3,
@@ -1393,7 +1427,8 @@ export default {
           "extension": "Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height. Week B: Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height.",
           "watchFor": "Rushing. Ask them to do the whole circuit slowly once.",
           "coachObservation": "Queues, fatigue, collisions and unstable or unsecured equipment. Week B: Queues, fatigue, collisions and unstable or unsecured equipment.",
-          "backup": ""
+          "backup": "",
+          "backupSummary": ""
         },
         {
           "order": 4,
@@ -1425,7 +1460,8 @@ export default {
           "extension": "Exchange with minimal stoppage in wider zone. Week B: Gentle moving handover if skills ready.",
           "watchFor": "Throwing the baton. Cue 'place it in the hand'.",
           "coachObservation": "Avoid collision between incoming and outgoing runners. Week B: Keep lanes separate and cone each turnaround.",
-          "backup": "Shuttle Relay — run out, touch the cone, run back"
+          "backup": "Shuttle Relay",
+          "backupSummary": "Run out, touch the cone, run back, and tag the next runner."
         }
       ]
     },
@@ -1502,7 +1538,8 @@ export default {
           "extension": "Start signal reactions and controlled acceleration. Week B: Include shoulder feint and directional shifts.",
           "watchFor": "One side always chasing — swap which animal chases each round.",
           "coachObservation": "Everyone has chance to run and chase; no elimination. Week B: No collision while changing direction.",
-          "backup": "Farmers and Chickens — run the whole width, tagged chickens become farmers"
+          "backup": "Farmers and Chickens",
+          "backupSummary": "Chickens run the width; tagged chickens become farmers and join the chase."
         },
         {
           "order": 2,
@@ -1534,7 +1571,8 @@ export default {
           "extension": "Different height and distance targets. Week B: Shift body weight and aim at farther marked zone.",
           "watchFor": "Throwing with the same foot forward as the throwing arm. Chalk a footprint.",
           "coachObservation": "Does release adjust to target distance? Week B: Throws in same direction, retrieve on signal.",
-          "backup": "Toy Basketball — throw into the high hoop"
+          "backup": "Toy Basketball",
+          "backupSummary": "One person holds a hoop up as the basket; the front of the line throws the toy in, then swaps with the holder. Four lines of about five, so everyone rotates through quickly."
         },
         {
           "order": 3,
@@ -1566,7 +1604,8 @@ export default {
           "extension": "Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height. Week B: Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height.",
           "watchFor": "Frustration if they step off the rope. Reassure: 'stepping off is part of learning'.",
           "coachObservation": "Queues, fatigue, collisions and unstable or unsecured equipment. Week B: Queues, fatigue, collisions and unstable or unsecured equipment.",
-          "backup": ""
+          "backup": "",
+          "backupSummary": ""
         },
         {
           "order": 4,
@@ -1597,7 +1636,8 @@ export default {
           "extension": "Optional short approach only with control. Week B: Short controlled run-up and coordinated landing.",
           "watchFor": "Comparing with each other. Redirect: 'beat your own cone'.",
           "coachObservation": "No comparison of distances between children. Week B: Stop any unsafe jumping for distance.",
-          "backup": "Frog Jump Freeze — two-foot jump, freeze the landing"
+          "backup": "Frog Jump Freeze",
+          "backupSummary": "Jump forward with two feet, then freeze the landing in a bent-knee shape."
         }
       ]
     },

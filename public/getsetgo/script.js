@@ -222,28 +222,18 @@ function rotationHTML(r) {
       ${r.extension ? `<div class="adaptation adapt-56"><strong>5–6 year extension:</strong> ${esc(r.extension)}</div>` : ''}
       ${r.watchFor ? `<div class="watchfor"><strong>Watch for:</strong> ${esc(r.watchFor)}</div>` : ''}
       ${r.coachObservation ? `<div class="observe"><strong>Coach observation:</strong> ${esc(r.coachObservation)}</div>` : ''}
-      ${r.backup ? `<div class="backup"><strong>If they get restless:</strong> ${esc(r.backup)}</div>` : ''}
+      ${r.category === 'Athletics' && season && season.athleticsNote ? `<div class="athletics-note"><span class="material-symbols-outlined">stadium</span> ${esc(season.athleticsNote)}</div>` : ''}
+      ${r.backup ? `<div class="backup"><strong>If they get restless:</strong> <strong>${esc(r.backup)}</strong>${r.backupSummary ? ` — ${esc(r.backupSummary)}` : ''}</div>` : ''}
     </div>`;
 }
 
-/** One week of a series, with its intended learning and timed run of show. */
-function weekHTML(w) {
-  const run = (w.runOfShow || []).map(x => `<li>${esc(x)}</li>`).join('');
-  return `
-    <div class="week-card">
-      <div class="week-card__head">
-        <span class="week-card__num">Week ${esc(String(w.week))}</span>
-        ${w.phase ? `<span class="week-card__phase">${esc(w.phase)}</span>` : ''}
-      </div>
-      ${w.header ? `<p class="week-card__header">${esc(w.header)}</p>` : ''}
-      ${w.intendedLearning ? `<p class="week-card__learning"><strong>Intended learning.</strong> ${esc(w.intendedLearning)}</p>` : ''}
-      ${run ? `<p class="mini-label">Run of show</p><ol class="run-list">${run}</ol>` : ''}
-    </div>`;
-}
+/** One week of a series was previously rendered as its own block (intended
+   learning + timed run of show). That has been removed — each series now goes
+   straight into its four rotations, with the shared "how the night runs" living
+   once at the top of the page. */
 
 function seriesHTML(s) {
   const rotations = (s.rotations || []).map(r => rotationHTML(r)).join('');
-  const weeks = (s.weeks || []).map(weekHTML).join('');
   return `
     <article class="series-card">
       <div class="series-card__head">
@@ -260,7 +250,6 @@ function seriesHTML(s) {
       </div>
       <div class="series-details">
         ${s.coachNote ? `<div class="coach-note"><strong>Coach note.</strong> ${esc(s.coachNote)}</div>` : ''}
-        ${weeks}
         ${rotations}
       </div>
     </article>`;
@@ -285,6 +274,7 @@ function seasonInfoHTML() {
     <div class="warmdown-card">
       <p class="section-label">${esc(hw.title || 'How every session works')}</p>
       ${steps ? `<ol class="run-list">${steps}</ol>` : ''}
+      ${hw.teachingNote ? `<p class="teaching-note"><strong>Teaching note.</strong> ${esc(hw.teachingNote)}</p>` : ''}
       ${hw.stationStructure ? `<p class="station-structure">${esc(hw.stationStructure)}</p>` : ''}
       ${principles ? `<details class="rules"><summary>Coaching principles</summary><ul>${principles}</ul></details>` : ''}
     </div>
@@ -318,8 +308,8 @@ function bindCards() {
 function renderRunSheets() {
   $('#admin-content').innerHTML = `
     <div class="page-head">
-      <h1>Run Sheets</h1>
-      <p>Two weeks per series. Open a series for the run of show and all four rotations — each one gives a Discovery invitation, Developing practice and a Consolidating game.</p>
+      <h1>Get Set Go Sessions</h1>
+      <p>Two weeks per series. Open a series for the four rotations — each one gives a Discovery invitation, Developing practice and a Consolidating game.</p>
     </div>
     <div id="season-info"></div>
     <div class="block-tabs" id="block-tabs"></div>
@@ -550,13 +540,13 @@ function renderRJTTabs() {
 function renderRJT() {
   if (!rjt) {
     $('#admin-content').innerHTML = `
-      <div class="page-head"><h1>Run Jump Throw</h1></div>
+      <div class="page-head"><h1>Run Jump Throw Sessions</h1></div>
       <p>${rjtFailed ? 'Could not load the Run Jump Throw timetable.' : 'Loading the timetable\u2026'}</p>`;
     return;
   }
   $('#admin-content').innerHTML = `
     <div class="page-head">
-      <h1>Run Jump Throw</h1>
+      <h1>Run Jump Throw Sessions</h1>
       <p>Five stations a night — a different circuit every week. Tap a station for the set-up and coaching points.</p>
     </div>
     ${rjtProgrammeHTML(rjt.programme)}
@@ -688,7 +678,7 @@ async function submitCheckin() {
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || 'Save failed');
     const names = selectedMembers.map((s) => s.name).join(', ');
-    showConfirm(`\u2713 ${data.created} recorded — ${names}`, data.skipped);
+    showConfirm(`\u2713 Recorded as attending tonight: ${names}`, data.skipped);
     selectedMembers = [];
     renderSelected();
     await loadAttendance();
@@ -702,7 +692,7 @@ async function submitCheckin() {
 
 function showConfirm(msg, skipped) {
   const box = $('#checkin-confirm');
-  box.innerHTML = `<p>${esc(msg)}</p>${skipped ? `<p class="checkin-confirm__note">${skipped} already checked in — not duplicated.</p>` : ''}`;
+  box.innerHTML = `<p>${esc(msg)}</p>${skipped ? `<p class="checkin-confirm__note">${skipped} already checked in tonight — not counted twice.</p>` : ''}`;
   box.classList.remove('hidden');
 }
 
@@ -929,8 +919,8 @@ function renderAdmin() {
     `<span class="material-symbols-outlined filled">${icon}</span> ${label}</button>`;
 
   $('#sidenav').innerHTML = `
-    ${section('runsheets', 'description', 'Run Sheets')}
-    ${section('rjt', 'sports_score', 'Run Jump Throw')}
+    ${section('runsheets', 'description', 'Get Set Go Sessions')}
+    ${section('rjt', 'sports_score', 'Run Jump Throw Sessions')}
     ${section('checkin', 'how_to_reg', 'Check In')}
     ${section('records', 'emoji_events', 'Record Results')}
     ${section('lookup', 'manage_search', 'Member Records')}

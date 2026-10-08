@@ -45,11 +45,13 @@ function buildSeason() {
     finalNight: finalSeries ? `${finalSeries.dates} — ${finalSeries.name}` : '',
     // How a night runs, straight from the 19-week lesson programme.
     howEverySessionWorks: {
-      title: lessons.programme.howEverySessionWorks?.heading || 'How every session works',
-      steps: lessons.programme.howEverySessionWorks?.items || [],
-      stationStructure: lessons.programme.howEverySessionWorks?.paragraph || '',
+      title: extras.howNightRuns?.title || 'How the night runs',
+      steps: extras.howNightRuns?.steps || [],
+      teachingNote: extras.howNightRuns?.teachingNote || '',
+      stationStructure: extras.stationNote || '',
     },
-    coachingPrinciples: lessons.programme.coachingPrinciples?.items || [],
+    coachingPrinciples: extras.coachingPrinciples || [],
+    athleticsNote: extras.athleticsNote || '',
     recordWhatMatters: lessons.programme.recordWhatMatters?.paragraph || '',
     warmdown: extras.warmdown,
     rules: extras.rules,
@@ -83,7 +85,11 @@ function buildSeries() {
         extension: r.extension,
         watchFor: r.watchFor,
         coachObservation: r.coachObservation,
-        backup: r.backup,
+        backup: String(r.backup || '').split('\u2014')[0].trim(),
+        backupSummary:
+          (extras.backupGames || {})[String(r.backup || '').split('\u2014')[0].trim()] ||
+          String(r.backup || '').split('\u2014')[1]?.trim() ||
+          '',
       }));
 
     // The week pages belonging to this series, with their run of show.
