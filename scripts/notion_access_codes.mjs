@@ -76,11 +76,15 @@ for (const m of members) {
   groups.get(key).push(m)
 }
 
-// 4. assign codes
-const used = new Set(members.map((m) => m.code).filter(Boolean))
+// 4. assign codes — "used" starts EMPTY so an existing family code is preserved
+// rather than treated as a collision with itself. (The previous version seeded
+// "used" with every existing code, which rewrote ALL codes on every run.)
+const used = new Set()
 let assigned = 0
 for (const group of groups.values()) {
-  let code = group.map((m) => m.code).find(Boolean) || codeOf()
+  let code = group.map((m) => m.code).find(Boolean)
+  if (code && used.has(code)) code = '' // genuinely clashing with a different family
+  if (!code) code = codeOf()
   while (used.has(code)) code = codeOf()
   used.add(code)
   for (const m of group) {
