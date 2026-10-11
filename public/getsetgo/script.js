@@ -1009,6 +1009,7 @@ function renderAdmin() {
     ${section('checkin', 'how_to_reg', 'Check In')}
     ${section('records', 'emoji_events', 'Record Results')}
     ${section('lookup', 'manage_search', 'Member Records')}
+    ${section('codes', 'key', 'Access Codes')}
     <button class="sidenav__item" id="logout-btn"><span class="material-symbols-outlined">logout</span> Logout</button>`;
 
   $$('#sidenav [data-section]').forEach((b) => {
@@ -1028,6 +1029,7 @@ function renderAdmin() {
 
   if (adminSection === 'records') renderRecordsEntry();
   else if (adminSection === 'lookup') renderMemberRecords();
+  else if (adminSection === 'codes') renderAccessCodes();
   else if (adminSection === 'checkin') renderCheckin();
   else if (adminSection === 'rjt') renderRJT();
   else renderRunSheets();
@@ -1205,6 +1207,242 @@ async function loadRecordMembers() {
     recordMembers = [];
     recordAll = [];
   }
+}
+
+/* ============================================================
+   Family access codes — the A–Z sheet for the sign-in desk
+   ============================================================ */
+
+/* Codes are per FAMILY (members sharing a registration email share one code),
+   so each child gets a row A–Z by surname and siblings on the same code are
+   shown alongside — whichever child a parent asks about, the desk finds them. */
+let codeMembers = [];
+let codesQuery = '';
+let codesScope = 'juniors';
+const JUNIOR_MEMBER_TYPES = ['Active Member 6 Years and Under', 'Active Member 7 to 14 Years'];
+
+/** "DWK495RC" → "DWK4 95RC": easier to read out and type. */
+function formatCode(code) {
+  return code ? `${code.slice(0, 4)} ${code.slice(4)}` : '';
+}
+
+/** A–Z bucket by surname, folding macrons (Ō → O). */
+function codeLetter(m) {
+  const c = (m.lastName || m.name || '').normalize('NFD').replace(/[̀-ͯ]/g, '').trim().charAt(0).toUpperCase();
+  return /[A-Z]/.test(c) ? c : '#';
+}
+
+function codeSiblings(m) {
+  if (!m.accessCode) return [];
+  return codeMembers.filter((x) => x.accessCode === m.accessCode && x.id !== m.id);
+}
+
+function visibleCodeMembers() {
+  const q = codesQuery.toLowerCase().replace(/\s+/g, ' ').trim();
+  const qCode = q.replace(/[^a-z0-9]/g, '').toUpperCase();
+  return codeMembers.filter((m) => {
+    if (codesScope === 'juniors' && !JUNIOR_MEMBER_TYPES.includes(m.memberType)) return false;
+    if (!q) return true;
+    return m.name.toLowerCase().includes(q) || (qCode.length >= 3 && (m.accessCode || '').includes(qCode));
+  });
+}
+
+function groupByLetter(list) {
+  const groups = new Map();
+  for (const m of list) {
+    const l = codeLetter(m);
+    if (!groups.has(l)) groups.set(l, []);
+    groups.get(l).push(m);
+  }
+  return groups;
+}
+
+function renderAccessCodes() {
+  $('#admin-content').innerHTML = `
+    <div class="page-head">
+      <h1>Access Codes</h1>
+      <p>Each family's code, A–Z by surname. Families enter it at <strong>${esc(location.host)}/my-results</strong> to see their own children's results. Treat the printed sheet like a list of passwords.</p>
+    </div>
+    <div class="records-box codes-toolbar">
+      <div class="checkin-search">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" id="codes-search" placeholder="Search a name or code…" autocomplete="off" value="${esc(codesQuery)}">
+      </div>
+      <div class="codes-scope" role="group" aria-label="Who to show">
+        <button type="button" class="codes-scope__btn${codesScope === 'juniors' ? ' active' : ''}" data-scope="juniors">Junior athletes</button>
+        <button type="button" class="codes-scope__btn${codesScope === 'all' ? ' active' : ''}" data-scope="all">Everyone</button>
+      </div>
+      <div class="codes-actions">
+        <button type="button" class="btn btn-primary" id="codes-print-list"><span class="material-symbols-outlined">print</span> Print A–Z list</button>
+        <button type="button" class="btn btn-ghost" id="codes-print-slips"><span class="material-symbols-outlined">content_cut</span> Print hand-out slips</button>
+      </div>
+    </div>
+    <div id="codes-summary" class="codes-summary"></div>
+    <nav id="codes-jump" class="codes-jump" aria-label="Jump to letter"></nav>
+    <div id="codes-list" class="codes-list"><p class="codes-empty">Loading codes…</p></div>`;
+
+  $('#codes-search').addEventListener('input', (e) => { codesQuery = e.target.value; renderCodesList(); });
+  $$('.codes-scope__btn').forEach((b) => b.addEventListener('click', () => {
+    codesScope = b.dataset.scope;
+    $$('.codes-scope__btn').forEach((x) => x.classList.toggle('active', x === b));
+    renderCodesList();
+  }));
+  $('#codes-print-list').addEventListener('click', printCodesList);
+  $('#codes-print-slips').addEventListener('click', printCodeSlips);
+  loadAccessCodes();
+}
+
+async function loadAccessCodes() {
+  try {
+    const res = await authedFetch('/api/codes');
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Could not load access codes.');
+    codeMembers = data.members || [];
+    renderCodesList();
+  } catch (e) {
+    $('#codes-list').innerHTML = `<p class="codes-empty">⚠ ${esc(e.message)}</p>`;
+  }
+}
+
+function renderCodesList() {
+  const list = visibleCodeMembers();
+  const missing = list.filter((m) => !m.accessCode).length;
+  const families = new Set(list.map((m) => m.accessCode).filter(Boolean)).size;
+  $('#codes-summary').innerHTML = `
+    <span><strong>${list.length}</strong> ${codesScope === 'juniors' ? 'junior athletes' : 'members'}</span>
+    <span><strong>${families}</strong> family codes</span>
+    ${missing ? `<span class="codes-summary__warn"><span class="material-symbols-outlined">warning</span> ${missing} without a code — add one in Notion or run <code>scripts/notion_access_codes.mjs</code></span>` : ''}`;
+
+  const groups = groupByLetter(list);
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('');
+  $('#codes-jump').innerHTML = letters.map((l) => groups.has(l)
+    ? `<a href="#codes-${l === '#' ? 'other' : l}" class="codes-jump__l">${l}</a>`
+    : `<span class="codes-jump__l is-empty" aria-hidden="true">${l}</span>`).join('');
+  $$('#codes-jump a').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+
+  if (!list.length) {
+    $('#codes-list').innerHTML = `<p class="codes-empty">${codeMembers.length ? 'No one matches that search.' : 'No members found.'}</p>`;
+    return;
+  }
+  $('#codes-list').innerHTML = [...groups.entries()].map(([letter, rows]) => `
+    <section class="codes-letter" id="codes-${letter === '#' ? 'other' : letter}">
+      <h2 class="codes-letter__h">${letter}</h2>
+      <table class="codes-table">
+        <thead><tr><th>Surname</th><th>First name</th><th>Age group</th><th>Access code</th><th>Same code</th></tr></thead>
+        <tbody>${rows.map((m) => {
+          const sibs = codeSiblings(m).map((x) => x.firstName || x.name);
+          return `<tr>
+            <td class="codes-table__last">${esc(m.lastName || m.name)}</td>
+            <td>${esc(m.firstName)}</td>
+            <td class="codes-table__muted">${esc(m.ageGroup)}</td>
+            <td>${m.accessCode ? `<span class="code-pill">${esc(formatCode(m.accessCode))}</span>` : '<span class="code-pill code-pill--none">Not assigned</span>'}</td>
+            <td class="codes-table__muted">${sibs.length ? esc(sibs.join(', ')) : '—'}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>
+    </section>`).join('');
+}
+
+/** Opens a print-ready page in a new tab (same approach as the attendance sheet). */
+function openPrintWindow(title, css, body) {
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(title)}</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; margin: 16px; color: #1d1b17; }
+  header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; border-bottom: 2px solid #5b84a8; padding-bottom: 6px; margin-bottom: 10px; }
+  header h1 { font-size: 19px; margin: 0; }
+  header p { margin: 2px 0 0; font-size: 11px; color: #57423b; }
+  .meta { text-align: right; font-size: 11px; color: #57423b; }
+  .code { font-family: 'Courier New', ui-monospace, monospace; font-weight: 700; letter-spacing: .06em; white-space: nowrap; }
+  button.print { margin: 0 0 10px; padding: 8px 16px; font-size: 14px; cursor: pointer; }
+  @media print { button.print { display: none; } @page { size: A4; margin: 11mm; } }
+  ${css}
+</style></head><body>${body}</body></html>`;
+  const w = window.open('', '_blank', 'width=960,height=760');
+  if (!w) { alert('Please allow pop-ups to print the access codes.'); return; }
+  w.document.write(html);
+  w.document.close();
+  w.focus();
+}
+
+function printedOn() {
+  return new Date().toLocaleDateString('en-NZ', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function printCodesList() {
+  const list = visibleCodeMembers();
+  if (!list.length) { alert('Nothing to print yet.'); return; }
+  const groups = groupByLetter(list);
+  const sections = [...groups.entries()].map(([letter, rows]) => `
+    <section class="letter">
+      <h2>${letter}</h2>
+      ${rows.map((m) => {
+        const sibs = codeSiblings(m).map((x) => x.firstName || x.name);
+        return `<div class="row">
+          <span class="who"><strong>${esc(m.lastName || m.name)}</strong>, ${esc(m.firstName)}${sibs.length ? ` <span class="sib">+ ${esc(sibs.join(', '))}</span>` : ''}</span>
+          <span class="code">${m.accessCode ? esc(formatCode(m.accessCode)) : '—'}</span>
+        </div>`;
+      }).join('')}
+    </section>`).join('');
+
+  openPrintWindow('Family access codes — Taupō Athletics', `
+    .cols { column-count: 2; column-gap: 22px; }
+    .letter { break-inside: avoid-column; margin-bottom: 8px; }
+    .letter h2 { font-size: 13px; margin: 0 0 2px; background: #cfe1f0; padding: 2px 6px; break-after: avoid; }
+    .row { display: flex; justify-content: space-between; gap: 8px; font-size: 11.5px; padding: 2px 6px; border-bottom: 1px dotted #dec0b6; break-inside: avoid; }
+    .who { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sib { color: #57423b; font-size: 10.5px; }
+    footer { margin-top: 12px; font-size: 10px; color: #57423b; border-top: 1px solid #dec0b6; padding-top: 6px; }
+  `, `
+    <header>
+      <div><h1>Taupō Athletics — Family access codes</h1>
+      <p>A–Z by surname · ${codesScope === 'juniors' ? 'Junior athletes' : 'All members'} · families enter the code at ${esc(location.host)}/my-results</p></div>
+      <div class="meta">Printed ${esc(printedOn())}<br>${list.length} names</div>
+    </header>
+    <button class="print" onclick="window.print()">🖨 Print / Save as PDF</button>
+    <div class="cols">${sections}</div>
+    <footer>Confidential — keep at the sign-in desk and shred old copies. A code shows that family's results only; never read one out to anyone else.</footer>`);
+}
+
+function printCodeSlips() {
+  const list = visibleCodeMembers().filter((m) => m.accessCode);
+  if (!list.length) { alert('No codes to print yet.'); return; }
+  // One slip per family, ordered by the first child's surname.
+  const families = new Map();
+  for (const m of list) {
+    if (!families.has(m.accessCode)) families.set(m.accessCode, []);
+    families.get(m.accessCode).push(m);
+  }
+  const slips = [...families.keys()].map((code) => {
+    const names = [...new Set(codeMembers.filter((x) => x.accessCode === code).map((x) => x.name))];
+    return `<div class="slip">
+      <div class="brand">Taupō Athletics Club</div>
+      <div class="names">${esc(names.join(' · '))}</div>
+      <div class="label">Your family access code</div>
+      <div class="code big">${esc(formatCode(code))}</div>
+      <div class="how">See results &amp; club nights at <strong>${esc(location.host)}/my-results</strong></div>
+    </div>`;
+  }).join('');
+  openPrintWindow('Access code slips — Taupō Athletics', `
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+    .slip { border: 1px dashed #8b7169; padding: 10px 10px 9px; min-height: 44mm; display: flex; flex-direction: column; gap: 3px; break-inside: avoid; }
+    .brand { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #5b84a8; }
+    .names { font-size: 12px; font-weight: 700; line-height: 1.25; }
+    .label { margin-top: auto; font-size: 9.5px; color: #57423b; text-transform: uppercase; letter-spacing: .06em; }
+    .big { font-size: 20px; }
+    .how { font-size: 9.5px; color: #57423b; }
+    .how strong { white-space: nowrap; }
+  `, `
+    <header>
+      <div><h1>Family access code slips</h1><p>Cut along the dashed lines and hand each family their own slip.</p></div>
+      <div class="meta">Printed ${esc(printedOn())}<br>${families.size} families</div>
+    </header>
+    <button class="print" onclick="window.print()">🖨 Print / Save as PDF</button>
+    <div class="grid">${slips}</div>`);
 }
 
 /** Admin lookup: search a member and see their results + family access code. */

@@ -91,6 +91,7 @@ const { default: checkin } = await import('../api/checkin.mjs');
 const { default: auth } = await import('../api/auth.mjs');
 const { default: attendance } = await import('../api/attendance.mjs');
 const { default: myrecords } = await import('../api/myrecords.mjs');
+const { default: codes } = await import('../api/codes.mjs');
 const { nzToday } = await import('../api/_safety.mjs');
 
 function mockReq(method, url, body, headers = {}) {
@@ -173,7 +174,16 @@ check('my-records: a family code returns that family only', fam.code === 200 && 
 const publicBodies = [pub.body, one.body, two.body, ok.body, fam.body].join('\n');
 check('no public response contains a birth date', !publicBodies.includes('2016-05-01') && !/birth/i.test(publicBodies));
 
-/* ---------- 7. public errors don't leak internals ---------- */
+/* ---------- 7. access-code sheet is admin-only and minimal ---------- */
+
+const anon = await call(codes, mockReq('GET', '/api/codes'));
+check('access codes: refused without an admin session', anon.code === 401, `got ${anon.code}`);
+const sheet = await call(codes, mockReq('GET', '/api/codes', null, admin));
+const surnames = sheet.json.members.map((m) => m.lastName);
+check('access codes: A–Z by surname', JSON.stringify(surnames) === JSON.stringify([...surnames].sort((a, b) => a.localeCompare(b))), surnames.join(','));
+check('access codes: no birth dates or emails', !sheet.body.includes('2016-05-01') && !/birth|email|mobile/i.test(sheet.body));
+
+/* ---------- 8. public errors don't leak internals ---------- */
 
 notionDown = true;
 const leak = await call(myrecords, mockReq('GET', '/api/myrecords?code=CODE0001', null, { 'x-real-ip': '10.0.0.9' }));
