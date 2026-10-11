@@ -5,13 +5,21 @@
  * 1. The macron. The display font was Fraunces, which has no ō (U+014D) glyph
  *    — the browser fell back to synthesising it from "o" plus a combining
  *    macron with the wrong advance width, so the club's own name rendered as
- *    "Taupo¯Athletics Club". Source Serif 4 draws a real ō. Verified in a
- *    screenshot, not assumed.
+ *    "Taupo¯Athletics Club". The display face is now Barlow Condensed, whose
+ *    latin-ext subset draws a real ō. Verified in a screenshot, not assumed.
  * 2. Serving the latin-ext subset ourselves removes a render-blocking
  *    third-party request.
  */
 @import '@fontsource-variable/inter/index.css';
-@import '@fontsource-variable/source-serif-4/index.css';
+/* Display face for the glow-up: heavy condensed, latin-ext for the macron. */
+@import '@fontsource/barlow-condensed/latin-ext-700.css';
+@import '@fontsource/barlow-condensed/latin-700.css';
+@import '@fontsource/barlow-condensed/latin-ext-800.css';
+@import '@fontsource/barlow-condensed/latin-800.css';
+@import '@fontsource/barlow-condensed/latin-ext-900.css';
+@import '@fontsource/barlow-condensed/latin-900.css';
+@import '@fontsource/barlow-condensed/latin-ext-800-italic.css';
+@import '@fontsource/barlow-condensed/latin-800-italic.css';
 
 @tailwind base;
 @tailwind components;
@@ -28,7 +36,7 @@
 
   body {
     /* 16px base — the old 13–14px grey body text failed contrast and legibility. */
-    @apply bg-surface text-on-surface antialiased;
+    @apply bg-cream text-on-surface antialiased;
     font-size: 16px;
     line-height: 1.6;
   }
@@ -53,7 +61,7 @@
 
   /* Alternating band: near-white with a subtle blue-grey tint, not peach. */
   .band-alt {
-    @apply border-y border-outline-variant bg-surface-container-low;
+    @apply border-y border-ink/10 bg-cream-2;
   }
 
   .prose-club p {
@@ -79,5 +87,55 @@
 @keyframes lane-draw {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+/* ============================================================
+   Glow-up utilities
+   ============================================================ */
+@layer components {
+  /* Giant uppercase display type (hero lines, section titles). */
+  .display-xl {
+    @apply font-display font-black uppercase leading-[0.86] tracking-[-0.01em];
+  }
+
+  /* Running-track lanes: terracotta with white lane lines. */
+  .track-lanes {
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent calc(var(--lane, 22px) - 2px),
+        rgba(255, 255, 255, 0.85) calc(var(--lane, 22px) - 2px),
+        rgba(255, 255, 255, 0.85) var(--lane, 22px)
+      ),
+      #c8553d;
+  }
+
+  /* Sixes-style double pinstripe frame, recoloured as lane lines. */
+  .lane-frame {
+    box-shadow:
+      0 0 0 6px #fbf5ea,
+      0 0 0 10px #c8553d,
+      0 0 0 14px #fbf5ea,
+      0 0 0 18px #0c2033;
+  }
+
+  .text-stroke-cream {
+    -webkit-text-stroke: 2px #fbf5ea;
+    color: transparent;
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee,
+    .animate-marquee-fast,
+    .animate-spin-slow {
+      animation: none;
+    }
   }
 }

@@ -74,6 +74,14 @@ export default {
         'surface-cream': '#f7fafc',
         'text-ink': '#1a202c',
 
+        // Glow-up palette (Sixes-inspired, athletics flavoured): deep navy
+        // "night track" ink, cream paper, terracotta running-track lanes.
+        ink: { DEFAULT: '#0c2033', 2: '#12304b', 3: '#1b4466' },
+        cream: { DEFAULT: '#fbf5ea', 2: '#f4ead8' },
+        track: { DEFAULT: '#c8553d', dark: '#9e3d2a' },
+        sky: { soft: '#a9c6de', DEFAULT: '#7fa6cc' },
+        teal: { deep: '#0d4f4a', DEFAULT: '#1f8f84' },
+
         // shadcn-style semantic aliases
         background: '#fcfdfe',
         foreground: '#1a202c',
@@ -103,7 +111,9 @@ export default {
         // 'Variable' suffixes match the @fontsource-variable packages.
         // NOTE: do not go back to Fraunces — it has no ō glyph (see index.css).
         sans: ['Inter Variable', 'Inter', 'system-ui', 'sans-serif'],
-        display: ['Source Serif 4 Variable', 'Source Serif 4', 'Georgia', 'serif'],
+        // Heavy condensed sports face. Barlow Condensed draws a real ō (U+014D)
+        // in its latin-ext subset — checked against "Taupō" in a screenshot.
+        display: ['Barlow Condensed', 'Arial Narrow', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         sm: '0.25rem',
@@ -134,6 +144,11 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(12px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        marquee: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
+        'spin-slow': { to: { transform: 'rotate(360deg)' } },
         'register-pulse': {
           '0%, 70%, 100%': { boxShadow: '0 3px 0 #b8431f, 0 0 0 0 rgba(255,127,80,0.55)' },
           '35%': { boxShadow: '0 3px 0 #b8431f, 0 0 0 10px rgba(255,127,80,0)' },
@@ -142,6 +157,9 @@ export default {
       animation: {
         'fade-in-up': 'fade-in-up 0.5s ease both',
         'register-pulse': 'register-pulse 2.8s ease-in-out infinite',
+        marquee: 'marquee 38s linear infinite',
+        'marquee-fast': 'marquee 22s linear infinite',
+        'spin-slow': 'spin-slow 18s linear infinite',
       },
     },
   },

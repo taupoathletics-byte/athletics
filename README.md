@@ -46,12 +46,44 @@ any alt text or caption on the site.
 
 ## Fonts
 
-Inter and Source Serif 4, self-hosted via `@fontsource-variable`.
+Inter (body) and Barlow Condensed (display), self-hosted via `@fontsource`.
 
-Do not switch the display font back to Fraunces: it has no glyph for `ō`
-(U+014D), so the browser synthesises one and the club's own name renders as
-"Taupo¯Athletics Club". Any replacement display font must be checked against
-the string "Taupō" in a real screenshot before it ships.
+Any display font must draw a real `ō` (U+014D). Fraunces doesn't: the browser
+fakes the glyph and the club's own name renders as "Taupo¯Athletics Club".
+Barlow Condensed's latin-ext subset has the real glyph, checked against "Taupō"
+in a screenshot. Check any replacement the same way before it ships.
+
+## The look (2026 glow-up)
+
+The home page is scroll-driven, inspired by sixescricket.com, with athletics
+kit where Sixes uses cricket balls. Building blocks live in
+`src/components/athletics/`:
+
+| Component | What it does |
+|---|---|
+| `ZoomHero` | Giant headline over three cards; scrolling zooms the promo film to full screen |
+| `NextNightPanel` + `Odometer` | Countdown to the next club night in rolling digits, with times by grade |
+| `ProgrammeCards`, `FeatureBlocks`, `RegisterBanner` | Photo cards and offset blocks on running-track lanes |
+| `LifeStrip` | Pinned horizontal photo strip |
+| `EventBadges`, `WordRows` | Event badges and giant word rows that slide as you scroll |
+| `CrewQuotes` | The committee's own Q&A answers (no invented testimonials) |
+| `icons.tsx` | Shot put, discus, baton, hurdle, stopwatch, rosette, medal, bib |
+
+Every effect respects `prefers-reduced-motion`, and moving marquees pause on
+hover. Scroll animations run on the browser's native ScrollTimeline, so every
+`useTransform` range must span 0→1 with explicit end values. A partial range
+eases back to the start value; see the comment in `ZoomHero.tsx`.
+
+`public/media/promo-loop.mp4` (about 3.5 MB, silent, caption bands cropped) and
+`promo-poster.jpg` are cut from the club's 58 MB `public/promo.mp4`:
+
+```bash
+ffmpeg -ss 33 -t 39 -i public/promo.mp4 -an -vf "crop=iw:ih*0.875:0:0,scale=960:-2,fps=24" \
+  -c:v libx264 -crf 29 -pix_fmt yuv420p -movflags +faststart public/media/promo-loop.mp4
+```
+
+The film only plays while the hero is on screen. It doesn't autoplay for
+reduced-motion or data-saver users, and it has a pause button.
 
 ## Things the committee still needs to confirm
 
