@@ -41,6 +41,13 @@ async function queryAll(dbId, filter) {
 const title = (p) => (p.title || []).map((t) => t.plain_text).join('');
 const richText = (p) => (p.rich_text || []).map((t) => t.plain_text).join('');
 
+// The junior club night is ages ~2–14. Only these two Member Types are the
+// junior athletes; committee, volunteers, social and 15+ competitive members
+// are excluded from the public self check-in.
+const JUNIOR_TYPES = ['Active Member 6 Years and Under', 'Active Member 7 to 14 Years'];
+const memberType = (m) => richText(m.properties['Member Type']);
+const isJunior = (m) => JUNIOR_TYPES.includes(memberType(m));
+
 // Cached member list for the prefix search. The QR poster can be hit by many
 // people in a short window, so we avoid a fresh Notion query on every keystroke.
 let memberCache = null;
@@ -50,7 +57,7 @@ const MEMBER_CACHE_TTL = 5 * 60 * 1000;
 async function listMembers() {
   if (memberCache && Date.now() - memberCacheAt < MEMBER_CACHE_TTL) return memberCache;
   const members = await queryAll(MEMBERS_DB);
-  memberCache = members.map((m) => ({
+  memberCache = members.filter(isJunior).map((m) => ({
     id: m.id,
     name: title(m.properties.Name),
     firstName: richText(m.properties['First Name']) || '',
@@ -121,7 +128,7 @@ export default async function handler(req, res) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return send(res, 400, { error: 'Invalid date.' });
 
   try {
-    const members = await queryAll(MEMBERS_DB);
+    const members = (await queryAll(MEMBERS_DB)).filter(isJunior);
     const results = [];
     let created = 0;
     let already = 0;
