@@ -1,6 +1,8 @@
 // Public lookup: a family enters their access code and sees their own children's
 // records. The code is the only credential — no names, emails or birth dates of
 // anyone else are ever returned. A modest in-memory rate limit slows guessing.
+import { clientIp, publicError } from './_safety.mjs';
+
 export const config = { maxDuration: 60 };
 
 const NOTION = process.env.NOTION_TOKEN;
@@ -67,7 +69,7 @@ export default async function handler(req, res) {
   if (!NOTION) return send(res, 500, { error: 'NOTION_TOKEN is not configured on the server.' });
   if (req.method !== 'GET') return send(res, 405, { error: 'method not allowed' });
 
-  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
+  const ip = clientIp(req);
   const now = Date.now();
   const rec = attempts.get(ip);
   if (rec && now < rec.resetAt && rec.count >= MAX_ATTEMPTS) return send(res, 429, { error: 'Too many attempts. Try again shortly.' });
@@ -121,6 +123,6 @@ export default async function handler(req, res) {
 
     return send(res, 200, { members, records });
   } catch (e) {
-    return send(res, 500, { error: e.message });
+    return publicError(res, send, e);
   }
 }

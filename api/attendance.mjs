@@ -1,6 +1,7 @@
 // Vercel serverless function — proxy for the Get Set Go sign-in desk.
 // Reads/writes Notion so the NOTION_TOKEN never reaches the browser.
 import { requireAdmin } from './_guard.mjs';
+import { isIsoDate, isNotionId } from './_safety.mjs';
 
 export const config = { maxDuration: 60 };
 
@@ -74,6 +75,7 @@ export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
   const url = new URL(req.url, 'https://taupoathletics.vercel.app');
   const date = url.searchParams.get('date') || '';
+  if (date && !isIsoDate(date)) return send(res, 400, { error: 'Invalid date.' });
 
   try {
     if (req.method === 'GET') {
@@ -110,6 +112,11 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
       const body = await readBody(req);
       const { action, memberId, name, date: d, members } = body;
+      if (d && !isIsoDate(d)) return send(res, 400, { error: 'Invalid date.' });
+      if (memberId && !isNotionId(memberId)) return send(res, 400, { error: 'Invalid member id.' });
+      if (Array.isArray(members) && members.some((m) => !isNotionId((m && m.id) || m))) {
+        return send(res, 400, { error: 'Invalid member id.' });
+      }
 
       if (action === 'checkin') {
         if (!d || !Array.isArray(members) || !members.length) {

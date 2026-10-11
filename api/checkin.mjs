@@ -1,11 +1,16 @@
 // Public self check-in for the QR poster.
 //
-// A member types their FULL NAME and is marked present for the given club night.
-// This is deliberately different from the admin check-in:
-//   - a GET prefix search returns only the names that match what has already
-//     been typed — never the full roster and never ages,
+// A family types each child's name, taps it from the suggestions and is marked
+// present for the club night. This is deliberately different from the admin
+// check-in:
+//   - the GET search needs at least two letters, is rate-limited, and returns
+//     first name + surname initial only ("Mia S.") — never full names, ages or
+//     the roster, so the list of children cannot be scraped,
 //   - it only ever ADDS a presence mark (idempotent), never removes one,
+//   - it only accepts a club night from the last week (not any date),
 //   - the POST that actually marks attendance is rate-limited.
+import { clientIp, daysBetween, isIsoDate, isNotionId, nzToday, publicError, rateLimiter } from './_safety.mjs';
+
 export const config = { maxDuration: 60 };
 
 const NOTION = process.env.NOTION_TOKEN;
@@ -57,11 +62,12 @@ const MEMBER_CACHE_TTL = 5 * 60 * 1000;
 async function listMembers() {
   if (memberCache && Date.now() - memberCacheAt < MEMBER_CACHE_TTL) return memberCache;
   const members = await queryAll(MEMBERS_DB);
-  memberCache = members.filter(isJunior).map((m) => ({
-    id: m.id,
-    name: title(m.properties.Name),
-    firstName: richText(m.properties['First Name']) || '',
-  }));
+  memberCache = members.filter(isJunior).map((m) => {
+    const name = title(m.properties.Name);
+    const firstName = richText(m.properties['First Name']) || name.split(' ')[0] || '';
+    const lastName = richText(m.properties['Last Name']) || name.split(' ').slice(1).join(' ');
+    return { id: m.id, name, firstName, label: lastName ? `${firstName} ${lastName.charAt(0).toUpperCase()}.` : firstName };
+  });
   memberCacheAt = Date.now();
   return memberCache;
 }
@@ -82,9 +88,10 @@ function readBody(req) {
   });
 }
 
-const attempts = new Map();
-const WINDOW_MS = 5 * 60 * 1000;
-const MAX_ATTEMPTS = 60;
+// A family of three typing names makes a few dozen lookups at most.
+const searchLimited = rateLimiter({ max: 60, windowMs: 10 * 60 * 1000 });
+const checkinLimited = rateLimiter({ max: 60, windowMs: 5 * 60 * 1000 });
+const MIN_QUERY = 2;
 
 export default async function handler(req, res) {
   if (!NOTION) return send(res, 500, { error: 'NOTION_TOKEN is not configured on the server.' });
@@ -95,49 +102,58 @@ export default async function handler(req, res) {
   // rate limit below.
   if (req.method === 'GET') {
     const url = new URL(req.url, 'https://taupoathletics.vercel.app');
-    const q = String(url.searchParams.get('q') || '').trim().toLowerCase();
-    if (!q) return send(res, 200, { names: [] });
+    const q = String(url.searchParams.get('q') || '').trim().toLowerCase().slice(0, 60);
+    if (q.length < MIN_QUERY) return send(res, 200, { names: [] });
+    if (searchLimited(clientIp(req))) return send(res, 429, { error: 'Too many searches. Ask at the desk.' });
     try {
       const members = await listMembers();
       const names = members
         .filter((m) => m.name.toLowerCase().startsWith(q))
-        .map((m) => ({ name: m.name, firstName: m.firstName }))
         .sort((a, b) => a.name.localeCompare(b.name))
-        .slice(0, 8);
+        .slice(0, 8)
+        // `name` is the masked label kept for older cached clients.
+        .map((m) => ({ id: m.id, label: m.label, name: m.label, firstName: m.firstName }));
       return send(res, 200, { names });
     } catch (e) {
-      return send(res, 500, { error: e.message });
+      return publicError(res, send, e);
     }
   }
 
-  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
-  const now = Date.now();
-  const rec = attempts.get(ip);
-  if (rec && now < rec.resetAt && rec.count >= MAX_ATTEMPTS) return send(res, 429, { error: 'Too many attempts. Ask at the desk.' });
-  if (!rec || now >= rec.resetAt) attempts.set(ip, { count: 1, resetAt: now + WINDOW_MS });
-  else rec.count += 1;
+  if (checkinLimited(clientIp(req))) return send(res, 429, { error: 'Too many attempts. Ask at the desk.' });
 
   const body = await readBody(req);
   // Batch check-in: accept { names: [...] } for a whole family at once, with
   // { name } still accepted for a single member (backward compatible). Names are
   // deduplicated so tapping the same child twice can't double-mark them.
+  // Current clients send { ids } picked from the suggestions. { names } (exact
+  // full names) is still accepted for anyone on an older cached page.
+  const ids = [...new Set((Array.isArray(body.ids) ? body.ids : []).filter(isNotionId))].slice(0, 12);
   const raw = Array.isArray(body.names) ? body.names : (body.name != null ? [body.name] : []);
-  const names = [...new Set(raw.map((n) => String(n || '').trim().toLowerCase()).filter(Boolean))];
+  const names = [...new Set(raw.map((n) => String(n || '').trim().toLowerCase()).filter(Boolean))].slice(0, 12);
   const date = String(body.date || '').trim();
-  if (!names.length) return send(res, 400, { error: 'Enter a name.' });
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return send(res, 400, { error: 'Invalid date.' });
+  if (!ids.length && !names.length) return send(res, 400, { error: 'Enter a name.' });
+  if (!isIsoDate(date)) return send(res, 400, { error: 'Invalid date.' });
+  // Tonight, or the most recent club night if the page was opened late.
+  const age = daysBetween(date, nzToday());
+  if (age < -1 || age > 7) return send(res, 400, { error: 'Check-in is only open for this week’s club night.' });
 
   try {
     const members = (await queryAll(MEMBERS_DB)).filter(isJunior);
+    const wanted = [
+      ...ids.map((id) => ({ key: id, member: members.find((m) => m.id.replace(/-/g, '') === id.replace(/-/g, '').toLowerCase()) })),
+      ...names.map((name) => ({ key: name, member: members.find((m) => title(m.properties.Name).toLowerCase() === name) })),
+    ];
     const results = [];
     let created = 0;
     let already = 0;
-    for (const name of names) {
-      const member = members.find((m) => title(m.properties.Name).toLowerCase() === name);
+    const seen = new Set();
+    for (const { key, member } of wanted) {
       if (!member) {
-        results.push({ name, firstName: null, status: 'notfound' });
+        results.push({ name: isNotionId(key) ? 'Unknown' : key, firstName: null, status: 'notfound' });
         continue;
       }
+      if (seen.has(member.id)) continue;
+      seen.add(member.id);
       const fullName = title(member.properties.Name);
       const firstName = richText(member.properties['First Name']) || fullName.split(' ')[0];
 
@@ -148,7 +164,7 @@ export default async function handler(req, res) {
         ],
       });
       if (existing.length) {
-        results.push({ name: fullName, firstName, status: 'already' });
+        results.push({ name: firstName, firstName, status: 'already' });
         already += 1;
         continue;
       }
@@ -160,11 +176,11 @@ export default async function handler(req, res) {
           Date: { date: { start: date } },
         },
       });
-      results.push({ name: fullName, firstName, status: 'ok' });
+      results.push({ name: firstName, firstName, status: 'ok' });
       created += 1;
     }
     return send(res, 200, { ok: true, created, already, results });
   } catch (e) {
-    return send(res, 500, { error: e.message });
+    return publicError(res, send, e);
   }
 }

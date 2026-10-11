@@ -18,7 +18,8 @@ function clubNightForToday() {
   return clubNights[0]?.iso || today
 }
 
-type Suggestion = { name: string; firstName: string }
+/** The API returns first name + surname initial only — never a full name. */
+type Suggestion = { id: string; label: string; firstName: string }
 type CheckResult = { name: string; firstName: string | null; status: 'ok' | 'already' | 'notfound' }
 
 /**
@@ -40,7 +41,7 @@ export default function CheckIn() {
 
   function search(q: string) {
     window.clearTimeout(debounce.current)
-    if (!q.trim()) {
+    if (q.trim().length < 2) {
       setSuggestions([])
       setOpen(false)
       return
@@ -49,7 +50,7 @@ export default function CheckIn() {
       try {
         const res = await fetch(`/api/checkin?q=${encodeURIComponent(q.trim())}`)
         const json = await res.json().catch(() => ({}))
-        setSuggestions((json.names as Suggestion[]) || [])
+        setSuggestions(((json.names as Suggestion[]) || []).filter((n) => n.id))
         setOpen(true)
       } catch {
         setSuggestions([])
@@ -67,7 +68,7 @@ export default function CheckIn() {
   }, [])
 
   function pick(s: Suggestion) {
-    if (!selected.some((x) => x.name === s.name)) setSelected((prev) => [...prev, s])
+    if (!selected.some((x) => x.id === s.id)) setSelected((prev) => [...prev, s])
     setName('')
     setSuggestions([])
     setOpen(false)
@@ -87,7 +88,7 @@ export default function CheckIn() {
       const res = await fetch('/api/checkin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ names: selected.map((s) => s.name), date: clubNightForToday() }),
+        body: JSON.stringify({ ids: selected.map((s) => s.id), date: clubNightForToday() }),
       })
       const json = await res.json().catch(() => ({}))
       if (!res.ok) {
@@ -132,8 +133,8 @@ export default function CheckIn() {
                 {result.already > 0 ? ` · ${result.already} already in` : ''}
               </h2>
               <ul className="mx-auto mt-4 max-w-xs space-y-1 text-left text-sm">
-                {result.results.map((r) => (
-                  <li key={r.name} className="flex items-center gap-2">
+                {result.results.map((r, i) => (
+                  <li key={`${r.name}-${i}`} className="flex items-center gap-2">
                     <span className="flex-1 truncate text-on-surface">{r.name}</span>
                     {r.status === 'ok' && <span className="text-xs font-semibold text-tertiary">✓ in</span>}
                     {r.status === 'already' && <span className="text-xs font-semibold text-on-surface-variant">already in</span>}
@@ -168,7 +169,7 @@ export default function CheckIn() {
                     setName(e.target.value)
                     search(e.target.value)
                   }}
-                  placeholder="Start typing a name…"
+                  placeholder="Start typing a first name…"
                   autoComplete="off"
                   autoCapitalize="words"
                   autoFocus
@@ -177,13 +178,13 @@ export default function CheckIn() {
                 {open && suggestions.length > 0 && (
                   <ul className="absolute left-0 right-0 top-full z-10 mt-1 max-h-72 overflow-auto rounded-xl border border-outline-variant bg-white py-1 text-left shadow-soft">
                     {suggestions.map((s) => (
-                      <li key={s.name}>
+                      <li key={s.id}>
                         <button
                           type="button"
                           onClick={() => pick(s)}
                           className="w-full px-4 py-2 text-left text-lg text-on-surface transition-colors hover:bg-primary/10"
                         >
-                          {s.name}
+                          {s.label}
                         </button>
                       </li>
                     ))}
@@ -195,14 +196,14 @@ export default function CheckIn() {
                 <div className="mt-4 flex flex-wrap justify-center gap-2">
                   {selected.map((s, i) => (
                     <span
-                      key={s.name}
+                      key={s.id}
                       className="inline-flex items-center gap-1 rounded-full bg-primary-container px-3 py-1 text-sm font-semibold text-on-primary-container"
                     >
-                      {s.firstName || s.name.split(' ')[0]}
+                      {s.label}
                       <button
                         type="button"
                         onClick={() => remove(i)}
-                        aria-label={`Remove ${s.name}`}
+                        aria-label={`Remove ${s.label}`}
                         className="ml-1 font-bold text-on-primary-container/70 transition-colors hover:text-on-primary-container"
                       >
                         ×

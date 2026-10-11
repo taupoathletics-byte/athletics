@@ -1018,7 +1018,9 @@ function renderAdmin() {
     });
   });
 
-  $('#logout-btn').addEventListener('click', () => {
+  $('#logout-btn').addEventListener('click', async () => {
+    // End the session on the server too, so the cookie can't be reused on a shared device.
+    try { await fetch('/api/auth', { method: 'DELETE' }); } catch { /* offline: cookie still expires in 12h */ }
     adminLoggedIn = false;
     adminSection = 'runsheets';
     renderAdmin();

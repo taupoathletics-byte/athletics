@@ -1,5 +1,6 @@
 // Vercel serverless function — read/write the Club Records database (Notion proxy).
 import { hasAdmin, requireAdmin } from './_guard.mjs';
+import { isNotionId, publicError, sameNotionId } from './_safety.mjs';
 
 export const config = { maxDuration: 60 };
 
@@ -8,6 +9,24 @@ const MEMBERS_DB = process.env.MEMBERS_DB_ID || '3e30d85f-784c-81e6-a79b-ca720cb
 const RECORDS_DB = process.env.CLUB_RECORDS_DB_ID || '3e30d85f-784c-81e4-a908-f87400031506';
 
 const TIME_EVENTS = ['60m', '100m', '200m', '400m', '800m', '1500m'];
+
+/** The public board shows the ten best marks per event — and only those leave the server. */
+const PUBLIC_LIMIT = 10;
+
+function publicBoard(records) {
+  const byEvent = {};
+  for (const r of records) {
+    if (r.value == null) continue;
+    (byEvent[r.event] ||= []).push(r);
+  }
+  return Object.values(byEvent).flatMap((rows) =>
+    rows
+      .sort((a, b) => (a.isTime ? a.value - b.value : b.value - a.value))
+      .slice(0, PUBLIC_LIMIT)
+      // No member IDs publicly — just what the board prints.
+      .map(({ id, memberName, event, grade, gender, date, result, value, isTime }) => ({ id, memberName, event, grade, gender, date, result, value, isTime })),
+  );
+}
 
 async function notion(method, path, body) {
   const res = await fetch(`https://api.notion.com/v1${path}`, {
@@ -118,7 +137,9 @@ export default async function handler(req, res) {
         };
       });
 
-      return send(res, 200, isAdmin ? { records, members } : { records });
+      // Publicly, only the top-10-per-event board is sent. Every other result is
+      // personal and stays behind the admin session or the family access code.
+      return send(res, 200, isAdmin ? { records, members } : { records: publicBoard(records) });
     }
 
     if (req.method === 'POST') {
@@ -132,6 +153,7 @@ export default async function handler(req, res) {
       if (body.action === 'bulk') {
         const { event, grade, date, season, results } = body;
         if (!event || !Array.isArray(results)) return send(res, 400, { error: 'event and a results array are required.' });
+        if (results.some((r) => r && r.memberId && !isNotionId(r.memberId))) return send(res, 400, { error: 'invalid member id.' });
         let created = 0;
         const skipped = [];
         for (const r of results) {
@@ -165,13 +187,20 @@ export default async function handler(req, res) {
       // recoverable from Notion's trash.
       if (body.action === 'delete') {
         const { id } = body;
-        if (!id) return send(res, 400, { error: 'record id is required.' });
+        if (!isNotionId(id)) return send(res, 400, { error: 'a valid record id is required.' });
+        // Only ever archive a page that really is a Club Records row — never a
+        // member, lesson or any other page the integration can reach.
+        const page = await notion('GET', `/pages/${id}`);
+        if (!sameNotionId(page.parent && page.parent.database_id, RECORDS_DB)) {
+          return send(res, 400, { error: 'That id is not a club record.' });
+        }
         await notion('PATCH', `/pages/${id}`, { archived: true });
         return send(res, 200, { ok: true });
       }
 
       const { memberId, memberName, event, grade, gender, date, result, season } = body;
       if (!memberId || !event || !result) return send(res, 400, { error: 'memberId, event and result are required.' });
+      if (!isNotionId(memberId)) return send(res, 400, { error: 'invalid member id.' });
 
       const page = await notion('POST', '/pages', {
         parent: { database_id: RECORDS_DB },
@@ -191,6 +220,8 @@ export default async function handler(req, res) {
 
     return send(res, 405, { error: 'method not allowed' });
   } catch (e) {
-    return send(res, 500, { error: e.message });
+    // Admins get the detail (it helps the committee fix Notion); the public does not.
+    if (hasAdmin(req)) return send(res, 500, { error: e.message });
+    return publicError(res, send, e);
   }
 }

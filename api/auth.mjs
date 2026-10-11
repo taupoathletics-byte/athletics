@@ -1,6 +1,7 @@
 // Admin passcode login. Verifies the shared passcode and sets an
 // HttpOnly, Secure, SameSite=Lax session cookie (HMAC-signed, expiring).
 import { createHmac, timingSafeEqual } from 'node:crypto'
+import { clientIp } from './_safety.mjs'
 
 const COOKIE = 'ta_admin'
 const SESSION_HOURS = 12
@@ -52,6 +53,12 @@ function safeEqual(a, b) {
 }
 
 export default async function handler(req, res) {
+  // Logout: expire the cookie on the server. Hiding the portal in the browser is
+  // not enough — the HttpOnly cookie would stay valid for the rest of its 12 hours
+  // on a shared sign-in-desk device.
+  if (req.method === 'DELETE') {
+    return send(res, 200, { ok: true }, { 'Set-Cookie': `${COOKIE}=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0` })
+  }
   if (req.method !== 'POST') return send(res, 405, { error: 'method not allowed' })
 
   const passcode = process.env.ADMIN_PASSCODE
@@ -60,7 +67,7 @@ export default async function handler(req, res) {
     return send(res, 500, { error: 'ADMIN_PASSCODE and SESSION_SECRET must be configured on the server.' })
   }
 
-  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown'
+  const ip = clientIp(req)
   if (rateLimited(ip)) return send(res, 429, { error: 'Too many attempts. Try again shortly.' })
 
   const body = await readBody(req)
