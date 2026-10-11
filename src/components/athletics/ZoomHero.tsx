@@ -1,15 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react'
-import { ArrowDown, Pause, Play } from 'lucide-react'
+import { ArrowDown, Pause, Play, Volume2, VolumeX } from 'lucide-react'
 import { Photo } from '@/components/Photo'
 import { RegisterButton } from '@/components/RegisterButton'
 import { registration } from '@/data/fees'
 import { venue } from '@/data/site'
+import { cn } from '@/lib/utils'
 import { Floater } from './motion'
 
 const VIDEO = '/media/promo-loop.mp4'
 const POSTER = '/media/promo-poster.jpg'
+/** The promo's music is mastered loud; 70% sits comfortably under speech on a phone. */
+const SOUND_VOLUME = 0.7
 
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches)
@@ -42,6 +45,14 @@ export function ZoomHero() {
   const mobile = useMediaQuery('(max-width: 767px)')
   const [playing, setPlaying] = useState(false)
   const [overlayOn, setOverlayOn] = useState(false)
+  // Browsers only allow sound after a tap, so the film always starts muted and
+  // the visitor turns the music on. Refs mirror state for the observers below.
+  const [soundOn, setSoundOn] = useState(false)
+  const [soundTouched, setSoundTouched] = useState(false)
+  const [controlsOn, setControlsOn] = useState(true)
+  const soundRef = useRef(false)
+  const wantPlay = useRef(false)
+  const inView = useRef(false)
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
   // Every range spans the full 0→1 with explicit end values. Motion hands these
@@ -61,30 +72,94 @@ export function ZoomHero() {
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.6, 0.78, 1], [0, 0, 1, 1])
   const hintOpacity = useTransform(scrollYProgress, [0, 0.08, 1], [1, 0, 0])
   useMotionValueEvent(overlayOpacity, 'change', (v) => setOverlayOn(v > 0.05))
+  // The film controls are pinned to the screen (on first load the pinned scene
+  // starts below the announcement bar, which would push them below the fold)
+  // and fade out once the hero starts scrolling away.
+  useMotionValueEvent(scrollYProgress, 'change', (v) => setControlsOn(v < 0.995))
 
-  // Play only while the hero is on screen.
+  /** Play; if the browser refuses audible playback, fall back to muted so the film still runs. */
+  const playSafely = useCallback(async () => {
+    const v = videoRef.current
+    if (!v) return
+    try {
+      await v.play()
+      setPlaying(true)
+    } catch {
+      if (!v.muted) {
+        v.muted = true
+        soundRef.current = false
+        setSoundOn(false)
+        try {
+          await v.play()
+          setPlaying(true)
+          return
+        } catch {
+          /* still refused (e.g. iOS Low Power Mode) — leave it paused */
+        }
+      }
+      setPlaying(false)
+    }
+  }, [])
+
+  // Play only while the hero is on screen and the tab is visible, so the music
+  // never carries on underneath the rest of the page.
   useEffect(() => {
     const el = ref.current
     const video = videoRef.current
-    if (!el || !video || !shouldAutoplay(reduce)) return
+    if (!el || !video) return
+    wantPlay.current = shouldAutoplay(reduce)
     const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) video.play().then(() => setPlaying(true)).catch(() => setPlaying(false))
-      else {
+      inView.current = e.isIntersecting
+      if (e.isIntersecting) {
+        if (wantPlay.current && !document.hidden) playSafely()
+      } else {
         video.pause()
         setPlaying(false)
       }
     })
+    const onVisibility = () => {
+      if (document.hidden) {
+        video.pause()
+        setPlaying(false)
+      } else if (inView.current && wantPlay.current) {
+        playSafely()
+      }
+    }
     io.observe(el)
-    return () => io.disconnect()
-  }, [reduce])
+    document.addEventListener('visibilitychange', onVisibility)
+    return () => {
+      io.disconnect()
+      document.removeEventListener('visibilitychange', onVisibility)
+    }
+  }, [reduce, playSafely])
 
   const toggle = () => {
     const v = videoRef.current
     if (!v) return
-    if (v.paused) v.play().then(() => setPlaying(true)).catch(() => {})
-    else {
+    if (v.paused) {
+      wantPlay.current = true
+      playSafely()
+    } else {
+      wantPlay.current = false
       v.pause()
       setPlaying(false)
+    }
+  }
+
+  // Must change `muted` and call play() inside the tap itself — iOS only
+  // unlocks audio for the gesture that asked for it.
+  const toggleSound = () => {
+    const v = videoRef.current
+    if (!v) return
+    const next = !soundRef.current
+    soundRef.current = next
+    setSoundOn(next)
+    setSoundTouched(true)
+    v.muted = !next
+    if (next) {
+      v.volume = SOUND_VOLUME
+      wantPlay.current = true
+      if (v.paused) playSafely()
     }
   }
 
@@ -104,7 +179,9 @@ export function ZoomHero() {
       className="h-full w-full object-cover"
       src={VIDEO}
       poster={POSTER}
-      muted
+      // Autoplay is muted; with reduced motion nothing autoplays, so the
+      // native controls (and their volume) are left to the visitor.
+      muted={reduce ? false : !soundOn}
       loop
       playsInline
       preload={reduce ? 'none' : 'metadata'}
@@ -189,7 +266,7 @@ export function ZoomHero() {
           style={{ opacity: overlayOpacity, visibility: overlayOn ? 'visible' : 'hidden' }}
           className="absolute inset-x-0 bottom-0 z-20"
         >
-          <div className="container-page pb-12 md:pb-16">
+          <div className="container-page pb-20 md:pb-16">
             <p className="font-display text-lg font-extrabold uppercase tracking-[0.12em] text-coral-active md:text-xl">
               Thursdays · 5:30pm · {venue.name}
             </p>
@@ -217,14 +294,37 @@ export function ZoomHero() {
           Scroll <ArrowDown className="h-4 w-4 animate-bounce" />
         </motion.div>
 
-        <button
-          type="button"
-          onClick={toggle}
-          className="absolute bottom-4 right-4 z-30 grid h-11 w-11 place-items-center rounded-full bg-ink/70 text-cream ring-1 ring-cream/30 backdrop-blur transition-colors hover:bg-ink"
-          aria-label={playing ? 'Pause the club film' : 'Play the club film'}
+        <div
+          // visibility (not just opacity) also takes the buttons out of the tab order once hidden
+          className={cn(
+            'fixed bottom-4 right-4 z-40 flex items-center gap-2 transition-[opacity,visibility] duration-300',
+            controlsOn ? 'visible opacity-100' : 'invisible opacity-0',
+          )}
         >
-          {playing ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
-        </button>
+          <button
+            type="button"
+            onClick={toggleSound}
+            aria-label={soundOn ? 'Mute the club film' : 'Turn the club film’s sound on'}
+            className={cn(
+              'inline-flex h-11 items-center gap-2 rounded-full px-4 font-display text-base font-extrabold uppercase tracking-wide ring-1 backdrop-blur transition-colors',
+              soundOn
+                ? 'bg-ink/70 text-cream ring-cream/30 hover:bg-ink'
+                : 'bg-coral-active text-coral-ink ring-coral-active hover:bg-coral-hover',
+              !soundTouched && 'animate-register-pulse',
+            )}
+          >
+            {soundOn ? <Volume2 className="h-5 w-5" aria-hidden /> : <VolumeX className="h-5 w-5" aria-hidden />}
+            <span aria-hidden>{soundOn ? 'Mute' : 'Sound on'}</span>
+          </button>
+          <button
+            type="button"
+            onClick={toggle}
+            className="grid h-11 w-11 place-items-center rounded-full bg-ink/70 text-cream ring-1 ring-cream/30 backdrop-blur transition-colors hover:bg-ink"
+            aria-label={playing ? 'Pause the club film' : 'Play the club film'}
+          >
+            {playing ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
     </section>
   )

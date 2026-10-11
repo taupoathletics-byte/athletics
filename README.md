@@ -74,16 +74,26 @@ hover. Scroll animations run on the browser's native ScrollTimeline, so every
 `useTransform` range must span 0→1 with explicit end values. A partial range
 eases back to the start value; see the comment in `ZoomHero.tsx`.
 
-`public/media/promo-loop.mp4` (about 3.5 MB, silent, caption bands cropped) and
-`promo-poster.jpg` are cut from the club's 58 MB `public/promo.mp4`:
+`public/media/promo-loop.mp4` (about 4 MB, caption bands cropped, with the
+promo's music) and `promo-poster.jpg` are cut from the club's 58 MB
+`public/promo.mp4`:
 
 ```bash
+# video: 39 s from 0:33, caption band cropped, 960 px
 ffmpeg -ss 33 -t 39 -i public/promo.mp4 -an -vf "crop=iw:ih*0.875:0:0,scale=960:-2,fps=24" \
-  -c:v libx264 -crf 29 -pix_fmt yuv420p -movflags +faststart public/media/promo-loop.mp4
+  -c:v libx264 -crf 29 -pix_fmt yuv420p video.mp4
+# audio: the same 39 s, faded at both ends so the loop doesn't click
+ffmpeg -ss 33 -t 39 -i public/promo.mp4 -vn \
+  -af "afade=t=in:st=0:d=0.8,afade=t=out:st=37.3:d=1.7,loudnorm=I=-18:TP=-1.5:LRA=11" \
+  -c:a aac -b:a 112k audio.m4a
+ffmpeg -i video.mp4 -i audio.m4a -map 0:v -map 1:a -c copy -movflags +faststart public/media/promo-loop.mp4
 ```
 
-The film only plays while the hero is on screen. It doesn't autoplay for
-reduced-motion or data-saver users, and it has a pause button.
+The film always starts **muted**, because browsers block autoplay with sound.
+Visitors tap **Sound on** (bottom-right while the hero is on screen) to hear
+the music. It plays only while the hero is on screen and the tab is visible,
+pausing and resuming automatically. It never autoplays for reduced-motion or
+data-saver users; they get native controls instead.
 
 ## Things the committee still needs to confirm
 
