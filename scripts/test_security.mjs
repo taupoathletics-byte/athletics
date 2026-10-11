@@ -3,7 +3,8 @@
 //
 //   node scripts/test_security.mjs
 //
-// Covers: the public records board only ships the top 10 per event, the public
+// Covers: the public records board only ships the top 10 per event, birthdates
+// never appear in a public response, the public
 // check-in search can't be used to scrape children's names, record delete can
 // only archive a Club Records row, logout really expires the cookie, and bad
 // input can't crash a function.
@@ -165,7 +166,14 @@ check('guard: malformed cookie gives 401, not a crash', junk.code === 401, `got 
 const badDate = await call(attendance, mockReq('GET', '/api/attendance?date=not-a-date', null, admin));
 check('attendance: rejects a bad date', badDate.code === 400, `got ${badDate.code}`);
 
-/* ---------- 6. public errors don't leak internals ---------- */
+/* ---------- 6. birthdates never leave the server publicly ---------- */
+
+const fam = await call(myrecords, mockReq('GET', '/api/myrecords?code=CODE0001', null, { 'x-real-ip': '10.0.0.8' }));
+check('my-records: a family code returns that family only', fam.code === 200 && fam.json.members.length === 1, fam.body);
+const publicBodies = [pub.body, one.body, two.body, ok.body, fam.body].join('\n');
+check('no public response contains a birth date', !publicBodies.includes('2016-05-01') && !/birth/i.test(publicBodies));
+
+/* ---------- 7. public errors don't leak internals ---------- */
 
 notionDown = true;
 const leak = await call(myrecords, mockReq('GET', '/api/myrecords?code=CODE0001', null, { 'x-real-ip': '10.0.0.9' }));

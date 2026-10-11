@@ -37,7 +37,7 @@ export default {
       "Never rigid hurdles, real shots or real discus, high jump flop, or an unsecured overhead beam.",
       "Teach hopping accurately: one foot takes off and the same foot lands."
     ],
-    "athleticsNote": "The Athletics rotation uses the real athletics equipment (long jump pit, high jump mat, running track). Use the games as warm-ups to demonstrate the skill — for example, jump into the long jump pit, then try to beat your previous jump.",
+    "athleticsNote": "The Athletics rotation uses the real athletics equipment (long jump pit, high jump mat with a low elastic — never the high jump pole — and the running track). Use the games as warm-ups to demonstrate the skill — for example, jump into the long jump pit, then try to beat your previous jump.",
     "recordWhatMatters": "Coach each child with a simple Saw / Trying / Next note: what they demonstrated, what they are exploring and one next-step cue. Avoid formal comparisons between children or prescriptive age-based milestones.",
     "warmdown": {
       "name": "Warm-down — Sprints in age groups",
@@ -52,7 +52,7 @@ export default {
       "Each series runs two weeks: the same four rotations both weeks, a fresh challenge and game the second week.",
       "Warm-down is the same every week: sprints in age groups, every child named and cheered.",
       "Never rank children against each other. Each child beats their own cone.",
-      "Beanbags before balls. Foam before real. No rigid hurdles, no real discus, no high jump mats at this age.",
+      "Beanbags before balls. Foam before real. No rigid hurdles, no real discus. High jump uses the mat with a low elastic — never a high jump pole.",
       "3-4 year olds: success first — make the task small enough that they succeed, then grow it."
     ]
   },
@@ -222,7 +222,7 @@ export default {
           "consolidating": "Choose comfortable low elastic height; repeat with a smoother rhythm, land in control.",
           "weekBProgression": "Scissor Rhythm: Discover — Practise stepping over a low elastic and choose the leading foot. Develop — Approach with a few light steps; lead one leg and then second across in scissor action. Apply — Apply arm drive and a more continuous approach while maintaining feet-first landing.",
           "setup": "Stretch a low elastic (never rope) between two cones at ankle-to-knee height, with a clear run-up of flat markers.",
-          "how": "The child runs (or walks) in, scissors one leg over the elastic, then the other, and lands on two feet with knees bent. SAFETY: land on feet only — never on the back, no Fosbury flop, no high jump mats at this age.",
+          "how": "The child runs (or walks) in, scissors one leg over the elastic, then the other, and lands on two feet with knees bent. SAFETY: use the high jump mat with a low elastic — never a high jump pole. Land on feet only — never on the back, no Fosbury flop.",
           "equipment": "1 low elastic, 2 cones, flat markers",
           "adaptation": "Week A: Step over elastic set very low. Week B: Walk-through over a very low elastic.",
           "extension": "Short diagonal run-up only if controlled. Week B: Slightly longer run-in, elastic stays low.",
@@ -1124,7 +1124,7 @@ export default {
       "athleticsEvent": "High jump",
       "manipulative": "Kicking",
       "fitnessCircuit": "Farmyard Fitness",
-      "coachNote": "IMPORTANT: no Fosbury flop, no landing on the back, no high jump mats at this age. Scissor over a low ELASTIC — never a rope — landing on the feet, every time.",
+      "coachNote": "IMPORTANT: no Fosbury flop and no landing on the back. Use the high jump mat with a low ELASTIC — never a rope or a high jump pole. Scissor over and land on the feet, every time.",
       "isFinal": false,
       "weeks": [
         {
@@ -1278,7 +1278,7 @@ export default {
           "consolidating": "Add a gentle arm reach and consistent lead leg while keeping elastic low.",
           "weekBProgression": "High Jump Choices: Discover — Experiment with lead foot over ground marker. Develop — Step-run rhythm to low elastic, lead leg then trailing leg, feet-first landing. Apply — Choose and explain the approach that feels most balanced; optionally vary take-off side.",
           "setup": "Stretch a low elastic (never rope) between two cones at ankle-to-knee height, with a clear run-up of flat markers.",
-          "how": "The child runs (or walks) in, scissors one leg over the elastic, then the other, and lands on two feet with knees bent. SAFETY: land on feet only — never on the back, no Fosbury flop, no high jump mats at this age.",
+          "how": "The child runs (or walks) in, scissors one leg over the elastic, then the other, and lands on two feet with knees bent. SAFETY: use the high jump mat with a low elastic — never a high jump pole. Land on feet only — never on the back, no Fosbury flop.",
           "equipment": "1 low elastic, 2 cones, flat markers",
           "adaptation": "Week A: Step over with no jump. Week B: Walk-over, adult alongside.",
           "extension": "Smooth short approach if controlled. Week B: Short angled run-up with stable landing.",

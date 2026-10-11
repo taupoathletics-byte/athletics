@@ -178,6 +178,10 @@ check(!grid.includes('week-card'), 'week cards should have been removed — seri
 check(grid.includes('class="phase"'), 'no Discovery/Developing/Consolidating phases rendered');
 check(!grid.includes('Run of show'), 'the per-week "Run of show" blocks should have been removed');
 check(grid.includes('long jump pit'), 'the athletics-equipment note is not rendered on Athletics stations');
+// Juniors DO use the high jump mat (with a low elastic, never the pole). Guard
+// against the old contradictory "no high jump mats" wording creeping back in.
+check(!/no high jump mats?/i.test(grid + info), 'run sheets still say "no high jump mats" — juniors use the mat with an elastic');
+check(!/high jump mat(?![^.]*elastic)/i.test(grid + info), 'a high jump mat mention does not say to use the elastic');
 
 for (const needle of ['Discovery', 'Developing', 'Consolidating', 'Week A', 'Week B']) {
   if (!grid.includes(needle)) problems.push(`rendered run sheets are missing "${needle}"`);
