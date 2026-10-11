@@ -1,0 +1,23 @@
+{
+  "source": "Season Schedule Working Document 26/27 — senior (Grade 7+) station rotations. Get Set Go must not run the same athletics event as the seniors on the same night (they share the long jump pit and high jump area).",
+  "nights": [
+    { "date": "2026-10-15", "events": ["Long jump", "Shot put"], "rjt": ["Jump distance", "Run speed", "Throw pushing"], "comments": "First night BBQ" },
+    { "date": "2026-10-22", "events": ["Sprints", "Discus"], "rjt": ["Throw slinging", "Jump height", "Run endurance"], "comments": "" },
+    { "date": "2026-10-29", "events": ["Shot put", "Long jump"], "rjt": ["Run starts", "Throw pulling", "Jump combination jumps"], "comments": "" },
+    { "date": "2026-11-05", "events": ["Discus", "High jump"], "rjt": ["Run speed", "Throw heaving", "Jump distance"], "comments": "7 Nov Whakatāne Ribbon Day" },
+    { "date": "2026-11-12", "events": ["400m", "Long jump", "100m", "Shot put"], "rjt": [], "comments": "Measure night" },
+    { "date": "2026-11-19", "events": ["High jump", "Discus"], "rjt": ["Jump height", "Run relays", "Throw slinging"], "comments": "21 Nov Te Awamutu Ribbon Day" },
+    { "date": "2026-11-26", "events": ["Shot put", "Sprints"], "rjt": ["Throw pushing", "Jump combination jumps", "Run speed"], "comments": "28 Nov Bellevue Greerton Ribbon Day" },
+    { "date": "2026-12-03", "events": ["High jump", "1500m", "60m", "Discus"], "rjt": [], "comments": "Measure night · 5 Dec Paeroa Ribbon Day" },
+    { "date": "2026-12-10", "events": [], "rjt": [], "comments": "Xmas BBQ" },
+    { "date": "2027-02-04", "events": ["High jump", "200m", "Discus"], "rjt": ["Throw pushing", "Jump distance"], "comments": "200m timed (blocks for 10+)" },
+    { "date": "2027-02-11", "events": ["Long jump", "100m", "Shot put"], "rjt": ["Jump height", "Throw slinging"], "comments": "100m timed · Fri 12 Feb Te Aroha Short & Sweet meet" },
+    { "date": "2027-02-18", "events": ["Discus", "Long jump"], "rjt": ["Jump combination jumps", "Run starts", "Throw pulling"], "comments": "20 Feb Cambridge Pentathlon" },
+    { "date": "2027-02-25", "events": ["800m", "Long jump", "Discus"], "rjt": ["Run relays"], "comments": "Measure night · 27 Feb Fairfield Ribbon Day" },
+    { "date": "2027-03-04", "events": ["Shot put", "High jump"], "rjt": ["Jump distance", "Run over obstacles", "Throw pushing"], "comments": "6 & 7 Mar WBOP Children's Champs" },
+    { "date": "2027-03-11", "events": ["Discus", "Long jump", "60m", "High jump"], "rjt": ["Run relays"], "comments": "60m timed (blocks for 10+) · U20 rugby? · WBOP champs 14/15 Mar" },
+    { "date": "2027-03-18", "events": ["Sprints", "Discus"], "rjt": ["Run speed", "Throw slinging", "Jump combination jumps"], "comments": "Timed track — anything missing · U20 rugby?" },
+    { "date": "2027-03-25", "events": [], "rjt": [], "comments": "" },
+    { "date": "2027-04-01", "events": [], "rjt": [], "comments": "Prizegiving" }
+  ]
+}

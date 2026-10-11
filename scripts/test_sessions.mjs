@@ -75,6 +75,58 @@ const withBackup = teaching.flatMap((s) => s.rotations).filter((r) => r.backup);
 const missingSummary = withBackup.filter((r) => !r.backupSummary).map((r) => `${r.backup} (series ${r.series ?? '?'})`);
 check(missingSummary.length === 0, `backup games missing a summary: ${missingSummary.join(', ')}`);
 
+/* ---------- 1b. wording matches the athletics event + senior schedule ---------- */
+
+// Each series runs ONE athletics event. When events were swapped to avoid the
+// seniors (scripts/notion_swap_events.mjs) only Rotation 4 moved, leaving stale
+// labels on Rotations 1–3, the week pages and the series names. Guard all three.
+const EVENT_WORDS = {
+  'long jump': /long[ -]?jump/i,
+  'high jump': /high[ -]?jump/i,
+  hurdles: /hurdl/i,
+  relays: /relay/i,
+};
+const warnings = [];
+for (const s of teaching) {
+  const ev = String(s.athleticsEvent || '').toLowerCase();
+  for (const r of s.rotations) {
+    check(String(r.event || '').toLowerCase() === ev, `series ${s.series} rotation ${r.order} says "${r.event}" but the series event is "${s.athleticsEvent}"`);
+  }
+  for (const [word, re] of Object.entries(EVENT_WORDS)) {
+    if (word !== ev && re.test(s.name)) problems.push(`series ${s.series} is named "${s.name}" but its athletics event is "${s.athleticsEvent}"`);
+  }
+  for (const w of s.weeks || []) {
+    const core = /Core athletics: ([^|]+)/.exec(w.seriesBits || '')?.[1]?.trim().toLowerCase();
+    if (core) check(core === ev, `week ${w.week} says "Core athletics: ${core}" but series ${s.series} is "${s.athleticsEvent}"`);
+  }
+}
+
+// Never the same athletics event as the seniors on the same night.
+const senior = JSON.parse(readFileSync(new URL('./data/senior-schedule-2026-27.json', import.meta.url), 'utf8'));
+const seniorByDate = new Map(senior.nights.map((n) => [n.date, n]));
+const MONTHS = { Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06', Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12' };
+const isoDate = (label) => {
+  const m = /(\d{1,2}) ([A-Z][a-z]{2}) (\d{4})/.exec(label);
+  return m ? `${m[3]}-${MONTHS[m[2]]}-${m[1].padStart(2, '0')}` : null;
+};
+let nightsChecked = 0;
+for (const s of teaching) {
+  const ev = String(s.athleticsEvent || '').toLowerCase();
+  for (const label of s.dates || []) {
+    const date = isoDate(label);
+    const night = date && seniorByDate.get(date);
+    if (!night) {
+      warnings.push(`${label}: Get Set Go night (series ${s.series}) has no entry in the senior schedule`);
+      continue;
+    }
+    nightsChecked++;
+    const clash = night.events.find((e) => e.toLowerCase() === ev);
+    check(!clash, `${label}: Get Set Go series ${s.series} runs ${s.athleticsEvent} — the seniors have ${clash} that night`);
+    const rjt = night.rjt.find((a) => EVENT_WORDS[ev]?.test(a));
+    if (rjt) warnings.push(`${label}: Get Set Go ${s.athleticsEvent} overlaps the seniors' RJT "${rjt}" station — check space/equipment`);
+  }
+}
+
 /* ---------- 2. render ---------- */
 
 /** Mirror the portal's esc() so assertions compare against what is really emitted. */
@@ -165,6 +217,8 @@ console.log('  phases per station:', 3);
 console.log('  week A/B challenges checked:', challenges, `(${totalRotations - challenges / 2} circuits use a fixed course instead)`);
 console.log('  rendered grid:     ', grid.length, 'chars');
 console.log('  rendered info:     ', info.length, 'chars');
+console.log('  senior clash check:', nightsChecked, 'nights vs the 26/27 senior schedule');
+for (const w of warnings) console.log('  note: ' + w);
 
 if (problems.length) {
   console.error('\nFAILED:');
