@@ -217,7 +217,7 @@ function rotationHTML(r) {
       ${r.setup ? `<p><strong>Set up.</strong> ${esc(r.setup)}</p>` : ''}
       ${r.how ? `<p><strong>How to play.</strong> ${esc(r.how)}</p>` : ''}
       ${phases ? `<div class="phases">${phases}</div>` : ''}
-      ${r.weekBProgression ? `<details class="weekb"><summary>Week B progression</summary><p>${esc(r.weekBProgression)}</p></details>` : ''}
+      ${r.weekBProgression ? `<details class="weekb" open><summary>Week B progression</summary><p>${esc(r.weekBProgression)}</p></details>` : ''}
       ${r.adaptation ? `<div class="adaptation"><strong>3–4 year olds:</strong> ${esc(r.adaptation)}</div>` : ''}
       ${r.extension ? `<div class="adaptation adapt-56"><strong>5–6 year extension:</strong> ${esc(r.extension)}</div>` : ''}
       ${r.watchFor ? `<div class="watchfor"><strong>Watch for:</strong> ${esc(r.watchFor)}</div>` : ''}

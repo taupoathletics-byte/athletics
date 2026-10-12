@@ -27,7 +27,7 @@ Notion and runs offline):
 | # | Severity | Finding | Fix |
 |---|---|---|---|
 | 1 | High | `GET /api/records` sent **every result for every child** (full names, grades, dates, member IDs) to anyone. The Club Records page only *displayed* the top 10, but the filtering happened in the browser. | The server now sends the public only the top 10 per event, without member IDs. Admins still get everything. |
-| 2 | High | The public check-in search (`/api/checkin?q=`) accepted one-letter searches with no rate limit, returning full names. About 700 requests would list every junior member's full name. | At least 2 letters, 60 searches per 10 min per IP, and results show the first name and surname initial only ("Mia S."). Check-in now submits the picked member IDs. |
+| 2 | High | The public check-in search (`/api/checkin?q=`) accepted one-letter searches with no rate limit, returning full names. About 700 requests would list every junior member's full name. | At least 2 letters, 60 searches per 10 min per IP, and check-in submits the picked member IDs. Names now show first + last name (committee decision, so a parent can tell their children apart); ages and the full roster are still never returned. |
 | 3 | Medium | Logout didn't invalidate the session cookie (see above). | Server-side logout. |
 | 4 | Medium | Record delete archived **any** Notion page ID it was given, and the ID went into the URL path unchecked (`../blocks/…`). | The ID must be a Notion ID, and the page must belong to the Club Records database. |
 | 5 | Low | Public check-in accepted any date. | Only this week's club night (today, or up to 7 days back). |

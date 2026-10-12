@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-10-08T04:51:05.608Z",
+  "pulledAt": "2026-10-12T06:21:19.186Z",
   "source": {
     "lessonsPage": "3f30d85f-784c-810a-9a86-d6fb222ecb7f",
     "seasonPlanDb": "431cfcb0-636f-4e23-bcc6-d6782fe125b0",
@@ -56,28 +56,28 @@
       [
         "1",
         "1–2",
-        "High jump",
+        "Long jump",
         "Underarm throwing",
         "Running, introductory hopping and balance"
       ],
       [
         "2",
         "3–4",
-        "Hurdles",
+        "High jump",
         "Catching",
         "Jumping for height, hopping and balance"
       ],
       [
         "3",
         "5–6",
-        "Relays",
+        "Hurdles",
         "Overarm throwing",
         "Dodging, agility and balance"
       ],
       [
         "4",
         "7–8",
-        "Long jump",
+        "Relays",
         "Kicking",
         "Skipping rhythm, sprinting and balance"
       ],
@@ -91,14 +91,14 @@
       [
         "6",
         "11–12",
-        "Hurdles",
+        "High jump",
         "Catching",
         "Chest passing/push throw and balance"
       ],
       [
         "7",
         "13–14",
-        "High jump",
+        "Hurdles",
         "Kicking",
         "Dodging, galloping and hopping"
       ],
@@ -131,7 +131,7 @@
       "title": "Week 01 — Finding our feet (Discover)",
       "phase": "Discover",
       "header": "Get Set Go · Week 1 · 15 October 2026 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 1: Finding our feet | Core athletics: High jump | Object skill: Underarm throwing | A — Discover and practise",
+      "seriesBits": "Series 1: Finding our feet | Core athletics: Long jump | Object skill: Underarm throwing | A — Discover and practise",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Traffic Lights. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -144,7 +144,7 @@
         "Rotation 1 — MOVEMENT GAME: Traffic Lights",
         "Rotation 2 — OBJECT SKILL: Circus Throws",
         "Rotation 3 — FITNESS AND BALANCE: Animal Trail",
-        "Rotation 4 — ATHLETICS EVENT: Scissor Basics",
+        "Rotation 4 — ATHLETICS EVENT: Jump and Freeze",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -155,7 +155,7 @@
       "title": "Week 02 — Finding our feet (Apply)",
       "phase": "Apply",
       "header": "Get Set Go · Week 2 · 22 October 2026 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 1: Finding our feet | Core athletics: High jump | Object skill: Underarm throwing | B — Apply and extend",
+      "seriesBits": "Series 1: Finding our feet | Core athletics: Long jump | Object skill: Underarm throwing | B — Apply and extend",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Octopus. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -168,7 +168,7 @@
         "Rotation 1 — MOVEMENT GAME: Octopus",
         "Rotation 2 — OBJECT SKILL: Bin It",
         "Rotation 3 — FITNESS AND BALANCE: Animal Trail",
-        "Rotation 4 — ATHLETICS EVENT: Scissor Rhythm",
+        "Rotation 4 — ATHLETICS EVENT: Beat Your Own Marker",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -179,7 +179,7 @@
       "title": "Week 03 — Catch and leap (Discover)",
       "phase": "Discover",
       "header": "Get Set Go · Week 3 · 29 October 2026 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 2: Catch and leap | Core athletics: Hurdles | Object skill: Catching | A — Discover and practise",
+      "seriesBits": "Series 2: Catch and leap | Core athletics: High jump | Object skill: Catching | A — Discover and practise",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Jumping Beans. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -192,7 +192,7 @@
         "Rotation 1 — MOVEMENT GAME: Jumping Beans",
         "Rotation 2 — OBJECT SKILL: Clever Catchers — floaters",
         "Rotation 3 — FITNESS AND BALANCE: Jungle Jaunt",
-        "Rotation 4 — ATHLETICS EVENT: Step and Run — hurdles",
+        "Rotation 4 — ATHLETICS EVENT: Scissor Basics",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -203,7 +203,7 @@
       "title": "Week 04 — Catch and leap (Apply)",
       "phase": "Apply",
       "header": "Get Set Go · Week 4 · 5 November 2026 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 2: Catch and leap | Core athletics: Hurdles | Object skill: Catching | B — Apply and extend",
+      "seriesBits": "Series 2: Catch and leap | Core athletics: High jump | Object skill: Catching | B — Apply and extend",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Beanbag Hop. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -216,7 +216,7 @@
         "Rotation 1 — MOVEMENT GAME: Beanbag Hop",
         "Rotation 2 — OBJECT SKILL: Clever Catchers — moving",
         "Rotation 3 — FITNESS AND BALANCE: Jungle Jaunt",
-        "Rotation 4 — ATHLETICS EVENT: Hurdle Rhythm",
+        "Rotation 4 — ATHLETICS EVENT: Scissor Rhythm",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -224,10 +224,10 @@
     },
     {
       "week": 5,
-      "title": "Week 05 — Dodge, throw and relay (Discover)",
+      "title": "Week 05 — Dodge, throw and hurdle (Discover)",
       "phase": "Discover",
       "header": "Get Set Go · Week 5 · 12 November 2026 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 3: Dodge, throw and relay | Core athletics: Relays | Object skill: Overarm throwing | A — Discover and practise",
+      "seriesBits": "Series 3: Dodge, throw and hurdle | Core athletics: Hurdles | Object skill: Overarm throwing | A — Discover and practise",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Circle Dodge Ball. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -240,7 +240,7 @@
         "Rotation 1 — MOVEMENT GAME: Circle Dodge Ball",
         "Rotation 2 — OBJECT SKILL: Force Back — beanbags",
         "Rotation 3 — FITNESS AND BALANCE: Superhero Training",
-        "Rotation 4 — ATHLETICS EVENT: Half-and-Half Relays",
+        "Rotation 4 — ATHLETICS EVENT: Step and Run — hurdles",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -248,10 +248,10 @@
     },
     {
       "week": 6,
-      "title": "Week 06 — Dodge, throw and relay (Apply)",
+      "title": "Week 06 — Dodge, throw and hurdle (Apply)",
       "phase": "Apply",
       "header": "Get Set Go · Week 6 · 19 November 2026 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 3: Dodge, throw and relay | Core athletics: Relays | Object skill: Overarm throwing | B — Apply and extend",
+      "seriesBits": "Series 3: Dodge, throw and hurdle | Core athletics: Hurdles | Object skill: Overarm throwing | B — Apply and extend",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Dragon's Tail. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -264,7 +264,7 @@
         "Rotation 1 — MOVEMENT GAME: Dragon's Tail",
         "Rotation 2 — OBJECT SKILL: Long Chase Ball",
         "Rotation 3 — FITNESS AND BALANCE: Superhero Training",
-        "Rotation 4 — ATHLETICS EVENT: Move and Exchange",
+        "Rotation 4 — ATHLETICS EVENT: Hurdle Rhythm",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -275,7 +275,7 @@
       "title": "Week 07 — Kick and pass (Discover)",
       "phase": "Discover",
       "header": "Get Set Go · Week 7 · 26 November 2026 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 4: Kick and pass | Core athletics: Long jump | Object skill: Kicking | A — Discover and practise",
+      "seriesBits": "Series 4: Kick and pass | Core athletics: Relays | Object skill: Kicking | A — Discover and practise",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Dead Ants. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -288,7 +288,7 @@
         "Rotation 1 — MOVEMENT GAME: Dead Ants",
         "Rotation 2 — OBJECT SKILL: Partner Kicking",
         "Rotation 3 — FITNESS AND BALANCE: Pirate Island",
-        "Rotation 4 — ATHLETICS EVENT: Jump and Freeze",
+        "Rotation 4 — ATHLETICS EVENT: Half-and-Half Relays",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -299,7 +299,7 @@
       "title": "Week 08 — Kick and pass (Apply)",
       "phase": "Apply",
       "header": "Get Set Go · Week 8 · 3 December 2026 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 4: Kick and pass | Core athletics: Long jump | Object skill: Kicking | B — Apply and extend",
+      "seriesBits": "Series 4: Kick and pass | Core athletics: Relays | Object skill: Kicking | B — Apply and extend",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Skipping Experiments. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -312,7 +312,7 @@
         "Rotation 1 — MOVEMENT GAME: Skipping Experiments",
         "Rotation 2 — OBJECT SKILL: Crazy Kickers",
         "Rotation 3 — FITNESS AND BALANCE: Pirate Island",
-        "Rotation 4 — ATHLETICS EVENT: Beat Your Own Marker",
+        "Rotation 4 — ATHLETICS EVENT: Move and Exchange",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -371,7 +371,7 @@
       "title": "Week 11 — Catch and push (Discover)",
       "phase": "Discover",
       "header": "Get Set Go · Week 11 · 4 February 2027 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 6: Catch and push | Core athletics: Hurdles | Object skill: Catching | A — Discover and practise",
+      "seriesBits": "Series 6: Catch and push | Core athletics: High jump | Object skill: Catching | A — Discover and practise",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Cat & Mouse. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -384,7 +384,7 @@
         "Rotation 1 — MOVEMENT GAME: Cat & Mouse",
         "Rotation 2 — OBJECT SKILL: Clever Catchers — return",
         "Rotation 3 — FITNESS AND BALANCE: Space Station",
-        "Rotation 4 — ATHLETICS EVENT: Step and Run — recap",
+        "Rotation 4 — ATHLETICS EVENT: Scissor Jump Review",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -395,7 +395,7 @@
       "title": "Week 12 — Catch and push (Apply)",
       "phase": "Apply",
       "header": "Get Set Go · Week 12 · 11 February 2027 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 6: Catch and push | Core athletics: Hurdles | Object skill: Catching | B — Apply and extend",
+      "seriesBits": "Series 6: Catch and push | Core athletics: High jump | Object skill: Catching | B — Apply and extend",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Push Throw Hoop. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -408,7 +408,7 @@
         "Rotation 1 — MOVEMENT GAME: Push Throw Hoop",
         "Rotation 2 — OBJECT SKILL: Catch and Chase",
         "Rotation 3 — FITNESS AND BALANCE: Space Station",
-        "Rotation 4 — ATHLETICS EVENT: Hurdle Trail",
+        "Rotation 4 — ATHLETICS EVENT: High Jump Choices",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -416,10 +416,10 @@
     },
     {
       "week": 13,
-      "title": "Week 13 — Kick, dodge and leap (Discover)",
+      "title": "Week 13 — Kick, dodge and hurdle (Discover)",
       "phase": "Discover",
       "header": "Get Set Go · Week 13 · 18 February 2027 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 7: Kick, dodge and leap | Core athletics: High jump | Object skill: Kicking | A — Discover and practise",
+      "seriesBits": "Series 7: Kick, dodge and hurdle | Core athletics: Hurdles | Object skill: Kicking | A — Discover and practise",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Ballrush — change directions. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -432,7 +432,7 @@
         "Rotation 1 — MOVEMENT GAME: Ballrush — change directions",
         "Rotation 2 — OBJECT SKILL: Crazy Kickers — control",
         "Rotation 3 — FITNESS AND BALANCE: Farmyard Fitness",
-        "Rotation 4 — ATHLETICS EVENT: Scissor Jump Review",
+        "Rotation 4 — ATHLETICS EVENT: Step and Run — recap",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -440,10 +440,10 @@
     },
     {
       "week": 14,
-      "title": "Week 14 — Kick, dodge and leap (Apply)",
+      "title": "Week 14 — Kick, dodge and hurdle (Apply)",
       "phase": "Apply",
       "header": "Get Set Go · Week 14 · 25 February 2027 · 5:30–6:30 pm · Ages 3–6",
-      "seriesBits": "Series 7: Kick, dodge and leap | Core athletics: High jump | Object skill: Kicking | B — Apply and extend",
+      "seriesBits": "Series 7: Kick, dodge and hurdle | Core athletics: Hurdles | Object skill: Kicking | B — Apply and extend",
       "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
       "runOfShow": [
         "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Dragons Tail — dodge. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -456,7 +456,7 @@
         "Rotation 1 — MOVEMENT GAME: Dragons Tail — dodge",
         "Rotation 2 — OBJECT SKILL: Partner Kicking — accuracy",
         "Rotation 3 — FITNESS AND BALANCE: Farmyard Fitness",
-        "Rotation 4 — ATHLETICS EVENT: High Jump Choices",
+        "Rotation 4 — ATHLETICS EVENT: Hurdle Trail",
         "Equipment / setup checklist",
         "Inclusion and safety",
         "Coach observation (Saw / Trying / Next)"
@@ -585,7 +585,7 @@
       "term": "Term 4",
       "weeks": "1 & 2",
       "dates": "Thu 15 Oct 2026 · Thu 22 Oct 2026",
-      "athleticsEvent": "High jump",
+      "athleticsEvent": "Long jump",
       "manipulative": "Underarm throwing",
       "fitnessCircuit": "Animal Trail",
       "game": "Traffic Lights / Octopus",
@@ -598,7 +598,7 @@
       "term": "Term 4",
       "weeks": "3 & 4",
       "dates": "Thu 29 Oct 2026 · Thu 5 Nov 2026",
-      "athleticsEvent": "Hurdles",
+      "athleticsEvent": "High jump",
       "manipulative": "Catching",
       "fitnessCircuit": "Jungle Jaunt",
       "game": "Jumping Beans / Beanbag Hop",
@@ -607,11 +607,11 @@
     },
     {
       "series": 3,
-      "name": "Series 3 — Dodge, throw and relay",
+      "name": "Series 3 — Dodge, throw and hurdle",
       "term": "Term 4",
       "weeks": "5 & 6",
       "dates": "Thu 12 Nov 2026 · Thu 19 Nov 2026",
-      "athleticsEvent": "Relays",
+      "athleticsEvent": "Hurdles",
       "manipulative": "Overarm throwing",
       "fitnessCircuit": "Superhero Training",
       "game": "Circle Dodge Ball / Dragon's Tail",
@@ -624,7 +624,7 @@
       "term": "Term 4",
       "weeks": "7 & 8",
       "dates": "Thu 26 Nov 2026 · Thu 3 Dec 2026",
-      "athleticsEvent": "Long jump",
+      "athleticsEvent": "Relays",
       "manipulative": "Kicking",
       "fitnessCircuit": "Pirate Island",
       "game": "Dead Ants / Skipping Experiments",
@@ -650,7 +650,7 @@
       "term": "Term 1",
       "weeks": "11 & 12",
       "dates": "Thu 4 Feb 2027 · Thu 11 Feb 2027",
-      "athleticsEvent": "Hurdles",
+      "athleticsEvent": "High jump",
       "manipulative": "Catching",
       "fitnessCircuit": "Space Station",
       "game": "Cat & Mouse / Push Throw Hoop",
@@ -659,11 +659,11 @@
     },
     {
       "series": 7,
-      "name": "Series 7 — Kick, dodge and leap",
+      "name": "Series 7 — Kick, dodge and hurdle",
       "term": "Term 1",
       "weeks": "13 & 14",
       "dates": "Thu 18 Feb 2027 · Thu 25 Feb 2027",
-      "athleticsEvent": "High jump",
+      "athleticsEvent": "Hurdles",
       "manipulative": "Kicking",
       "fitnessCircuit": "Farmyard Fitness",
       "game": "Ballrush / Dragon's Tail",
@@ -721,7 +721,7 @@
       "category": "Game",
       "skill": "Running",
       "ledBy": "Parent helper",
-      "event": "High jump",
+      "event": "Long jump",
       "skillsCovered": [
         "Running",
         "Dodging"
@@ -760,7 +760,7 @@
       "category": "Manipulative",
       "skill": "Underarm throwing",
       "ledBy": "Coach",
-      "event": "High jump",
+      "event": "Long jump",
       "skillsCovered": [
         "Underarm Throwing"
       ],
@@ -798,7 +798,7 @@
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
       "ledBy": "Parent helper",
-      "event": "High jump",
+      "event": "Long jump",
       "skillsCovered": [
         "Balance",
         "Jumping",
@@ -838,7 +838,7 @@
       "category": "Athletics",
       "skill": "Jumping for height",
       "ledBy": "Coach",
-      "event": "High jump",
+      "event": "Long jump",
       "skillsCovered": [
         "Jumping"
       ],
@@ -876,7 +876,7 @@
       "category": "Game",
       "skill": "Jumping for height",
       "ledBy": "Parent helper",
-      "event": "Hurdles",
+      "event": "High jump",
       "skillsCovered": [
         "Jumping",
         "Hopping"
@@ -915,7 +915,7 @@
       "category": "Manipulative",
       "skill": "Catching",
       "ledBy": "Coach",
-      "event": "Hurdles",
+      "event": "High jump",
       "skillsCovered": [
         "Catching"
       ],
@@ -953,7 +953,7 @@
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
       "ledBy": "Parent helper",
-      "event": "Hurdles",
+      "event": "High jump",
       "skillsCovered": [
         "Balance",
         "Jumping"
@@ -992,7 +992,7 @@
       "category": "Athletics",
       "skill": "Hurdling",
       "ledBy": "Coach",
-      "event": "Hurdles",
+      "event": "High jump",
       "skillsCovered": [
         "Hurdling",
         "Running"
@@ -1031,7 +1031,7 @@
       "category": "Game",
       "skill": "Dodging",
       "ledBy": "Parent helper",
-      "event": "Relays",
+      "event": "Hurdles",
       "skillsCovered": [
         "Dodging",
         "Running"
@@ -1070,7 +1070,7 @@
       "category": "Manipulative",
       "skill": "Overarm throwing",
       "ledBy": "Coach",
-      "event": "Relays",
+      "event": "Hurdles",
       "skillsCovered": [
         "Overarm Throwing"
       ],
@@ -1108,7 +1108,7 @@
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
       "ledBy": "Parent helper",
-      "event": "Relays",
+      "event": "Hurdles",
       "skillsCovered": [
         "Balance",
         "Jumping"
@@ -1147,7 +1147,7 @@
       "category": "Athletics",
       "skill": "Relay changeover",
       "ledBy": "Coach",
-      "event": "Relays",
+      "event": "Hurdles",
       "skillsCovered": [
         "Relay Changeover",
         "Running"
@@ -1186,7 +1186,7 @@
       "category": "Game",
       "skill": "Running",
       "ledBy": "Parent helper",
-      "event": "Long jump",
+      "event": "Relays",
       "skillsCovered": [
         "Running",
         "Skipping",
@@ -1226,7 +1226,7 @@
       "category": "Manipulative",
       "skill": "Kicking",
       "ledBy": "Coach",
-      "event": "Long jump",
+      "event": "Relays",
       "skillsCovered": [
         "Kicking"
       ],
@@ -1264,7 +1264,7 @@
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
       "ledBy": "Parent helper",
-      "event": "Long jump",
+      "event": "Relays",
       "skillsCovered": [
         "Balance",
         "Jumping"
@@ -1303,7 +1303,7 @@
       "category": "Athletics",
       "skill": "Jumping for distance",
       "ledBy": "Coach",
-      "event": "Long jump",
+      "event": "Relays",
       "skillsCovered": [
         "Jumping"
       ],
@@ -1495,7 +1495,7 @@
       "category": "Game",
       "skill": "Running",
       "ledBy": "Parent helper",
-      "event": "Hurdles",
+      "event": "High jump",
       "skillsCovered": [
         "Running",
         "Chest Passing"
@@ -1534,7 +1534,7 @@
       "category": "Manipulative",
       "skill": "Catching",
       "ledBy": "Coach",
-      "event": "Hurdles",
+      "event": "High jump",
       "skillsCovered": [
         "Catching"
       ],
@@ -1572,7 +1572,7 @@
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
       "ledBy": "Parent helper",
-      "event": "Hurdles",
+      "event": "High jump",
       "skillsCovered": [
         "Balance",
         "Jumping"
@@ -1611,7 +1611,7 @@
       "category": "Athletics",
       "skill": "Hurdling",
       "ledBy": "Coach",
-      "event": "Hurdles",
+      "event": "High jump",
       "skillsCovered": [
         "Hurdling",
         "Running"
@@ -1650,7 +1650,7 @@
       "category": "Game",
       "skill": "Running",
       "ledBy": "Parent helper",
-      "event": "High jump",
+      "event": "Hurdles",
       "skillsCovered": [
         "Running",
         "Dodging"
@@ -1689,7 +1689,7 @@
       "category": "Manipulative",
       "skill": "Kicking",
       "ledBy": "Coach",
-      "event": "High jump",
+      "event": "Hurdles",
       "skillsCovered": [
         "Kicking"
       ],
@@ -1727,7 +1727,7 @@
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
       "ledBy": "Parent helper",
-      "event": "High jump",
+      "event": "Hurdles",
       "skillsCovered": [
         "Balance",
         "Skipping",
@@ -1768,7 +1768,7 @@
       "category": "Athletics",
       "skill": "Jumping for height",
       "ledBy": "Coach",
-      "event": "High jump",
+      "event": "Hurdles",
       "skillsCovered": [
         "Jumping"
       ],

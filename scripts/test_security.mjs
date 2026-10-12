@@ -5,9 +5,9 @@
 //
 // Covers: the public records board only ships the top 10 per event, birthdates
 // never appear in a public response, the public
-// check-in search can't be used to scrape children's names, record delete can
-// only archive a Club Records row, logout really expires the cookie, and bad
-// input can't crash a function.
+// check-in search is rate-limited (full names shown, but no ages or roster),
+// record delete can only archive a Club Records row, logout really expires the
+// cookie, and bad input can't crash a function.
 process.env.NOTION_TOKEN = 'fake-token';
 process.env.ADMIN_PASSCODE = 'test-pass-123';
 process.env.SESSION_SECRET = 'test-secret-abc';
@@ -132,14 +132,14 @@ const one = await call(checkin, mockReq('GET', '/api/checkin?q=a', null, { 'x-re
 check('check-in search: one letter returns nothing', one.json.names.length === 0);
 const two = await call(checkin, mockReq('GET', '/api/checkin?q=ar', null, { 'x-real-ip': '10.0.0.1' }));
 check('check-in search: two letters match', two.json.names.length === 3, JSON.stringify(two.json));
-check('check-in search: surnames masked to an initial', !/Anderson|Archer|Adams/.test(two.body) && two.json.names.some((n) => n.label === 'Arlo A.'), two.body);
+check('check-in search: shows full names', two.json.names.some((n) => n.label === 'Arlo Archer'), two.body);
 let last;
 for (let i = 0; i < 61; i++) last = await call(checkin, mockReq('GET', '/api/checkin?q=br', null, { 'x-real-ip': '10.0.0.2' }));
 check('check-in search: rate-limited per IP', last.code === 429, `got ${last.code}`);
 
 /* ---------- 3. public check-in submit ---------- */
 
-const ari = two.json.names.find((n) => n.label === 'Ari A.');
+const ari = two.json.names.find((n) => n.label === 'Ari Anderson');
 const ok = await call(checkin, mockReq('POST', '/api/checkin', JSON.stringify({ ids: [ari.id], date: nzToday() }), { 'x-real-ip': '10.0.0.3' }));
 check('check-in submit: by id works', ok.code === 200 && ok.json.created === 1, ok.body);
 check('check-in submit: response does not echo full names', !/Anderson/.test(ok.body), ok.body);

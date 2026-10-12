@@ -101,10 +101,10 @@ export default async function handler(req, res) {
             present: presentIds.has(m.id),
           };
         })
-        // Only the junior athletes (ages ~2–14) check in. This excludes committee
-        // members, volunteers, social members AND the 15+ competitive members,
-        // so the desk search, count and printed sheet show the junior club night.
-        .filter((m) => m.memberType === 'Active Member 6 Years and Under' || m.memberType === 'Active Member 7 to 14 Years')
+        // Show every active athlete — all "Active Member …" types, ages 2 and up.
+        // This excludes committee members, volunteers and social members, but
+        // keeps the 15+ competitive athletes on the desk search and printed sheet.
+        .filter((m) => String(m.memberType || '').startsWith('Active'))
         .sort((a, b) => a.name.localeCompare(b.name));
       return send(res, 200, { date, members: list, total: list.length });
     }

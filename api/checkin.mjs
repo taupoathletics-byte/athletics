@@ -3,9 +3,9 @@
 // A family types each child's name, taps it from the suggestions and is marked
 // present for the club night. This is deliberately different from the admin
 // check-in:
-//   - the GET search needs at least two letters, is rate-limited, and returns
-//     first name + surname initial only ("Mia S.") — never full names, ages or
-//     the roster, so the list of children cannot be scraped,
+//   - the GET search needs at least two letters and is rate-limited. It shows
+//     first and last name so a parent can tell their children apart, but never
+//     returns ages or the full roster, so the list cannot be scraped in bulk.
 //   - it only ever ADDS a presence mark (idempotent), never removes one,
 //   - it only accepts a club night from the last week (not any date),
 //   - the POST that actually marks attendance is rate-limited.
@@ -66,7 +66,7 @@ async function listMembers() {
     const name = title(m.properties.Name);
     const firstName = richText(m.properties['First Name']) || name.split(' ')[0] || '';
     const lastName = richText(m.properties['Last Name']) || name.split(' ').slice(1).join(' ');
-    return { id: m.id, name, firstName, label: lastName ? `${firstName} ${lastName.charAt(0).toUpperCase()}.` : firstName };
+    return { id: m.id, name, firstName, label: lastName ? `${firstName} ${lastName}` : firstName };
   });
   memberCacheAt = Date.now();
   return memberCache;
