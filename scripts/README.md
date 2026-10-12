@@ -17,13 +17,16 @@ npm run dev                              # portal at /getsetgo/
 
 | Script | What it does |
 |---|---|
-| `notion_pull_lessons.mjs` | Pulls the 19-week lesson programme from Notion into `data/lessons.json`. Read-only. |
+| `notion_pull_lessons.mjs` | Pulls the weekly lesson pages + Series Rotations board from Notion and merges them with the local `data/series-meta.json` into `data/lessons.json`. Read-only. |
 | `build_sessions.mjs` | Turns `data/lessons.json` + `data/season-extras.json` into the gated `api/_data/sessions.mjs`. |
 
 **Sources of truth**
 
 - Per-week and per-rotation lesson content: **Notion** (the *Get Set Go — 19 Weekly Lessons (2026–27)*
-  page, *Get Set Go 2026/27 — Season Plan*, and *Get Set Go — Series Rotations* boards).
+  page and the *Get Set Go — Series Rotations* board).
+- Series-level metadata (name, term, dates, coach note, circuit): **`data/series-meta.json`** — the old
+  *Season Plan* database was deleted, so its static fields live here. Only the athletics event is read
+  fresh from Notion (the overview table on the lessons page) so an event swap is picked up automatically.
 - The warm-down and standing rules: **`data/season-extras.json`** — these are NOT in Notion, so they are
   edited by hand.
 - `data/lessons.json` is committed on purpose. If a pull goes wrong, the fix is a revert, not a re-pull.

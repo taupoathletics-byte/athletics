@@ -1,8 +1,7 @@
 {
-  "pulledAt": "2026-10-12T06:21:19.186Z",
+  "pulledAt": "2026-10-12T18:53:18.271Z",
   "source": {
     "lessonsPage": "3f30d85f-784c-810a-9a86-d6fb222ecb7f",
-    "seasonPlanDb": "431cfcb0-636f-4e23-bcc6-d6782fe125b0",
     "rotationsDb": "4b0e60ae-f329-4993-b46b-d2e8d489b413"
   },
   "programme": {
@@ -588,9 +587,7 @@
       "athleticsEvent": "Long jump",
       "manipulative": "Underarm throwing",
       "fitnessCircuit": "Animal Trail",
-      "game": "Traffic Lights / Octopus",
-      "coachNote": "First two weeks. Names before anything else — every helper learns the four or five children at their station and uses them out loud. Walk the boundary cones with the group on night one.",
-      "_id": "3e30d85f-784c-813d-8f3e-f34d802c01ca"
+      "coachNote": "First two weeks. Names before anything else — every helper learns the four or five children at their station and uses them out loud. Walk the boundary cones with the group on night one."
     },
     {
       "series": 2,
@@ -601,9 +598,7 @@
       "athleticsEvent": "High jump",
       "manipulative": "Catching",
       "fitnessCircuit": "Jungle Jaunt",
-      "game": "Jumping Beans / Beanbag Hop",
-      "coachNote": "Foam hurdles only — the kind that fall over when clipped. Never rigid hurdles at this age.",
-      "_id": "3e30d85f-784c-810f-a3b7-fc243c7086cd"
+      "coachNote": "Foam hurdles only — the kind that fall over when clipped. Never rigid hurdles at this age."
     },
     {
       "series": 3,
@@ -614,9 +609,7 @@
       "athleticsEvent": "Hurdles",
       "manipulative": "Overarm throwing",
       "fitnessCircuit": "Superhero Training",
-      "game": "Circle Dodge Ball / Dragon's Tail",
-      "coachNote": "Hand the beanbag over — never throw it — and keep the changeover zone clear. Announce when every team has finished, never who finished first.",
-      "_id": "3e30d85f-784c-8154-a2f2-cde18b0a6a69"
+      "coachNote": "Hand the beanbag over — never throw it — and keep the changeover zone clear. Announce when every team has finished, never who finished first."
     },
     {
       "series": 4,
@@ -627,9 +620,7 @@
       "athleticsEvent": "Relays",
       "manipulative": "Kicking",
       "fitnessCircuit": "Pirate Island",
-      "game": "Dead Ants / Skipping Experiments",
-      "coachNote": "Never rank the jumps. Every child marks their own landing with their own cone, and in Week B they try to beat the cone they set in Week A.",
-      "_id": "3e30d85f-784c-81b7-8e21-c4ccf4ff257b"
+      "coachNote": "Never rank the jumps. Every child marks their own landing with their own cone, and in Week B they try to beat the cone they set in Week A."
     },
     {
       "series": 5,
@@ -640,9 +631,7 @@
       "athleticsEvent": "Long jump",
       "manipulative": "Striking",
       "fitnessCircuit": "Frosty's Winter Trail",
-      "game": "Frogs and Flies / Measure Your Hop",
-      "coachNote": "Last two weeks of Term 4 — week 10 is the last night before Christmas. Mix the teams so no team is all sixes. Announce when EVERY team has finished, never who finished first.",
-      "_id": "3e30d85f-784c-8110-96ac-ca8fec9f055d"
+      "coachNote": "Last two weeks of Term 4 — week 10 is the last night before Christmas. Mix the teams so no team is all sixes. Announce when EVERY team has finished, never who finished first."
     },
     {
       "series": 6,
@@ -653,9 +642,7 @@
       "athleticsEvent": "High jump",
       "manipulative": "Catching",
       "fitnessCircuit": "Space Station",
-      "game": "Cat & Mouse / Push Throw Hoop",
-      "coachNote": "First two weeks back after the break — re-walk the boundaries and re-learn names. Foam hurdles only for the hurdle station.",
-      "_id": "3e30d85f-784c-81ba-9136-db53b1669acf"
+      "coachNote": "First two weeks back after the break — re-walk the boundaries and re-learn names. Foam hurdles only for the hurdle station."
     },
     {
       "series": 7,
@@ -666,9 +653,7 @@
       "athleticsEvent": "Hurdles",
       "manipulative": "Kicking",
       "fitnessCircuit": "Farmyard Fitness",
-      "game": "Ballrush / Dragon's Tail",
-      "coachNote": "IMPORTANT: no Fosbury flop and no landing on the back. Use the high jump mat with a low ELASTIC — never a rope or a high jump pole. Scissor over and land on the feet, every time.",
-      "_id": "3e30d85f-784c-81c4-aa4f-efc2a521aea7"
+      "coachNote": "IMPORTANT: no Fosbury flop and no landing on the back. Use the high jump mat with a low ELASTIC — never a rope or a high jump pole. Scissor over and land on the feet, every time."
     },
     {
       "series": 8,
@@ -679,9 +664,7 @@
       "athleticsEvent": "Relays",
       "manipulative": "Striking",
       "fitnessCircuit": "Power Circuit",
-      "game": "Rippa Tag / Chain Tag",
-      "coachNote": "Hand the beanbag over — never throw it — and keep the changeover zone clear.",
-      "_id": "3e30d85f-784c-81a9-aee4-da53906cd437"
+      "coachNote": "Hand the beanbag over — never throw it — and keep the changeover zone clear."
     },
     {
       "series": 9,
@@ -692,9 +675,7 @@
       "athleticsEvent": "Long jump",
       "manipulative": "Underarm throwing",
       "fitnessCircuit": "Challenge Trail",
-      "game": "Tigers and Cheetahs / Team Dodge Challenge",
-      "coachNote": "Final two weeks before the mini meet. Ask each child one thing they can do now that they could not in October — write the answers down for the certificates.",
-      "_id": "3e30d85f-784c-8182-9c2d-dc9e2669b060"
+      "coachNote": "Final two weeks before the mini meet. Ask each child one thing they can do now that they could not in October — write the answers down for the certificates."
     },
     {
       "series": 10,
@@ -705,9 +686,7 @@
       "athleticsEvent": "All events",
       "manipulative": "All skills",
       "fitnessCircuit": "—",
-      "game": "Fruit Salad + parachute",
-      "coachNote": "One-off final night. Certificates for EVERY child, named, handed over individually. Invite parents for the last twenty minutes. Finish with parachute games. Nobody leaves without being named out loud.",
-      "_id": "3e30d85f-784c-81ca-80a5-edf386cd6be4"
+      "coachNote": "One-off final night. Certificates for EVERY child, named, handed over individually. Invite parents for the last twenty minutes. Finish with parachute games. Nobody leaves without being named out loud."
     }
   ],
   "rotations": [

@@ -4,13 +4,14 @@
 //
 // Sources (all read-only — this never writes back to Notion):
 //   1. "Get Set Go — 19 Weekly Lessons (2026–27)"  page + its 19 week sub-pages
-//   2. "Get Set Go 2026/27 — Season Plan"          database (10 rows)
-//   3. "Get Set Go — Series Rotations"             database (36 rows)
+//   2. "Get Set Go — Series Rotations"             database (36 rows)
+//   3. scripts/data/series-meta.json               series-level metadata (the old
+//      "Season Plan" database was deleted; its static fields live here now)
 //
 // Writes a committed snapshot to scripts/data/lessons.json. The snapshot is
 // written to disk deliberately rather than generated only at build time, so a
 // bad pull is a revertable commit rather than a silent change.
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -24,7 +25,6 @@ if (!TOKEN) {
 }
 
 const LESSONS_PAGE = process.env.LESSONS_PAGE || '3f30d85f-784c-810a-9a86-d6fb222ecb7f';
-const SEASON_PLAN_DB = process.env.SEASON_PLAN_DB || '431cfcb0-636f-4e23-bcc6-d6782fe125b0';
 const ROTATIONS_DB = process.env.ROTATIONS_DB || '4b0e60ae-f329-4993-b46b-d2e8d489b413';
 
 async function notion(method, path, body) {
@@ -161,12 +161,10 @@ function splitChallenges(text) {
 (async () => {
   console.log('Pulling from Notion…');
 
-  const [planRows, rotationRows, introBlocks] = await Promise.all([
-    queryAll(SEASON_PLAN_DB),
+  const [rotationRows, introBlocks] = await Promise.all([
     queryAll(ROTATIONS_DB),
     children(LESSONS_PAGE),
   ]);
-  console.log(`  season plan rows: ${planRows.length}`);
   console.log(`  rotation rows:    ${rotationRows.length}`);
 
   const introExpanded = await expandTables(introBlocks);
@@ -209,22 +207,19 @@ function splitChallenges(text) {
     weeklyOverview: introExpanded.find((b) => b.type === 'table')?.rows || [],
   };
 
-  const series = planRows.map((r) => {
-    const o = rowToObject(r);
-    return {
-      series: o.Series,
-      name: o.Name,
-      term: o.Term,
-      weeks: o.Weeks,
-      dates: o.Dates,
-      athleticsEvent: o['Athletics event'],
-      manipulative: o.Manipulative,
-      fitnessCircuit: o['Fitness circuit'],
-      game: o.Game,
-      coachNote: o['Coach note'],
-      _id: o._id,
-    };
-  }).sort((a, b) => (a.series ?? 0) - (b.series ?? 0));
+  // The old "Season Plan" database is deleted. Series-level metadata (name, term,
+  // weeks, dates, coach note, circuit) is static and kept in series-meta.json;
+  // only the athletics event is read fresh, from the overview table on the
+  // lessons page, so a future event swap is picked up automatically.
+  const seriesMeta = JSON.parse(readFileSync(join(here, 'data', 'series-meta.json'), 'utf8'));
+  const overviewEvents = {};
+  for (const row of (programme.weeklyOverview || []).slice(1)) {
+    const num = Number(String(row[0] || '').replace(/\D/g, ''));
+    if (num && row[2]) overviewEvents[num] = String(row[2]).trim();
+  }
+  const series = seriesMeta
+    .map((s) => ({ ...s, athleticsEvent: overviewEvents[s.series] || s.athleticsEvent }))
+    .sort((a, b) => (a.series ?? 0) - (b.series ?? 0));
 
   const rotations = rotationRows.map((r) => {
     const o = rowToObject(r);
@@ -264,7 +259,7 @@ function splitChallenges(text) {
 
   const payload = {
     pulledAt: new Date().toISOString(),
-    source: { lessonsPage: LESSONS_PAGE, seasonPlanDb: SEASON_PLAN_DB, rotationsDb: ROTATIONS_DB },
+    source: { lessonsPage: LESSONS_PAGE, rotationsDb: ROTATIONS_DB },
     programme,
     weeks: weeks.sort((a, b) => (a.week ?? 0) - (b.week ?? 0)),
     series,
