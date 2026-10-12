@@ -119,7 +119,7 @@ export default {
           "order": 1,
           "category": "Game",
           "skill": "Running",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "High jump",
           "skillsCovered": [
             "Running",
@@ -152,7 +152,7 @@ export default {
           "order": 2,
           "category": "Manipulative",
           "skill": "Underarm throwing",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "High jump",
           "skillsCovered": [
             "Underarm Throwing"
@@ -184,7 +184,7 @@ export default {
           "order": 3,
           "category": "Fitness Circuit",
           "skill": "Fitness & balance",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "High jump",
           "skillsCovered": [
             "Balance",
@@ -218,7 +218,7 @@ export default {
           "order": 4,
           "category": "Athletics",
           "skill": "Jumping for height",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "High jump",
           "skillsCovered": [
             "Jumping"
@@ -255,7 +255,7 @@ export default {
             "week": "A",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-10-15",
             "dateLabel": "Thu 15 Oct 2026",
@@ -297,7 +297,7 @@ export default {
               "alt": "Cartoon of young children running and changing direction among cones on grass",
               "note": ""
             },
-            "hash": "3421a147d585"
+            "hash": "c44ff2f04cfa"
           },
           {
             "key": "s1-A-2",
@@ -305,7 +305,7 @@ export default {
             "week": "A",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-10-15",
             "dateLabel": "Thu 15 Oct 2026",
@@ -348,7 +348,7 @@ export default {
               "alt": "Cartoon of young children throwing a soft toy towards hoops and buckets",
               "note": ""
             },
-            "hash": "115176f23c96"
+            "hash": "bcaaea46c308"
           },
           {
             "key": "s1-A-3",
@@ -356,7 +356,7 @@ export default {
             "week": "A",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-10-15",
             "dateLabel": "Thu 15 Oct 2026",
@@ -402,7 +402,7 @@ export default {
               "alt": "Cartoon of children crawling, jumping and stepping over low foam hurdles and markers",
               "note": ""
             },
-            "hash": "284087aec6a9"
+            "hash": "461f9ba2a827"
           },
           {
             "key": "s1-A-4",
@@ -410,7 +410,7 @@ export default {
             "week": "A",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-10-15",
             "dateLabel": "Thu 15 Oct 2026",
@@ -455,7 +455,7 @@ export default {
               "alt": "Cartoon of a child doing a scissor jump between two cones beside a high jump mat",
               "note": "Illustration only — use a breakaway elastic, never a bar, and land on the mat"
             },
-            "hash": "c7e8f5ee6bc6"
+            "hash": "62e1745cc2db"
           }
         ],
         "B": [
@@ -465,7 +465,7 @@ export default {
             "week": "B",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-10-22",
             "dateLabel": "Thu 22 Oct 2026",
@@ -504,7 +504,7 @@ export default {
               "Rotations board: Week B progression and observation"
             ],
             "image": null,
-            "hash": "0ea1dbb22e71"
+            "hash": "7e54084fea08"
           },
           {
             "key": "s1-B-2",
@@ -512,7 +512,7 @@ export default {
             "week": "B",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-10-22",
             "dateLabel": "Thu 22 Oct 2026",
@@ -551,7 +551,7 @@ export default {
               "Rotations board: Week B progression and observation"
             ],
             "image": null,
-            "hash": "458281237411"
+            "hash": "4779007edd4e"
           },
           {
             "key": "s1-B-3",
@@ -559,7 +559,7 @@ export default {
             "week": "B",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-10-22",
             "dateLabel": "Thu 22 Oct 2026",
@@ -606,7 +606,7 @@ export default {
               "alt": "Cartoon of children crawling, jumping and stepping over low foam hurdles and markers",
               "note": ""
             },
-            "hash": "1ac2e3f10c46"
+            "hash": "4f40c6c84fe1"
           },
           {
             "key": "s1-B-4",
@@ -614,7 +614,7 @@ export default {
             "week": "B",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-10-22",
             "dateLabel": "Thu 22 Oct 2026",
@@ -656,7 +656,7 @@ export default {
               "Rotations board: Week B progression and observation"
             ],
             "image": null,
-            "hash": "233f67a6d3b0"
+            "hash": "88e8035ff874"
           }
         ]
       },
@@ -723,7 +723,7 @@ export default {
           "order": 1,
           "category": "Game",
           "skill": "Jumping for height",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Hurdles",
           "skillsCovered": [
             "Jumping",
@@ -756,7 +756,7 @@ export default {
           "order": 2,
           "category": "Manipulative",
           "skill": "Catching",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Hurdles",
           "skillsCovered": [
             "Catching"
@@ -788,7 +788,7 @@ export default {
           "order": 3,
           "category": "Fitness Circuit",
           "skill": "Fitness & balance",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Hurdles",
           "skillsCovered": [
             "Balance",
@@ -821,7 +821,7 @@ export default {
           "order": 4,
           "category": "Athletics",
           "skill": "Hurdling",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Hurdles",
           "skillsCovered": [
             "Hurdling",
@@ -859,7 +859,7 @@ export default {
             "week": "A",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-10-29",
             "dateLabel": "Thu 29 Oct 2026",
@@ -896,7 +896,7 @@ export default {
               "Rotations board: S2 · R1 (condensed)"
             ],
             "image": null,
-            "hash": "5f6cece8b707"
+            "hash": "03c24c27450e"
           },
           {
             "key": "s2-A-2",
@@ -904,7 +904,7 @@ export default {
             "week": "A",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-10-29",
             "dateLabel": "Thu 29 Oct 2026",
@@ -942,7 +942,7 @@ export default {
               "Rotations board: S2 · R2 (condensed)"
             ],
             "image": null,
-            "hash": "85b2937167ec"
+            "hash": "d314ce1ae233"
           },
           {
             "key": "s2-A-3",
@@ -950,7 +950,7 @@ export default {
             "week": "A",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-10-29",
             "dateLabel": "Thu 29 Oct 2026",
@@ -992,7 +992,7 @@ export default {
               "Rotations board: S2 · R3 course (condensed)"
             ],
             "image": null,
-            "hash": "966fc8ce15d2"
+            "hash": "b8f4aa696284"
           },
           {
             "key": "s2-A-4",
@@ -1000,7 +1000,7 @@ export default {
             "week": "A",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-10-29",
             "dateLabel": "Thu 29 Oct 2026",
@@ -1039,7 +1039,7 @@ export default {
               "Rotations board: S2 · R4 (condensed)"
             ],
             "image": null,
-            "hash": "ecaaabd86e1a"
+            "hash": "dc1757c372bf"
           }
         ],
         "B": [
@@ -1049,7 +1049,7 @@ export default {
             "week": "B",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-11-05",
             "dateLabel": "Thu 5 Nov 2026",
@@ -1087,7 +1087,7 @@ export default {
               "Rotations board: S2 · R1 Week B progression (condensed)"
             ],
             "image": null,
-            "hash": "bfd3bad8f5b4"
+            "hash": "1cfff840d33b"
           },
           {
             "key": "s2-B-2",
@@ -1095,7 +1095,7 @@ export default {
             "week": "B",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-11-05",
             "dateLabel": "Thu 5 Nov 2026",
@@ -1134,7 +1134,7 @@ export default {
               "Rotations board: S2 · R2 Week B progression (condensed)"
             ],
             "image": null,
-            "hash": "ba8ca1170a37"
+            "hash": "5335ece52073"
           },
           {
             "key": "s2-B-3",
@@ -1142,7 +1142,7 @@ export default {
             "week": "B",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-11-05",
             "dateLabel": "Thu 5 Nov 2026",
@@ -1184,7 +1184,7 @@ export default {
               "Rotations board: S2 · R3 course (condensed)"
             ],
             "image": null,
-            "hash": "03ae248f9c93"
+            "hash": "3edce25e6a02"
           },
           {
             "key": "s2-B-4",
@@ -1192,7 +1192,7 @@ export default {
             "week": "B",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-11-05",
             "dateLabel": "Thu 5 Nov 2026",
@@ -1231,7 +1231,7 @@ export default {
               "Rotations board: S2 · R4 Week B progression (condensed)"
             ],
             "image": null,
-            "hash": "04cbc7755464"
+            "hash": "a09dec558a5b"
           }
         ]
       },
@@ -1300,7 +1300,7 @@ export default {
           "order": 1,
           "category": "Game",
           "skill": "Dodging",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Relays",
           "skillsCovered": [
             "Dodging",
@@ -1333,7 +1333,7 @@ export default {
           "order": 2,
           "category": "Manipulative",
           "skill": "Overarm throwing",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Relays",
           "skillsCovered": [
             "Overarm Throwing"
@@ -1365,7 +1365,7 @@ export default {
           "order": 3,
           "category": "Fitness Circuit",
           "skill": "Fitness & balance",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Relays",
           "skillsCovered": [
             "Balance",
@@ -1398,7 +1398,7 @@ export default {
           "order": 4,
           "category": "Athletics",
           "skill": "Relay changeover",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Relays",
           "skillsCovered": [
             "Relay Changeover",
@@ -1436,7 +1436,7 @@ export default {
             "week": "A",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-11-12",
             "dateLabel": "Thu 12 Nov 2026",
@@ -1476,7 +1476,7 @@ export default {
               "Week 5 lesson: cues, adaptations, progressions"
             ],
             "image": null,
-            "hash": "662ce9f334fb"
+            "hash": "0e9593437f69"
           },
           {
             "key": "s3-A-2",
@@ -1484,7 +1484,7 @@ export default {
             "week": "A",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-11-12",
             "dateLabel": "Thu 12 Nov 2026",
@@ -1524,7 +1524,7 @@ export default {
               "Week 5 lesson: cues, adaptations, progressions"
             ],
             "image": null,
-            "hash": "330b7bbd2075"
+            "hash": "b9cc23a0a8e6"
           },
           {
             "key": "s3-A-3",
@@ -1532,7 +1532,7 @@ export default {
             "week": "A",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-11-12",
             "dateLabel": "Thu 12 Nov 2026",
@@ -1576,7 +1576,7 @@ export default {
               "Week 5 lesson: set-up, Week A focus, laps"
             ],
             "image": null,
-            "hash": "16c13c88f596"
+            "hash": "260ac9233961"
           },
           {
             "key": "s3-A-4",
@@ -1584,7 +1584,7 @@ export default {
             "week": "A",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-11-12",
             "dateLabel": "Thu 12 Nov 2026",
@@ -1624,7 +1624,7 @@ export default {
               "Rotations board: S3 · R4 (condensed)"
             ],
             "image": null,
-            "hash": "9cf503ee5d89"
+            "hash": "e4ffa38ad1b8"
           }
         ],
         "B": [
@@ -1634,7 +1634,7 @@ export default {
             "week": "B",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-11-19",
             "dateLabel": "Thu 19 Nov 2026",
@@ -1674,7 +1674,7 @@ export default {
               "Week 6 lesson: cues, adaptations, safety"
             ],
             "image": null,
-            "hash": "819b9826c851"
+            "hash": "d14bc348e120"
           },
           {
             "key": "s3-B-2",
@@ -1682,7 +1682,7 @@ export default {
             "week": "B",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-11-19",
             "dateLabel": "Thu 19 Nov 2026",
@@ -1724,7 +1724,7 @@ export default {
               "Week 6 lesson: set-up, cues, adaptations, equipment checklist"
             ],
             "image": null,
-            "hash": "c3a01a78294e"
+            "hash": "bddac1f966ba"
           },
           {
             "key": "s3-B-3",
@@ -1732,7 +1732,7 @@ export default {
             "week": "B",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-11-19",
             "dateLabel": "Thu 19 Nov 2026",
@@ -1776,7 +1776,7 @@ export default {
               "Week 6 lesson: Week B focus"
             ],
             "image": null,
-            "hash": "8be2dc91c2a4"
+            "hash": "9bbcddf26182"
           },
           {
             "key": "s3-B-4",
@@ -1784,7 +1784,7 @@ export default {
             "week": "B",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-11-19",
             "dateLabel": "Thu 19 Nov 2026",
@@ -1823,7 +1823,7 @@ export default {
               "Rotations board: S3 · R4 Week B progression (condensed)"
             ],
             "image": null,
-            "hash": "51ebf9b4a815"
+            "hash": "95c71ca4cab1"
           }
         ]
       },
@@ -1889,7 +1889,7 @@ export default {
           "order": 1,
           "category": "Game",
           "skill": "Running",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Running",
@@ -1923,7 +1923,7 @@ export default {
           "order": 2,
           "category": "Manipulative",
           "skill": "Kicking",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Kicking"
@@ -1955,7 +1955,7 @@ export default {
           "order": 3,
           "category": "Fitness Circuit",
           "skill": "Fitness & balance",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Balance",
@@ -1988,7 +1988,7 @@ export default {
           "order": 4,
           "category": "Athletics",
           "skill": "Jumping for distance",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Jumping"
@@ -2025,7 +2025,7 @@ export default {
             "week": "A",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-11-26",
             "dateLabel": "Thu 26 Nov 2026",
@@ -2066,7 +2066,7 @@ export default {
               "Week 7 lesson"
             ],
             "image": null,
-            "hash": "7725e551aaed"
+            "hash": "59586a324d7d"
           },
           {
             "key": "s4-A-2",
@@ -2074,7 +2074,7 @@ export default {
             "week": "A",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-11-26",
             "dateLabel": "Thu 26 Nov 2026",
@@ -2114,7 +2114,7 @@ export default {
               "Week 7 lesson"
             ],
             "image": null,
-            "hash": "94c08ec08893"
+            "hash": "48ec710ce319"
           },
           {
             "key": "s4-A-3",
@@ -2122,7 +2122,7 @@ export default {
             "week": "A",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-11-26",
             "dateLabel": "Thu 26 Nov 2026",
@@ -2169,7 +2169,7 @@ export default {
               "Week 7 lesson"
             ],
             "image": null,
-            "hash": "9abe51dc33e2"
+            "hash": "3018a39f4a71"
           },
           {
             "key": "s4-A-4",
@@ -2177,7 +2177,7 @@ export default {
             "week": "A",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-11-26",
             "dateLabel": "Thu 26 Nov 2026",
@@ -2215,8 +2215,12 @@ export default {
               "Rotations board: S4 · R4",
               "Week 7 lesson (Long jump)"
             ],
-            "image": null,
-            "hash": "ad88a04873e6"
+            "image": {
+              "src": "/getsetgo/stations/jump-and-freeze.jpg",
+              "alt": "Cartoon illustration for the Jump and Freeze station",
+              "note": ""
+            },
+            "hash": "c8e894adbe01"
           }
         ],
         "B": [
@@ -2226,7 +2230,7 @@ export default {
             "week": "B",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-12-03",
             "dateLabel": "Thu 3 Dec 2026",
@@ -2266,7 +2270,7 @@ export default {
               "Week 8 lesson"
             ],
             "image": null,
-            "hash": "0aab44d12610"
+            "hash": "bc14761b3f3d"
           },
           {
             "key": "s4-B-2",
@@ -2274,7 +2278,7 @@ export default {
             "week": "B",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-12-03",
             "dateLabel": "Thu 3 Dec 2026",
@@ -2315,7 +2319,7 @@ export default {
               "Week 8 lesson"
             ],
             "image": null,
-            "hash": "3b1ca47f656d"
+            "hash": "066a38753784"
           },
           {
             "key": "s4-B-3",
@@ -2323,7 +2327,7 @@ export default {
             "week": "B",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-12-03",
             "dateLabel": "Thu 3 Dec 2026",
@@ -2370,7 +2374,7 @@ export default {
               "Week 8 lesson"
             ],
             "image": null,
-            "hash": "e48d7126d54b"
+            "hash": "751a1b8ec1d2"
           },
           {
             "key": "s4-B-4",
@@ -2378,7 +2382,7 @@ export default {
             "week": "B",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-12-03",
             "dateLabel": "Thu 3 Dec 2026",
@@ -2418,8 +2422,12 @@ export default {
               "Rotations board: S4 · R4",
               "Week 8 lesson (Long jump)"
             ],
-            "image": null,
-            "hash": "2de22b25aa0f"
+            "image": {
+              "src": "/getsetgo/stations/beat-your-own-marker.jpg",
+              "alt": "Cartoon illustration for the Beat Your Own Marker station",
+              "note": ""
+            },
+            "hash": "df6033785c80"
           }
         ]
       },
@@ -2498,7 +2506,7 @@ export default {
           "order": 1,
           "category": "Game",
           "skill": "Jumping for distance",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Jumping",
@@ -2531,7 +2539,7 @@ export default {
           "order": 2,
           "category": "Manipulative",
           "skill": "Striking",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Striking"
@@ -2563,7 +2571,7 @@ export default {
           "order": 3,
           "category": "Fitness Circuit",
           "skill": "Fitness & balance",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Balance",
@@ -2596,7 +2604,7 @@ export default {
           "order": 4,
           "category": "Athletics",
           "skill": "Jumping for distance",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Jumping"
@@ -2633,7 +2641,7 @@ export default {
             "week": "A",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-12-10",
             "dateLabel": "Thu 10 Dec 2026",
@@ -2676,7 +2684,7 @@ export default {
               "Club Series 5 package"
             ],
             "image": null,
-            "hash": "243abdca79fa"
+            "hash": "b48fd5f3dd27"
           },
           {
             "key": "s5-A-2",
@@ -2684,7 +2692,7 @@ export default {
             "week": "A",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-12-10",
             "dateLabel": "Thu 10 Dec 2026",
@@ -2729,7 +2737,7 @@ export default {
               "Club Series 5 package"
             ],
             "image": null,
-            "hash": "11e22e1fd031"
+            "hash": "85ad9b012fe8"
           },
           {
             "key": "s5-A-3",
@@ -2737,7 +2745,7 @@ export default {
             "week": "A",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-12-10",
             "dateLabel": "Thu 10 Dec 2026",
@@ -2784,7 +2792,7 @@ export default {
               "Club Series 5 package"
             ],
             "image": null,
-            "hash": "2e4f33797944"
+            "hash": "40fdece116ab"
           },
           {
             "key": "s5-A-4",
@@ -2792,7 +2800,7 @@ export default {
             "week": "A",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-12-10",
             "dateLabel": "Thu 10 Dec 2026",
@@ -2834,7 +2842,7 @@ export default {
               "Club Series 5 package"
             ],
             "image": null,
-            "hash": "a5eab4fcb37a"
+            "hash": "32f681d5a8e1"
           }
         ],
         "B": [
@@ -2844,7 +2852,7 @@ export default {
             "week": "B",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-12-17",
             "dateLabel": "Thu 17 Dec 2026",
@@ -2884,7 +2892,7 @@ export default {
               "Club Series 5 package"
             ],
             "image": null,
-            "hash": "e8d2e40c03b3"
+            "hash": "1fffc8cf9850"
           },
           {
             "key": "s5-B-2",
@@ -2892,7 +2900,7 @@ export default {
             "week": "B",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-12-17",
             "dateLabel": "Thu 17 Dec 2026",
@@ -2935,7 +2943,7 @@ export default {
               "Club Series 5 package"
             ],
             "image": null,
-            "hash": "7164d4ca8d48"
+            "hash": "32f2bdd87404"
           },
           {
             "key": "s5-B-3",
@@ -2943,7 +2951,7 @@ export default {
             "week": "B",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2026-12-17",
             "dateLabel": "Thu 17 Dec 2026",
@@ -2990,7 +2998,7 @@ export default {
               "Club Series 5 package"
             ],
             "image": null,
-            "hash": "1ebb9dc4f7e2"
+            "hash": "01713a4fe232"
           },
           {
             "key": "s5-B-4",
@@ -2998,7 +3006,7 @@ export default {
             "week": "B",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2026-12-17",
             "dateLabel": "Thu 17 Dec 2026",
@@ -3040,7 +3048,7 @@ export default {
               "Club Series 5 package"
             ],
             "image": null,
-            "hash": "3a055c811e16"
+            "hash": "388682e4f11b"
           }
         ]
       },
@@ -3118,7 +3126,7 @@ export default {
           "order": 1,
           "category": "Game",
           "skill": "Running",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Hurdles",
           "skillsCovered": [
             "Running",
@@ -3151,7 +3159,7 @@ export default {
           "order": 2,
           "category": "Manipulative",
           "skill": "Catching",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Hurdles",
           "skillsCovered": [
             "Catching"
@@ -3183,7 +3191,7 @@ export default {
           "order": 3,
           "category": "Fitness Circuit",
           "skill": "Fitness & balance",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Hurdles",
           "skillsCovered": [
             "Balance",
@@ -3216,7 +3224,7 @@ export default {
           "order": 4,
           "category": "Athletics",
           "skill": "Hurdling",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Hurdles",
           "skillsCovered": [
             "Hurdling",
@@ -3254,7 +3262,7 @@ export default {
             "week": "A",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-02-04",
             "dateLabel": "Thu 4 Feb 2027",
@@ -3298,7 +3306,7 @@ export default {
               "Season extras: Chase Tag how-to"
             ],
             "image": null,
-            "hash": "ce0231669496"
+            "hash": "126ae7a60d98"
           },
           {
             "key": "s6-A-2",
@@ -3306,7 +3314,7 @@ export default {
             "week": "A",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-02-04",
             "dateLabel": "Thu 4 Feb 2027",
@@ -3348,7 +3356,7 @@ export default {
               "Season extras: Ball Roll Catch how-to"
             ],
             "image": null,
-            "hash": "86ce82426b16"
+            "hash": "b8066d659ba6"
           },
           {
             "key": "s6-A-3",
@@ -3356,7 +3364,7 @@ export default {
             "week": "A",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-02-04",
             "dateLabel": "Thu 4 Feb 2027",
@@ -3404,7 +3412,7 @@ export default {
               "Series 6 package (secured foam panel)"
             ],
             "image": null,
-            "hash": "455b710630b9"
+            "hash": "316d1005eb7d"
           },
           {
             "key": "s6-A-4",
@@ -3412,7 +3420,7 @@ export default {
             "week": "A",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-02-04",
             "dateLabel": "Thu 4 Feb 2027",
@@ -3495,7 +3503,7 @@ export default {
               ],
               "image": null
             },
-            "hash": "1f0506684176"
+            "hash": "53af81a624af"
           }
         ],
         "B": [
@@ -3505,7 +3513,7 @@ export default {
             "week": "B",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-02-11",
             "dateLabel": "Thu 11 Feb 2027",
@@ -3549,7 +3557,7 @@ export default {
               "Season extras: Chase Tag how-to"
             ],
             "image": null,
-            "hash": "d26c24bfe988"
+            "hash": "178c22fdfc45"
           },
           {
             "key": "s6-B-2",
@@ -3557,7 +3565,7 @@ export default {
             "week": "B",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-02-11",
             "dateLabel": "Thu 11 Feb 2027",
@@ -3598,7 +3606,7 @@ export default {
               "Season extras: Ball Roll Catch how-to"
             ],
             "image": null,
-            "hash": "f2b278966a45"
+            "hash": "02754e28f9ea"
           },
           {
             "key": "s6-B-3",
@@ -3606,7 +3614,7 @@ export default {
             "week": "B",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-02-11",
             "dateLabel": "Thu 11 Feb 2027",
@@ -3654,7 +3662,7 @@ export default {
               "Series 6 package (secured foam panel)"
             ],
             "image": null,
-            "hash": "18a32c8f1357"
+            "hash": "1d949962a1aa"
           },
           {
             "key": "s6-B-4",
@@ -3662,7 +3670,7 @@ export default {
             "week": "B",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-02-11",
             "dateLabel": "Thu 11 Feb 2027",
@@ -3743,7 +3751,7 @@ export default {
               ],
               "image": null
             },
-            "hash": "00c349b171df"
+            "hash": "14299ae6f889"
           }
         ]
       },
@@ -3818,7 +3826,7 @@ export default {
           "order": 1,
           "category": "Game",
           "skill": "Running",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "High jump",
           "skillsCovered": [
             "Running",
@@ -3851,7 +3859,7 @@ export default {
           "order": 2,
           "category": "Manipulative",
           "skill": "Kicking",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "High jump",
           "skillsCovered": [
             "Kicking"
@@ -3883,7 +3891,7 @@ export default {
           "order": 3,
           "category": "Fitness Circuit",
           "skill": "Fitness & balance",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "High jump",
           "skillsCovered": [
             "Balance",
@@ -3918,7 +3926,7 @@ export default {
           "order": 4,
           "category": "Athletics",
           "skill": "Jumping for height",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "High jump",
           "skillsCovered": [
             "Jumping"
@@ -3955,7 +3963,7 @@ export default {
             "week": "A",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-02-18",
             "dateLabel": "Thu 18 Feb 2027",
@@ -3997,7 +4005,7 @@ export default {
               "Season extras: backup game summary (Octopus)"
             ],
             "image": null,
-            "hash": "201ae4c5364a"
+            "hash": "75df2435f023"
           },
           {
             "key": "s7-A-2",
@@ -4005,7 +4013,7 @@ export default {
             "week": "A",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-02-18",
             "dateLabel": "Thu 18 Feb 2027",
@@ -4046,7 +4054,7 @@ export default {
               "Season extras: backup game summary (Kick and Chase)"
             ],
             "image": null,
-            "hash": "b710eef593e1"
+            "hash": "00ba3aa35624"
           },
           {
             "key": "s7-A-3",
@@ -4054,7 +4062,7 @@ export default {
             "week": "A",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-02-18",
             "dateLabel": "Thu 18 Feb 2027",
@@ -4099,7 +4107,7 @@ export default {
               "Week 13 lesson: set-up, station cards, Week A focus, laps"
             ],
             "image": null,
-            "hash": "a6821060fe8b"
+            "hash": "590d9ae5cbe3"
           },
           {
             "key": "s7-A-4",
@@ -4107,7 +4115,7 @@ export default {
             "week": "A",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-02-18",
             "dateLabel": "Thu 18 Feb 2027",
@@ -4189,7 +4197,7 @@ export default {
               ],
               "image": null
             },
-            "hash": "1b013e41656c"
+            "hash": "c36c55434717"
           }
         ],
         "B": [
@@ -4199,7 +4207,7 @@ export default {
             "week": "B",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-02-25",
             "dateLabel": "Thu 25 Feb 2027",
@@ -4241,7 +4249,7 @@ export default {
               "Season extras: backup game summary (Octopus)"
             ],
             "image": null,
-            "hash": "f08d88c960c2"
+            "hash": "d2f7768eb0af"
           },
           {
             "key": "s7-B-2",
@@ -4249,7 +4257,7 @@ export default {
             "week": "B",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-02-25",
             "dateLabel": "Thu 25 Feb 2027",
@@ -4291,7 +4299,7 @@ export default {
               "Season extras: backup game summary (Kick and Chase)"
             ],
             "image": null,
-            "hash": "1d1b3c5ccec1"
+            "hash": "59f2be4762ff"
           },
           {
             "key": "s7-B-3",
@@ -4299,7 +4307,7 @@ export default {
             "week": "B",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-02-25",
             "dateLabel": "Thu 25 Feb 2027",
@@ -4345,7 +4353,7 @@ export default {
               "Week 14 lesson: Week B focus"
             ],
             "image": null,
-            "hash": "28faa679cef0"
+            "hash": "9d3086226f74"
           },
           {
             "key": "s7-B-4",
@@ -4353,7 +4361,7 @@ export default {
             "week": "B",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-02-25",
             "dateLabel": "Thu 25 Feb 2027",
@@ -4434,7 +4442,7 @@ export default {
               ],
               "image": null
             },
-            "hash": "a6d0b7d8fe46"
+            "hash": "bc5f5a0e9809"
           }
         ]
       },
@@ -4509,7 +4517,7 @@ export default {
           "order": 1,
           "category": "Game",
           "skill": "Running",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Relays",
           "skillsCovered": [
             "Dodging",
@@ -4542,7 +4550,7 @@ export default {
           "order": 2,
           "category": "Manipulative",
           "skill": "Striking",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Relays",
           "skillsCovered": [
             "Striking"
@@ -4574,7 +4582,7 @@ export default {
           "order": 3,
           "category": "Fitness Circuit",
           "skill": "Fitness & balance",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Relays",
           "skillsCovered": [
             "Balance",
@@ -4607,7 +4615,7 @@ export default {
           "order": 4,
           "category": "Athletics",
           "skill": "Relay changeover",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Relays",
           "skillsCovered": [
             "Relay Changeover",
@@ -4645,7 +4653,7 @@ export default {
             "week": "A",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-03-04",
             "dateLabel": "Thu 4 Mar 2027",
@@ -4687,7 +4695,7 @@ export default {
               "Club backup-game summaries (Rush Hour)"
             ],
             "image": null,
-            "hash": "ff377ad840b1"
+            "hash": "9123ff80b05a"
           },
           {
             "key": "s8-A-2",
@@ -4695,7 +4703,7 @@ export default {
             "week": "A",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-03-04",
             "dateLabel": "Thu 4 Mar 2027",
@@ -4739,7 +4747,7 @@ export default {
               "Club rules: soft equipment, separate striking lanes"
             ],
             "image": null,
-            "hash": "11110724203d"
+            "hash": "3b486af19009"
           },
           {
             "key": "s8-A-3",
@@ -4747,7 +4755,7 @@ export default {
             "week": "A",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-03-04",
             "dateLabel": "Thu 4 Mar 2027",
@@ -4795,7 +4803,7 @@ export default {
               "Club Series 8 package"
             ],
             "image": null,
-            "hash": "7003f39fb8a8"
+            "hash": "97feaf4c5e22"
           },
           {
             "key": "s8-A-4",
@@ -4803,7 +4811,7 @@ export default {
             "week": "A",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-03-04",
             "dateLabel": "Thu 4 Mar 2027",
@@ -4846,7 +4854,7 @@ export default {
               "Club games library (Shuttle Relay)"
             ],
             "image": null,
-            "hash": "816ee7d31ef6"
+            "hash": "d9d770d8d184"
           }
         ],
         "B": [
@@ -4856,7 +4864,7 @@ export default {
             "week": "B",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-03-11",
             "dateLabel": "Thu 11 Mar 2027",
@@ -4899,7 +4907,7 @@ export default {
               "Club backup-game summaries (Chain Tag, Rush Hour)"
             ],
             "image": null,
-            "hash": "3186acfd6609"
+            "hash": "192513e65479"
           },
           {
             "key": "s8-B-2",
@@ -4907,7 +4915,7 @@ export default {
             "week": "B",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-03-11",
             "dateLabel": "Thu 11 Mar 2027",
@@ -4951,7 +4959,7 @@ export default {
               "Club rules: soft equipment, separate striking lanes"
             ],
             "image": null,
-            "hash": "38e9c73da9d6"
+            "hash": "5b268fa2886a"
           },
           {
             "key": "s8-B-3",
@@ -4959,7 +4967,7 @@ export default {
             "week": "B",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-03-11",
             "dateLabel": "Thu 11 Mar 2027",
@@ -5007,7 +5015,7 @@ export default {
               "Club Series 8 package"
             ],
             "image": null,
-            "hash": "ac21ab94be17"
+            "hash": "440853fdf4e1"
           },
           {
             "key": "s8-B-4",
@@ -5015,7 +5023,7 @@ export default {
             "week": "B",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-03-11",
             "dateLabel": "Thu 11 Mar 2027",
@@ -5057,7 +5065,7 @@ export default {
               "Senior schedule 2026–27 (11 Mar)"
             ],
             "image": null,
-            "hash": "7dcce3b17bad"
+            "hash": "acf2a89d1393"
           }
         ]
       },
@@ -5129,7 +5137,7 @@ export default {
           "order": 1,
           "category": "Game",
           "skill": "Running",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Running",
@@ -5162,7 +5170,7 @@ export default {
           "order": 2,
           "category": "Manipulative",
           "skill": "Underarm throwing",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Underarm Throwing",
@@ -5195,7 +5203,7 @@ export default {
           "order": 3,
           "category": "Fitness Circuit",
           "skill": "Fitness & balance",
-          "ledBy": "Parent helper",
+          "ledBy": "Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Balance",
@@ -5228,7 +5236,7 @@ export default {
           "order": 4,
           "category": "Athletics",
           "skill": "Jumping for distance",
-          "ledBy": "Coach",
+          "ledBy": "Assistant Coach",
           "event": "Long jump",
           "skillsCovered": [
             "Jumping"
@@ -5265,7 +5273,7 @@ export default {
             "week": "A",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-03-18",
             "dateLabel": "Thu 18 Mar 2027",
@@ -5306,7 +5314,7 @@ export default {
               "Week 17 lesson"
             ],
             "image": null,
-            "hash": "941524f86115"
+            "hash": "8bd37b764403"
           },
           {
             "key": "s9-A-2",
@@ -5314,7 +5322,7 @@ export default {
             "week": "A",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-03-18",
             "dateLabel": "Thu 18 Mar 2027",
@@ -5355,7 +5363,7 @@ export default {
               "Week 17 lesson"
             ],
             "image": null,
-            "hash": "ccb607cd9923"
+            "hash": "9896ffa8a08d"
           },
           {
             "key": "s9-A-3",
@@ -5363,7 +5371,7 @@ export default {
             "week": "A",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-03-18",
             "dateLabel": "Thu 18 Mar 2027",
@@ -5409,7 +5417,7 @@ export default {
               "Week 17 lesson"
             ],
             "image": null,
-            "hash": "c065d85b3c51"
+            "hash": "9e9199e9b7d3"
           },
           {
             "key": "s9-A-4",
@@ -5417,7 +5425,7 @@ export default {
             "week": "A",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-03-18",
             "dateLabel": "Thu 18 Mar 2027",
@@ -5458,7 +5466,7 @@ export default {
               "Senior schedule 2026–27"
             ],
             "image": null,
-            "hash": "e7b0f37ddc2e"
+            "hash": "6af620652345"
           }
         ],
         "B": [
@@ -5468,7 +5476,7 @@ export default {
             "week": "B",
             "station": 1,
             "category": "Game",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-03-25",
             "dateLabel": "Thu 25 Mar 2027",
@@ -5509,7 +5517,7 @@ export default {
               "Week 18 lesson"
             ],
             "image": null,
-            "hash": "68500cbec7bb"
+            "hash": "a62924272881"
           },
           {
             "key": "s9-B-2",
@@ -5517,7 +5525,7 @@ export default {
             "week": "B",
             "station": 2,
             "category": "Manipulative",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-03-25",
             "dateLabel": "Thu 25 Mar 2027",
@@ -5559,7 +5567,7 @@ export default {
               "Week 18 lesson"
             ],
             "image": null,
-            "hash": "7469f0c91e08"
+            "hash": "c10949eecf5e"
           },
           {
             "key": "s9-B-3",
@@ -5567,7 +5575,7 @@ export default {
             "week": "B",
             "station": 3,
             "category": "Fitness Circuit",
-            "ledBy": "Parent helper",
+            "ledBy": "Coach",
             "minutes": 11,
             "date": "2027-03-25",
             "dateLabel": "Thu 25 Mar 2027",
@@ -5613,7 +5621,7 @@ export default {
               "Week 18 lesson"
             ],
             "image": null,
-            "hash": "4e5c50bef80a"
+            "hash": "4c8086288bc1"
           },
           {
             "key": "s9-B-4",
@@ -5621,7 +5629,7 @@ export default {
             "week": "B",
             "station": 4,
             "category": "Athletics",
-            "ledBy": "Coach",
+            "ledBy": "Assistant Coach",
             "minutes": 11,
             "date": "2027-03-25",
             "dateLabel": "Thu 25 Mar 2027",
@@ -5663,7 +5671,7 @@ export default {
               "Senior schedule 2026–27"
             ],
             "image": null,
-            "hash": "d85e146309ee"
+            "hash": "d28053504306"
           }
         ]
       },

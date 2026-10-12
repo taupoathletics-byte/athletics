@@ -60,8 +60,8 @@
   --surface-tint: #5b84a8;
 
   /* ---- Brand extras ---- */
-  --coral-active: #ff7f50;      /* primary action / CTA               */
-  --coral-shadow: #822800;      /* the "pressed" shadow under the CTA  */
+  --coral-active: #b04f49;      /* primary action / CTA (club track red) */
+  --coral-shadow: #893e39;      /* the "pressed" shadow under the CTA     */
   --sunflower-caution: #ffd700; /* transition / warning / progress      */
   --mint-go: #4fd1c5;           /* go / success / active status         */
   --sky-info: #0ea5e9;          /* informational links / instructional  */

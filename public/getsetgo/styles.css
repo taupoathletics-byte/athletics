@@ -1275,7 +1275,7 @@ body {
   font-size: 0.9rem;
 }
 .week-block--a { border-left-color: var(--sky-info, #0ea5e9); }
-.week-block--b { border-left-color: var(--coral-active, #ff7f50); }
+.week-block--b { border-left-color: var(--coral-active, #b04f49); }
 .week-block__label {
   display: block;
   font-size: 11px;

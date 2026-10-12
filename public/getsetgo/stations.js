@@ -324,15 +324,7 @@ function gsgSessionHTML(night, cards, review) {
 
     <section class="gsg-stations" aria-label="Stations">
       ${cards.map(gsgTileHTML).join('')}
-    </section>
-
-    ${review.length ? `
-    <details class="gsg-panel gsg-review" ${review.some((r) => r.kind !== 'conflict') ? 'open' : ''}>
-      <summary><span class="material-symbols-outlined" aria-hidden="true">flag</span> For admin review (${review.length})</summary>
-      <ul class="gsg-panel__body gsg-review__list">
-        ${review.map((r) => `<li class="gsg-review__${r.kind}">${r.key ? `<button class="gsg-link" data-edit="${esc(r.key)}">${esc(r.text)}</button>` : esc(r.text)}${r.alt ? ` <button class="gsg-btn gsg-btn--inline" data-compare-board="${esc(r.key)}">Compare: ${esc(r.alt)}</button>` : ''}</li>`).join('')}
-      </ul>
-    </details>` : ''}`;
+    </section>`;
 }
 
 function gsgTileHTML(card) {
@@ -409,14 +401,6 @@ function gsgMeetHTML(night, cards, review) {
     <details class="gsg-panel" open>
       <summary><span class="material-symbols-outlined" aria-hidden="true">health_and_safety</span> Safety for the whole night</summary>
       <ul class="gsg-panel__body gsg-meet-safety">${meet.safety.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-    </details>` : ''}
-
-    ${review.length ? `
-    <details class="gsg-panel gsg-review" ${review.some((r) => r.kind !== 'conflict') ? 'open' : ''}>
-      <summary><span class="material-symbols-outlined" aria-hidden="true">flag</span> For admin review (${review.length})</summary>
-      <ul class="gsg-panel__body gsg-review__list">
-        ${review.map((r) => `<li class="gsg-review__${r.kind}">${r.key ? `<button class="gsg-link" data-edit="${esc(r.key)}">${esc(r.text)}</button>` : esc(r.text)}</li>`).join('')}
-      </ul>
     </details>` : ''}`;
 }
 

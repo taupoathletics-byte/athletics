@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-10-12T21:50:24.561Z",
+  "pulledAt": "2026-10-12T22:04:10.587Z",
   "source": {
     "lessonsPage": "3f30d85f-784c-810a-9a86-d6fb222ecb7f",
     "rotationsDb": "4b0e60ae-f329-4993-b46b-d2e8d489b413"
@@ -699,7 +699,7 @@
       "order": 1,
       "category": "Game",
       "skill": "Running",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "High jump",
       "skillsCovered": [
         "Running",
@@ -738,7 +738,7 @@
       "order": 2,
       "category": "Manipulative",
       "skill": "Underarm throwing",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "High jump",
       "skillsCovered": [
         "Underarm Throwing"
@@ -776,7 +776,7 @@
       "order": 3,
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "High jump",
       "skillsCovered": [
         "Balance",
@@ -816,7 +816,7 @@
       "order": 4,
       "category": "Athletics",
       "skill": "Jumping for height",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "High jump",
       "skillsCovered": [
         "Jumping"
@@ -854,7 +854,7 @@
       "order": 1,
       "category": "Game",
       "skill": "Jumping for height",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Hurdles",
       "skillsCovered": [
         "Jumping",
@@ -893,7 +893,7 @@
       "order": 2,
       "category": "Manipulative",
       "skill": "Catching",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Hurdles",
       "skillsCovered": [
         "Catching"
@@ -931,7 +931,7 @@
       "order": 3,
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Hurdles",
       "skillsCovered": [
         "Balance",
@@ -970,7 +970,7 @@
       "order": 4,
       "category": "Athletics",
       "skill": "Hurdling",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Hurdles",
       "skillsCovered": [
         "Hurdling",
@@ -1009,7 +1009,7 @@
       "order": 1,
       "category": "Game",
       "skill": "Dodging",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Relays",
       "skillsCovered": [
         "Dodging",
@@ -1048,7 +1048,7 @@
       "order": 2,
       "category": "Manipulative",
       "skill": "Overarm throwing",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Relays",
       "skillsCovered": [
         "Overarm Throwing"
@@ -1086,7 +1086,7 @@
       "order": 3,
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Relays",
       "skillsCovered": [
         "Balance",
@@ -1125,7 +1125,7 @@
       "order": 4,
       "category": "Athletics",
       "skill": "Relay changeover",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Relays",
       "skillsCovered": [
         "Relay Changeover",
@@ -1164,7 +1164,7 @@
       "order": 1,
       "category": "Game",
       "skill": "Running",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Running",
@@ -1204,7 +1204,7 @@
       "order": 2,
       "category": "Manipulative",
       "skill": "Kicking",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Kicking"
@@ -1242,7 +1242,7 @@
       "order": 3,
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Balance",
@@ -1281,7 +1281,7 @@
       "order": 4,
       "category": "Athletics",
       "skill": "Jumping for distance",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Jumping"
@@ -1319,7 +1319,7 @@
       "order": 1,
       "category": "Game",
       "skill": "Jumping for distance",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Jumping",
@@ -1358,7 +1358,7 @@
       "order": 2,
       "category": "Manipulative",
       "skill": "Striking",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Striking"
@@ -1396,7 +1396,7 @@
       "order": 3,
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Balance",
@@ -1435,7 +1435,7 @@
       "order": 4,
       "category": "Athletics",
       "skill": "Jumping for distance",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Jumping"
@@ -1473,7 +1473,7 @@
       "order": 1,
       "category": "Game",
       "skill": "Running",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Hurdles",
       "skillsCovered": [
         "Running",
@@ -1512,7 +1512,7 @@
       "order": 2,
       "category": "Manipulative",
       "skill": "Catching",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Hurdles",
       "skillsCovered": [
         "Catching"
@@ -1550,7 +1550,7 @@
       "order": 3,
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Hurdles",
       "skillsCovered": [
         "Balance",
@@ -1589,7 +1589,7 @@
       "order": 4,
       "category": "Athletics",
       "skill": "Hurdling",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Hurdles",
       "skillsCovered": [
         "Hurdling",
@@ -1628,7 +1628,7 @@
       "order": 1,
       "category": "Game",
       "skill": "Running",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "High jump",
       "skillsCovered": [
         "Running",
@@ -1667,7 +1667,7 @@
       "order": 2,
       "category": "Manipulative",
       "skill": "Kicking",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "High jump",
       "skillsCovered": [
         "Kicking"
@@ -1705,7 +1705,7 @@
       "order": 3,
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "High jump",
       "skillsCovered": [
         "Balance",
@@ -1746,7 +1746,7 @@
       "order": 4,
       "category": "Athletics",
       "skill": "Jumping for height",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "High jump",
       "skillsCovered": [
         "Jumping"
@@ -1784,7 +1784,7 @@
       "order": 1,
       "category": "Game",
       "skill": "Running",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Relays",
       "skillsCovered": [
         "Dodging",
@@ -1823,7 +1823,7 @@
       "order": 2,
       "category": "Manipulative",
       "skill": "Striking",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Relays",
       "skillsCovered": [
         "Striking"
@@ -1861,7 +1861,7 @@
       "order": 3,
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Relays",
       "skillsCovered": [
         "Balance",
@@ -1900,7 +1900,7 @@
       "order": 4,
       "category": "Athletics",
       "skill": "Relay changeover",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Relays",
       "skillsCovered": [
         "Relay Changeover",
@@ -1939,7 +1939,7 @@
       "order": 1,
       "category": "Game",
       "skill": "Running",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Running",
@@ -1978,7 +1978,7 @@
       "order": 2,
       "category": "Manipulative",
       "skill": "Underarm throwing",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Underarm Throwing",
@@ -2017,7 +2017,7 @@
       "order": 3,
       "category": "Fitness Circuit",
       "skill": "Fitness & balance",
-      "ledBy": "Parent helper",
+      "ledBy": "Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Balance",
@@ -2056,7 +2056,7 @@
       "order": 4,
       "category": "Athletics",
       "skill": "Jumping for distance",
-      "ledBy": "Coach",
+      "ledBy": "Assistant Coach",
       "event": "Long jump",
       "skillsCovered": [
         "Jumping"
