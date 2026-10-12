@@ -4,6 +4,7 @@ import { FacebookFeed } from '@/components/FacebookFeed'
 import { SponsorStrip } from '@/components/SponsorStrip'
 import { CrewQuotes } from '@/components/athletics/CrewQuotes'
 import { EventsExplorer } from '@/components/athletics/EventsExplorer'
+import { JavelinFlight } from '@/components/athletics/JavelinFlight'
 import { FeatureBlocks } from '@/components/athletics/FeatureBlocks'
 import { LifeStrip } from '@/components/athletics/LifeStrip'
 import { Marquee, Reveal, SectionLabel } from '@/components/athletics/motion'
@@ -26,6 +27,7 @@ export default function Home() {
   return (
     <>
       <ZoomHero />
+      <JavelinFlight />
       <NextNightPanel />
       <ProgrammeCards />
 

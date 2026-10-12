@@ -3,7 +3,8 @@ import { ArrowRight } from 'lucide-react'
 import { Photo } from '@/components/Photo'
 import { developmentSquad } from '@/data/clubNights'
 import { cn } from '@/lib/utils'
-import { Floater, Reveal } from './motion'
+import { EventFloater } from './EventIcon'
+import { Reveal } from './motion'
 
 interface Block {
   photo: number
@@ -45,8 +46,8 @@ const BLOCKS: Block[] = [
 export function FeatureBlocks() {
   return (
     <section className="relative overflow-hidden bg-cream py-16 md:py-24" aria-label="More from the club">
-      <Floater icon="Hurdle" className="right-[3%] top-[30%] hidden h-24 w-24 lg:block" speed={160} spin={20} />
-      <Floater icon="Medal" className="left-[2%] top-[64%] hidden h-20 w-20 lg:block" speed={130} spin={-40} />
+      <EventFloater event="high-jump" className="right-[3%] top-[30%] hidden h-28 w-28 lg:block" speed={120} />
+      <EventFloater event="relays" className="left-[2%] top-[64%] hidden h-28 w-28 lg:block" speed={100} />
       <div className="space-y-20 md:space-y-28">
         {BLOCKS.map((b, i) => {
           const flip = i % 2 === 1

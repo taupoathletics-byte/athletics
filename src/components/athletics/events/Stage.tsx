@@ -18,7 +18,7 @@ export interface Frame {
   props?: Record<string, PropState>
 }
 
-export type EventId = 'hurdles' | 'long-jump' | 'high-jump' | 'shot-put' | 'discus' | 'relays' | 'distance'
+export type EventId = 'hurdles' | 'long-jump' | 'high-jump' | 'shot-put' | 'discus' | 'relays' | 'distance' | 'javelin'
 
 export interface ArtProps {
   /** Places an athlete from the scene's cast, at its depth in the drawing. */
@@ -178,6 +178,8 @@ export interface EventStageProps {
   className?: string
   /** Hide from assistive tech when the same event is described nearby. */
   decorative?: boolean
+  /** Show only part of the 800 × 500 scene, e.g. a square icon crop. */
+  viewBox?: string
   children?: ReactNode
 }
 
@@ -186,7 +188,7 @@ export interface EventStageProps {
  * stage follows it by writing SVG attributes directly — no React renders per
  * scroll frame.
  */
-export function EventStage({ scene, progress, className, decorative }: EventStageProps) {
+export function EventStage({ scene, progress, className, decorative, viewBox }: EventStageProps) {
   const uid = useId().replace(/:/g, '')
   const svgRef = useRef<SVGSVGElement>(null)
   const startP = typeof progress === 'number' ? progress : progress.get()
@@ -229,7 +231,7 @@ export function EventStage({ scene, progress, className, decorative }: EventStag
     <StageCtx.Provider value={{ scene, first: first.current }}>
       <svg
         ref={svgRef}
-        viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+        viewBox={viewBox ?? `0 0 ${VIEW_W} ${VIEW_H}`}
         className={className}
         role={decorative ? undefined : 'img'}
         aria-label={decorative ? undefined : scene.alt}

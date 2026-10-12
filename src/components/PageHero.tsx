@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Photo } from '@/components/Photo'
-import { Floater } from '@/components/athletics/motion'
-import type { AthleticsIconName } from '@/components/athletics/icons'
+import { EventFloater } from '@/components/athletics/EventIcon'
+import type { EventId } from '@/components/athletics/events/Stage'
 
 interface PageHeroProps {
   eyebrow?: string
@@ -9,22 +9,22 @@ interface PageHeroProps {
   subtitle?: ReactNode
   /** Photo id from src/data/photos.ts, shown alongside the heading. */
   photo?: number
-  /** Floating athletics illustration for this page (defaults by title). */
-  icon?: AthleticsIconName
+  /** The event icon floating on this page (defaults by title). */
+  event?: EventId
 }
 
-const ICONS: AthleticsIconName[] = ['ShotPut', 'Baton', 'Discus', 'Stopwatch', 'Rosette', 'Hurdle', 'Medal']
+const EVENTS: EventId[] = ['distance', 'hurdles', 'discus', 'relays', 'high-jump', 'long-jump', 'shot-put']
 
 /**
  * One page-header pattern for every page, in the glow-up style: navy band,
  * giant condensed title, and the photo sitting on running-track lanes that run
  * off the edge of the page (Sixes' offset image blocks).
  */
-export function PageHero({ eyebrow, title, subtitle, photo, icon }: PageHeroProps) {
-  const floater = icon ?? ICONS[title.length % ICONS.length]
+export function PageHero({ eyebrow, title, subtitle, photo, event }: PageHeroProps) {
+  const floater = event ?? EVENTS[title.length % EVENTS.length]
   return (
     <section className="relative overflow-hidden bg-ink text-cream">
-      <Floater icon={floater} className="left-[46%] top-[12%] hidden h-16 w-16 lg:block" speed={60} spin={50} />
+      <EventFloater event={floater} drive="page" span={0.6} speed={30} className="left-[46%] top-[10%] hidden h-24 w-24 lg:block" />
       <div className="container-page relative grid items-center gap-10 py-12 md:py-16 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
         <div className="relative z-10">
           {eyebrow && (

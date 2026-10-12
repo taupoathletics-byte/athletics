@@ -8,7 +8,8 @@ import { registration } from '@/data/fees'
 import { venue } from '@/data/site'
 import { useMediaQuery } from '@/lib/useMediaQuery'
 import { cn } from '@/lib/utils'
-import { Floater } from './motion'
+import { EventFloater } from './EventIcon'
+import { THROW_SPAN } from './JavelinFlight'
 
 const VIDEO = '/media/promo-loop.mp4'
 const POSTER = '/media/promo-poster.jpg'
@@ -202,7 +203,7 @@ export function ZoomHero() {
 
   return (
     <section ref={ref} className="relative h-[240vh] bg-ink" aria-label="Welcome to Taupō Athletics">
-      <div className="sticky top-0 h-[100svh] overflow-hidden">
+      <div data-hero-stage className="sticky top-0 h-[100svh] overflow-hidden">
         {/* Running-track lanes behind the cards */}
         <motion.div aria-hidden style={{ y: bandsY }} className="absolute inset-x-0 top-[58%] flex flex-col gap-5 md:top-[54%] md:gap-7">
           <div className="track-lanes h-14 md:h-20" style={{ ['--lane' as string]: '20px' }} />
@@ -246,9 +247,17 @@ export function ZoomHero() {
           </p>
           {headline}
         </motion.div>
-        <Floater icon="ShotPut" className="left-[6%] top-[18%] hidden h-20 w-20 md:block lg:h-24 lg:w-24" speed={160} spin={90} />
-        <Floater icon="Baton" className="right-[7%] top-[14%] hidden h-24 w-24 md:block lg:h-28 lg:w-28" speed={200} spin={-70} />
-        <Floater icon="Stopwatch" className="right-[4%] top-[40%] h-14 w-14 md:hidden" speed={90} spin={40} />
+        {/* The event icons, alive. The javelin thrower's throw leaves the tile and
+            flies down the page as you scroll (see JavelinFlight). */}
+        <EventFloater
+          event="javelin"
+          dataJavelin
+          drive="page"
+          span={THROW_SPAN}
+          speed={0}
+          className="left-[4%] top-[38%] h-20 w-20 md:left-[5%] md:top-[15%] md:h-28 md:w-28 lg:h-32 lg:w-32"
+        />
+        <EventFloater event="long-jump" drive="page" span={0.9} speed={0} className="right-[5%] top-[14%] hidden h-28 w-28 md:block lg:h-32 lg:w-32" />
 
         {/* Revealed once the film fills the screen */}
         <motion.div

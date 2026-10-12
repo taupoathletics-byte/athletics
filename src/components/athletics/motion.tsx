@@ -2,10 +2,10 @@
  * Scroll-motion building blocks for the glow-up. Every effect checks
  * prefers-reduced-motion and falls back to a still layout.
  */
-import { useId, useRef, type ReactNode } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { useId, type ReactNode } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
 import { cn } from '@/lib/utils'
-import { athleticsIcons, LaneTicks, type AthleticsIconName } from './icons'
+import { LaneTicks } from './icons'
 
 /** Fade-and-rise once, when scrolled into view. */
 export function Reveal({
@@ -29,42 +29,6 @@ export function Reveal({
       transition={{ duration: 0.75, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
-    </motion.div>
-  )
-}
-
-/**
- * A floating athletics illustration that drifts and spins as the page scrolls
- * past — the shot puts and batons that stand in for Sixes' cricket balls.
- * Position it with absolute utility classes on `className`.
- */
-export function Floater({
-  icon,
-  className,
-  speed = 120,
-  spin = 40,
-}: {
-  icon: AthleticsIconName
-  className?: string
-  /** px of vertical drift across the element's pass through the viewport. */
-  speed?: number
-  /** degrees of rotation across the same pass. */
-  spin?: number
-}) {
-  const ref = useRef<HTMLDivElement>(null)
-  const reduce = useReducedMotion()
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], [speed, -speed])
-  const rotate = useTransform(scrollYProgress, [0, 1], [-spin / 2, spin / 2])
-  const Icon = athleticsIcons[icon]
-  return (
-    <motion.div
-      ref={ref}
-      aria-hidden
-      className={cn('pointer-events-none absolute z-10 drop-shadow-[0_14px_18px_rgba(12,32,51,0.25)]', className)}
-      style={reduce ? undefined : { y, rotate }}
-    >
-      <Icon className="h-full w-full" />
     </motion.div>
   )
 }

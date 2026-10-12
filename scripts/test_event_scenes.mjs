@@ -20,13 +20,14 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { createElement } from 'react'
 import { EventStage } from '../../src/components/athletics/events/Stage'
 import { joints } from '../../src/components/athletics/events/rig'
-import { scenes } from '../../src/components/athletics/events/scenes'
+import { scenes, allScenes } from '../../src/components/athletics/events/scenes'
+import { ICON_CROP } from '../../src/components/athletics/EventIcon'
 import { eventShowcase } from '../../src/data/eventShowcase'
-export { scenes, joints, eventShowcase }
+export { scenes, allScenes, joints, ICON_CROP, eventShowcase }
 export const markup = (scene: any, p: number) => renderToStaticMarkup(createElement(EventStage, { scene, progress: p }))
 `);
 await build({ entryPoints: [join(tmp, 'entry.tsx')], bundle: true, platform: 'node', format: 'esm', outfile: join(tmp, 'entry.mjs'), jsx: 'automatic', logLevel: 'error', external: ['react', 'react-dom'], alias: { '@': join(root, 'src') } });
-const { scenes, joints, eventShowcase, markup } = await import(pathToFileURL(join(tmp, 'entry.mjs')).href);
+const { scenes, allScenes, joints, ICON_CROP, eventShowcase, markup } = await import(pathToFileURL(join(tmp, 'entry.mjs')).href);
 rmSync(tmp, { recursive: true, force: true });
 
 let failed = 0;
@@ -46,10 +47,14 @@ const points = (pose) => {
 };
 const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
 
-check('seven scenes, in the same order as the copy', scenes.map((s) => s.id).join() === eventShowcase.map((e) => e.id).join(),
+const SEVEN = ['hurdles', 'long-jump', 'high-jump', 'shot-put', 'discus', 'relays', 'distance'];
+check('the club\'s seven events each have a scene', scenes.map((s) => s.id).join() === SEVEN.join(), scenes.map((s) => s.id).join());
+check('the seven scenes are in the same order as the section copy', scenes.map((s) => s.id).join() === eventShowcase.map((e) => e.id).join(),
   `${scenes.map((s) => s.id).join()} vs ${eventShowcase.map((e) => e.id).join()}`);
+check('every scene has a square icon crop', allScenes.every((s) => /^-?\d+ -?\d+ 440 440$/.test(ICON_CROP[s.id] ?? '')),
+  allScenes.filter((s) => !ICON_CROP[s.id]).map((s) => s.id).join());
 
-for (const scene of scenes) {
+for (const scene of allScenes) {
   const cast = Object.keys(scene.cast);
   check(`${scene.id}: poster inside 0–1 and alt text`, scene.poster >= 0 && scene.poster <= 1 && scene.alt.length > 20);
 

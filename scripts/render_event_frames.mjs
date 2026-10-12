@@ -28,6 +28,7 @@ const opt = (name, dflt) => {
   return v;
 };
 const frames = Number(opt('frames', 9));
+const iconMode = args.includes('--icon') ? (args.splice(args.indexOf('--icon'), 1), true) : false;
 const outDir = opt('out', join(root, 'tmp', 'event-frames'));
 const only = args;
 
@@ -38,19 +39,22 @@ writeFileSync(entry, `
 import { renderToStaticMarkup } from 'react-dom/server'
 import { createElement } from 'react'
 import { EventStage } from '../../src/components/athletics/events/Stage'
-import { scenes } from '../../src/components/athletics/events/scenes'
-export function render(id: string, p: number) {
+import { allScenes as scenes } from '../../src/components/athletics/events/scenes'
+import { ICON_CROP, ICON_RANGE } from '../../src/components/athletics/EventIcon'
+export function render(id: string, p: number, icon = false) {
   const scene = scenes.find((s) => s.id === id)
   if (!scene) throw new Error('No scene ' + id)
-  return renderToStaticMarkup(createElement(EventStage, { scene, progress: p }))
+  if (!icon) return renderToStaticMarkup(createElement(EventStage, { scene, progress: p }))
+  const [a, b] = ICON_RANGE[id]
+  return renderToStaticMarkup(createElement(EventStage, { scene, progress: a + (b - a) * p, viewBox: ICON_CROP[id] }))
 }
 export const ids = scenes.map((s) => s.id)
 `);
-await build({ entryPoints: [entry], bundle: true, platform: 'node', format: 'esm', outfile: join(tmp, 'entry.mjs'), jsx: 'automatic', logLevel: 'error', external: ['react', 'react-dom'] });
+await build({ entryPoints: [entry], bundle: true, platform: 'node', format: 'esm', outfile: join(tmp, 'entry.mjs'), jsx: 'automatic', logLevel: 'error', external: ['react', 'react-dom'], alias: { '@': join(root, 'src') } });
 const { render, ids } = await import(pathToFileURL(join(tmp, 'entry.mjs')).href + `?t=${Date.now()}`);
 
 mkdirSync(outDir, { recursive: true });
-const W = 400, H = 250, cols = Math.min(frames, 4);
+const W = iconMode ? 220 : 400, H = iconMode ? 220 : 250, cols = Math.min(frames, iconMode ? 6 : 4);
 
 let chromium = null;
 for (const mod of [process.env.PLAYWRIGHT_MODULE, 'playwright', '/opt/node-tools/node_modules/playwright/index.mjs'].filter(Boolean)) {
@@ -67,7 +71,7 @@ for (const id of only.length ? only : ids) {
   const tiles = [];
   for (let i = 0; i < frames; i++) {
     const p = frames === 1 ? 0.5 : i / (frames - 1);
-    const svg = render(id, p).replace('<svg', `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"`);
+    const svg = render(id, p, iconMode).replace('<svg', `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"`);
     const label = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect x="6" y="6" width="74" height="26" rx="6" fill="#000" opacity=".55"/><text x="14" y="25" font-family="sans-serif" font-size="16" fill="#fff">p ${p.toFixed(2)}</text></svg>`);
     const base = page
       ? (await page.setContent(`<body style="margin:0">${svg}</body>`), await page.screenshot({ clip: { x: 0, y: 0, width: W, height: H } }))

@@ -7,7 +7,9 @@ import { registration } from '@/data/fees'
 import { venue } from '@/data/site'
 import { cn } from '@/lib/utils'
 import { Odometer } from './Odometer'
-import { Floater, Reveal, SectionLabel } from './motion'
+import { EventFloater } from './EventIcon'
+import { JavelinLanding } from './JavelinFlight'
+import { Reveal, SectionLabel } from './motion'
 
 function useTick(ms: number) {
   const [now, setNow] = useState(() => Date.now())
@@ -41,8 +43,10 @@ export function NextNightPanel() {
 
   return (
     <section className="relative overflow-hidden bg-[linear-gradient(to_bottom,#0c2033_0,#0c2033_45%,#a9c6de_45%,#a9c6de_100%)] pb-20 pt-16 md:pt-24">
-      <Floater icon="Discus" className="left-[4%] top-[10%] h-16 w-16 md:left-[10%] md:h-24 md:w-24" speed={140} spin={120} />
-      <Floater icon="Rosette" className="right-[4%] top-[6%] h-20 w-20 md:right-[10%] md:h-28 md:w-28" speed={110} spin={-30} />
+      {/* Hidden on phones, where it would sit over the opening line */}
+      <EventFloater event="shot-put" className="left-[8%] top-[6%] hidden h-28 w-28 md:block" speed={60} />
+      {/* Where the javelin thrown from the header lands */}
+      <JavelinLanding className="right-[9%] top-[4%] md:top-[7%] xl:right-[8%] xl:top-[45%]" />
 
       <div className="container-page relative">
         <Reveal className="mx-auto max-w-2xl text-center">
