@@ -2,20 +2,39 @@ import { useEffect, useRef, useState } from 'react'
 import { CheckCircle2, QrCode } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { buttonVariants } from '@/components/ui/button'
-import { clubNights } from '@/data/clubNights'
+import { clubNights, formatClubNightLabel } from '@/data/clubNights'
 
 function todayIso() {
   const d = new Date()
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
-/** The club night relevant to "now": tonight if it's a club night, else the most recent one. */
-function clubNightForToday() {
+/** The club night relevant to "now": tonight (from 4:30pm) if it's a club night, else the most recent one. */
+const OPEN_MINUTES = 16 * 60 + 30 // 4:30pm, when families start arriving
+
+type CheckinState = { open: true; date: string } | { open: false; label: string }
+
+/** Whether check-in is open now, and the club night to record attendance against. */
+function checkinState(now = new Date()): CheckinState {
   const today = todayIso()
-  if (clubNights.some((n) => n.iso === today)) return today
-  const past = clubNights.filter((n) => n.iso <= today)
-  if (past.length) return past[past.length - 1].iso
-  return clubNights[0]?.iso || today
+  const nowMin = now.getHours() * 60 + now.getMinutes()
+
+  // Tonight is a club night: check-in opens at 4:30pm.
+  if (clubNights.some((n) => n.iso === today)) {
+    if (nowMin >= OPEN_MINUTES) return { open: true, date: today }
+    return { open: false, label: 'Check-in opens at 4:30pm today.' }
+  }
+
+  // Not a club night: a late check-in for the most recent night (up to a week).
+  const past = clubNights.filter((n) => n.iso < today)
+  const mostRecent = past[past.length - 1]
+  if (mostRecent) {
+    const age = Math.round((Date.parse(`${today}T00:00:00Z`) - Date.parse(`${mostRecent.iso}T00:00:00Z`)) / 86400000)
+    if (age <= 7) return { open: true, date: mostRecent.iso }
+  }
+
+  const next = clubNights.find((n) => n.iso > today) || clubNights[0]
+  return { open: false, label: next ? `Check-in opens ${formatClubNightLabel(next.iso)} at 4:30pm.` : 'Check-in is closed for the season.' }
 }
 
 /** The API returns first name + surname initial only — never a full name. */
@@ -85,10 +104,16 @@ export default function CheckIn() {
     setStatus('loading')
     setMessage('')
     try {
+      const st = checkinState()
+      if (!st.open) {
+        setStatus('error')
+        setMessage(st.label)
+        return
+      }
       const res = await fetch('/api/checkin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ids: selected.map((s) => s.id), date: clubNightForToday() }),
+        body: JSON.stringify({ ids: selected.map((s) => s.id), date: st.date }),
       })
       const json = await res.json().catch(() => ({}))
       if (!res.ok) {
@@ -112,6 +137,8 @@ export default function CheckIn() {
     setMessage('')
   }
 
+  const state = checkinState()
+
   return (
     <>
       <PageHero
@@ -123,7 +150,13 @@ export default function CheckIn() {
 
       <section className="container-page section-pad">
         <div className="mx-auto max-w-md rounded-2xl bg-white p-gutter-md text-center shadow-soft">
-          {status === 'done' && result ? (
+          {!state.open ? (
+            <div className="py-1">
+              <QrCode className="mx-auto h-10 w-10 text-primary" aria-hidden />
+              <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">Check-in isn't open yet</h2>
+              <p className="mt-2 text-sm text-on-surface-variant">{state.label}</p>
+            </div>
+          ) : status === 'done' && result ? (
             <div>
               <CheckCircle2 className="mx-auto h-12 w-12 text-tertiary" aria-hidden />
               <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">

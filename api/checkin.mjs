@@ -9,7 +9,7 @@
 //   - it only ever ADDS a presence mark (idempotent), never removes one,
 //   - it only accepts a club night from the last week (not any date),
 //   - the POST that actually marks attendance is rate-limited.
-import { clientIp, daysBetween, isIsoDate, isNotionId, nzToday, publicError, rateLimiter } from './_safety.mjs';
+import { clientIp, daysBetween, isIsoDate, isNotionId, nzMinutesSinceMidnight, nzToday, publicError, rateLimiter } from './_safety.mjs';
 
 export const config = { maxDuration: 60 };
 
@@ -136,6 +136,10 @@ export default async function handler(req, res) {
   // Tonight, or the most recent club night if the page was opened late.
   const age = daysBetween(date, nzToday());
   if (age < -1 || age > 7) return send(res, 400, { error: 'Check-in is only open for this week’s club night.' });
+  // Check-in for tonight opens at 4:30pm, when families start arriving.
+  if (age <= 0 && nzMinutesSinceMidnight() < 16 * 60 + 30) {
+    return send(res, 400, { error: 'Check-in opens at 4:30pm on club nights.' });
+  }
 
   try {
     const members = (await queryAll(MEMBERS_DB)).filter(isJunior);

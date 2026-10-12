@@ -23,6 +23,14 @@ export function nzToday(now = new Date()) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'Pacific/Auckland', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now)
 }
 
+/** Minutes since midnight in New Zealand, for the 4:30pm check-in gate. */
+export function nzMinutesSinceMidnight(now = new Date()) {
+  const p = new Intl.DateTimeFormat('en-US', { timeZone: 'Pacific/Auckland', hourCycle: 'h23', hour: 'numeric', minute: 'numeric' }).formatToParts(now)
+  const h = Number(p.find((x) => x.type === 'hour')?.value)
+  const m = Number(p.find((x) => x.type === 'minute')?.value)
+  return h * 60 + m
+}
+
 /** Whole days from `a` to `b` (both YYYY-MM-DD). */
 export function daysBetween(a, b) {
   return Math.round((Date.parse(b + 'T00:00:00Z') - Date.parse(a + 'T00:00:00Z')) / 86_400_000)
