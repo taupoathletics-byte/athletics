@@ -250,6 +250,14 @@
     "Beat Your Own Marker": {
       "src": "/getsetgo/stations/beat-your-own-marker.jpg",
       "alt": "Cartoon illustration for the Beat Your Own Marker station"
+    },
+    "Step and Run — hurdles": {
+      "src": "/getsetgo/stations/step-and-run-hurdles.jpg",
+      "alt": "Cartoon illustration for the Step and Run hurdles station"
+    },
+    "Hurdle Rhythm": {
+      "src": "/getsetgo/stations/hurdle-rhythm.jpg",
+      "alt": "Cartoon illustration for the Hurdle Rhythm station"
     }
   },
   "eventSafety": {
