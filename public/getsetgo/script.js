@@ -688,9 +688,10 @@ function buildAttendanceGroups(members) {
     const age = m.age;
     let group;
     if (age == null) group = 'Age not set';
-    else if (age < 3) group = 'Under 3';
-    else if (age <= 14) group = 'Grade ' + age;
-    else group = '15 & over';
+    else if (age < 2) group = 'Under 2';
+    else if (age <= 11) group = String(age);
+    else if (age <= 14) group = '12-14';
+    else group = '15+';
     const g = String(m.gender || '').toUpperCase();
     bucketFor(group)[g === 'F' ? 'F' : g === 'M' ? 'M' : 'X'].push(m.name);
   }
@@ -705,9 +706,9 @@ function buildAttendanceGroups(members) {
 /** Open a print-friendly roster (grouped by grade, boys/girls, A–Z) in a new tab. */
 function openPrintSheet() {
   const buckets = buildAttendanceGroups(attendanceMembers);
-  const order = ['Under 3'];
-  for (let g = 3; g <= 14; g += 1) order.push('Grade ' + g);
-  order.push('15 & over', 'Age not set');
+  const order = ['Under 2'];
+  for (let g = 2; g <= 11; g += 1) order.push(String(g));
+  order.push('12-14', '15+', 'Age not set');
 
   const namesHTML = (list) => list.map((n) => `<span class="name"><span class="box">\u2610</span>${esc(n)}</span>`).join('');
   const col = (title, list) => `

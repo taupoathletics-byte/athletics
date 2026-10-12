@@ -256,8 +256,8 @@ check(names(2, 'A').join('|') === 'Jumping Beans|Clever Catchers — floaters|Ju
 check(names(2, 'B').join('|') === 'Beanbag Hop|Clever Catchers — moving|Jungle Jaunt|Hurdle Rhythm', `series 2 week B: ${names(2, 'B')}`);
 check(names(3, 'A').join('|') === 'Circle Dodge Ball|Force Back — beanbags|Superhero Training|Half-and-Half Relays', `series 3 week A: ${names(3, 'A')}`);
 check(names(3, 'B').join('|') === "Dragon's Tail|Long Chase Ball|Superhero Training|Move and Exchange", `series 3 week B: ${names(3, 'B')}`);
-check(names(4, 'A').join('|') === 'Dead Ants|Partner Kicking|Pirate Island|Half-and-Half Relays', `series 4 week A: ${names(4, 'A')}`);
-check(names(4, 'B').join('|') === 'Skipping Experiments|Crazy Kickers|Pirate Island|Move and Exchange', `series 4 week B: ${names(4, 'B')}`);
+check(names(4, 'A').join('|') === 'Dead Ants|Partner Kicking|Pirate Island|Jump and Freeze', `series 4 week A: ${names(4, 'A')}`);
+check(names(4, 'B').join('|') === 'Skipping Experiments|Crazy Kickers|Pirate Island|Beat Your Own Marker', `series 4 week B: ${names(4, 'B')}`);
 // Series 2 must not pick up the Series 1 Week 2 lesson that Notion links by mistake.
 check(!names(2, 'A').concat(names(2, 'B')).some((n) => names(1, 'B').includes(n) || names(1, 'A').includes(n)), 'series 2 contains a series 1 activity');
 // Circuits keep their six moves.
@@ -279,8 +279,7 @@ const s3 = teaching.find((s) => s.series === 3);
 const s4 = teaching.find((s) => s.series === 4);
 check(s3.conflicts.some((c) => /hurdles/i.test(c) && /relays/i.test(c)), 'series 3: the lessons-say-hurdles / board-says-relays conflict is not flagged');
 check(s4.conflicts.some((c) => /Long jump/.test(c) && /Relays/.test(c)), 'series 4: the long jump vs relays conflict is not flagged');
-check(card('s4-A-4').alternate?.name === 'Jump and Freeze' && card('s4-B-4').alternate?.name === 'Beat Your Own Marker', 'series 4: the board’s long-jump cards must stay available as alternates');
-check(/PROVISIONAL/.test(card('s4-A-4').review) && /PROVISIONAL/.test(card('s4-B-4').review), 'series 4 relay cards must be marked provisional');
+check(card('s4-A-4').name === 'Jump and Freeze' && card('s4-B-4').name === 'Beat Your Own Marker', 'series 4: Station 4 is Long jump (Jump and Freeze / Beat Your Own Marker)');
 
 // Series 5–9, as on the Rotations board.
 const LATER = {

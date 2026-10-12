@@ -1270,10 +1270,10 @@ export default {
       "weeks": [
         {
           "week": 5,
-          "title": "Week 05 — Dodge, throw and relay (Discover)",
+          "title": "Week 05 — Dodge, throw and hurdle (Discover)",
           "phase": "Discover",
           "header": "Get Set Go · Week 5 · 12 November 2026 · 5:30–6:30 pm · Ages 3–6",
-          "seriesBits": "Series 3: Dodge, throw and relay | Core athletics: Relays | Object skill: Overarm throwing | A — Discover and practise",
+          "seriesBits": "Series 3: Dodge, throw and hurdle | Core athletics: Relays | Object skill: Overarm throwing | A — Discover and practise",
           "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
           "runOfShow": [
             "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Circle Dodge Ball. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -1283,10 +1283,10 @@ export default {
         },
         {
           "week": 6,
-          "title": "Week 06 — Dodge, throw and relay (Apply)",
+          "title": "Week 06 — Dodge, throw and hurdle (Apply)",
           "phase": "Apply",
           "header": "Get Set Go · Week 6 · 19 November 2026 · 5:30–6:30 pm · Ages 3–6",
-          "seriesBits": "Series 3: Dodge, throw and relay | Core athletics: Relays | Object skill: Overarm throwing | B — Apply and extend",
+          "seriesBits": "Series 3: Dodge, throw and hurdle | Core athletics: Relays | Object skill: Overarm throwing | B — Apply and extend",
           "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
           "runOfShow": [
             "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Dragon's Tail. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -1847,15 +1847,13 @@ export default {
       "manipulative": "Kicking",
       "fitnessCircuit": "Pirate Island",
       "coachNote": "Never rank the jumps. Every child marks their own landing with their own cone, and in Week B they try to beat the cone they set in Week A.",
-      "eventLabel": "Relays — provisional (board: Long jump)",
+      "eventLabel": "Long jump",
       "sessionNote": "Station 4 is awaiting admin approval (Relays vs Long jump). Relays: hand the beanbag over — never throw it — and announce when every team has finished, never who finished first.",
       "conflicts": [
-        "Station 4 is provisional. The Rotations board and the Series 4 Season Plan say Long jump (Jump and Freeze → Beat Your Own Marker); the updated Series 4 page and the Week 7/8 lessons say Relays (Half-and-Half Relays → Move and Exchange). These cards use Relays until an admin approves one — nothing in Notion has been changed. To switch, open the Station 4 editor and pick 'Rotations board version'.",
-        "Before approving Relays: Series 3 already runs Half-and-Half Relays → Move and Exchange on 12 and 19 Nov, so this would repeat the same relay activities four Thursdays running — and Series 5 opens with 'Jump and Freeze — revisit', which assumes Series 4 introduced it. The seniors don't do long jump on 26 Nov or 3 Dec, so either event fits the no-clash rule.",
-        "The Rotations board tags Stations 1–3 of Series 4 as 'Relays' but Station 4 as 'Long jump', and calls the series 'Kick it up' (the lessons and site say 'Kick and pass').",
+        "Series 4 is now Long jump (Jump and Freeze → Beat Your Own Marker), matching the Rotations board. The Week 7/8 lesson pages still say Relays and need updating in Notion.",
+        "The Rotations board tags Stations 1–3 of Series 4 as \"Relays\" but Station 4 as \"Long jump\", and calls the series \"Kick it up\" (the lessons and site say \"Kick and pass\").",
         "Dead Ants: the board's how-to has tagged children lie on their backs where they're tagged; the lesson and safety rule move them to a safe sideline ant zone. The card follows the safety rule.",
-        "Pirate Island: the board builds the rigging from a balance block across two cones; the lessons use secured lightweight foam rigging. The card follows the lessons.",
-        "Relay equipment quantities aren't in the Week 7/8 lessons — the cards reuse the Series 3 relay kit (12 beanbags, 20 cones, bibs). Confirm."
+        "Pirate Island: the board builds the rigging from a balance block across two cones; the lessons use secured lightweight foam rigging. The card follows the lessons."
       ],
       "isFinal": false,
       "weeks": [
@@ -2186,75 +2184,39 @@ export default {
             "auto": false,
             "volunteers": "",
             "layout": "steps",
-            "safety": "An adult supervises every beanbag handover — hand to hand, never thrown. Announce when every team has finished, never who finished first.",
-            "review": "PROVISIONAL — awaiting admin approval. The Rotations board says Long jump (Jump and Freeze) for this station; the Week 7 lesson says Half-and-Half Relays. Equipment quantities are copied from the Series 3 relay station — confirm.",
-            "name": "Half-and-Half Relays",
-            "skill": "Relay changeover · hand to hand",
+            "safety": "Two-foot take-off and two-foot landing on a mat or sandpit. Each child only beats their own marker — never compare jumps.",
+            "review": "Series 4 is now Long jump (board approved). Two-foot take-off and two-foot landing per the club rule.",
+            "name": "Jump and Freeze",
+            "skill": "Long jump · two-foot take-off",
             "equipment": [
-              "12 beanbags",
-              "20 cones",
-              "Bibs"
+              "30 cones",
+              "Long jump mat or sandpit"
             ],
-            "setup": "Short relay lanes with partners at each end, and marked safe waiting spaces.",
+            "setup": "A start line and a long open run.",
             "steps": [
-              "Walk the beanbag to your partner and place it in their open hand.",
-              "Jog to the other end, slowing down as you reach your partner.",
-              "Hand the beanbag over — place it, don't throw it — then join the back of that line.",
-              "Everyone runs several times. Cheer when every team has finished — no winners."
+              "Stand at the take-off line and find a comfortable bent-knee shape.",
+              "Swing your arms back then up; take off on two feet and land quietly on two feet.",
+              "Mark your landing with your own cone.",
+              "Try again and try to beat your own cone — never compare with anyone else."
             ],
             "cues": [
-              "Look",
-              "Offer your hand",
-              "Pass, don't throw"
+              "Swing and spring",
+              "Land quietly"
             ],
-            "younger": "Walking handover with a helper, over 5 m.",
-            "older": "Start jogging before the exchange only if it's safe.",
-            "watch": "The receiver must be holding the beanbag before running. Never throw it.",
-            "discovery": "Walk a beanbag to a partner and put it directly into their open hand.",
-            "developing": "Jog over 10–15 m, slow near your partner and complete a hand-to-hand exchange.",
-            "consolidating": "Repeat several short relay rounds; focus on smooth movement and cheering, not winners.",
-            "observation": "Children setting off before they're holding the beanbag.",
-            "alternative": "Shuttle Relay — run out, touch the cone, run back and tag the next runner.",
+            "younger": "Tiny standing jumps with hand support if needed.",
+            "older": "Add a stronger arm swing and forward reach.",
+            "watch": "Comparing with each other. Redirect: “beat your own cone”.",
+            "discovery": "Stand at a take-off line and find a comfortable bent-knee shape.",
+            "developing": "Swing arms back then up; two-foot take-off, two-foot quiet landing on a mat or flat surface.",
+            "consolidating": "Use your own marker to show your landing; try again focusing on a still landing, never compare children.",
+            "observation": "Can both feet take off together and land bent?",
+            "alternative": "Frog Jump Freeze — two-foot jump, freeze the landing",
             "sources": [
-              "Club Series 4 package",
-              "Week 7 lesson (Relays)"
+              "Rotations board: S4 · R4",
+              "Week 7 lesson (Long jump)"
             ],
             "image": null,
-            "alternate": {
-              "label": "Rotations board version",
-              "name": "Jump and Freeze",
-              "skill": "Jumping for distance",
-              "layout": "steps",
-              "equipment": [
-                "30 cones",
-                "Long jump mat or sandpit"
-              ],
-              "setup": "A start line and a long open run.",
-              "steps": [
-                "Each child jumps or hops from the line and places their own cone where they landed.",
-                "Next turn they try to beat their own cone.",
-                "Nobody compares to anybody else — that is the whole design."
-              ],
-              "cues": [
-                "Swing and spring",
-                "Land quietly"
-              ],
-              "younger": "Tiny standing jumps with hand support if needed.",
-              "older": "Add stronger arm swing and forward reach.",
-              "watch": "Comparing with each other. Redirect: 'beat your own cone'.",
-              "safety": "",
-              "discovery": "Stand at a take-off line and find a comfortable bent-knee shape.",
-              "developing": "Swing arms back then up; two-foot take-off, two-foot quiet landing on a mat/flat surface.",
-              "consolidating": "Use own marker to show landing point; try again focusing on still landing, never compare children.",
-              "observation": "Can both feet take off together and land bent?",
-              "alternative": "Frog Jump Freeze — Jump forward with two feet, then freeze the landing in a bent-knee shape.",
-              "review": "Built automatically from the Rotations board — check it before sharing.",
-              "sources": [
-                "Rotations board: S4 · R4 (auto)"
-              ],
-              "image": null
-            },
-            "hash": "9448fd346275"
+            "hash": "ad88a04873e6"
           }
         ],
         "B": [
@@ -2423,76 +2385,41 @@ export default {
             "auto": false,
             "volunteers": "",
             "layout": "steps",
-            "safety": "An adult supervises every beanbag handover — hand to hand, never thrown. No blind handovers at this age.",
-            "review": "PROVISIONAL — awaiting admin approval. The Rotations board says Long jump (Beat Your Own Marker) for this station; the Week 8 lesson says Move and Exchange. Equipment quantities are copied from the Series 3 relay station — confirm.",
-            "name": "Move and Exchange",
-            "skill": "Relay changeover · on the move",
+            "safety": "Two-foot take-off and two-foot landing on a mat or sandpit. Each child only beats their own marker — never compare jumps.",
+            "review": "",
+            "name": "Beat Your Own Marker",
+            "skill": "Long jump · beat your own marker",
             "equipment": [
-              "12 beanbags",
-              "20 cones",
-              "Bibs"
+              "30 cones",
+              "Long jump mat or sandpit"
             ],
-            "setup": "A short, slow-speed relay approach with a clear receiving zone marked by cones.",
+            "setup": "A start line and a long open run.",
             "steps": [
-              "Practise a standing handover — try it with both hands.",
-              "Agree which hand receives the beanbag.",
-              "Short jog in, then make the exchange while walking.",
-              "Three smooth handovers each — which one felt easiest, and why?"
+              "Explore two short standing jumps and pick one safe landing.",
+              "Use your arm swing and a two-foot push to travel farther while controlling your landing.",
+              "Move your personal landing marker from last week if you go farther.",
+              "Celebrate a safe, repeatable jump — not who jumped farthest."
             ],
             "cues": [
-              "Eyes on partner",
-              "Hand it over"
+              "Bend",
+              "Swing",
+              "Spring",
+              "Freeze"
             ],
-            "younger": "Walk, and stop for the handover.",
-            "older": "A brief moving handover inside the marked change zone.",
-            "watch": "Blind handovers or uncontrolled sprints.",
-            "discovery": "Practise a standing handover with both hand orientations.",
-            "developing": "Short jog; agree which hand receives and make the exchange while walking.",
-            "consolidating": "Complete 3 smooth handovers each; choose which changeover was easiest and why.",
-            "observation": "No blind handovers at this age.",
-            "alternative": "Shuttle Relay — run out, touch the cone, run back and tag the next runner.",
+            "younger": "Short jumps; marker optional.",
+            "older": "A small run-in, only if you can plant and jump safely.",
+            "watch": "Stiff-knee landings or comparing with others.",
+            "discovery": "Explore two short standing jumps and select one safe landing.",
+            "developing": "Aim to use arm swing and two-foot push to travel farther while controlling landing.",
+            "consolidating": "Move your personal landing marker from last week if appropriate; celebrate safe repeatability, not rank.",
+            "observation": "Is distance gained without a stiff-knee landing?",
+            "alternative": "Frog Jump Freeze — two-foot jump, freeze the landing",
             "sources": [
-              "Club Series 4 package",
-              "Week 8 lesson (Relays)"
+              "Rotations board: S4 · R4",
+              "Week 8 lesson (Long jump)"
             ],
             "image": null,
-            "alternate": {
-              "label": "Rotations board version",
-              "name": "Beat Your Own Marker",
-              "skill": "Jumping for distance",
-              "layout": "steps",
-              "equipment": [
-                "30 cones",
-                "Long jump mat or sandpit"
-              ],
-              "setup": "A start line and a long open run.",
-              "steps": [
-                "Discover — Explore two short standing jumps and select one safe landing.",
-                "Develop — Aim to use arm swing and two-foot push to travel farther while controlling landing.",
-                "Apply — Move personal landing marker from last week if appropriate; coach celebrates safe repeatability, not rank."
-              ],
-              "cues": [
-                "Bend",
-                "Swing",
-                "Spring",
-                "Freeze"
-              ],
-              "younger": "Short jumps; marker optional.",
-              "older": "Small run-in only if able to plant and jump safely.",
-              "watch": "Comparing with each other. Redirect: 'beat your own cone'.",
-              "safety": "",
-              "discovery": "Explore two short standing jumps and select one safe landing.",
-              "developing": "Aim to use arm swing and two-foot push to travel farther while controlling landing.",
-              "consolidating": "Move personal landing marker from last week if appropriate; coach celebrates safe repeatability, not rank.",
-              "observation": "Is distance gained without stiff-knee landing?",
-              "alternative": "Frog Jump Freeze — Jump forward with two feet, then freeze the landing in a bent-knee shape.",
-              "review": "Built automatically from the Rotations board — check it before sharing. Week B steps come from the board’s Week B progression — the board has no separate how-to for this activity. Set-up is the Week A set-up — check it suits Beat Your Own Marker.",
-              "sources": [
-                "Rotations board: S4 · R4 (auto)"
-              ],
-              "image": null
-            },
-            "hash": "58dd3e525c3d"
+            "hash": "2de22b25aa0f"
           }
         ]
       },
@@ -3861,10 +3788,10 @@ export default {
       "weeks": [
         {
           "week": 13,
-          "title": "Week 13 — Kick, dodge and leap (Discover)",
+          "title": "Week 13 — Kick, dodge and hurdle (Discover)",
           "phase": "Discover",
           "header": "Get Set Go · Week 13 · 18 February 2027 · 5:30–6:30 pm · Ages 3–6",
-          "seriesBits": "Series 7: Kick, dodge and leap | Core athletics: High jump | Object skill: Kicking | A — Discover and practise",
+          "seriesBits": "Series 7: Kick, dodge and hurdle | Core athletics: High jump | Object skill: Kicking | A — Discover and practise",
           "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
           "runOfShow": [
             "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Ballrush — change directions. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
@@ -3874,10 +3801,10 @@ export default {
         },
         {
           "week": 14,
-          "title": "Week 14 — Kick, dodge and leap (Apply)",
+          "title": "Week 14 — Kick, dodge and hurdle (Apply)",
           "phase": "Apply",
           "header": "Get Set Go · Week 14 · 25 February 2027 · 5:30–6:30 pm · Ages 3–6",
-          "seriesBits": "Series 7: Kick, dodge and leap | Core athletics: High jump | Object skill: Kicking | B — Apply and extend",
+          "seriesBits": "Series 7: Kick, dodge and hurdle | Core athletics: High jump | Object skill: Kicking | B — Apply and extend",
           "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
           "runOfShow": [
             "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Dragons Tail — dodge. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
