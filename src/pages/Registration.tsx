@@ -32,9 +32,9 @@ export default function Registration() {
       <section className="container-page section-pad">
         {/* The three questions, answered immediately */}
         <div className="grid gap-4 md:grid-cols-3">
-          <Card className="border-l-4 border-l-coral-active p-gutter-sm">
+          <Card className="border-l-4 border-l-signal p-gutter-sm">
             <CardContent className="space-y-2 p-0">
-              <div className="flex items-center gap-2 text-coral-active">
+              <div className="flex items-center gap-2 text-signal">
                 <CheckCircle2 className="h-5 w-5" aria-hidden />
                 <h2 className="font-display text-xl font-bold text-on-surface">Registrations are open</h2>
               </div>
@@ -93,9 +93,9 @@ export default function Registration() {
         </div>
 
         {/* Junior caps */}
-        <div className="mt-8 rounded-xl border-l-4 border-l-coral-active bg-white p-gutter-sm shadow-soft">
+        <div className="mt-8 rounded-xl border-l-4 border-l-signal bg-white p-gutter-sm shadow-soft">
           <div className="flex items-start gap-3">
-            <Users className="mt-0.5 h-6 w-6 shrink-0 text-coral-active" aria-hidden />
+            <Users className="mt-0.5 h-6 w-6 shrink-0 text-signal" aria-hidden />
             <div>
               <h2 className="font-display text-xl font-bold text-on-surface">Junior grades are capped this season</h2>
               <ul className="mt-2 flex flex-wrap gap-2">
@@ -197,7 +197,7 @@ export default function Registration() {
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-coral-active" aria-hidden />
+              <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-signal" aria-hidden />
               <span>
                 <strong className="text-on-surface">No refunds.</strong> There are no refunds if your child decides they
                 do not want to continue for the season.

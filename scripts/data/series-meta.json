@@ -5,7 +5,7 @@
     "term": "Term 4",
     "weeks": "1 & 2",
     "dates": "Thu 15 Oct 2026 · Thu 22 Oct 2026",
-    "athleticsEvent": "Long jump",
+    "athleticsEvent": "High jump",
     "manipulative": "Underarm throwing",
     "fitnessCircuit": "Animal Trail",
     "coachNote": "First two weeks. Names before anything else — every helper learns the four or five children at their station and uses them out loud. Walk the boundary cones with the group on night one."
@@ -16,18 +16,18 @@
     "term": "Term 4",
     "weeks": "3 & 4",
     "dates": "Thu 29 Oct 2026 · Thu 5 Nov 2026",
-    "athleticsEvent": "High jump",
+    "athleticsEvent": "Hurdles",
     "manipulative": "Catching",
     "fitnessCircuit": "Jungle Jaunt",
     "coachNote": "Foam hurdles only — the kind that fall over when clipped. Never rigid hurdles at this age."
   },
   {
     "series": 3,
-    "name": "Series 3 — Dodge, throw and hurdle",
+    "name": "Series 3 — Dodge, throw and relay",
     "term": "Term 4",
     "weeks": "5 & 6",
     "dates": "Thu 12 Nov 2026 · Thu 19 Nov 2026",
-    "athleticsEvent": "Hurdles",
+    "athleticsEvent": "Relays",
     "manipulative": "Overarm throwing",
     "fitnessCircuit": "Superhero Training",
     "coachNote": "Hand the beanbag over — never throw it — and keep the changeover zone clear. Announce when every team has finished, never who finished first."
@@ -38,7 +38,7 @@
     "term": "Term 4",
     "weeks": "7 & 8",
     "dates": "Thu 26 Nov 2026 · Thu 3 Dec 2026",
-    "athleticsEvent": "Relays",
+    "athleticsEvent": "Long jump",
     "manipulative": "Kicking",
     "fitnessCircuit": "Pirate Island",
     "coachNote": "Never rank the jumps. Every child marks their own landing with their own cone, and in Week B they try to beat the cone they set in Week A."
@@ -60,18 +60,18 @@
     "term": "Term 1",
     "weeks": "11 & 12",
     "dates": "Thu 4 Feb 2027 · Thu 11 Feb 2027",
-    "athleticsEvent": "High jump",
+    "athleticsEvent": "Hurdles",
     "manipulative": "Catching",
     "fitnessCircuit": "Space Station",
     "coachNote": "First two weeks back after the break — re-walk the boundaries and re-learn names. Foam hurdles only for the hurdle station."
   },
   {
     "series": 7,
-    "name": "Series 7 — Kick, dodge and hurdle",
+    "name": "Series 7 — Kick, dodge and leap",
     "term": "Term 1",
     "weeks": "13 & 14",
     "dates": "Thu 18 Feb 2027 · Thu 25 Feb 2027",
-    "athleticsEvent": "Hurdles",
+    "athleticsEvent": "High jump",
     "manipulative": "Kicking",
     "fitnessCircuit": "Farmyard Fitness",
     "coachNote": "IMPORTANT: no Fosbury flop and no landing on the back. Use the high jump mat with a low ELASTIC — never a rope or a high jump pole. Scissor over and land on the feet, every time."

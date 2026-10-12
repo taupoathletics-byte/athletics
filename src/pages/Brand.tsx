@@ -10,21 +10,20 @@ interface Swatch {
 }
 
 const brand: Swatch[] = [
-  { name: 'Primary (steel blue)', hex: '#5b84a8', className: 'bg-primary', textClass: 'text-on-primary' },
-  { name: 'Primary container', hex: '#cfe1f0', className: 'bg-primary-container', textClass: 'text-on-primary-container' },
-  { name: 'CTA (coral)', hex: '#ff7f50', className: 'bg-coral-active', textClass: 'text-white' },
+  { name: 'Navy (dark sections, nav)', hex: '#0c2033', className: 'bg-ink', textClass: 'text-cream' },
+  { name: 'Club blue (links, headings)', hex: '#4a6f8f', className: 'bg-primary', textClass: 'text-on-primary' },
+  { name: 'Track red (CTAs, highlights)', hex: '#b04f49', className: 'bg-signal', textClass: 'text-signal-ink' },
+  { name: 'Dark track red (text on light)', hex: '#893e39', className: 'bg-on-signal', textClass: 'text-white' },
+  { name: 'Light track red (small text on navy)', hex: '#d87e78', className: 'bg-signal-light', textClass: 'text-ink' },
   { name: 'Get Set Go (teal)', hex: '#006a63', className: 'bg-tertiary', textClass: 'text-on-tertiary' },
-  { name: 'Mint Go', hex: '#4fd1c5', className: 'bg-mint-go', textClass: 'text-on-tertiary-container' },
-  { name: 'Secondary', hex: '#705d00', className: 'bg-secondary', textClass: 'text-on-secondary' },
-  { name: 'Sky info', hex: '#0ea5e9', className: 'bg-sky-info', textClass: 'text-white' },
-  { name: 'Sunflower caution', hex: '#ffd700', className: 'bg-sunflower-caution', textClass: 'text-on-surface' },
+  { name: 'Sky (supporting)', hex: '#a9c6de', className: 'bg-sky-soft', textClass: 'text-ink' },
 ]
 
 const neutrals: Swatch[] = [
-  { name: 'Surface', hex: '#fef8f1', className: 'bg-surface', textClass: 'text-on-surface' },
-  { name: 'Background', hex: '#fff9f2', className: 'bg-background', textClass: 'text-foreground' },
-  { name: 'On surface', hex: '#1d1b17', className: 'bg-on-surface', textClass: 'text-surface' },
-  { name: 'Inverse surface', hex: '#32302c', className: 'bg-inverse-surface', textClass: 'text-inverse-on-surface' },
+  { name: 'Off-white paper', hex: '#F6F3EC', className: 'bg-cream', textClass: 'text-ink' },
+  { name: 'White', hex: '#FFFFFF', className: 'bg-white', textClass: 'text-ink' },
+  { name: 'Body text', hex: '#1a202c', className: 'bg-text-ink', textClass: 'text-white' },
+  { name: 'Muted surface', hex: '#f2f6f9', className: 'bg-muted', textClass: 'text-muted-foreground' },
 ]
 
 function SwatchGrid({ items }: { items: Swatch[] }) {
@@ -97,7 +96,7 @@ export default function Brand() {
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <Badge>Default</Badge>
             <Badge variant="mint">Get Set Go</Badge>
-            <Badge variant="coral">Ribbon Day</Badge>
+            <Badge variant="signal">Ribbon Day</Badge>
             <Badge variant="sky">Info</Badge>
             <Badge variant="sunflower">Caution</Badge>
             <Badge variant="outline">Outline</Badge>

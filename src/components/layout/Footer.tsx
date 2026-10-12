@@ -9,7 +9,7 @@ import { sponsors } from '@/data/sponsors'
 const footerLinks = navItems.flatMap((n) => (n.children ? n.children : [n])).filter((n) => n.to)
 
 const heading = 'mb-3 font-display text-xl font-black uppercase tracking-wide text-cream'
-const item = 'inline-block py-1 text-cream/70 transition-colors hover:text-coral-active'
+const item = 'inline-block py-1 text-cream/70 transition-colors hover:text-signal-light'
 
 export function Footer() {
   return (
@@ -57,25 +57,25 @@ export function Footer() {
           <h2 className={heading}>Contact</h2>
           <ul className="space-y-1 text-sm text-cream/70">
             <li className="flex items-center gap-2 py-1">
-              <Mail className="h-4 w-4 shrink-0 text-coral-active" aria-hidden />
+              <Mail className="h-4 w-4 shrink-0 text-signal-light" aria-hidden />
               <a className={item} href={`mailto:${contactEmail}`}>
                 {contactEmail}
               </a>
             </li>
             <li className="flex items-center gap-2 py-1">
-              <Mail className="h-4 w-4 shrink-0 text-coral-active" aria-hidden />
+              <Mail className="h-4 w-4 shrink-0 text-signal-light" aria-hidden />
               <a className={item} href={`mailto:${secretaryEmail}`}>
                 {secretaryEmail}
               </a>
             </li>
             <li className="flex items-center gap-2 py-1">
-              <MapPin className="h-4 w-4 shrink-0 text-coral-active" aria-hidden /> {venue.name}, {venue.address}
+              <MapPin className="h-4 w-4 shrink-0 text-signal-light" aria-hidden /> {venue.name}, {venue.address}
             </li>
             <li className="flex items-center gap-2 py-1">
-              <Clock className="h-4 w-4 shrink-0 text-coral-active" aria-hidden /> Thursdays from 5:30pm
+              <Clock className="h-4 w-4 shrink-0 text-signal-light" aria-hidden /> Thursdays from 5:30pm
             </li>
             <li className="flex items-center gap-2 py-1">
-              <Facebook className="h-4 w-4 shrink-0 text-coral-active" aria-hidden />
+              <Facebook className="h-4 w-4 shrink-0 text-signal-light" aria-hidden />
               <a className={item} href={links.facebook} target="_blank" rel="noopener noreferrer">
                 Facebook
               </a>
@@ -111,7 +111,7 @@ export function Footer() {
       {/* Giant sign-off, like Sixes' "PARTY CRICKET" — decorative */}
       <div aria-hidden>
       <Marquee
-        className="pb-2 text-coral-active"
+        className="pb-2 text-white"
         items={[0, 1, 2].map(() => (
           <span className="display-xl whitespace-nowrap text-[clamp(5rem,16vw,15rem)] leading-[0.8]">Taupō Athletics</span>
         ))}

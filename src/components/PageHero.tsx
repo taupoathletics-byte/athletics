@@ -28,7 +28,7 @@ export function PageHero({ eyebrow, title, subtitle, photo, icon }: PageHeroProp
       <div className="container-page relative grid items-center gap-10 py-12 md:py-16 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
         <div className="relative z-10">
           {eyebrow && (
-            <p className="font-display text-lg font-extrabold uppercase tracking-[0.16em] text-coral-active">{eyebrow}</p>
+            <p className="font-display text-lg font-extrabold uppercase tracking-[0.16em] text-signal-light">{eyebrow}</p>
           )}
           <h1 className="display-xl mt-2 text-[clamp(3.2rem,8vw,6.5rem)] text-cream">{title}</h1>
           {subtitle && <p className="mt-4 max-w-2xl text-lg text-cream/80">{subtitle}</p>}
@@ -46,7 +46,7 @@ export function PageHero({ eyebrow, title, subtitle, photo, icon }: PageHeroProp
           </div>
         )}
       </div>
-      <div aria-hidden className="h-2 bg-[linear-gradient(to_bottom,#c8553d_0_33%,#fbf5ea_33%_66%,#c8553d_66%)]" />
+      <div aria-hidden className="h-2 bg-[linear-gradient(to_bottom,#b04f49_0_33%,#F6F3EC_33%_66%,#b04f49_66%)]" />
     </section>
   )
 }

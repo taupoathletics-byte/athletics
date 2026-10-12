@@ -87,7 +87,7 @@ export function NextNightPanel() {
                   onClick={() => setTab(g.id)}
                   className={cn(
                     '-mb-px border-b-4 px-1 pb-2 font-display text-lg font-extrabold uppercase tracking-wide transition-colors',
-                    tab === g.id ? 'border-coral-active text-ink' : 'border-transparent text-on-surface-variant hover:text-ink',
+                    tab === g.id ? 'border-signal text-ink' : 'border-transparent text-on-surface-variant hover:text-ink',
                   )}
                 >
                   {g.label}
@@ -131,7 +131,7 @@ export function NextNightPanel() {
               </Link>
             </div>
 
-            <p className="mx-auto mt-6 flex max-w-2xl items-start gap-2 rounded-lg bg-coral-active/15 px-4 py-3 text-sm text-on-coral">
+            <p className="mx-auto mt-6 flex max-w-2xl items-start gap-2 rounded-lg bg-signal/15 px-4 py-3 text-sm text-on-signal">
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
               <span>
                 <strong>We do not hold open days.</strong> Junior grades are capped each season to keep coach-to-athlete

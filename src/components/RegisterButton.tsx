@@ -9,7 +9,7 @@ interface RegisterButtonProps {
   pulse?: boolean
 }
 
-const COLOURS = ['#5b84a8', '#ff7f50', '#4fd1c5', '#ffd700', '#0ea5e9']
+const COLOURS = ['#5b84a8', '#b04f49', '#F6F3EC', '#0c2033', '#a9c6de']
 
 /** One-time celebratory burst when someone heads off to register. */
 function burst(origin: HTMLElement) {
@@ -65,8 +65,8 @@ export function RegisterButton({ className, children = 'Register', pulse = true 
         burst(ref.current)
       }}
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-full bg-coral-active px-5 py-2.5 text-sm font-bold text-coral-ink',
-        'shadow-coral-sm transition-all hover:bg-coral-hover active:translate-y-[2px] active:shadow-none',
+        'inline-flex items-center justify-center gap-2 rounded-full bg-signal px-5 py-2.5 text-sm font-bold text-signal-ink',
+        'shadow-signal-sm transition-all hover:bg-signal-hover active:translate-y-[2px] active:shadow-none',
         'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
         pulse && registration.isOpen && 'animate-register-pulse',
         className,

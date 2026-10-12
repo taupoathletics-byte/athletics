@@ -138,7 +138,7 @@ export function TrackBands({ className, lanes = 3 }: { className?: string; lanes
 export function Sticker({ text, href, className, center }: { text: string; href?: string; className?: string; center?: ReactNode }) {
   const pathId = `sticker-${useId().replace(/[^a-zA-Z0-9]/g, '')}`
   const inner = (
-    <span className={cn('relative grid size-28 place-items-center rounded-full bg-coral-active text-coral-ink shadow-floating md:size-32', className)}>
+    <span className={cn('relative grid size-28 place-items-center rounded-full bg-signal text-signal-ink shadow-floating md:size-32', className)}>
       <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full animate-spin-slow" aria-hidden>
         <defs>
           <path id={pathId} d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0" />

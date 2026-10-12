@@ -145,7 +145,7 @@ export const FAMILY_LABELS: Record<EventFamily, string> = {
 
 /** Tailwind classes per family — one meaning per colour. */
 export const FAMILY_CLASSES: Record<EventFamily, string> = {
-  sprints: 'bg-coral-active/15 text-on-coral border-coral-active/30',
+  sprints: 'bg-signal/15 text-on-signal border-signal/30',
   distance: 'bg-sky-info/15 text-on-sky border-sky-info/30',
   hurdles: 'bg-secondary-container/40 text-on-secondary-container border-secondary/30',
   walks: 'bg-tertiary/15 text-on-tertiary-container border-tertiary/30',

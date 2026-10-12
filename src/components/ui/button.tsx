@@ -8,7 +8,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-coral-active text-coral-ink shadow-coral hover:brightness-95 active:translate-y-[3px] active:shadow-none',
+          'bg-signal text-signal-ink shadow-signal hover:brightness-95 active:translate-y-[3px] active:shadow-none',
         outline:
           'border-2 border-ink bg-transparent text-ink hover:bg-ink hover:text-cream',
         ghost: 'text-on-surface-variant hover:bg-surface-container-low hover:text-primary',

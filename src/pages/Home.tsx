@@ -3,7 +3,7 @@ import { AlertTriangle, Heart } from 'lucide-react'
 import { FacebookFeed } from '@/components/FacebookFeed'
 import { SponsorStrip } from '@/components/SponsorStrip'
 import { CrewQuotes } from '@/components/athletics/CrewQuotes'
-import { EventBadges } from '@/components/athletics/EventBadges'
+import { EventsExplorer } from '@/components/athletics/EventsExplorer'
 import { FeatureBlocks } from '@/components/athletics/FeatureBlocks'
 import { LifeStrip } from '@/components/athletics/LifeStrip'
 import { Marquee, Reveal, SectionLabel } from '@/components/athletics/motion'
@@ -30,7 +30,7 @@ export default function Home() {
       <ProgrammeCards />
 
       <Marquee
-        className="border-y-4 border-ink bg-track py-3 text-cream"
+        className="border-y-4 border-ink bg-ink-3 py-3 text-cream"
         items={TICKER.map((t) => (
           <span className="font-display text-2xl font-black uppercase tracking-wide md:text-3xl">{t}</span>
         ))}
@@ -39,7 +39,7 @@ export default function Home() {
       />
 
       <LifeStrip />
-      <EventBadges />
+      <EventsExplorer />
       <WordRows />
       <FeatureBlocks />
       <CrewQuotes />
@@ -55,7 +55,7 @@ export default function Home() {
               what&rsquo;s on at the next club night.
             </p>
             <div className="mt-6 flex max-w-lg items-start gap-3 rounded-xl bg-cream/10 p-4 ring-1 ring-cream/15">
-              <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-coral-active" aria-hidden />
+              <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-signal-light" aria-hidden />
               <p className="text-cream/85">
                 <strong className="text-cream">Weather cancellations</strong> are posted by 4pm on Thursday. Check
                 Facebook before you leave home.
@@ -80,7 +80,7 @@ export default function Home() {
       <section className="bg-cream py-16 md:py-20">
         <div className="container-page">
           <SectionLabel>
-            <Heart className="h-5 w-5 text-coral-active" aria-hidden /> Thank you to our sponsors
+            <Heart className="h-5 w-5 text-signal" aria-hidden /> Thank you to our sponsors
           </SectionLabel>
           <div className="mt-8">
             <SponsorStrip />

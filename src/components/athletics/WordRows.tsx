@@ -29,7 +29,7 @@ export function WordRows() {
           {[...row.words, ...row.words].map((w, i) => (
             <Fragment key={`${w}-${i}`}>
               <span className="display-xl whitespace-nowrap text-[clamp(3rem,9vw,7.5rem)] text-ink">{w}</span>
-              <Photo id={row.photos[i % row.photos.length]} sizes="140px" className="size-20 shrink-0 rounded-full ring-4 ring-coral-active md:size-32" />
+              <Photo id={row.photos[i % row.photos.length]} sizes="140px" className="size-20 shrink-0 rounded-full ring-4 ring-signal md:size-32" />
             </Fragment>
           ))}
         </motion.div>

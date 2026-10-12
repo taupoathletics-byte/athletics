@@ -6,11 +6,11 @@ import { navItems, clubName, links } from '@/data/site'
 import { cn } from '@/lib/utils'
 
 const linkBase =
-  'whitespace-nowrap rounded-md px-2.5 py-2 font-display text-[1.05rem] font-extrabold uppercase tracking-[0.06em] text-cream/85 transition-colors hover:text-coral-active'
+  'whitespace-nowrap rounded-md px-2.5 py-2 font-display text-[1.05rem] font-extrabold uppercase tracking-[0.06em] text-cream/85 transition-colors hover:text-signal-light'
 
 /**
- * Sixes-style bar: navy, condensed uppercase nav, coral Register. Sticky, with
- * a lane-stripe (terracotta / cream) edge underneath.
+ * Sixes-style bar: navy, condensed uppercase nav, red Register. Sticky, with
+ * a lane-stripe (red / off-white) edge underneath.
  */
 export function Header() {
   const [open, setOpen] = React.useState(false)
@@ -18,13 +18,13 @@ export function Header() {
   React.useEffect(() => setOpen(false), [location.pathname])
 
   return (
-    <header className="sticky top-0 z-50 bg-ink text-cream shadow-[0_2px_0_#c8553d,0_4px_0_#fbf5ea,0_6px_0_#0c2033]">
+    <header className="sticky top-0 z-50 bg-ink text-cream shadow-[0_2px_0_#b04f49,0_4px_0_#F6F3EC,0_6px_0_#0c2033]">
       <div className="container-page flex h-16 items-center justify-between gap-4 md:h-[72px]">
         {/* Badge + name */}
         <Link to="/" className="flex shrink-0 items-center gap-2.5" aria-label={`${clubName} home`}>
           <img src="/logo.svg" alt="" className="h-10 w-10 rounded-full bg-cream p-0.5 md:h-11 md:w-11" />
           <span className="font-display text-2xl font-black uppercase leading-none tracking-wide text-cream">
-            Taupō <span className="text-coral-active">Athletics</span>
+            Taupō <span className="text-signal">Athletics</span>
           </span>
         </Link>
 
@@ -37,12 +37,12 @@ export function Header() {
                   <ChevronDown className="h-4 w-4" aria-hidden />
                 </button>
                 <div className="invisible absolute left-0 top-full z-50 w-60 pt-2 opacity-0 transition-all group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                  <div className="rounded-xl bg-teal-deep p-2 shadow-floating ring-1 ring-cream/10">
+                  <div className="rounded-xl bg-ink-2 p-2 shadow-floating ring-1 ring-cream/10">
                     {item.children.map((c) => (
                       <Link
                         key={c.label}
                         to={c.to!}
-                        className="block rounded-lg px-3 py-2.5 font-display text-lg font-extrabold uppercase tracking-wide text-cream hover:bg-cream/10 hover:text-coral-active"
+                        className="block rounded-lg px-3 py-2.5 font-display text-lg font-extrabold uppercase tracking-wide text-cream hover:bg-cream/10 hover:text-signal-light"
                       >
                         {c.label}
                       </Link>
@@ -55,7 +55,7 @@ export function Header() {
                 key={item.label}
                 to={item.to!}
                 end={item.to === '/'}
-                className={({ isActive }) => cn(linkBase, isActive && 'text-coral-active')}
+                className={({ isActive }) => cn(linkBase, isActive && 'text-signal-light')}
               >
                 {item.label}
               </NavLink>
@@ -94,7 +94,7 @@ export function Header() {
                 <div key={item.label} className="border-b border-cream/10 py-2">
                   <span className="block px-1 py-1 text-xs font-bold uppercase tracking-[0.2em] text-sky-soft">{item.label}</span>
                   {item.children.map((c) => (
-                    <NavLink key={c.label} to={c.to!} className="block px-1 py-2 font-display text-3xl font-black uppercase text-cream hover:text-coral-active">
+                    <NavLink key={c.label} to={c.to!} className="block px-1 py-2 font-display text-3xl font-black uppercase text-cream hover:text-signal">
                       {c.label}
                     </NavLink>
                   ))}
@@ -105,7 +105,7 @@ export function Header() {
                   to={item.to!}
                   end={item.to === '/'}
                   className={({ isActive }) =>
-                    cn('border-b border-cream/10 px-1 py-3 font-display text-3xl font-black uppercase text-cream hover:text-coral-active', isActive && 'text-coral-active')
+                    cn('border-b border-cream/10 px-1 py-3 font-display text-3xl font-black uppercase text-cream hover:text-signal', isActive && 'text-signal')
                   }
                 >
                   {item.label}

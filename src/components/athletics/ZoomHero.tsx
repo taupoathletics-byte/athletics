@@ -6,6 +6,7 @@ import { Photo } from '@/components/Photo'
 import { RegisterButton } from '@/components/RegisterButton'
 import { registration } from '@/data/fees'
 import { venue } from '@/data/site'
+import { useMediaQuery } from '@/lib/useMediaQuery'
 import { cn } from '@/lib/utils'
 import { Floater } from './motion'
 
@@ -13,18 +14,6 @@ const VIDEO = '/media/promo-loop.mp4'
 const POSTER = '/media/promo-poster.jpg'
 /** The promo's music is mastered loud; 70% sits comfortably under speech on a phone. */
 const SOUND_VOLUME = 0.7
-
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches)
-  useEffect(() => {
-    const mq = window.matchMedia(query)
-    const on = () => setMatches(mq.matches)
-    on()
-    mq.addEventListener('change', on)
-    return () => mq.removeEventListener('change', on)
-  }, [query])
-  return matches
-}
 
 /** Skip autoplay for people on a data saver or who asked for less motion. */
 function shouldAutoplay(reduce: boolean | null) {
@@ -168,7 +157,7 @@ export function ZoomHero() {
       <span className="sr-only">Taupō Athletics Club — </span>
       <span className="block text-[clamp(4.2rem,15vw,7rem)] md:text-[clamp(6rem,10.5vw,10.5rem)]">Run. Jump.</span>
       <span className="block text-[clamp(4.2rem,15vw,7rem)] md:text-[clamp(6rem,10.5vw,10.5rem)]">
-        Thr<span className="text-coral-active">o</span>w.
+        Thr<span className="text-signal">o</span>w.
       </span>
     </h1>
   )
@@ -267,7 +256,7 @@ export function ZoomHero() {
           className="absolute inset-x-0 bottom-0 z-20"
         >
           <div className="container-page pb-20 md:pb-16">
-            <p className="font-display text-lg font-extrabold uppercase tracking-[0.12em] text-coral-active md:text-xl">
+            <p className="font-display text-lg font-extrabold uppercase tracking-[0.12em] text-signal-light md:text-xl">
               Thursdays · 5:30pm · {venue.name}
             </p>
             <p className="display-xl mt-2 max-w-4xl text-[clamp(2.6rem,7vw,5.5rem)] text-cream">
@@ -309,7 +298,7 @@ export function ZoomHero() {
               'inline-flex h-11 items-center gap-2 rounded-full px-4 font-display text-base font-extrabold uppercase tracking-wide ring-1 backdrop-blur transition-colors',
               soundOn
                 ? 'bg-ink/70 text-cream ring-cream/30 hover:bg-ink'
-                : 'bg-coral-active text-coral-ink ring-coral-active hover:bg-coral-hover',
+                : 'bg-signal text-signal-ink ring-signal hover:bg-signal-hover',
               !soundTouched && 'animate-register-pulse',
             )}
           >

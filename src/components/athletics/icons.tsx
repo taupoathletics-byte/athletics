@@ -21,9 +21,9 @@ export function ShotPut(props: IconProps) {
       <circle cx="50" cy="50" r="46" fill="#1b4466" />
       <path d="M50 4a46 46 0 0 1 0 92 34 34 0 0 0 0-92Z" fill="#12304b" />
       <circle cx="35" cy="33" r="13" fill="#7fa6cc" opacity=".55" />
-      <circle cx="31" cy="29" r="5" fill="#fbf5ea" opacity=".9" />
-      <path d="M8 58c14 6 70 6 84 0" stroke="#c8553d" strokeWidth="5" fill="none" strokeLinecap="round" />
-      <path d="M10 67c14 6 66 6 80 0" stroke="#fbf5ea" strokeWidth="3" fill="none" strokeLinecap="round" />
+      <circle cx="31" cy="29" r="5" fill="#F6F3EC" opacity=".9" />
+      <path d="M8 58c14 6 70 6 84 0" stroke="#b04f49" strokeWidth="5" fill="none" strokeLinecap="round" />
+      <path d="M10 67c14 6 66 6 80 0" stroke="#F6F3EC" strokeWidth="3" fill="none" strokeLinecap="round" />
     </svg>
   )
 }
@@ -32,12 +32,12 @@ export function ShotPut(props: IconProps) {
 export function Discus(props: IconProps) {
   return (
     <svg {...base(props)}>
-      <circle cx="50" cy="50" r="46" fill="#ff7f50" />
-      <circle cx="50" cy="50" r="38" fill="#fbf5ea" />
+      <circle cx="50" cy="50" r="46" fill="#b04f49" />
+      <circle cx="50" cy="50" r="38" fill="#F6F3EC" />
       <circle cx="50" cy="50" r="30" fill="#0c2033" />
       <circle cx="50" cy="50" r="13" fill="#a9c6de" />
       <circle cx="50" cy="50" r="5" fill="#0c2033" />
-      <path d="M26 30a33 33 0 0 1 22-11" stroke="#fbf5ea" strokeWidth="4" strokeLinecap="round" fill="none" opacity=".6" />
+      <path d="M26 30a33 33 0 0 1 22-11" stroke="#F6F3EC" strokeWidth="4" strokeLinecap="round" fill="none" opacity=".6" />
     </svg>
   )
 }
@@ -47,10 +47,10 @@ export function Baton(props: IconProps) {
   return (
     <svg {...base(props)}>
       <g transform="rotate(-38 50 50)">
-        <rect x="8" y="38" width="84" height="24" rx="12" fill="#ffd700" />
-        <rect x="26" y="38" width="10" height="24" fill="#c8553d" />
+        <rect x="8" y="38" width="84" height="24" rx="12" fill="#F6F3EC" />
+        <rect x="26" y="38" width="10" height="24" fill="#b04f49" />
         <rect x="45" y="38" width="10" height="24" fill="#0c2033" />
-        <rect x="64" y="38" width="10" height="24" fill="#c8553d" />
+        <rect x="64" y="38" width="10" height="24" fill="#b04f49" />
         <rect x="8" y="38" width="84" height="24" rx="12" fill="none" stroke="#0c2033" strokeWidth="3" />
         <rect x="14" y="42" width="70" height="4" rx="2" fill="#fff" opacity=".45" />
       </g>
@@ -72,9 +72,9 @@ export function Hurdle(props: IconProps) {
         <rect x="8" y="22" width="84" height="18" rx="3" />
       </clipPath>
       <g clipPath={`url(#${clip})`}>
-        <rect x="8" y="22" width="84" height="18" fill="#fbf5ea" />
+        <rect x="8" y="22" width="84" height="18" fill="#F6F3EC" />
         {[0, 1, 2, 3, 4, 5].map((i) => (
-          <path key={i} d={`M${2 + i * 18} 40 l14 -18 h9 l-14 18Z`} fill="#c8553d" />
+          <path key={i} d={`M${2 + i * 18} 40 l14 -18 h9 l-14 18Z`} fill="#b04f49" />
         ))}
       </g>
       <rect x="8" y="22" width="84" height="18" rx="3" fill="none" stroke="#0c2033" strokeWidth="3" />
@@ -82,14 +82,14 @@ export function Hurdle(props: IconProps) {
   )
 }
 
-/** Stopwatch with a coral hand. */
+/** Stopwatch with a red hand. */
 export function Stopwatch(props: IconProps) {
   return (
     <svg {...base(props)}>
       <rect x="43" y="4" width="14" height="10" rx="3" fill="#0c2033" />
       <rect x="70" y="16" width="10" height="8" rx="2" fill="#0c2033" transform="rotate(40 75 20)" />
       <circle cx="50" cy="57" r="39" fill="#0c2033" />
-      <circle cx="50" cy="57" r="32" fill="#fbf5ea" />
+      <circle cx="50" cy="57" r="32" fill="#F6F3EC" />
       {Array.from({ length: 12 }, (_, i) => (
         <rect
           key={i}
@@ -102,7 +102,7 @@ export function Stopwatch(props: IconProps) {
           transform={`rotate(${i * 30} 50 57)`}
         />
       ))}
-      <path d="M50 57 L66 38" stroke="#ff7f50" strokeWidth="5" strokeLinecap="round" />
+      <path d="M50 57 L66 38" stroke="#b04f49" strokeWidth="5" strokeLinecap="round" />
       <circle cx="50" cy="57" r="5" fill="#0c2033" />
     </svg>
   )
@@ -117,8 +117,8 @@ export function Rosette(props: IconProps) {
       {Array.from({ length: 14 }, (_, i) => (
         <ellipse key={i} cx="50" cy="20" rx="8" ry="14" fill={i % 2 ? '#ffd700' : '#f2c200'} transform={`rotate(${i * (360 / 14)} 50 44)`} />
       ))}
-      <circle cx="50" cy="44" r="20" fill="#ff7f50" />
-      <circle cx="50" cy="44" r="14" fill="#fbf5ea" />
+      <circle cx="50" cy="44" r="20" fill="#b04f49" />
+      <circle cx="50" cy="44" r="14" fill="#F6F3EC" />
       <text x="50" y="51" textAnchor="middle" fontFamily="'Barlow Condensed', sans-serif" fontWeight="900" fontSize="20" fill="#0c2033">
         1
       </text>
@@ -130,11 +130,11 @@ export function Rosette(props: IconProps) {
 export function Medal(props: IconProps) {
   return (
     <svg {...base(props)}>
-      <path d="M22 4h20l14 40H36Z" fill="#c8553d" />
+      <path d="M22 4h20l14 40H36Z" fill="#b04f49" />
       <path d="M78 4H58L44 44h20Z" fill="#1b4466" />
       <circle cx="50" cy="66" r="30" fill="#e9b400" />
       <circle cx="50" cy="66" r="23" fill="#ffd700" />
-      <path d="M50 52l4.4 9 9.6 1.3-7 6.8 1.7 9.6L50 74l-8.7 4.7 1.7-9.6-7-6.8 9.6-1.3Z" fill="#fbf5ea" />
+      <path d="M50 52l4.4 9 9.6 1.3-7 6.8 1.7 9.6L50 74l-8.7 4.7 1.7-9.6-7-6.8 9.6-1.3Z" fill="#F6F3EC" />
     </svg>
   )
 }
@@ -144,9 +144,9 @@ export function Bib({ number = '27', ...props }: IconProps & { number?: string }
   return (
     <svg {...base(props)}>
       <g transform="rotate(-6 50 50)">
-        <rect x="10" y="18" width="80" height="64" rx="6" fill="#fbf5ea" stroke="#0c2033" strokeWidth="3" />
-        <rect x="10" y="18" width="80" height="14" rx="6" fill="#ff7f50" />
-        <rect x="10" y="26" width="80" height="6" fill="#ff7f50" />
+        <rect x="10" y="18" width="80" height="64" rx="6" fill="#F6F3EC" stroke="#0c2033" strokeWidth="3" />
+        <rect x="10" y="18" width="80" height="14" rx="6" fill="#b04f49" />
+        <rect x="10" y="26" width="80" height="6" fill="#b04f49" />
         <text x="50" y="72" textAnchor="middle" fontFamily="'Barlow Condensed', sans-serif" fontWeight="900" fontSize="40" fill="#0c2033">
           {number}
         </text>

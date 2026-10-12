@@ -18,6 +18,17 @@ entered their own access code.**
   it only hid the portal, and the cookie stayed valid on that device for 12 hours.
 - Every write endpoint and every endpoint that returns personal detail calls
   `requireAdmin()` from `api/_guard.mjs`.
+- **Get Set Go station cards** (`/api/stations`) are admin-only too: reading
+  edits, saving them to Notion and the image proxy. Saves only accept a known
+  night + station key, length-limited text, built-in or Notion-uploaded images
+  (checked by file signature, max 2.5 MB), and the image proxy only serves
+  files from rows of the *Get Set Go — Station Cards* database. Covered by
+  `node scripts/test_stations.mjs`.
+- **No public share links for station cards, by design.** Volunteers get the
+  exported PNG/PDF (WhatsApp or print), which holds instructions only — no
+  children's names or attendance. Public links would put the lesson content
+  outside the login; if the committee wants them, they should be unguessable,
+  expiring and revocable.
 
 ## Review — October 2026
 

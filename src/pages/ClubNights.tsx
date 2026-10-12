@@ -48,9 +48,9 @@ export default function ClubNights() {
       />
 
       {/* Weather call — prominent, because this is the thing families need. */}
-      <section className="bg-coral-active/10">
+      <section className="bg-signal/10">
         <div className="container-page flex flex-wrap items-center gap-4 py-4">
-          <CloudRain className="h-6 w-6 shrink-0 text-coral-active" aria-hidden />
+          <CloudRain className="h-6 w-6 shrink-0 text-signal" aria-hidden />
           <p className="font-semibold text-on-surface">
             Weather call by 4pm Thursday on Facebook.
           </p>
@@ -94,12 +94,12 @@ export default function ClubNights() {
             </div>
           </article>
 
-          <article className="overflow-hidden rounded-xl border-l-4 border-l-coral-active bg-white shadow-soft">
+          <article className="overflow-hidden rounded-xl border-l-4 border-l-signal bg-white shadow-soft">
             <Photo id={35} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[16/9] w-full" />
             <div className="p-gutter-sm">
-              <Badge className="bg-coral-active text-coral-ink">Club night rotation</Badge>
+              <Badge className="bg-signal text-signal-ink">Club night rotation</Badge>
               <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">7 yrs +</h2>
-              <p className="mt-1 font-semibold text-on-coral">Thursdays 5:30–7:00pm</p>
+              <p className="mt-1 font-semibold text-on-signal">Thursdays 5:30–7:00pm</p>
               <p className="mt-3 text-on-surface-variant">
                 Older athletes work through a rotation of 3&ndash;4 events with coaching on safe and proper use of
                 equipment — usually one running event and two field events, plus some skills.
@@ -171,8 +171,8 @@ export default function ClubNights() {
             </Link>
           </div>
 
-          <div className="rounded-xl border-l-4 border-l-coral-active bg-white p-gutter-sm shadow-soft">
-            <div className="flex items-center gap-2 text-on-coral">
+          <div className="rounded-xl border-l-4 border-l-signal bg-white p-gutter-sm shadow-soft">
+            <div className="flex items-center gap-2 text-on-signal">
               <HandHeart className="h-5 w-5" aria-hidden />
               <h2 className="font-display text-xl font-bold text-on-surface">Parent help</h2>
             </div>

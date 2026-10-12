@@ -81,7 +81,7 @@ export default function Events() {
               {upcoming.map((e, i) => (
                 <li key={e.name} className="rounded-xl bg-white p-gutter-sm shadow-soft">
                   {i === 0 && (
-                    <span className="mb-2 inline-block rounded-full bg-coral-active px-2.5 py-0.5 text-sm font-semibold text-white">
+                    <span className="mb-2 inline-block rounded-full bg-signal px-2.5 py-0.5 text-sm font-semibold text-signal-ink">
                       Next up
                     </span>
                   )}

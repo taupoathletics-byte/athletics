@@ -120,7 +120,7 @@ export default function Team() {
               >
                 <span
                   aria-hidden
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-coral-active/15 text-coral-active"
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-signal/15 text-signal"
                 >
                   <HeartHandshake className="h-7 w-7" />
                 </span>

@@ -37,7 +37,7 @@ function checkinState(now = new Date()): CheckinState {
   return { open: false, label: next ? `Check-in opens ${formatClubNightLabel(next.iso)} at 4:30pm.` : 'Check-in is closed for the season.' }
 }
 
-/** The API returns first name + surname initial only — never a full name. */
+/** The API returns first + last name (so parents can tell children apart) — never ages or the roster. */
 type Suggestion = { id: string; label: string; firstName: string }
 type CheckResult = { name: string; firstName: string | null; status: 'ok' | 'already' | 'notfound' }
 

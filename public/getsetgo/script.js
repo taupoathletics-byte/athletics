@@ -125,7 +125,6 @@ const MOCK_ORDERS = [
 /* ---------- state ---------- */
 let season = null;
 let series = [];
-let activeTerm = 'all';
 let adminLoggedIn = false;
 
 /* ============================================================
@@ -151,18 +150,6 @@ function loadSessions() {
 
 function ledClass(ledBy) {
   return /coach/i.test(ledBy || '') ? 'led-coach' : 'led-helper';
-}
-
-function renderTermTabs() {
-  const tabsEl = $('#block-tabs');
-  const terms = [...new Set(series.map(s => s.term))];
-  const tabs = [
-    { id: 'all', label: 'All nights' },
-    ...terms.map(t => ({ id: t, label: t }))
-  ];
-  tabsEl.innerHTML = tabs.map(t =>
-    `<button class="block-tab ${t.id === activeTerm ? 'active' : ''}" data-term="${esc(t.id)}">${esc(t.label)}</button>`
-  ).join('');
 }
 
 /* One of the three phases offered inside every 11-minute station: a 2–3 minute
@@ -290,40 +277,12 @@ function seasonInfoHTML() {
     </div>`;
 }
 
-function renderLessons() {
-  const grid = $('#lesson-grid');
-  const list = series.filter(s => activeTerm === 'all' || s.term === activeTerm);
-  grid.innerHTML = list.length
-    ? list.map(seriesHTML).join('')
-    : '<p>No nights found for this term.</p>';
-  bindCards();
-}
-
-function bindCards() {
-  $$('.series-card').forEach(card => {
-    card.addEventListener('click', () => card.classList.toggle('open'));
-  });
-}
-
+/* The Get Set Go Sessions screen is the visual volunteer dashboard in
+   stations.js (tonight's four stations, station cards, editor and card
+   exports). seriesHTML() and seasonInfoHTML() above still render the full
+   board text inside its "Whole season" and "How the night runs" panels. */
 function renderRunSheets() {
-  $('#admin-content').innerHTML = `
-    <div class="page-head">
-      <h1>Get Set Go Sessions</h1>
-      <p>Two weeks per series. Open a series for the four rotations — each one gives a Discovery invitation, Developing practice and a Consolidating game.</p>
-    </div>
-    <div id="season-info"></div>
-    <div class="block-tabs" id="block-tabs"></div>
-    <div class="lesson-grid" id="lesson-grid"></div>`;
-  $('#season-info').innerHTML = seasonInfoHTML();
-  renderTermTabs();
-  renderLessons();
-  $('#block-tabs').addEventListener('click', (e) => {
-    const tab = e.target.closest('.block-tab');
-    if (!tab) return;
-    activeTerm = tab.dataset.term;
-    renderTermTabs();
-    renderLessons();
-  });
+  renderSessionsDashboard();
 }
 
 /* ============================================================

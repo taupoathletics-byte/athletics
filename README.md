@@ -120,3 +120,51 @@ These are marked `TODO confirm` in the code and should not be guessed:
 `api/` holds the Vercel serverless functions. `api/_guard.mjs` protects every
 write endpoint and the attendance read; see `SECURITY.md` if present and the
 environment variables in `.env.example`.
+
+## Get Set Go volunteer dashboard
+
+Admin portal → **Get Set Go Sessions** opens on tonight's club night (or the
+next one, in NZ time) with the four stations as picture tiles. Each tile opens
+a phone-friendly station card (equipment, set-up, numbered steps, cues, age
+options, safety), with the Discovery / Developing / Consolidating detail and
+source notes tucked behind expanders. **Generate Tonight's Cards** draws the
+four volunteer cards in the browser and saves them as PNGs (for WhatsApp), a
+ZIP, or an A4 PDF; on phones, **Share** sends the PNG through the share sheet.
+
+Where the content comes from, in order of precedence:
+
+1. **The Notion Rotations board** → `npm run pull:lessons` → `scripts/data/lessons.json`.
+2. **Hand-condensed cards** in `scripts/data/station-cards.json` (all nine
+   series and the Week 19 Mini Meet). A series without one would get cards
+   built mechanically from the board, marked "check before sharing". Disagreements between Notion pages are
+   listed per series under `conflicts` and shown in the dashboard's
+   *For admin review* panel — they are never resolved silently.
+3. `npm run build:sessions` turns both into `api/_data/sessions.mjs` (admin-only).
+4. **Committee edits** made in the portal's editor are saved to the Notion
+   database *Get Set Go — Station Cards* (created automatically under the
+   19 Weekly Lessons page on the first save). Each row is one night + station
+   and holds only the changed fields, so editing one Thursday never changes
+   another and later board updates still flow through. If the board changes
+   after a card was edited, the card is flagged *Board changed* with a
+   side-by-side comparison in the editor.
+
+**Week 19 Mini Meet.** The final night isn't a rotation night: the dashboard
+shows its timed plan and four 8-minute activity zones (stickers, not rankings)
+as zone cards with the same editor and exports, plus **Print skill passports**
+(four per A4 page, one sticker box per zone) and **Print certificates**
+(participation only, one per A4 page). Both print blank, or with the names of
+Get Set Go (6 and under) members from the admin member list — the names are
+only used in the print view. Any station or zone can have volunteers assigned
+in the editor; their names print on that card.
+
+**Adding station pictures.** Drop the files in a folder and run
+`npm run add:images -- path/to/folder`. Files are matched by activity name
+(`01_dead_ants.png` → `public/getsetgo/stations/dead-ants.jpg`), or by the
+Series 5–9 package layout (`assets/series5/weekA/station1.png` → that night's
+activity; `assets/mini_meet/zone1.png` → Mini Meet zone 1), cropped to
+16:9, compressed, and the cards are rebuilt. The mapping lives in `images` in
+`station-cards.json`. Pictures can also be uploaded per night from the editor
+(they're stored on that night's Notion row). Illustrations are decoration only —
+every instruction on a card is real text.
+
+Tests: `npm test` (run sheets + station cards, security, station-card API).

@@ -38,7 +38,7 @@ export function CrewQuotes() {
           <span className="block font-normal text-on-surface-variant">{c.role}</span>
         </p>
         {c.fav && (
-          <span className="mt-3 inline-block rounded-full bg-coral-active/20 px-3 py-1 text-xs font-bold uppercase tracking-wide text-on-coral">
+          <span className="mt-3 inline-block rounded-full bg-signal/20 px-3 py-1 text-xs font-bold uppercase tracking-wide text-on-signal">
             Fave: {c.fav.split(/\s[—–-]\s|[!.:]/)[0].trim()}
           </span>
         )}

@@ -16,7 +16,7 @@ export default function Volunteer() {
       />
 
       <section className="container-page section-pad">
-        <div className="rounded-xl border-l-4 border-l-coral-active bg-white p-gutter-sm shadow-soft">
+        <div className="rounded-xl border-l-4 border-l-signal bg-white p-gutter-sm shadow-soft">
           <h2 className="font-display text-2xl font-bold text-on-surface">Can you help?</h2>
           <p className="mt-3 text-on-surface-variant">
             We are always after helpers on club nights — setting up, timing and recording, moving groups between

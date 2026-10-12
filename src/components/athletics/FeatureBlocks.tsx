@@ -29,7 +29,7 @@ const BLOCKS: Block[] = [
     title: 'Development Squad',
     body: `${developmentSquad.detail} ${developmentSquad.who} No extra fee.`,
     cta: { label: 'Club nights & squad', to: '/club-nights' },
-    band: 'bg-teal-deep',
+    band: 'bg-ink-3',
   },
   {
     photo: 41,
@@ -37,7 +37,7 @@ const BLOCKS: Block[] = [
     title: 'Lend a hand on the night',
     body: 'Timing, measuring, moving groups and packing down — no athletics experience needed. The Get Set Go sessions are planned for you, with equipment ready and plenty of support. More helpers means more places for kids.',
     cta: { label: 'See volunteer roles', to: '/volunteer' },
-    band: 'bg-track',
+    band: 'bg-primary',
   },
 ]
 
@@ -65,12 +65,12 @@ export function FeatureBlocks() {
                 <Photo id={b.photo} sizes="(min-width: 768px) 45vw, 100vw" className="relative aspect-[4/3] w-full rounded-2xl shadow-floating" />
               </Reveal>
               <Reveal delay={0.1} className={cn(flip && 'md:order-1')}>
-                <p className="font-display text-lg font-extrabold uppercase tracking-[0.14em] text-track">{b.eyebrow}</p>
+                <p className="font-display text-lg font-extrabold uppercase tracking-[0.14em] text-on-signal">{b.eyebrow}</p>
                 <h2 className="display-xl mt-2 text-5xl text-ink md:text-6xl">{b.title}</h2>
                 <p className="mt-4 max-w-lg text-lg text-on-surface-variant">{b.body}</p>
                 <Link
                   to={b.cta.to!}
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-coral-active px-6 py-2.5 font-display text-lg font-extrabold uppercase tracking-wide text-coral-ink shadow-coral-sm transition-transform hover:-translate-y-0.5"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-signal px-6 py-2.5 font-display text-lg font-extrabold uppercase tracking-wide text-signal-ink shadow-signal-sm transition-transform hover:-translate-y-0.5"
                 >
                   {b.cta.label} <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>

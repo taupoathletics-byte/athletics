@@ -8,7 +8,7 @@ const badgeVariants = cva('inline-flex items-center gap-1 rounded-full px-3 py-1
       default: 'bg-primary-container text-on-primary-container',
       mint: 'bg-mint-go/20 text-tertiary',
       sunflower: 'bg-sunflower-caution/25 text-on-sunflower',
-      coral: 'bg-coral-active/15 text-primary',
+      signal: 'bg-signal/15 text-on-signal',
       sky: 'bg-sky-info/15 text-sky-info',
       outline: 'border border-outline-variant text-on-surface-variant',
     },
