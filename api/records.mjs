@@ -134,6 +134,10 @@ export default async function handler(req, res) {
           event, grade, gender, date, result, season,
           value: parseValue(event, result),
           isTime: TIME_EVENTS.includes(event),
+          // When the result was logged (the Notion page's creation time), so the
+          // measure-night grid can show who already has a mark and when it went
+          // in. Not in publicBoard()'s whitelist, so it stays admin-only.
+          createdTime: r.created_time || '',
         };
       });
 

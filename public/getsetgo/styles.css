@@ -1440,8 +1440,29 @@ body {
   border-radius: var(--radius-full);
   padding: 1px 8px;
 }
+.bulk-table__done {
+  font-size: var(--font-caption);
+  font-weight: 700;
+  color: var(--mint-go, #2e7d5b);
+  background: rgba(79, 209, 197, 0.16);
+  border-radius: var(--radius-full);
+  padding: 1px 8px;
+}
 .bulk-rows td { vertical-align: middle; }
 .bulk-result-col { width: 140px; }
+
+/* "Last recorded" — what is already saved for this event + season, so nobody
+   re-enters a mark blind, plus when that record was logged. */
+.bulk-last-col { width: 180px; }
+.bulk-last { line-height: 1.25; }
+.bulk-last__value { font-weight: 700; }
+.bulk-last__when {
+  display: block;
+  font-size: var(--font-caption);
+  color: var(--on-surface-variant);
+}
+.bulk-last__none { color: var(--surface-dim); font-style: italic; font-size: 0.85rem; }
+.bulk-rows tr.bulk-row--done td:first-child { color: var(--on-surface-variant); }
 .bulk-rows .bulk-result {
   width: 100%;
   padding: 6px 8px;

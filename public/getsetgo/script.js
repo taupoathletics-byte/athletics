@@ -1081,36 +1081,89 @@ function renderRecordsEntry() {
   loadRecordMembers().then(renderBulkTables);
 }
 
+/** NZ-time stamp for "when this result was logged" on the measure-night grid. */
+const NZ_LOGGED_FMT = new Intl.DateTimeFormat('en-NZ', {
+  timeZone: 'Pacific/Auckland',
+  day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit', hour12: true,
+});
+function formatLoggedAt(iso) {
+  const d = new Date(iso);
+  if (!iso || isNaN(d.getTime())) return '';
+  return NZ_LOGGED_FMT.format(d);
+}
+
+/**
+ * The most recently *logged* result per member, for one event + season.
+ *
+ * Keyed by member id so the grid can show what is already recorded before
+ * anyone re-types it. Saving skips empty inputs, so simply displaying a
+ * previous mark never rewrites it — only typing a value adds a new row.
+ */
+function latestResultsFor(event, season) {
+  const latest = new Map();
+  for (const r of recordAll || []) {
+    if (!r.memberId || r.event !== event) continue;
+    if (season && r.season !== season) continue;
+    // createdTime is the log moment; fall back to the measured date for any row
+    // written before the API exposed it.
+    const at = r.createdTime || (r.date ? `${r.date}T00:00:00Z` : '');
+    const prev = latest.get(r.memberId);
+    if (!prev || at > prev.at) latest.set(r.memberId, { at, result: r.result || '', record: r });
+  }
+  return latest;
+}
+
 /** The measure-night grid: girls and boys tables for the selected grade. */
 function renderBulkTables() {
   const grade = $('#bulk-grade').value;
+  const event = $('#bulk-event').value;
+  const season = $('#bulk-season').value;
   const girls = recordMembers.filter((m) => m.grade === grade && m.gender === 'F').sort((a, b) => a.name.localeCompare(b.name));
   const boys = recordMembers.filter((m) => m.grade === grade && m.gender === 'M').sort((a, b) => a.name.localeCompare(b.name));
+  const latest = latestResultsFor(event, season);
 
-  const tableHTML = (title, list, gender) => `
+  const rowHTML = (m, gender) => {
+    const prev = latest.get(m.id);
+    const when = prev ? formatLoggedAt(prev.at) : '';
+    const tip = prev
+      ? `${prev.result} — logged ${when}${prev.record.date ? `, measured ${prev.record.date}` : ''}`
+      : '';
+    return `
+      <tr${prev ? ' class="bulk-row--done"' : ''}>
+        <td>${esc(m.name)}</td>
+        <td class="bulk-last">${prev
+          ? `<span class="bulk-last__value" title="${esc(tip)}">${esc(prev.result)}</span><span class="bulk-last__when">${esc(when)}</span>`
+          : '<span class="bulk-last__none">not recorded</span>'}</td>
+        <td><input type="text" class="bulk-result" data-id="${esc(m.id)}" data-name="${esc(m.name)}" data-gender="${gender}" placeholder="e.g. 10.73"></td>
+      </tr>`;
+  };
+
+  const tableHTML = (title, list, gender) => {
+    const done = list.filter((m) => latest.has(m.id)).length;
+    return `
     <div class="bulk-table">
-      <h3>${esc(title)} <span class="bulk-table__count">${list.length}</span></h3>
+      <h3>${esc(title)} <span class="bulk-table__count">${list.length}</span>${
+        done ? ` <span class="bulk-table__done">${done} recorded</span>` : ''}</h3>
       ${list.length ? `
       <div class="table-wrap">
         <table class="data-table bulk-rows">
-          <thead><tr><th>Name</th><th class="bulk-result-col">Result</th></tr></thead>
-          <tbody>
-            ${list.map((m) => `
-              <tr>
-                <td>${esc(m.name)}</td>
-                <td><input type="text" class="bulk-result" data-id="${esc(m.id)}" data-name="${esc(m.name)}" data-gender="${gender}" placeholder="e.g. 10.73"></td>
-              </tr>`).join('')}
-          </tbody>
+          <thead><tr><th>Name</th><th class="bulk-last-col">Last recorded</th><th class="bulk-result-col">Result</th></tr></thead>
+          <tbody>${list.map((m) => rowHTML(m, gender)).join('')}</tbody>
         </table>
       </div>` : `<p class="bulk-empty">No ${gender === 'F' ? 'girls' : 'boys'} in grade ${esc(grade)}.</p>`}
     </div>`;
+  };
 
   $('#bulk-tables').innerHTML = tableHTML('Girls', girls, 'F') + tableHTML('Boys', boys, 'M');
   $('#bulk-save').disabled = !(girls.length || boys.length);
 }
 
 function bindBulk() {
-  $('#bulk-grade').addEventListener('change', renderBulkTables);
+  // The "Last recorded" column depends on event + season, so those controls have
+  // to redraw the grid too (previously only the grade did — nothing else showed).
+  ['#bulk-event', '#bulk-grade', '#bulk-season'].forEach((sel) => {
+    $(sel).addEventListener('change', renderBulkTables);
+  });
   $('#bulk-save').addEventListener('click', saveBulk);
 }
 
@@ -1146,12 +1199,30 @@ async function saveBulk() {
     saved.classList.remove('hidden');
     if (data.skipped && data.skipped.length) console.warn('bulk save skipped:', data.skipped);
     $$('#bulk-tables .bulk-result').forEach((i) => { i.value = ''; });
+    // Re-pull so the marks just saved show up in the "Last recorded" column.
+    refreshAfterBulkSave();
   } catch (e) {
     alert(e.message);
   } finally {
     btn.disabled = !$$('#bulk-tables .bulk-result').length;
     btn.textContent = 'Save results';
   }
+}
+
+/**
+ * Reload records after a bulk save so the new marks appear in "Last recorded".
+ * Deliberately not loadRecordMembers(): that blanks the grid when a fetch
+ * fails, and here we would rather keep showing the results we already have.
+ */
+async function refreshAfterBulkSave() {
+  try {
+    const res = await authedFetch('/api/records');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (Array.isArray(data.members)) recordMembers = data.members;
+    if (Array.isArray(data.records)) recordAll = data.records;
+    renderBulkTables();
+  } catch { /* offline — leave the grid as it is */ }
 }
 
 async function loadRecordMembers() {
