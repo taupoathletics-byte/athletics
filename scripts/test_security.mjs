@@ -140,8 +140,8 @@ check('check-in search: rate-limited per IP', last.code === 429, `got ${last.cod
 /* ---------- 3. public check-in submit ---------- */
 
 const ari = two.json.names.find((n) => n.label === 'Ari Anderson');
-// Check in for yesterday's club night — always within the week and past 4:30pm,
-// so the "opens at 4:30pm" gate (which only applies to tonight) can't flake the test.
+// Check in for yesterday's club night — always within the week and past 12:30pm,
+// so the "opens at 12:30pm" gate can't flake the test.
 const ok = await call(checkin, mockReq('POST', '/api/checkin', JSON.stringify({ ids: [ari.id], date: nzToday(new Date(Date.now() - 86_400_000)) }), { 'x-real-ip': '10.0.0.3' }));
 check('check-in submit: by id works', ok.code === 200 && ok.json.created === 1, ok.body);
 check('check-in submit: response does not echo full names', !/Anderson/.test(ok.body), ok.body);

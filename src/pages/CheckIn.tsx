@@ -4,25 +4,35 @@ import { PageHero } from '@/components/PageHero'
 import { buttonVariants } from '@/components/ui/button'
 import { clubNights, formatClubNightLabel } from '@/data/clubNights'
 
-function todayIso() {
-  const d = new Date()
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+const NZ_DATE_FMT = new Intl.DateTimeFormat('en-CA', { timeZone: 'Pacific/Auckland', year: 'numeric', month: '2-digit', day: '2-digit' })
+const NZ_TIME_FMT = new Intl.DateTimeFormat('en-US', { timeZone: 'Pacific/Auckland', hourCycle: 'h23', hour: 'numeric', minute: 'numeric' })
+
+/** The current instant read as New Zealand wall-clock time (NZST/NZDT). */
+function nzNow(now = new Date()) {
+  const d = NZ_DATE_FMT.formatToParts(now)
+  const t = NZ_TIME_FMT.formatToParts(now)
+  const part = (parts: Intl.DateTimeFormatPart[], type: string) => parts.find((p) => p.type === type)?.value ?? ''
+  return {
+    iso: `${part(d, 'year')}-${part(d, 'month')}-${part(d, 'day')}`,
+    minutes: Number(part(t, 'hour')) * 60 + Number(part(t, 'minute')),
+  }
 }
 
-/** The club night relevant to "now": tonight (from 4:30pm) if it's a club night, else the most recent one. */
-const OPEN_MINUTES = 16 * 60 + 30 // 4:30pm, when families start arriving
+/** The club night relevant to "now": tonight (from 12:30pm NZ) if it's a club night, else the most recent one. */
+const OPEN_MINUTES = 12 * 60 + 30 // 12:30pm NZ, when the check-in QR goes live
 
 type CheckinState = { open: true; date: string } | { open: false; label: string }
 
 /** Whether check-in is open now, and the club night to record attendance against. */
 function checkinState(now = new Date()): CheckinState {
-  const today = todayIso()
-  const nowMin = now.getHours() * 60 + now.getMinutes()
+  const nz = nzNow(now)
+  const today = nz.iso
+  const nowMin = nz.minutes
 
-  // Tonight is a club night: check-in opens at 4:30pm.
+  // Tonight is a club night: check-in opens at 12:30pm NZ.
   if (clubNights.some((n) => n.iso === today)) {
     if (nowMin >= OPEN_MINUTES) return { open: true, date: today }
-    return { open: false, label: 'Check-in opens at 4:30pm today.' }
+    return { open: false, label: 'Check-in opens at 12:30pm today.' }
   }
 
   // Not a club night: a late check-in for the most recent night (up to a week).
@@ -34,7 +44,7 @@ function checkinState(now = new Date()): CheckinState {
   }
 
   const next = clubNights.find((n) => n.iso > today) || clubNights[0]
-  return { open: false, label: next ? `Check-in opens ${formatClubNightLabel(next.iso)} at 4:30pm.` : 'Check-in is closed for the season.' }
+  return { open: false, label: next ? `Check-in opens ${formatClubNightLabel(next.iso)} at 12:30pm.` : 'Check-in is closed for the season.' }
 }
 
 /** The API returns first + last name (so parents can tell children apart) — never ages or the roster. */

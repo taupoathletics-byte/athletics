@@ -136,9 +136,9 @@ export default async function handler(req, res) {
   // Tonight, or the most recent club night if the page was opened late.
   const age = daysBetween(date, nzToday());
   if (age < -1 || age > 7) return send(res, 400, { error: 'Check-in is only open for this week’s club night.' });
-  // Check-in for tonight opens at 4:30pm, when families start arriving.
-  if (age <= 0 && nzMinutesSinceMidnight() < 16 * 60 + 30) {
-    return send(res, 400, { error: 'Check-in opens at 4:30pm on club nights.' });
+  // Check-in for tonight opens at 12:30pm NZ time.
+  if (age <= 0 && nzMinutesSinceMidnight() < 12 * 60 + 30) {
+    return send(res, 400, { error: 'Check-in opens at 12:30pm on club nights.' });
   }
 
   try {
