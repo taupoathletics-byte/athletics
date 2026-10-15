@@ -1096,8 +1096,9 @@ function formatLoggedAt(iso) {
  * The most recently *logged* result per member, for one event + season.
  *
  * Keyed by member id so the grid can show what is already recorded before
- * anyone re-types it. Saving skips empty inputs, so simply displaying a
- * previous mark never rewrites it — only typing a value adds a new row.
+ * anyone re-types it. Saving skips empty inputs; typing a value overwrites the
+ * member's existing mark in place (the API updates the row rather than adding a
+ * duplicate).
  */
 function latestResultsFor(event, season) {
   const latest = new Map();

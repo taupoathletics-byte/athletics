@@ -134,10 +134,10 @@ export default async function handler(req, res) {
           event, grade, gender, date, result, season,
           value: parseValue(event, result),
           isTime: TIME_EVENTS.includes(event),
-          // When the result was logged (the Notion page's creation time), so the
-          // measure-night grid can show who already has a mark and when it went
-          // in. Not in publicBoard()'s whitelist, so it stays admin-only.
-          createdTime: r.created_time || '',
+          // When the result was last logged — the page's last-edited time, so an
+          // overwritten mark shows its new time. Not in publicBoard()'s whitelist,
+          // so it stays admin-only.
+          createdTime: r.last_edited_time || r.created_time || '',
         };
       });
 
@@ -158,32 +158,58 @@ export default async function handler(req, res) {
         const { event, grade, date, season, results } = body;
         if (!event || !Array.isArray(results)) return send(res, 400, { error: 'event and a results array are required.' });
         if (results.some((r) => r && r.memberId && !isNotionId(r.memberId))) return send(res, 400, { error: 'invalid member id.' });
+
+        // Map existing marks for this event + season by member, so re-entering a
+        // result overwrites the previous one instead of appending a duplicate row.
+        const existingRows = await queryAll(RECORDS_DB);
+        const existingByMember = new Map();
+        for (const row of existingRows) {
+          if ((row.properties.Event?.select?.name || '') !== event) continue;
+          if ((row.properties.Season?.select?.name || '') !== season) continue;
+          const mid = (row.properties.Member?.relation || [])[0]?.id || '';
+          if (mid) existingByMember.set(mid, row.id);
+        }
+
         let created = 0;
+        let updated = 0;
         const skipped = [];
         for (const r of results) {
           const memberId = r && r.memberId;
           const resultText = String((r && r.result) || '').trim();
           if (!memberId || !resultText) continue;
           try {
-            await notion('POST', '/pages', {
-              parent: { database_id: RECORDS_DB },
-              properties: {
-                Name: { title: rich(`${(r && r.memberName) || memberId} — ${event}${grade || ''}${(r && r.gender) || ''}`) },
-                Member: { relation: [{ id: memberId }] },
-                Event: { select: { name: event } },
-                Grade: grade ? { select: { name: grade } } : {},
-                Gender: (r && r.gender) ? { select: { name: r.gender } } : {},
-                Date: date ? { date: { start: date } } : {},
-                Result: { rich_text: rich(resultText) },
-                Season: season ? { select: { name: season } } : {},
-              },
-            });
-            created += 1;
+            const existingId = existingByMember.get(memberId);
+            if (existingId) {
+              await notion('PATCH', `/pages/${existingId}`, {
+                properties: {
+                  Result: { rich_text: rich(resultText) },
+                  ...(grade ? { Grade: { select: { name: grade } } } : {}),
+                  ...((r && r.gender) ? { Gender: { select: { name: r.gender } } } : {}),
+                  ...(date ? { Date: { date: { start: date } } } : {}),
+                },
+              });
+              updated += 1;
+            } else {
+              await notion('POST', '/pages', {
+                parent: { database_id: RECORDS_DB },
+                properties: {
+                  Name: { title: rich(`${(r && r.memberName) || memberId} — ${event}${grade || ''}${(r && r.gender) || ''}`) },
+                  Member: { relation: [{ id: memberId }] },
+                  Event: { select: { name: event } },
+                  Grade: grade ? { select: { name: grade } } : {},
+                  Gender: (r && r.gender) ? { select: { name: r.gender } } : {},
+                  Date: date ? { date: { start: date } } : {},
+                  Result: { rich_text: rich(resultText) },
+                  Season: season ? { select: { name: season } } : {},
+                },
+              });
+              created += 1;
+            }
           } catch (e) {
             skipped.push(`${(r && r.memberName) || memberId}: ${e.message}`);
           }
         }
-        return send(res, 200, { ok: true, created, skipped });
+        return send(res, 200, { ok: true, created, updated, skipped });
       }
 
       // Delete a record (archive it) — fixes a result entered against the wrong
@@ -205,6 +231,28 @@ export default async function handler(req, res) {
       const { memberId, memberName, event, grade, gender, date, result, season } = body;
       if (!memberId || !event || !result) return send(res, 400, { error: 'memberId, event and result are required.' });
       if (!isNotionId(memberId)) return send(res, 400, { error: 'invalid member id.' });
+
+      // Overwrite an existing mark for this member + event + season in place,
+      // so a re-entered result updates the number instead of adding a second row.
+      const existingRows = await queryAll(RECORDS_DB);
+      const existing = existingRows.find((row) => {
+        const mid = (row.properties.Member?.relation || [])[0]?.id || '';
+        const ev = row.properties.Event?.select?.name || '';
+        const se = row.properties.Season?.select?.name || '';
+        return sameNotionId(mid, memberId) && ev === event && se === season;
+      });
+
+      if (existing) {
+        await notion('PATCH', `/pages/${existing.id}`, {
+          properties: {
+            Result: { rich_text: rich(result) },
+            ...(grade ? { Grade: { select: { name: grade } } } : {}),
+            ...(gender ? { Gender: { select: { name: gender } } } : {}),
+            ...(date ? { Date: { date: { start: date } } } : {}),
+          },
+        });
+        return send(res, 200, { ok: true, id: existing.id, updated: true });
+      }
 
       const page = await notion('POST', '/pages', {
         parent: { database_id: RECORDS_DB },
