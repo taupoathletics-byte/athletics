@@ -558,6 +558,43 @@ body {
 .sidenav__item:hover { background: var(--surface-container); transform: scale(1.02); }
 .sidenav__item.active { background: var(--primary-container); color: var(--on-primary-container); }
 
+/*
+  Below the desktop breakpoint the sidebar used to be display:none with no menu
+  button anywhere, so signing in on a tablet or phone dropped you on Get Set Go
+  Sessions with no way to reach Check In (or anything else). Show the same items
+  as an always-visible, wrapping nav bar instead.
+
+  Placed AFTER the .sidenav__item rules above on purpose: equal specificity, so
+  source order is what makes these win over the base transparent/borderless look.
+*/
+@media (max-width: 1023px) {
+  .sidenav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-self: start;
+    gap: 8px;
+    position: sticky;
+    top: 72px; /* sits directly under the 72px top app bar */
+    z-index: 40;
+    /* bleed out to the .app padding edges so content can't scroll past the bar */
+    margin: 0 calc(var(--space-margin-mobile) * -1);
+    padding: 10px var(--space-margin-mobile);
+    background: var(--surface-cream);
+    border-bottom: 1px solid var(--outline-variant);
+  }
+  .sidenav__item {
+    gap: 8px;
+    padding: 9px 14px;
+    font-size: 13px;
+    background: var(--surface-container-lowest);
+    border: 1px solid var(--outline-variant);
+    box-shadow: var(--shadow-soft);
+  }
+  .sidenav__item .material-symbols-outlined { font-size: 20px; }
+}
+
 .login-wrap {
   display: flex;
   align-items: center;
