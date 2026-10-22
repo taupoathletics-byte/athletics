@@ -721,8 +721,9 @@ function openPrintSheet() {
     .filter((g) => buckets[g])
     .map((g) => {
       const b = buckets[g];
+      const total = b.F.length + b.M.length + b.X.length;
       return `<section class="grade">
-        <h2>${esc(g)}</h2>
+        <h2>${esc(g)} <span class="count">Total ${total}</span></h2>
         <div class="cols">
           ${col('Girls', b.F)}
           ${col('Boys', b.M)}
@@ -739,6 +740,7 @@ function openPrintSheet() {
   header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #5b84a8; padding-bottom: 6px; margin-bottom: 12px; }
   header h1 { font-size: 20px; margin: 0; }
   header .date { color: #57423b; }
+  .total { font-size: 14px; font-weight: 700; }
   .grade { margin-bottom: 16px; }
   .grade h2 { font-size: 15px; margin: 0 0 6px; background: #cfe1f0; padding: 3px 8px; }
   .cols { display: flex; gap: 20px; }
@@ -751,7 +753,7 @@ function openPrintSheet() {
   button.print { margin: 10px 0 4px; padding: 8px 16px; font-size: 14px; }
   @media print { button.print { display: none; } .grade { page-break-inside: avoid; } }
 </style></head><body>
-<header><h1>Taupō Athletics — Attendance</h1><div class="date">${esc(formatDateLabel(attendanceDate))}</div></header>
+<header><h1>Taupō Athletics — Attendance</h1><div class="date">${esc(formatDateLabel(attendanceDate))}</div><div class="total">Total registrations: <strong>${attendanceMembers.length}</strong></div></header>
 <button class="print" onclick="window.print()">🖨 Print / Save as PDF</button>
 ${sections}
 </body></html>`;
