@@ -169,13 +169,13 @@ export default {
           "discovery": "Circus Throws: Roll a beanbag toward a large floor hoop and notice where it goes.",
           "developing": "Swing throwing arm back and forward; step with the opposite foot and gently release into nearby hoop.",
           "consolidating": "Try hoops at two distances; choose a target and explain how much force you needed.",
-          "weekBProgression": "Bin It: Discover — Experiment with low, medium and high target positions using soft objects. Develop — Single-hand underarm toss with opposite step; practise release height and follow-through. Apply — Choose close, medium or far bucket; try the same target twice and notice progress.",
-          "setup": "A row of hula hoops on the ground at three distances — close, middle, far.",
+          "weekBProgression": "Bin It: Discover — Experiment with low, medium and high target positions using soft objects. Develop — Single-hand underarm toss with opposite step; practise release height and follow-through. Apply — Choose a close (1 point), medium (2 points) or far (3 points) hula hoop; try the same target twice and notice progress.",
+          "setup": "A row of hula hoops flat on the ground at three distances — close (1 point), middle (2 points) and far (3 points), each marked with a point card on a cone.",
           "how": "Children throw soft toys underarm into the hoops, choosing which one to aim at. Three throws each, cheer every attempt. Move the close hoop closer for anyone struggling.",
-          "equipment": "8 hula hoops, soft toys",
-          "adaptation": "Week A: 1 m target; rolling or two-handed push first. Week B: Large low bucket and close line.",
-          "extension": "Aim at smaller hoops or farther buckets. Week B: Change target height and distance.",
-          "watchFor": "Throwing with the same foot forward as the throwing arm. Chalk a footprint.",
+          "equipment": "8 hula hoops, 6 cones, soft beanbags",
+          "adaptation": "Week A: 1 m target; rolling or two-handed push first. Week B: Hula hoops in a line — close, medium, far.",
+          "extension": "Aim at smaller hoops or farther targets. Week B: Change target height and distance — children take turns holding up the hoop for the thrower, then swap places and the hoop holder goes to the back of the line.",
+          "watchFor": "Throwing with the same foot forward as the throwing arm. Chalk a footprint. Week B: Does the child adjust force to the distance rather than simply throwing harder?",
           "coachObservation": "Are feet opposite the throwing arm? Week B: Does child adjust force rather than simply throwing harder?",
           "backup": "Toy Basketball",
           "backupSummary": "One person holds a hoop up as the basket; the front of the line throws the toy in, then swaps with the holder. Four lines of about five, so everyone rotates through quickly."
@@ -530,39 +530,40 @@ export default {
             "auto": false,
             "volunteers": "",
             "layout": "steps",
-            "safety": "Throw one way only. Children collect toys on the coach's signal.",
-            "review": "Steps are a draft from the older Series 1 lesson — the Rotations board only has Bin It's name, cues and progression. Bin It uses buckets, which aren't on the station equipment list: confirm we have them or use hoops.",
+            "safety": "Throw one way only. Children collect the beanbags on the coach's signal, never while someone is throwing.",
+            "review": "",
             "name": "Bin It",
             "skill": "Underarm throwing · adjusting force",
             "equipment": [
               "8 hula hoops",
-              "Soft throwing toys"
+              "6 cones",
+              "Soft beanbags"
             ],
-            "setup": "Set targets at close, middle and far distances. Keep the throwing lanes clear.",
+            "setup": "Lay the hoops flat in a line at close, medium and far distances, each marked 1, 2 or 3 points with a card on a cone. Keep the throwing lanes clear.",
             "steps": [
-              "Set buckets and hoops at safe, close and further distances.",
-              "Children choose a target and make several underarm attempts.",
-              "Count each child's own successful throws out loud.",
-              "Try to beat their own count — bring targets closer as needed."
+              "Lay three hoops flat at close (1 point), medium (2 points) and far (3 points).",
+              "Stand at the throwing line and throw a beanbag underarm so it lands inside a hoop.",
+              "Choose a target, take three throws and count your own successes out loud.",
+              "Try the same hoop twice and notice progress; move the close hoop nearer if needed."
             ],
             "cues": [
               "Step and throw",
               "Eyes on target"
             ],
-            "younger": "Large, low bucket and a close line.",
-            "older": "Change the target height and distance.",
-            "watch": "Adjusting force to the target rather than just throwing harder.",
+            "younger": "Hula hoops in a line — close, medium, far.",
+            "older": "Change target height and distance; take turns holding up the hoop for the thrower, then swap places — the hoop holder goes to the back of the line.",
+            "watch": "Adjusting force to the distance, not just throwing harder.",
             "discovery": "Experiment with low, medium and high target positions using soft objects.",
             "developing": "Single-hand underarm toss with an opposite step; practise release height and follow-through.",
-            "consolidating": "Choose a close, medium or far bucket; try the same target twice and notice progress.",
+            "consolidating": "Choose a close (1 point), medium (2 points) or far (3 points) hoop; try the same target twice and notice progress.",
             "observation": "Does the child adjust force rather than simply throwing harder?",
-            "alternative": "Toy Basketball — an adult holds a hoop up as the basket; throw the toy in, then swap. Rotate quickly.",
+            "alternative": "Toy Basketball — an adult holds a hoop up as the basket; throw the beanbag in, then swap. Rotate quickly.",
             "sources": [
-              "Club Series 1 package (draft steps)",
-              "Rotations board: Week B progression and observation"
+              "Bin It teaching card (1/2/3-point hula hoops)",
+              "Rotations board: Week B progression, cues and observation"
             ],
             "image": null,
-            "hash": "4779007edd4e"
+            "hash": "f0cb755d04f7"
           },
           {
             "key": "s1-B-3",

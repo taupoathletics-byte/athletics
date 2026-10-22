@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-10-22T00:59:41.565Z",
+  "pulledAt": "2026-10-22T01:23:58.394Z",
   "source": {
     "lessonsPage": "3f30d85f-784c-810a-9a86-d6fb222ecb7f",
     "rotationsDb": "4b0e60ae-f329-4993-b46b-d2e8d489b413"
@@ -755,13 +755,13 @@
       "discovery": "Circus Throws: Roll a beanbag toward a large floor hoop and notice where it goes.",
       "developing": "Swing throwing arm back and forward; step with the opposite foot and gently release into nearby hoop.",
       "consolidating": "Try hoops at two distances; choose a target and explain how much force you needed.",
-      "weekBProgression": "Bin It: Discover — Experiment with low, medium and high target positions using soft objects. Develop — Single-hand underarm toss with opposite step; practise release height and follow-through. Apply — Choose close, medium or far bucket; try the same target twice and notice progress.",
-      "setup": "A row of hula hoops on the ground at three distances — close, middle, far.",
+      "weekBProgression": "Bin It: Discover — Experiment with low, medium and high target positions using soft objects. Develop — Single-hand underarm toss with opposite step; practise release height and follow-through. Apply — Choose a close (1 point), medium (2 points) or far (3 points) hula hoop; try the same target twice and notice progress.",
+      "setup": "A row of hula hoops flat on the ground at three distances — close (1 point), middle (2 points) and far (3 points), each marked with a point card on a cone.",
       "how": "Children throw soft toys underarm into the hoops, choosing which one to aim at. Three throws each, cheer every attempt. Move the close hoop closer for anyone struggling.",
-      "equipment": "8 hula hoops, soft toys",
-      "adaptation": "Week A: 1 m target; rolling or two-handed push first. Week B: Large low bucket and close line.",
-      "extension": "Aim at smaller hoops or farther buckets. Week B: Change target height and distance.",
-      "watchFor": "Throwing with the same foot forward as the throwing arm. Chalk a footprint.",
+      "equipment": "8 hula hoops, 6 cones, soft beanbags",
+      "adaptation": "Week A: 1 m target; rolling or two-handed push first. Week B: Hula hoops in a line — close, medium, far.",
+      "extension": "Aim at smaller hoops or farther targets. Week B: Change target height and distance — children take turns holding up the hoop for the thrower, then swap places and the hoop holder goes to the back of the line.",
+      "watchFor": "Throwing with the same foot forward as the throwing arm. Chalk a footprint. Week B: Does the child adjust force to the distance rather than simply throwing harder?",
       "coachObservation": "Are feet opposite the throwing arm? Week B: Does child adjust force rather than simply throwing harder?",
       "backup": "Toy Basketball — throw into the high hoop",
       "name": "S1 · R2 — Underarm throwing (Manipulative)",
