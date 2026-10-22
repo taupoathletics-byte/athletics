@@ -251,7 +251,7 @@ const card = (key) => allCards.find((c) => c.key === key);
 const names = (series, week) => teaching.find((s) => s.series === series).cards[week].map((c) => c.name);
 // Series 1–4 activities, as agreed with the club.
 check(names(1, 'A').join('|') === 'Traffic Lights|Circus Throws|Animal Trail|Scissor Basics', `series 1 week A: ${names(1, 'A')}`);
-check(names(1, 'B').join('|') === 'Octopus|Bin It|Animal Trail|Scissor Rhythm', `series 1 week B: ${names(1, 'B')}`);
+check(names(1, 'B').join('|') === 'Toilet Tag|Bin It|Animal Trail|Scissor Rhythm', `series 1 week B: ${names(1, 'B')}`);
 check(names(2, 'A').join('|') === 'Jumping Beans|Clever Catchers — floaters|Jungle Jaunt|Step and Run — hurdles', `series 2 week A: ${names(2, 'A')}`);
 check(names(2, 'B').join('|') === 'Beanbag Hop|Clever Catchers — moving|Jungle Jaunt|Hurdle Rhythm', `series 2 week B: ${names(2, 'B')}`);
 check(names(3, 'A').join('|') === 'Circle Dodge Ball|Force Back — beanbags|Superhero Training|Half-and-Half Relays', `series 3 week A: ${names(3, 'A')}`);

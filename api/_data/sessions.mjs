@@ -108,7 +108,7 @@ export default {
           "seriesBits": "Series 1: Finding our feet | Core athletics: High jump | Object skill: Underarm throwing | B — Apply and extend",
           "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
           "runOfShow": [
-            "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Octopus. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
+            "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Toilet Tag. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
             "5:40–6:24 — Four simultaneous rotations: Small groups A–D each spend 11 minutes at their current station, then switch on coach signal until every group has visited all four. One coach or parent helper leads each station; allow room for safety.",
             "6:24–6:30 — Run-through sprints and reflection: 3–4-year-olds 15 m; five-year-olds 20 m; six-year-olds 25–30 m, each child up to two relaxed runs (more only if time). Cone 3 m beyond line. Cheer every child; cue run through finish. Ask: “What changed when you tried it again?”"
           ]
@@ -131,20 +131,20 @@ export default {
             "cues": "Head up; pump arms; freeze steady."
           },
           "weekB": {
-            "challenge": "Octopus",
+            "challenge": "Toilet Tag",
             "cues": "Bend, push, turn; eyes up."
           },
           "discovery": "Traffic Lights: Walk and jog through a roomy cone-marked space; invent your own way of stopping.",
           "developing": "GREEN jog, ORANGE walk, RED freeze. Practise looking up and pumping arms while moving.",
           "consolidating": "Child caller adds CROSSING sideways or ROUNDABOUT turning. Everyone joins every round.",
-          "weekBProgression": "Octopus: Discover — Explore crossing the space without a tagger, noticing open gaps. Develop — One walking octopus tags runners gently; touched children become stationary seaweed. Apply — Vary the route, plan a gap around seaweed and encourage head-up dodges; reset quickly.",
+          "weekBProgression": "Toilet Tag: Discover — Explore crossing the space without a tagger, noticing open gaps. Develop — Three noodle taggers tag gently; a tagged child kneels with one knee up and the opposite hand raised. Apply — Rescue a teammate by sitting on the raised knee and pressing the hand down, then dodge head-up and reset quickly.",
           "setup": "Mark a wide playing area with cones. Everyone spreads out inside it.",
           "how": "Call GREEN and everyone jogs, ORANGE and they walk, RED and they freeze. Add CROSSING (walk sideways) and ROUNDABOUT (turn on the spot). Nobody is ever out — if a child moves on red they simply do a big star jump and carry on.",
-          "equipment": "20 cones",
-          "adaptation": "Week A: Two colours (green/red); walk with a helper. Week B: Short crossing and walking octopus.",
-          "extension": "Add changing direction on command. Week B: Let confident children weave around two safe taggers.",
-          "watchFor": "Children watching the floor instead of the space. Cue 'eyes up'.",
-          "coachObservation": "Are eyes looking ahead, and are children avoiding collisions? Week B: Can the child change direction without crashing into others?",
+          "equipment": "20 cones, 3 pool noodles",
+          "adaptation": "Week A: Two colours (green/red); walk with a helper. Week B: Walking noodle taggers and a short crossing; give younger children a head start.",
+          "extension": "Add changing direction on command. Week B: Let confident children weave around three noodle taggers and rescue a teammate before crossing.",
+          "watchFor": "Children watching the floor instead of the space. Cue 'eyes up'. Week B: Head-up dodging and gentle noodle tags — never swing a noodle near a head.",
+          "coachObservation": "Are eyes looking ahead, and are children avoiding collisions? Week B: Can the child change direction without crashing, and rescue gently without rough play?",
           "backup": "Fast Cars",
           "backupSummary": "Run laps around the marked area; on the coach's call, change gear — walk, jog, run, then sprint."
         },
@@ -481,39 +481,41 @@ export default {
             "auto": false,
             "volunteers": "",
             "layout": "steps",
-            "safety": "Walking taggers and gentle touches only. No elimination — everyone plays every round.",
+            "safety": "Gentle noodle tags only — never swing a noodle near a head. No elimination; everyone plays every round. Rescues are gentle: sit on the raised knee and press the hand down, never pull or shove. An adult keeps the kneeling area clear.",
             "review": "",
-            "name": "Octopus",
+            "name": "Toilet Tag",
             "skill": "Dodging · changing direction",
             "equipment": [
-              "20 boundary cones"
+              "20 boundary cones",
+              "3 pool noodles"
             ],
-            "setup": "Mark two safe lines at either end of the space with cones. One walking octopus waits in the middle.",
+            "setup": "Mark two safe lines at either end of the space with cones. Three taggers, each holding a pool noodle, wait in the middle.",
             "steps": [
               "Children move from one safe line to the other on GO.",
-              "The octopus walks and gently tags; tagged children become seaweed.",
-              "Seaweed stand still, arms waving, and can reach to tag runners.",
-              "Keep rounds short — change the octopus and restart often."
+              "The three taggers tag gently with the noodle — never swing it at a head.",
+              "If you are tagged, kneel down with one knee up and your opposite hand raised in the air.",
+              "To rescue someone, sit on their raised knee and push the raised hand down — flush the toilet.",
+              "The freed child jumps up and rejoins the game. Keep rounds short and restart often."
             ],
             "cues": [
               "Bend",
               "Push",
               "Turn, eyes up"
             ],
-            "younger": "Walking octopus and a short crossing; give younger children a head start.",
-            "older": "Weave around two safe taggers when ready.",
-            "watch": "Head-up dodging without colliding.",
+            "younger": "Walking noodle taggers and a short crossing; give younger children a head start.",
+            "older": "Weave around three noodle taggers, and rescue a teammate before crossing.",
+            "watch": "Head-up dodging without colliding, and gentle flushes.",
             "discovery": "Explore crossing the space without a tagger, noticing open gaps.",
-            "developing": "One walking octopus tags runners gently; touched children become stationary seaweed.",
-            "consolidating": "Vary the route, plan a gap around the seaweed and encourage head-up dodges; reset quickly.",
-            "observation": "Can the child change direction without crashing into others?",
+            "developing": "Three noodle taggers tag gently; a tagged child kneels with one knee up and the opposite hand raised.",
+            "consolidating": "Rescue a teammate by sitting on the raised knee and pressing the hand down, then dodge head-up and reset quickly.",
+            "observation": "Can the child change direction without crashing into others, and rescue gently without rough play?",
             "alternative": "Fast Cars — run laps around the area; on the call, change gear: walk, jog, run, sprint.",
             "sources": [
               "Club Series 1 package",
-              "Rotations board: Week B progression and observation"
+              "Toilet Tag rules: 3 noodle taggers, kneel with one knee up and opposite hand up, rescue by sitting on the knee and pushing the hand down"
             ],
             "image": null,
-            "hash": "7e54084fea08"
+            "hash": "a6726a2f7e1d"
           },
           {
             "key": "s1-B-2",
