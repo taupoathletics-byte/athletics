@@ -1,5 +1,5 @@
 {
-  "pulledAt": "2026-10-12T22:04:10.587Z",
+  "pulledAt": "2026-10-22T00:44:11.769Z",
   "source": {
     "lessonsPage": "3f30d85f-784c-810a-9a86-d6fb222ecb7f",
     "rotationsDb": "4b0e60ae-f329-4993-b46b-d2e8d489b413"
@@ -783,7 +783,7 @@
         "Jumping",
         "Hopping"
       ],
-      "course": "Animal Trail\n1. Bear crawl from cone A to cone B — Hands and feet on the floor, bottom up, walk like a bear.\n2. Frog jump over 3 flat markers — Two-foot jump, land quiet with bent knees.\n3. Walk along the balance blocks — Arms out, one foot in front of the other.\n4. Step over 3 low foam hurdles — Slow and steady, no knocking them over.\n5. Flamingo balance — stand on one foot for a slow count of 3 — Hold a coach's finger if wobbly. Try the other foot too.\n6. Crab walk back to the start — Hands behind, bottom up, walk backwards.",
+      "course": "Animal Trail\n1. Crab walk from cone A to cone B — Hands behind, bottom up, walk like a crab.\n2. Bear crawl from cone A to cone B — Hands and feet down, bottom up, knees clear of the ground.\n3. Hurdle steps from cone A to cone B — Step over each of the 3 low hurdles, slow and controlled.\n4. Flamingo march from cone A to cone B — Lift one knee high each step and balance like a flamingo.\n5. Tunnel crawl from cone A to cone B — Hands and knees, crawl right through the tunnel.\n6. Disc hops from cone A to cone B — Two-foot jumps from disc to disc, land quiet with bent knees.\n7. Ladder quick steps from cone A to cone B — One foot in each square, eyes up.\n8. Beanbag balance walk from cone A to cone B — Balance blocks with a beanbag on your head; at cone B throw it back for the next person.\n9. Soft mat forward roll — Tuck chin to chest, bend knees, roll forward along the mat.",
       "weekA": {
         "challenge": "",
         "cues": ""
@@ -795,10 +795,10 @@
       "discovery": "Animal Trail: Let children test each movement slowly and select a comfortable way to do it; model eyes-forward and arms-out balance.",
       "developing": "Focus on one technique: stable feet, soft bent-knee landing, or steady balance. Give short feedback.",
       "consolidating": "Apply to an imagined story mission while maintaining control; child may choose a different safe route.",
-      "weekBProgression": "Week B: Add supported same-foot hop after flamingo if ready; pause on balance blocks for 3 counts. Option to repeat first week's simpler route.",
+      "weekBProgression": "Week B: Add supported same-foot hop after Flamingo March if ready; stop for a 3-count on the Beanbag Balance Walk before the throw. Option to repeat first week's simpler route.",
       "setup": "",
       "how": "",
-      "equipment": "10 cones, 3 flat markers, balance blocks, 3 foam hurdles",
+      "equipment": "18 cones, 3 low hurdles, balance blocks, sensory discs, 1 tunnel, 1 agility ladder, 1 beanbag, 1 soft play mat",
       "adaptation": "Week A: Offer low, wide pathways, supported balancing and optional fewer obstacles. Week B: Offer low, wide pathways, supported balancing and optional fewer obstacles.",
       "extension": "Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height. Week B: Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height.",
       "watchFor": "Queueing. Run the loop so everyone starts at a different station.",

@@ -191,7 +191,7 @@ export default {
             "Jumping",
             "Hopping"
           ],
-          "course": "Animal Trail\n1. Bear crawl from cone A to cone B — Hands and feet on the floor, bottom up, walk like a bear.\n2. Frog jump over 3 flat markers — Two-foot jump, land quiet with bent knees.\n3. Walk along the balance blocks — Arms out, one foot in front of the other.\n4. Step over 3 low foam hurdles — Slow and steady, no knocking them over.\n5. Flamingo balance — stand on one foot for a slow count of 3 — Hold a coach's finger if wobbly. Try the other foot too.\n6. Crab walk back to the start — Hands behind, bottom up, walk backwards.",
+          "course": "Animal Trail\n1. Crab walk from cone A to cone B — Hands behind, bottom up, walk like a crab.\n2. Bear crawl from cone A to cone B — Hands and feet down, bottom up, knees clear of the ground.\n3. Hurdle steps from cone A to cone B — Step over each of the 3 low hurdles, slow and controlled.\n4. Flamingo march from cone A to cone B — Lift one knee high each step and balance like a flamingo.\n5. Tunnel crawl from cone A to cone B — Hands and knees, crawl right through the tunnel.\n6. Disc hops from cone A to cone B — Two-foot jumps from disc to disc, land quiet with bent knees.\n7. Ladder quick steps from cone A to cone B — One foot in each square, eyes up.\n8. Beanbag balance walk from cone A to cone B — Balance blocks with a beanbag on your head; at cone B throw it back for the next person.\n9. Soft mat forward roll — Tuck chin to chest, bend knees, roll forward along the mat.",
           "weekA": {
             "challenge": "",
             "cues": ""
@@ -203,10 +203,10 @@ export default {
           "discovery": "Animal Trail: Let children test each movement slowly and select a comfortable way to do it; model eyes-forward and arms-out balance.",
           "developing": "Focus on one technique: stable feet, soft bent-knee landing, or steady balance. Give short feedback.",
           "consolidating": "Apply to an imagined story mission while maintaining control; child may choose a different safe route.",
-          "weekBProgression": "Week B: Add supported same-foot hop after flamingo if ready; pause on balance blocks for 3 counts. Option to repeat first week's simpler route.",
+          "weekBProgression": "Week B: Add supported same-foot hop after Flamingo March if ready; stop for a 3-count on the Beanbag Balance Walk before the throw. Option to repeat first week's simpler route.",
           "setup": "",
           "how": "",
-          "equipment": "10 cones, 3 flat markers, balance blocks, 3 foam hurdles",
+          "equipment": "18 cones, 3 low hurdles, balance blocks, sensory discs, 1 tunnel, 1 agility ladder, 1 beanbag, 1 soft play mat",
           "adaptation": "Week A: Offer low, wide pathways, supported balancing and optional fewer obstacles. Week B: Offer low, wide pathways, supported balancing and optional fewer obstacles.",
           "extension": "Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height. Week B: Add controlled arms-out balance and longer but manageable challenges, never raise equipment to an unsafe height.",
           "watchFor": "Queueing. Run the loop so everyone starts at a different station.",
@@ -363,46 +363,55 @@ export default {
             "auto": false,
             "volunteers": "",
             "layout": "circuit",
-            "safety": "No racing. Floor-level blocks that can't slide; soft, low hurdles only.",
+            "safety": "No racing. Floor-level blocks that can't slide; soft, low hurdles only. One child at a time through the tunnel and on the mat.",
             "review": "",
             "name": "Animal Trail",
             "skill": "Balance · jumping · hopping",
             "equipment": [
-              "10 cones",
-              "3 flat markers",
+              "18 cones (2 per station)",
+              "3 low hurdles",
               "Balance blocks",
-              "3 soft foam hurdles"
+              "Sensory discs or spot markers",
+              "1 tunnel",
+              "1 agility ladder",
+              "1 beanbag",
+              "1 soft play mat"
             ],
-            "setup": "Arrange the six activities around a spacious one-way loop. Start children at different activities so nobody queues.",
+            "setup": "Arrange the nine stations around a spacious one-way loop. Start children at different stations so nobody queues — one-way traffic at the tunnel and the mat.",
             "steps": [
-              "Bear crawl — hands and feet, bottom up, cone A to B.",
-              "Frog jumps — jump over 3 flat markers; land softly on two feet.",
-              "Balance walk — along ground-level balance blocks, arms out.",
-              "Hurdle steps — carefully step over 3 low foam hurdles.",
-              "Flamingo balance — stand on each leg for 3 slow counts.",
-              "Crab walk — hands behind, bottom up, back to the start."
+              "Crab walk — hands behind, bottom up, cone A to B.",
+              "Bear crawl — hands and feet down, bottom up, knees clear, cone A to B.",
+              "Hurdle steps — step over each of the 3 low hurdles, cone A to B.",
+              "Flamingo march — one knee high each step, balance like a flamingo, cone A to B.",
+              "Tunnel crawl — hands and knees, right through the tunnel, cone A to B.",
+              "Disc hops — two-foot jumps disc to disc, quiet landings, cone A to B.",
+              "Ladder quick steps — one foot in each square, eyes up, cone A to B.",
+              "Beanbag balance walk — balance blocks with a beanbag on your head; at cone B throw it back for the next person.",
+              "Soft mat forward roll — tuck chin to chest, bend knees, roll forward along the mat."
             ],
             "cues": [
               "Take your time",
               "Soft landings",
-              "Steady balance"
+              "Steady balance",
+              "Eyes up"
             ],
-            "younger": "Wide, low routes, supported balancing and fewer obstacles.",
+            "younger": "Wide, low routes, supported balancing and fewer obstacles. Hold a hand through the tunnel and the forward roll.",
             "older": "More controlled arms-out balance; longer safe holds.",
-            "watch": "Queues, fatigue, collisions and unstable equipment.",
+            "watch": "Queues, fatigue, collisions at the tunnel and the mat, and unstable equipment.",
             "discovery": "Let children test each movement slowly and choose a comfortable way to do it; model eyes-forward, arms-out balance.",
             "developing": "Focus on one technique: stable feet, soft bent-knee landings or steady balance. Give short feedback.",
             "consolidating": "Turn it into a story mission while staying in control; children may choose a different safe route.",
-            "observation": "Queues, fatigue, collisions and unstable or unsecured equipment.",
+            "observation": "Queues, fatigue, collisions at the tunnel and the mat, and unstable or unsecured equipment.",
             "sources": [
-              "Club Series 1 package (condensed from the Rotations board course)"
+              "9 illustrated obstacle cards (Obstacle Course Cards)",
+              "Rotations board: S1 · R3"
             ],
             "image": {
               "src": "/getsetgo/stations/animal-trail.jpg",
               "alt": "Cartoon of children crawling, jumping and stepping over low foam hurdles and markers",
               "note": ""
             },
-            "hash": "461f9ba2a827"
+            "hash": "77bfaf95e094"
           },
           {
             "key": "s1-A-4",
@@ -566,39 +575,46 @@ export default {
             "auto": false,
             "volunteers": "",
             "layout": "circuit",
-            "safety": "No racing. Floor-level blocks that can't slide; soft, low hurdles only.",
+            "safety": "No racing. Floor-level blocks that can't slide; soft, low hurdles only. One child at a time through the tunnel and on the mat.",
             "review": "",
             "name": "Animal Trail",
             "skill": "Balance · jumping · hopping (progression)",
             "equipment": [
-              "10 cones",
-              "3 flat markers",
+              "18 cones (2 per station)",
+              "3 low hurdles",
               "Balance blocks",
-              "3 soft foam hurdles"
+              "Sensory discs or spot markers",
+              "1 tunnel",
+              "1 agility ladder",
+              "1 beanbag",
+              "1 soft play mat"
             ],
-            "setup": "Same one-way loop as Week A. Start children at different activities so nobody queues.",
+            "setup": "Same nine-station one-way loop as Week A. Start children at different stations so nobody queues — one-way traffic at the tunnel and the mat.",
             "steps": [
-              "Bear crawl — hands and feet, bottom up, cone A to B.",
-              "Frog jumps — jump over 3 flat markers; land softly on two feet.",
-              "Balance walk — pause on the balance blocks for 3 counts, arms out.",
-              "Hurdle steps — carefully step over 3 low foam hurdles.",
-              "Flamingo balance — 3 slow counts; add a supported same-foot hop if ready.",
-              "Crab walk — hands behind, bottom up, back to the start."
+              "Crab walk — hands behind, bottom up, cone A to B.",
+              "Bear crawl — hands and feet down, bottom up, knees clear, cone A to B.",
+              "Hurdle steps — step over each of the 3 low hurdles with a steady knee lift, cone A to B.",
+              "Flamingo march — one knee high each step; 3 slow counts on one leg, add a supported same-foot hop if ready, cone A to B.",
+              "Tunnel crawl — hands and knees, right through the tunnel, cone A to B.",
+              "Disc hops — two-foot jumps disc to disc, land then freeze, cone A to B.",
+              "Ladder quick steps — one foot in each square, eyes up; quicker only if in control, cone A to B.",
+              "Beanbag balance walk — stop for a steady 3-count on the balance blocks, then throw the beanbag back for the next person.",
+              "Soft mat forward roll — tuck chin to chest, bend knees, roll forward and stand up steady."
             ],
             "cues": [
               "Steady balance",
               "Soft landing",
               "Move in control"
             ],
-            "younger": "Repeat Week A's simpler route: wide, low paths and supported balancing.",
+            "younger": "Repeat Week A's simpler route: wide, low paths, supported balancing, and a hand to hold through the tunnel and the roll.",
             "older": "Longer, still-controlled balance holds — never higher equipment.",
-            "watch": "Queues, fatigue and unstable equipment.",
+            "watch": "Queues, fatigue, collisions at the tunnel and the mat, and unstable equipment.",
             "discovery": "Let children test each movement slowly and choose a comfortable way to do it.",
-            "developing": "Add a supported same-foot hop after the flamingo if ready; pause on the balance blocks for 3 counts.",
+            "developing": "Add a supported same-foot hop after the Flamingo March if ready; stop for a 3-count on the Beanbag Balance Walk before the throw.",
             "consolidating": "Turn it into a story mission while staying in control; offer Week A's simpler route as an option.",
-            "observation": "Queues, fatigue, collisions and unstable or unsecured equipment.",
+            "observation": "Queues, fatigue, collisions at the tunnel and the mat, and unstable or unsecured equipment.",
             "sources": [
-              "Club Series 1 package",
+              "9 illustrated obstacle cards (Obstacle Course Cards)",
               "Rotations board: Week B progression"
             ],
             "image": {
@@ -606,7 +622,7 @@ export default {
               "alt": "Cartoon of children crawling, jumping and stepping over low foam hurdles and markers",
               "note": ""
             },
-            "hash": "4f40c6c84fe1"
+            "hash": "1d00ef5bf81d"
           },
           {
             "key": "s1-B-4",

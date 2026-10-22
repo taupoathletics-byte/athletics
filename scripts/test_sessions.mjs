@@ -260,9 +260,11 @@ check(names(4, 'A').join('|') === 'Dead Ants|Partner Kicking|Pirate Island|Jump 
 check(names(4, 'B').join('|') === 'Skipping Experiments|Crazy Kickers|Pirate Island|Beat Your Own Marker', `series 4 week B: ${names(4, 'B')}`);
 // Series 2 must not pick up the Series 1 Week 2 lesson that Notion links by mistake.
 check(!names(2, 'A').concat(names(2, 'B')).some((n) => names(1, 'B').includes(n) || names(1, 'A').includes(n)), 'series 2 contains a series 1 activity');
-// Circuits keep their six moves.
-for (const k of ['s1-A-3', 's2-A-3', 's3-A-3', 's3-B-3', 's4-A-3', 's4-B-3']) check(card(k).layout === 'circuit' && card(k).steps.length === 6, `${k}: circuit should have six exercises`);
-check(/Bear crawl/.test(card('s1-A-3').steps[0]) && /Crab walk/.test(card('s1-A-3').steps[5]), 'Animal Trail: six moves out of order');
+// Circuits keep their moves: Animal Trail now runs the 9 illustrated obstacle cards.
+for (const k of ['s2-A-3', 's3-A-3', 's3-B-3', 's4-A-3', 's4-B-3']) check(card(k).layout === 'circuit' && card(k).steps.length === 6, `${k}: circuit should have six exercises`);
+for (const k of ['s1-A-3', 's1-B-3']) check(card(k).layout === 'circuit' && card(k).steps.length === 9, `${k}: Animal Trail should have the nine obstacle cards`);
+const animalOrder = card('s1-A-3').steps.map((s) => s.split(' — ')[0]);
+check(animalOrder[0] === 'Crab walk' && animalOrder[8] === 'Soft mat forward roll', `Animal Trail: nine moves out of order — ${animalOrder.join(' | ')}`);
 check(/Superman flight/.test(card('s3-A-3').steps[0]) && /star jump/i.test(card('s3-A-3').steps[5]), 'Superhero Training: six moves out of order');
 check(/FREEZE/.test(card('s3-B-3').steps.join(' ')) && !/FREEZE/.test(card('s3-A-3').steps.join(' ')), 'Superhero Training: the Week B freeze belongs to Week B only');
 check(card('s3-A-3').image?.src === card('s3-B-3').image?.src, 'Superhero Training: both weeks should share one image');
