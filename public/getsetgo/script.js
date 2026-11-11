@@ -574,7 +574,7 @@ function renderDropdown() {
   if (!matches.length) { dd.classList.add('hidden'); dd.innerHTML = ''; return; }
   dd.innerHTML = matches.map((m) => {
     const here = m.present || selectedMembers.some((s) => s.id === m.id);
-    const meta = [m.age != null ? `${m.age} yrs` : '', m.ageGroup].filter(Boolean).join(' · ');
+    const meta = [m.grade != null ? `Grade ${m.grade}` : '', m.ageGroup].filter(Boolean).join(' · ');
     return `
       <button type="button" class="checkin-option ${here ? 'is-here' : ''}" data-id="${esc(m.id)}">
         <span class="checkin-option__name">${esc(m.name)}</span>
@@ -685,12 +685,12 @@ function buildAttendanceGroups(members) {
   const buckets = {};
   const bucketFor = (group) => (buckets[group] || (buckets[group] = { F: [], M: [], X: [] }));
   for (const m of members || []) {
-    const age = m.age;
+    const grade = m.grade;
     let group;
-    if (age == null) group = 'Age not set';
-    else if (age < 2) group = 'Under 2';
-    else if (age <= 11) group = String(age);
-    else if (age <= 14) group = '12-14';
+    if (grade == null) group = 'Age not set';
+    else if (grade < 2) group = 'Under 2';
+    else if (grade <= 11) group = String(grade);
+    else if (grade <= 14) group = '12-14';
     else group = '15+';
     const g = String(m.gender || '').toUpperCase();
     bucketFor(group)[g === 'F' ? 'F' : g === 'M' ? 'M' : 'X'].push(m.name);

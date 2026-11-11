@@ -23,17 +23,17 @@ vm.createContext(sandbox);
 vm.runInContext(src, sandbox, { filename: 'script.js' });
 
 const members = [
-  { name: 'Zoe', age: 7, gender: 'F' },
-  { name: 'Anna', age: 7, gender: 'F' },
-  { name: 'Adam', age: 7, gender: 'M' },
-  { name: 'Ben', age: 7, gender: 'M' },
-  { name: 'Cara', age: 5, gender: 'F' },
-  { name: 'Dora', age: 5, gender: 'F' },
-  { name: 'Ivy', age: 12, gender: 'F' },
-  { name: 'Eli', age: 15, gender: 'M' },
-  { name: 'Noah', age: 10, gender: 'M' },
-  { name: 'Alex', age: 8, gender: '' },
-  { name: 'Sam', age: null, gender: 'M' },
+  { name: 'Zoe', grade: 7, gender: 'F' },
+  { name: 'Anna', grade: 7, gender: 'F' },
+  { name: 'Adam', grade: 7, gender: 'M' },
+  { name: 'Ben', grade: 7, gender: 'M' },
+  { name: 'Cara', grade: 5, gender: 'F' },
+  { name: 'Dora', grade: 5, gender: 'F' },
+  { name: 'Ivy', grade: 12, gender: 'F' },
+  { name: 'Eli', grade: 15, gender: 'M' },
+  { name: 'Noah', grade: 10, gender: 'M' },
+  { name: 'Alex', grade: 8, gender: '' },
+  { name: 'Sam', grade: null, gender: 'M' },
 ];
 
 vm.runInContext('globalThis.__groups = buildAttendanceGroups(globalThis.__members);', sandbox);

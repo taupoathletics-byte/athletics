@@ -53,6 +53,16 @@ function ageInYears(birth, onDate) {
   return age >= 0 ? age : null;
 }
 
+// Grade = the child's age on 31 December 2026 (the season's reference date).
+// Since 31 Dec is the last day of the year, this is the season year minus the
+// birth year — a child's grade stays the same for the whole season.
+const SEASON_YEAR = 2026;
+function gradeFor(birth) {
+  if (!birth) return null;
+  const y = Number(String(birth).slice(0, 4));
+  return Number.isFinite(y) && y > 1900 ? SEASON_YEAR - y : null;
+}
+
 function readBody(req) {
   return new Promise((resolve) => {
     let data = '';
@@ -97,6 +107,7 @@ export default async function handler(req, res) {
             memberType: (m.properties['Member Type'] && m.properties['Member Type'].rich_text || []).map((t) => t.plain_text).join(''),
             gender: (m.properties.Gender && m.properties.Gender.select && m.properties.Gender.select.name) || '',
             age: ageInYears(birth, date),
+            grade: gradeFor(birth),
             nights: (m.properties['Nights attended'] && m.properties['Nights attended'].rollup && m.properties['Nights attended'].rollup.number) || 0,
             present: presentIds.has(m.id),
           };

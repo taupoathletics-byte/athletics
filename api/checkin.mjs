@@ -66,7 +66,7 @@ async function listMembers() {
     const name = title(m.properties.Name);
     const firstName = richText(m.properties['First Name']) || name.split(' ')[0] || '';
     const lastName = richText(m.properties['Last Name']) || name.split(' ').slice(1).join(' ');
-    return { id: m.id, name, firstName, label: lastName ? `${firstName} ${lastName}` : firstName };
+    return { id: m.id, name, firstName, lastName, label: lastName ? `${firstName} ${lastName}` : firstName };
   });
   memberCacheAt = Date.now();
   return memberCache;
@@ -108,7 +108,11 @@ export default async function handler(req, res) {
     try {
       const members = await listMembers();
       const names = members
-        .filter((m) => m.name.toLowerCase().startsWith(q))
+        .filter((m) =>
+          (m.firstName || '').toLowerCase().startsWith(q) ||
+          (m.lastName || '').toLowerCase().startsWith(q) ||
+          (m.name || '').toLowerCase().startsWith(q)
+        )
         .sort((a, b) => a.name.localeCompare(b.name))
         .slice(0, 8)
         // `name` is the masked label kept for older cached clients.
