@@ -1484,6 +1484,14 @@ body {
   margin: 0;
 }
 
+.bulk-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 14px;
+}
+
 .lookup-delete { width: 44px; text-align: right; }
 .lookup-delete .record-delete {
   color: var(--on-surface-variant, #57423b);

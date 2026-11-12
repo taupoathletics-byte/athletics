@@ -1121,7 +1121,10 @@ function renderRecordsEntry() {
         </div>
       </div>
       <div id="bulk-tables"></div>
-      <button class="btn btn-primary" id="bulk-save" disabled>Save results</button>
+      <div class="bulk-actions">
+        <button class="btn btn-primary" id="bulk-save" disabled>Save results</button>
+        <button class="btn btn-ghost" id="bulk-print"><span class="material-symbols-outlined">print</span> Print this event</button>
+      </div>
       <p class="record-saved hidden" id="bulk-saved"></p>
     </div>`;
   bindRecordSearch();
@@ -1163,6 +1166,81 @@ function latestResultsFor(event, season) {
 }
 
 /** The measure-night grid: girls and boys tables for the selected grade. */
+/** Open a print-friendly measure sheet: the selected event, every grade, girls/boys. */
+function openMeasureSheet() {
+  const event = $('#bulk-event').value;
+  const season = $('#bulk-season').value;
+  const date = $('#bulk-date').value;
+  const latest = latestResultsFor(event, season);
+  const isTime = ['60m', '100m', '200m', '400m', '800m', '1500m'].includes(event);
+  const unit = isTime ? 'seconds' : 'metres';
+
+  const grades = [...new Set(recordMembers.map((m) => m.grade).filter(Boolean))]
+    .sort((a, b) => Number(a) - Number(b));
+
+  const table = (title, list) => {
+    if (!list.length) return '';
+    return `
+      <div class="col">
+        <h3>${esc(title)} <span class="count">${list.length}</span></h3>
+        <table>
+          <thead><tr><th>Name</th><th class="last">Last</th><th class="res">Result (${unit})</th></tr></thead>
+          <tbody>${list.map((m) => {
+            const prev = latest.get(m.id);
+            return `<tr><td>${esc(m.name)}</td><td class="last">${prev ? esc(prev.result) : ''}</td><td class="res"></td></tr>`;
+          }).join('')}</tbody>
+        </table>
+      </div>`;
+  };
+
+  const sections = grades.map((grade) => {
+    const girls = recordMembers.filter((m) => m.grade === grade && m.gender === 'F').sort((a, b) => a.name.localeCompare(b.name));
+    const boys = recordMembers.filter((m) => m.grade === grade && m.gender === 'M').sort((a, b) => a.name.localeCompare(b.name));
+    if (!girls.length && !boys.length) return '';
+    return `<section class="grade">
+      <h2>Grade ${esc(grade)}</h2>
+      <div class="cols">${table('Girls', girls)}${table('Boys', boys)}</div>
+    </section>`;
+  }).join('');
+
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>${esc(event)} — measure sheet</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; margin: 18px; color: #1d1b17; }
+  header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #5b84a8; padding-bottom: 6px; margin-bottom: 12px; }
+  header h1 { font-size: 20px; margin: 0; }
+  header .meta { color: #57423b; font-size: 13px; }
+  .grade { margin-bottom: 14px; }
+  .grade h2 { font-size: 15px; margin: 0 0 6px; background: #cfe1f0; padding: 3px 8px; }
+  .cols { display: flex; gap: 18px; }
+  .col { flex: 1; }
+  .col h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: #57423b; margin: 4px 0; }
+  .count { font-weight: 400; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 3px 6px; border-bottom: 1px solid #e7e2db; }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: #57423b; }
+  th.last, td.last { width: 70px; color: #8b7169; font-size: 12px; }
+  th.res, td.res { width: 110px; border-left: 1px solid #e7e2db; height: 22px; }
+  tr:nth-child(even) td { background: #faf6f0; }
+  button.print { margin: 10px 0 4px; padding: 8px 16px; font-size: 14px; }
+  @media print { button.print { display: none; } .grade { page-break-inside: avoid; } }
+</style></head><body>
+<header>
+  <h1>Taupō Athletics — Measure sheet: ${esc(event)}</h1>
+  <div class="meta">${esc(formatDateLabel(date))} · Season ${esc(season)}</div>
+</header>
+<button class="print" onclick="window.print()">🖨 Print / Save as PDF</button>
+${sections || '<p>No members with a grade set.</p>'}
+</body></html>`;
+
+  const w = window.open('', '_blank', 'width=900,height=700');
+  if (!w) { alert('Please allow pop-ups to open the measure sheet.'); return; }
+  w.document.write(html);
+  w.document.close();
+  w.focus();
+}
+
 function renderBulkTables() {
   const grade = $('#bulk-grade').value;
   const event = $('#bulk-event').value;
@@ -1214,6 +1292,7 @@ function bindBulk() {
     $(sel).addEventListener('change', renderBulkTables);
   });
   $('#bulk-save').addEventListener('click', saveBulk);
+  $('#bulk-print').addEventListener('click', openMeasureSheet);
 }
 
 async function saveBulk() {
