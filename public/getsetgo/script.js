@@ -1124,6 +1124,7 @@ function renderRecordsEntry() {
       <div class="bulk-actions">
         <button class="btn btn-primary" id="bulk-save" disabled>Save results</button>
         <button class="btn btn-ghost" id="bulk-print"><span class="material-symbols-outlined">print</span> Print this event</button>
+        <button class="btn btn-ghost" id="bulk-print-all"><span class="material-symbols-outlined">library_books</span> Print all events</button>
       </div>
       <p class="record-saved hidden" id="bulk-saved"></p>
     </div>`;
@@ -1166,15 +1167,11 @@ function latestResultsFor(event, season) {
 }
 
 /** The measure-night grid: girls and boys tables for the selected grade. */
-/** Open a print-friendly measure sheet: the selected event, every grade, girls/boys. */
-function openMeasureSheet() {
-  const event = $('#bulk-event').value;
-  const season = $('#bulk-season').value;
-  const date = $('#bulk-date').value;
-  const latest = latestResultsFor(event, season);
-  const isTime = ['60m', '100m', '200m', '400m', '800m', '1500m'].includes(event);
-  const unit = isTime ? 'seconds' : 'metres';
+const MEASURE_TIME_EVENTS = ['60m', '100m', '200m', '400m', '800m', '1500m'];
 
+/** The grade sections (girls/boys tables) for one event, ready to embed. */
+function measureSections(event, latest) {
+  const unit = MEASURE_TIME_EVENTS.includes(event) ? 'seconds' : 'metres';
   const grades = [...new Set(recordMembers.map((m) => m.grade).filter(Boolean))]
     .sort((a, b) => Number(a) - Number(b));
 
@@ -1193,7 +1190,7 @@ function openMeasureSheet() {
       </div>`;
   };
 
-  const sections = grades.map((grade) => {
+  return grades.map((grade) => {
     const girls = recordMembers.filter((m) => m.grade === grade && m.gender === 'F').sort((a, b) => a.name.localeCompare(b.name));
     const boys = recordMembers.filter((m) => m.grade === grade && m.gender === 'M').sort((a, b) => a.name.localeCompare(b.name));
     if (!girls.length && !boys.length) return '';
@@ -1202,9 +1199,12 @@ function openMeasureSheet() {
       <div class="cols">${table('Girls', girls)}${table('Boys', boys)}</div>
     </section>`;
   }).join('');
+}
 
-  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
-<title>${esc(event)} — measure sheet</title>
+/** Build the printable measure-sheet document. */
+function measureSheetDoc(heading, meta, body, perEventPageBreak) {
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>${esc(heading)}</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: Arial, sans-serif; margin: 18px; color: #1d1b17; }
@@ -1223,22 +1223,50 @@ function openMeasureSheet() {
   th.last, td.last { width: 70px; color: #8b7169; font-size: 12px; }
   th.res, td.res { width: 110px; border-left: 1px solid #e7e2db; height: 22px; }
   tr:nth-child(even) td { background: #faf6f0; }
+  .event-block { margin-bottom: 10px; }
+  .event-title { font-size: 22px; margin: 0 0 10px; padding: 6px 10px; background: #5b84a8; color: #fff; }
   button.print { margin: 10px 0 4px; padding: 8px 16px; font-size: 14px; }
-  @media print { button.print { display: none; } .grade { page-break-inside: avoid; } }
+  @media print {
+    button.print { display: none; }
+    .grade { page-break-inside: avoid; }
+    ${perEventPageBreak ? '.event-block { page-break-after: always; } .event-block:last-child { page-break-after: auto; }' : ''}
+  }
 </style></head><body>
 <header>
-  <h1>Taupō Athletics — Measure sheet: ${esc(event)}</h1>
-  <div class="meta">${esc(formatDateLabel(date))} · Season ${esc(season)}</div>
+  <h1>${esc(heading)}</h1>
+  <div class="meta">${esc(meta)}</div>
 </header>
 <button class="print" onclick="window.print()">🖨 Print / Save as PDF</button>
-${sections || '<p>No members with a grade set.</p>'}
+${body || '<p>No members with a grade set.</p>'}
 </body></html>`;
+}
 
+function printDoc(html, what) {
   const w = window.open('', '_blank', 'width=900,height=700');
-  if (!w) { alert('Please allow pop-ups to open the measure sheet.'); return; }
+  if (!w) { alert(`Please allow pop-ups to open the ${what}.`); return; }
   w.document.write(html);
   w.document.close();
   w.focus();
+}
+
+/** Open a print-friendly measure sheet: the selected event, every grade, girls/boys. */
+function openMeasureSheet() {
+  const event = $('#bulk-event').value;
+  const season = $('#bulk-season').value;
+  const date = $('#bulk-date').value;
+  const sections = measureSections(event, latestResultsFor(event, season));
+  printDoc(measureSheetDoc(`Measure sheet: ${event}`, `${formatDateLabel(date)} · Season ${season}`, sections, false), 'measure sheet');
+}
+
+/** Open one document with every measured event, each starting on a new page. */
+function openAllMeasureSheets() {
+  const season = $('#bulk-season').value;
+  const date = $('#bulk-date').value;
+  const blocks = RECORD_EVENTS.map((event) => {
+    const sections = measureSections(event, latestResultsFor(event, season));
+    return `<section class="event-block"><h1 class="event-title">${esc(event)}</h1>${sections}</section>`;
+  }).join('');
+  printDoc(measureSheetDoc('Measure sheets — all events', `${formatDateLabel(date)} · Season ${season}`, blocks, true), 'measure sheets');
 }
 
 function renderBulkTables() {
@@ -1293,6 +1321,7 @@ function bindBulk() {
   });
   $('#bulk-save').addEventListener('click', saveBulk);
   $('#bulk-print').addEventListener('click', openMeasureSheet);
+  $('#bulk-print-all').addEventListener('click', openAllMeasureSheets);
 }
 
 async function saveBulk() {

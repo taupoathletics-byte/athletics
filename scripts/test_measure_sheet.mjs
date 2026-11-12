@@ -61,7 +61,19 @@ const iAnna = written.indexOf('Anna Brown');
 const iZoe = written.indexOf('Zoe Smith');
 check(iAnna !== -1 && iAnna < iZoe, 'girls are not sorted A–Z');
 
+// --- all-events sheet ---
+written = '';
+vm.runInContext('openAllMeasureSheets();', sandbox);
+check(written.length > 0, 'the all-events sheet produced no HTML');
+const evs = ['60m', '100m', '200m', '400m', '800m', '1500m', 'Long Jump', 'High Jump', 'Shot Put', 'Discus'];
+for (const ev of evs) {
+  if (!written.includes('>' + ev + '<')) problems.push(`all-events sheet is missing ${ev}`);
+}
+const blocks = (written.match(/class="event-block"/g) || []).length;
+check(blocks === evs.length, `expected ${evs.length} event blocks, found ${blocks}`);
+
 console.log('Measure sheet');
+console.log('  all-events blocks:', blocks);
 console.log('  grades present: Grade 7, Grade 9');
 console.log('  last recorded 10.73 shown:', written.includes('10.73'));
 
