@@ -670,6 +670,7 @@ function bindAttendance() {
   }
   $('#checkin-submit').addEventListener('click', submitCheckin);
   $('#print-sheet').addEventListener('click', openPrintSheet);
+  $('#attendance-report').addEventListener('click', openAttendanceReport);
   const dateInput = $('#attendance-date-input');
   dateInput.value = attendanceDate;
   dateInput.addEventListener('change', () => {
@@ -760,6 +761,50 @@ ${sections}
 
   const w = window.open('', '_blank', 'width=900,height=700');
   if (!w) { alert('Please allow pop-ups to print the attendance sheet.'); return; }
+  w.document.write(html);
+  w.document.close();
+  w.focus();
+}
+
+/** Open a print-friendly attendance report: members ranked by nights attended. */
+function openAttendanceReport() {
+  const rows = [...attendanceMembers]
+    .sort((a, b) => (b.nights || 0) - (a.nights || 0) || a.name.localeCompare(b.name));
+
+  const bodyRows = rows.map((m, i) => `
+    <tr>
+      <td class="num">${i + 1}</td>
+      <td>${esc(m.name)}</td>
+      <td>${esc(m.grade != null ? 'Grade ' + m.grade : '')}</td>
+      <td class="num">${esc(m.nights ?? 0)}</td>
+    </tr>`).join('');
+
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>Attendance report — ${esc(formatDateLabel(attendanceDate))}</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; margin: 18px; color: #1d1b17; }
+  header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #5b84a8; padding-bottom: 6px; margin-bottom: 12px; }
+  header h1 { font-size: 20px; margin: 0; }
+  header .date { color: #57423b; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid #e7e2db; }
+  th { background: #cfe1f0; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  td.num { text-align: right; }
+  tr:nth-child(even) td { background: #faf6f0; }
+  button.print { margin: 10px 0 4px; padding: 8px 16px; font-size: 14px; }
+  @media print { button.print { display: none; } }
+</style></head><body>
+<header><h1>Taupō Athletics — Attendance report</h1><div class="date">${esc(formatDateLabel(attendanceDate))}</div></header>
+<button class="print" onclick="window.print()">🖨 Print / Save as PDF</button>
+<table>
+  <thead><tr><th class="num">#</th><th>Name</th><th>Grade</th><th class="num">Nights attended</th></tr></thead>
+  <tbody>${bodyRows}</tbody>
+</table>
+</body></html>`;
+
+  const w = window.open('', '_blank', 'width=900,height=700');
+  if (!w) { alert('Please allow pop-ups to open the attendance report.'); return; }
   w.document.write(html);
   w.document.close();
   w.focus();
@@ -1017,6 +1062,7 @@ function renderCheckin() {
       </label>
       <span class="chip status-delivered"><span class="dot"></span><span id="checkedin-count">0</span>&nbsp;here tonight</span>
       <button class="btn btn-ghost" id="print-sheet"><span class="material-symbols-outlined">print</span> Print sheet</button>
+      <button class="btn btn-ghost" id="attendance-report"><span class="material-symbols-outlined">leaderboard</span> Attendance report</button>
     </div>
 
     <div class="checkin-box">
@@ -1534,6 +1580,7 @@ function showMemberRecords(member) {
     <div class="record-form">
       <h2>${esc(member.name)}</h2>
       <p class="lookup-code">Access code&nbsp; <strong>${esc(member.accessCode || 'Not assigned')}</strong></p>
+      <p class="lookup-code">Nights attended&nbsp; <strong>${esc(member.nights ?? 0)}</strong></p>
       ${rows.length ? `
         <table class="lookup-table">
           <thead><tr><th>Event</th><th>Grade</th><th>Result</th><th>Date</th><th>Season</th><th></th></tr></thead>
