@@ -1,5 +1,6 @@
 // Shared helpers for the email features (api/familyemails.mjs, api/membermail.mjs).
 // Files prefixed with "_" are shared modules, not deployed as functions.
+import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 
 export const MEMBERS_DB = process.env.MEMBERS_DB_ID || '3e30d85f-784c-81e6-a79b-ca720cb76a5b';
 export const ATHLETICS_PAGE = process.env.ATHLETICS_PAGE_ID || '3e20d85f-784c-819c-a575-f22bfb38c49b';
@@ -96,3 +97,35 @@ export function mailSettings(req) {
 }
 
 export const notReady = 'Email is not set up yet: add RESEND_API_KEY and EMAIL_FROM in Vercel (Settings → Environment Variables), then redeploy.';
+
+/* ---------- newsletter opt-outs ----------
+   Families can unsubscribe from newsletters with a signed link (no login).
+   Club notices (cancellations, access codes, results) still reach them.
+   Opt-outs are stored in the Notion "Email opt-outs" database as a hash of
+   the address — never the address itself. */
+const secret = () => process.env.UNSUBSCRIBE_SECRET || process.env.SESSION_SECRET || '';
+export const emailHash = (email) => createHash('sha256').update(`optout|${String(email).trim().toLowerCase()}`).digest('hex').slice(0, 40);
+export const unsubToken = (email) => createHmac('sha256', secret()).update(`unsub|${String(email).trim().toLowerCase()}`).digest('hex').slice(0, 32);
+
+export function checkUnsubToken(email, token) {
+  if (!secret() || !email || !/^[0-9a-f]{32}$/.test(String(token || ''))) return false;
+  const a = Buffer.from(unsubToken(email), 'hex');
+  const b = Buffer.from(String(token), 'hex');
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+
+export function unsubUrl(siteUrl, email) {
+  const e = Buffer.from(String(email).trim().toLowerCase(), 'utf8').toString('base64url');
+  return `${siteUrl.replace(/\/+$/, '')}/unsubscribe?e=${e}&t=${unsubToken(email)}`;
+}
+
+export const optOutDbId = () => ensureDb('Email opt-outs', {
+  Address: { title: {} },
+  Since: { date: {} },
+}, process.env.OPTOUT_DB_ID);
+
+/** Hashes of every address that has unsubscribed from newsletters. */
+export async function optedOut() {
+  const rows = await queryAll(await optOutDbId());
+  return new Set(rows.filter((r) => !r.archived).map((r) => plain(r.properties?.Address?.title)).filter(Boolean));
+}

@@ -2033,6 +2033,7 @@ const mail = {
   query: '',
   groupFilter: '',
   format: 'text',
+  category: 'newsletter',
   subject: '',
   body: '',
   count: null,
@@ -2042,11 +2043,11 @@ const MAIL_DRAFT_KEY = 'ta-mail-draft';
 function loadMailDraft() {
   try {
     const d = JSON.parse(localStorage.getItem(MAIL_DRAFT_KEY) || 'null');
-    if (d) Object.assign(mail, { subject: d.subject || '', body: d.body || '', format: d.format === 'html' ? 'html' : 'text' });
+    if (d) Object.assign(mail, { subject: d.subject || '', body: d.body || '', format: d.format === 'html' ? 'html' : 'text', category: d.category === 'notice' ? 'notice' : 'newsletter' });
   } catch { /* storage unavailable: start blank */ }
 }
 function saveMailDraft() {
-  try { localStorage.setItem(MAIL_DRAFT_KEY, JSON.stringify({ subject: mail.subject, body: mail.body, format: mail.format })); } catch { /* ignore */ }
+  try { localStorage.setItem(MAIL_DRAFT_KEY, JSON.stringify({ subject: mail.subject, body: mail.body, format: mail.format, category: mail.category })); } catch { /* ignore */ }
 }
 
 async function postMail(body) {
@@ -2067,6 +2068,11 @@ function renderEmailMembers() {
     <div class="mail-layout">
       <section class="records-box mail-compose" aria-label="Compose">
         <div class="mail-to"><span class="mail-to__label">To</span><div id="mail-to-chips" class="mail-chips"></div><span id="mail-count" class="mail-to__count"></span></div>
+        <div class="mail-format mail-kind" role="radiogroup" aria-label="Kind of email">
+          <button type="button" role="radio" data-category="newsletter" aria-checked="${mail.category === 'newsletter'}"><span class="material-symbols-outlined">newspaper</span> Newsletter</button>
+          <button type="button" role="radio" data-category="notice" aria-checked="${mail.category === 'notice'}"><span class="material-symbols-outlined">campaign</span> Club notice</button>
+        </div>
+        <p id="mail-kind-hint" class="mail-hint"></p>
         <input type="text" id="mail-subject" class="mail-subject" placeholder="Subject" maxlength="200" value="${esc(mail.subject)}" aria-label="Subject">
         <div class="mail-format" role="tablist" aria-label="Message format">
           <button type="button" role="tab" data-format="text" aria-selected="${mail.format === 'text'}">Write</button>
@@ -2112,6 +2118,14 @@ function renderEmailMembers() {
 
   $('#mail-body').value = mail.body;
   $('#mail-subject').addEventListener('input', (e) => { mail.subject = e.target.value; saveMailDraft(); });
+  $$('.mail-kind [data-category]').forEach((b) => b.addEventListener('click', () => {
+    mail.category = b.dataset.category;
+    $$('.mail-kind [data-category]').forEach((x) => x.setAttribute('aria-checked', String(x === b)));
+    saveMailDraft();
+    renderMailKindHint();
+    mailAudienceChanged(false);
+  }));
+  renderMailKindHint();
   $('#mail-body').addEventListener('input', (e) => { mail.body = e.target.value; saveMailDraft(); if (!$('#mail-preview').hidden) renderMailPreview(); });
   $$('.mail-format [data-format]').forEach((b) => b.addEventListener('click', () => {
     mail.format = b.dataset.format;
@@ -2140,6 +2154,12 @@ function renderEmailMembers() {
   $('#mail-send').addEventListener('click', sendMailToMembers);
   renderMailFormatHint();
   loadMailMembers();
+}
+
+function renderMailKindHint() {
+  $('#mail-kind-hint').textContent = mail.category === 'newsletter'
+    ? 'Newsletters and announcements: each email has an unsubscribe link, and anyone who has unsubscribed is skipped.'
+    : 'Club notices (cancellations, safety, things every family must know) go to everyone, with no unsubscribe link.';
 }
 
 function renderMailFormatHint() {
@@ -2252,8 +2272,9 @@ function mailAudienceChanged(redrawList = true) {
   clearTimeout(mailCountTimer);
   mailCountTimer = setTimeout(async () => {
     try {
-      mail.count = (await postMail({ action: 'count', audience: mail.audience })).recipients;
-      $('#mail-count').textContent = `${mail.count} email address${mail.count === 1 ? '' : 'es'}`;
+      const c = await postMail({ action: 'count', audience: mail.audience, category: mail.category });
+      mail.count = c.recipients;
+      $('#mail-count').textContent = `${mail.count} email address${mail.count === 1 ? '' : 'es'}${c.unsubscribed ? ` · ${c.unsubscribed} unsubscribed, skipped` : ''}`;
     } catch (e) { $('#mail-count').textContent = ''; }
     $('#mail-send').disabled = !(mail.data.ready && mail.count > 0);
   }, 250);
@@ -2293,7 +2314,7 @@ async function groupAction(kind, name) {
 }
 
 function mailMessage() {
-  return { subject: mail.subject.trim(), format: mail.format, body: mail.body };
+  return { subject: mail.subject.trim(), format: mail.format, category: mail.category, body: mail.body };
 }
 
 async function sendMailTest() {

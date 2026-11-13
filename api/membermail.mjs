@@ -25,8 +25,12 @@
 //
 // Each campaign is logged in the Notion "Member emails" database (subject,
 // audience, count, when) — no addresses.
+//
+// Two kinds of email: a NEWSLETTER (announcements, news) carries an
+// unsubscribe link and skips anyone who has unsubscribed; a CLUB NOTICE
+// (cancellations, safety, anything families must know) goes to everyone.
 import { requireAdmin } from './_guard.mjs';
-import { EMAIL_RE, MEMBERS_DB, ensureDb, mailSettings, mask, notReady, notion, plain, queryAll, readBody, resend, send } from './_mail.mjs';
+import { EMAIL_RE, MEMBERS_DB, emailHash, ensureDb, mailSettings, mask, notReady, notion, optedOut, plain, queryAll, readBody, resend, send, unsubUrl } from './_mail.mjs';
 
 export const config = { maxDuration: 60 };
 
@@ -104,28 +108,31 @@ export function htmlToText(html) {
 }
 
 const FOOTER_TEXT = 'You’re receiving this because you’re a member of Taupō Athletics Club. Questions? Just reply to this email.';
-const footerHtml = () => `<p style="margin:24px 0 0;font-size:12px;color:#55606e;font-family:Arial,Helvetica,sans-serif">${esc(FOOTER_TEXT)}</p>`;
+const NOTICE_TEXT = 'This is a club notice, so it goes to every member.';
+const footerHtml = (unsub) => `<p style="margin:24px 0 0;font-size:12px;color:#55606e;font-family:Arial,Helvetica,sans-serif">${esc(FOOTER_TEXT)} ${unsub
+  ? `<a href="${esc(unsub)}" style="color:#55606e">Unsubscribe from club newsletters</a>.`
+  : esc(NOTICE_TEXT)}</p>`;
 
 /**
  * The email. `format` 'text' wraps the message in the club layout; 'html'
  * sends pasted HTML as written (a full document keeps its own layout) with the
  * club footer added.
  */
-export function compose({ subject, format, body }) {
+export function compose({ subject, format, body }, unsub = '') {
   const isHtml = format === 'html';
   const inner = isHtml ? String(body) : textToHtml(body);
   let html;
   if (isHtml && /<html[\s>]|<body[\s>]/i.test(inner)) {
-    html = /<\/body>/i.test(inner) ? inner.replace(/<\/body>/i, `${footerHtml()}</body>`) : inner + footerHtml();
+    html = /<\/body>/i.test(inner) ? inner.replace(/<\/body>/i, `${footerHtml(unsub)}</body>`) : inner + footerHtml(unsub);
   } else {
     html = `<!doctype html><html><body style="margin:0;padding:24px;background:#f5f3ee;font-family:Arial,Helvetica,sans-serif;color:#0e2a47">
 <div style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:12px;padding:28px">
 <p style="margin:0 0 20px;font-weight:bold;color:#b04f49;letter-spacing:1px;text-transform:uppercase;font-size:13px">Taupō Athletics</p>
 ${inner}
-${footerHtml()}
+${footerHtml(unsub)}
 </div></body></html>`;
   }
-  const text = `${isHtml ? htmlToText(body) : String(body).trim()}\n\n—\n${FOOTER_TEXT}`;
+  const text = `${isHtml ? htmlToText(body) : String(body).trim()}\n\n—\n${FOOTER_TEXT}\n${unsub ? `Unsubscribe from club newsletters: ${unsub}` : NOTICE_TEXT}`;
   return { subject: String(subject).trim(), html, text };
 }
 
@@ -135,6 +142,7 @@ function checkMessage(b) {
   if (String(b.subject).length > 200) return 'Keep the subject under 200 characters.';
   if (!String(b.body || '').trim()) return 'Write a message (or paste the HTML).';
   if (!['text', 'html'].includes(b.format)) return 'Choose plain text or HTML.';
+  if (!['newsletter', 'notice'].includes(b.category)) return 'Choose newsletter or club notice.';
   return '';
 }
 
@@ -214,7 +222,19 @@ export default async function handler(req, res) {
       return send(res, 200, { ok: true, changed: inGroup.length });
     }
 
-    if (body.action === 'count') return send(res, 200, { recipients: recipients(members, body.audience).length });
+    // Newsletters skip anyone who has unsubscribed; club notices go to everyone.
+    const audienceFor = async (b) => {
+      const all = recipients(members, b.audience);
+      if (b.category !== 'newsletter') return { list: all, skipped: 0 };
+      const out = await optedOut();
+      const list = all.filter((e) => !out.has(emailHash(e)));
+      return { list, skipped: all.length - list.length };
+    };
+
+    if (body.action === 'count') {
+      const { list, skipped } = await audienceFor(body);
+      return send(res, 200, { recipients: list.length, unsubscribed: skipped });
+    }
 
     if (body.action === 'test' || body.action === 'send') {
       const problem = checkMessage(body);
@@ -225,13 +245,14 @@ export default async function handler(req, res) {
       if (body.action === 'test') {
         const to = String(body.to || '').trim();
         if (!EMAIL_RE.test(to)) return send(res, 400, { error: 'Enter one email address for the test.' });
-        await resend('/emails', { from: cfg.from, to: [to], reply_to: cfg.replyTo, ...mail, subject: `[TEST] ${mail.subject}` });
+        const testMail = body.category === 'newsletter' ? compose(body, unsubUrl(cfg.siteUrl, to)) : mail;
+        await resend('/emails', { from: cfg.from, to: [to], reply_to: cfg.replyTo, ...testMail, subject: `[TEST] ${mail.subject}` });
         return send(res, 200, { ok: true });
       }
 
       const campaignId = String(body.campaignId || '');
       if (!/^[A-Za-z0-9-]{8,64}$/.test(campaignId)) return send(res, 400, { error: 'Missing campaign id.' });
-      const all = recipients(members, body.audience);
+      const all = (await audienceFor(body)).list;
       const offset = Math.max(0, Number(body.offset) || 0);
       const chunk = all.slice(offset, offset + BATCH);
       if (!chunk.length) return send(res, 200, { ok: true, sent: 0, total: all.length, next: offset });
@@ -242,12 +263,23 @@ export default async function handler(req, res) {
             Subject: { title: [{ type: 'text', text: { content: mail.subject.slice(0, 200) } }] },
             Audience: { rich_text: [{ type: 'text', text: { content: audienceLabel(body.audience).slice(0, 1900) } }] },
             Recipients: { number: all.length },
-            Format: { rich_text: [{ type: 'text', text: { content: body.format === 'html' ? 'HTML' : 'Plain text' } }] },
+            Format: { rich_text: [{ type: 'text', text: { content: `${body.category === 'newsletter' ? 'Newsletter' : 'Club notice'} · ${body.format === 'html' ? 'HTML' : 'Plain text'}` } }] },
             Sent: { date: { start: new Date().toISOString() } },
           },
         });
       }
-      await resend('/emails/batch', chunk.map((to) => ({ from: cfg.from, to: [to], reply_to: cfg.replyTo, ...mail })), `member-mail-${campaignId}-${offset}`);
+      const isNewsletter = body.category === 'newsletter';
+      await resend('/emails/batch', chunk.map((to) => {
+        if (!isNewsletter) return { from: cfg.from, to: [to], reply_to: cfg.replyTo, ...mail };
+        // Each newsletter carries the reader's own unsubscribe link, in the
+        // footer and as the one-click header email apps show.
+        const unsub = unsubUrl(cfg.siteUrl, to);
+        const oneClick = `${cfg.siteUrl.replace(/\/+$/, '')}/api/unsubscribe?${unsub.split('?')[1]}`;
+        return {
+          from: cfg.from, to: [to], reply_to: cfg.replyTo, ...compose(body, unsub),
+          headers: { 'List-Unsubscribe': `<${oneClick}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' },
+        };
+      }), `member-mail-${campaignId}-${offset}`);
       return send(res, 200, { ok: true, sent: chunk.length, total: all.length, next: offset + chunk.length });
     }
 

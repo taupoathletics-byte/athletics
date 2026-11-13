@@ -43,6 +43,7 @@ for (let i = 0; i < 150; i++) members.push(member(`Kid${i}`, `Fam${i}`, `fam${St
 let hasGroupsProp = false;
 const patches = [];
 const logRows = [];
+const optOuts = [];
 const resendCalls = [];
 
 globalThis.fetch = async (url, opts = {}) => {
@@ -57,9 +58,9 @@ globalThis.fetch = async (url, opts = {}) => {
   if (u.pathname === `/v1/databases/${MEMBERS_DB}` && method === 'GET') return json(200, { properties: hasGroupsProp ? { Groups: {} } : {} });
   if (u.pathname === `/v1/databases/${MEMBERS_DB}` && method === 'PATCH') { hasGroupsProp = true; return json(200, {}); }
   if (u.pathname === '/v1/search') return json(200, { results: [] });
-  if (u.pathname === '/v1/databases' && method === 'POST') return json(200, { id: 'log-db' });
+  if (u.pathname === '/v1/databases' && method === 'POST') return json(200, { id: body.title[0].text.content === 'Email opt-outs' ? 'optout-db' : 'log-db' });
   const q = u.pathname.match(/^\/v1\/databases\/([^/]+)\/query$/);
-  if (q) return json(200, { results: norm(q[1]) === norm(MEMBERS_DB) ? members : [], has_more: false });
+  if (q) return json(200, { results: norm(q[1]) === norm(MEMBERS_DB) ? members : q[1] === 'optout-db' ? optOuts : [], has_more: false });
   const pg = u.pathname.match(/^\/v1\/pages\/(.+)$/);
   if (pg && method === 'PATCH') {
     patches.push({ id: pg[1], props: Object.keys(body.properties) });
@@ -67,7 +68,10 @@ globalThis.fetch = async (url, opts = {}) => {
     m.properties.Groups = body.properties.Groups;
     return json(200, {});
   }
-  if (u.pathname === '/v1/pages' && method === 'POST') { logRows.push(body); return json(200, { id: 'log-row' }); }
+  if (u.pathname === '/v1/pages' && method === 'POST') {
+    if (body.parent.database_id === 'optout-db') { optOuts.push({ id: `o-${optOuts.length}`, properties: { Address: { title: [{ plain_text: body.properties.Address.title[0].text.content }] } } }); return json(200, {}); }
+    logRows.push(body); return json(200, { id: 'log-row' });
+  }
   return json(404, { message: `unexpected ${method} ${u.pathname}` });
 };
 
@@ -94,7 +98,7 @@ const check = (label, cond, detail = '') => results.push(`${cond ? 'PASS' : 'FAI
 const login = await call(mockReq('POST', '/api/auth', JSON.stringify({ passcode: 'test-pass-123' })));
 const admin = { cookie: (login.headers['set-cookie'] || '').split(';')[0] };
 const post = (obj) => call(mockReq('POST', '/api/membermail', JSON.stringify(obj), admin));
-const msg = { subject: 'Club night cancelled', format: 'text', body: 'Kia ora,\n\nNo club night tonight — see https://example.org/news.' };
+const msg = { subject: 'Club night cancelled', format: 'text', category: 'notice', body: 'Kia ora,\n\nNo club night tonight — see https://example.org/news.' };
 
 check('public: GET refused', (await call(mockReq('GET', '/api/membermail'))).code === 401);
 check('public: send refused', (await call(mockReq('POST', '/api/membermail', JSON.stringify({ action: 'send' })))).code === 401 && resendCalls.length === 0);
@@ -145,6 +149,27 @@ check('plain text: club layout, clickable link, footer', /<a href="https:\/\/exa
 const pasted = compose({ subject: 'Newsletter', format: 'html', body: '<html><body><h1>Term 4 news</h1><p>Hello <a href="https://x.org">x</a></p></body></html>' });
 check('HTML: kept as pasted, footer inside <body>', /^<html><body><h1>Term 4 news/.test(pasted.html) && /member of Taupō Athletics[^]*<\/body>/.test(pasted.html));
 check('HTML: plain-text part made from it', /Term 4 news/.test(pasted.text) && /x \(https:\/\/x\.org\)/.test(pasted.text) && !/<p>/.test(pasted.text));
+
+// Newsletters: unsubscribe link per reader, and opted-out readers are skipped
+process.env.SITE_URL = 'https://club.example';
+const { default: unsubscribe } = await import('../api/unsubscribe.mjs');
+const news = { ...msg, category: 'newsletter', subject: 'Term 4 newsletter' };
+const n1 = await post({ action: 'send', campaignId: 'news-0001', offset: 0, audience: { types: ['juniors'] }, ...news });
+const nb = resendCalls.at(-1);
+const berryMail = nb.body.find((e) => e.to[0] === 'berry@example.com');
+const link = (berryMail.html.match(/href="(https:\/\/club\.example\/unsubscribe\?[^"]+)"/) || [])[1];
+check('newsletter: each email has its own unsubscribe link and one-click header', !!link && /One-Click/.test(berryMail.headers['List-Unsubscribe-Post']) && berryMail.headers['List-Unsubscribe'].includes('/api/unsubscribe?'));
+check('club notice: no unsubscribe link', !/unsubscribe\?/.test(b1.body[0].html) && /club notice/.test(b1.body[0].text));
+const params = new URL(link.replace(/&amp;/g, '&')).searchParams;
+const unsubCall = (body) => new Promise((resolve) => { const st = { code: 200, body: '', headers: {} }; unsubscribe(mockReq('POST', '/api/unsubscribe', JSON.stringify(body)), { set statusCode(c) { st.code = c; }, get statusCode() { return st.code; }, setHeader() {}, end(d) { st.body = d; resolve(st); } }); });
+const bad = await unsubCall({ e: params.get('e'), t: '0'.repeat(32) });
+check('unsubscribe: a forged token is refused', bad.code === 400 && optOuts.length === 0);
+const good = await unsubCall({ e: params.get('e'), t: params.get('t') });
+check('unsubscribe: the signed link works, storing a hash not the address', good.code === 200 && optOuts.length === 1 && !/@/.test(JSON.stringify(optOuts)));
+const cnt = await post({ action: 'count', audience: { types: ['juniors'] }, category: 'newsletter' });
+check('newsletter count skips the unsubscribed address', cnt.json.unsubscribed === 1 && cnt.json.recipients === n1.json.total - 1);
+const notice = await post({ action: 'count', audience: { types: ['juniors'] }, category: 'notice' });
+check('club notices still reach them', notice.json.recipients === n1.json.total);
 
 // Groups
 const tag = await post({ action: 'tag', group: 'Relay Team', add: [members[2].id, members[5].id, 'not-a-member'] });

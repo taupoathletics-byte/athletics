@@ -11,6 +11,7 @@ import Faqs from '@/pages/Faqs'
 import Volunteer from '@/pages/Volunteer'
 import Brand from '@/pages/Brand'
 import MyResults from '@/pages/MyResults'
+import Unsubscribe from '@/pages/Unsubscribe'
 import CheckIn from '@/pages/CheckIn'
 import NotFound from '@/pages/NotFound'
 
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="team" element={<Team />} />
         <Route path="club-records" element={<ClubRecords />} />
         <Route path="my-results" element={<MyResults />} />
+        <Route path="unsubscribe" element={<Unsubscribe />} />
         <Route path="check-in" element={<CheckIn />} />
         <Route path="calendar" element={<Calendar />} />
         <Route path="faqs" element={<Faqs />} />
