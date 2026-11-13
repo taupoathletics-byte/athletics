@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { CalendarPlus, ExternalLink, Info, Medal, Shirt, Trophy } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { PageHero } from '@/components/PageHero'
@@ -58,8 +59,39 @@ function EventChips({ list }: { list: string }) {
   )
 }
 
+/**
+ * Dates come live from the Athletics Waikato Bay of Plenty calendar (via
+ * /api/awbopevents, refreshed every few hours); the hand-kept list in
+ * events.ts is only the fallback if that calendar can't be read.
+ */
+function useUpcomingEvents(): { list: ClubEvent[]; live: boolean } {
+  const [state, setState] = useState<{ list: ClubEvent[]; live: boolean }>({ list: upcomingEvents(), live: false })
+  useEffect(() => {
+    fetch('/api/awbopevents')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!d || !Array.isArray(d.events)) return
+        const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Pacific/Auckland' })
+        const list: ClubEvent[] = d.events
+          .filter((e: { start: string; end?: string }) => (e.end ?? e.start) >= today)
+          .map((e: { name: string; start: string; end?: string; venue: string; url: string }) => ({
+            season: CURRENT_SEASON,
+            start: e.start,
+            end: e.end,
+            name: e.name,
+            venue: e.venue,
+            url: e.url,
+            note: /colgate|children|pentathlon/i.test(e.name) ? 'Grades 7–14' : undefined,
+          }))
+        setState({ list, live: true })
+      })
+      .catch(() => { /* keep the fallback */ })
+  }, [])
+  return state
+}
+
 export default function Events() {
-  const upcoming = upcomingEvents()
+  const { list: upcoming, live } = useUpcomingEvents()
 
   return (
     <>
@@ -79,7 +111,7 @@ export default function Events() {
           {upcoming.length > 0 ? (
             <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {upcoming.map((e, i) => (
-                <li key={e.name} className="rounded-xl bg-white p-gutter-sm shadow-soft">
+                <li key={`${e.name}-${e.start}`} className="flex flex-col items-start rounded-xl bg-white p-gutter-sm shadow-soft">
                   {i === 0 && (
                     <span className="mb-2 inline-block rounded-full bg-signal px-2.5 py-0.5 text-sm font-semibold text-signal-ink">
                       Next up
@@ -89,6 +121,11 @@ export default function Events() {
                   <h3 className="mt-1 font-bold text-on-surface">{e.name}</h3>
                   <p className="text-on-surface-variant">{e.venue}</p>
                   {e.note && <p className="mt-1 text-sm text-on-surface-variant">{e.note}</p>}
+                  {e.url && (
+                    <a href={e.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-primary underline">
+                      Event details <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+                    </a>
+                  )}
                   <button
                     type="button"
                     onClick={() => downloadIcs(e)}
@@ -100,7 +137,17 @@ export default function Events() {
                 </li>
               ))}
             </ul>
-          ) : (
+          ) : null}
+          {upcoming.length > 0 && live && (
+            <p className="mt-3 text-sm text-on-surface-variant">
+              Dates from the{' '}
+              <a href={awbopCalendarUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">
+                Athletics Waikato Bay of Plenty calendar
+              </a>
+              . Host clubs post the day&rsquo;s details on their own Facebook pages.
+            </p>
+          )}
+          {upcoming.length === 0 && (
             <div className="mt-5 flex items-start gap-3 rounded-xl border-l-4 border-l-sky-info bg-white p-gutter-sm shadow-soft">
               <Info className="mt-0.5 h-5 w-5 shrink-0 text-sky-info" aria-hidden />
               <div>

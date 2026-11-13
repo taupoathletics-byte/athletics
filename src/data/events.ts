@@ -20,6 +20,8 @@ export interface ClubEvent {
   end?: string
   name: string
   venue: string
+  /** Link to the event's page on the AWBoP calendar. */
+  url?: string
   /** Shown on the card, e.g. "Grades 7–14 only". */
   note?: string
   registerUrl?: string

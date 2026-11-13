@@ -22,7 +22,8 @@ const GRADES = new Set(['7', '8', '9', '10', '11', '12', '13', '14']);
  * and club-night entries like "10.73", "1:23.4", "4.56m" or "9.9s".
  */
 export function markValue(event, text) {
-  const s = String(text || '').trim().replace(/[a-z\s]/gi, '');
+  // A comma typed as the decimal point ("15,1") counts as one.
+  const s = String(text || '').trim().replace(/,/g, '.').replace(/[a-z\s]/gi, '');
   if (!s) return null;
   if (UNIT[event] !== 'time') {
     const v = parseFloat(s);
