@@ -29,8 +29,7 @@ export default function Faqs() {
                         <a
                           className="font-semibold text-primary underline"
                           href={item.link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          {...(item.link.href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
                         >
                           {item.link.label}
                         </a>

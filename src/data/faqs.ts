@@ -54,7 +54,8 @@ export const faqs: FaqCategory[] = [
       },
       {
         q: 'Do you need my help to run club nights?',
-        a: 'Yes please, we welcome any parental support that can be offered - this is especially important when we are holding our recording nights. We will ask those parents that are supporting their children from the grandstand when we need help - so don\u2019t be shy!',
+        a: 'Yes please, we welcome any parental support that can be offered - this is especially important when we are holding our recording nights. We will ask those parents that are supporting their children from the grandstand when we need help - so don\u2019t be shy! There are other ways you can help too.',
+        link: { label: 'Ways to volunteer', href: '/volunteer' },
       },
       {
         q: 'What will my child be doing at Club Nights?',
@@ -80,11 +81,11 @@ export const faqs: FaqCategory[] = [
       },
       {
         q: 'Do I need to register in advance for a Ribbon Day?',
-        a: 'No, Ribbon Days are pretty casual when it comes to attendance. You can show up on the day and compete. Each club will post information on their Facebook pages or Website as to how the day will run, so please ensure you follow these pages.',
+        a: 'No, Ribbon Days are pretty casual when it comes to attendance. You can show up on the day and compete. Each club will post information on their Facebook pages or Website as to how the day will run, so please ensure you follow these pages. We will also try our best to post information about the various Ribbon Days on our Facebook page.',
       },
       {
         q: 'My child is competing at an external event, do they need to wear anything special?',
-        a: 'Yes, all children are to wear the following: club singlet, age flash sewn onto the top left hand side of the singlet (available free from the desk at Club Nights), and black shorts. This is compulsory and if your child is not wearing the required uniform they will not be able to compete.',
+        a: 'Yes, all children are to wear the following: club singlet, age flash sewn onto the top left hand side of the singlet (available free from the desk at Club Nights), and black shorts. This is compulsory and if your child is not wearing the required uniform they will not be able to compete. This includes the Ribbon Day that we hold in Taup\u014d.',
       },
     ],
   },

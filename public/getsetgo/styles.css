@@ -1532,6 +1532,17 @@ body {
   transition: background 0.2s ease, color 0.2s ease;
 }
 .codes-scope__btn.active { background: var(--surface-container-lowest); color: var(--primary); box-shadow: var(--shadow-soft-sm); }
+.codes-email { margin-top: 12px; display: grid; gap: 10px; }
+.codes-email p { margin: 0; }
+.codes-email__title { font-size: 1.15rem; margin: 0; }
+.codes-email__stats { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0; padding: 0; list-style: none; }
+.codes-email__setup { background: var(--surface-container); border-radius: var(--radius-lg, 12px); padding: 10px 12px; }
+.codes-email__setup code { font-size: 0.85em; word-break: break-all; }
+.codes-email__sample pre { white-space: pre-wrap; font: inherit; font-size: 0.9rem; background: var(--surface-container); padding: 10px 12px; border-radius: 8px; margin: 8px 0 0; }
+.codes-email__row { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; }
+.codes-email__row label { display: grid; gap: 4px; font-size: 0.9rem; font-weight: 600; }
+.codes-email__row input { min-height: 40px; padding: 6px 10px; border: 1px solid var(--outline-variant); border-radius: 8px; font: inherit; max-width: 100%; }
+.codes-email__hint, .codes-email__status { font-size: 0.9rem; color: var(--on-surface-variant); }
 .codes-summary {
   display: flex;
   flex-wrap: wrap;

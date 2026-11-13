@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { KeyRound } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { buttonVariants } from '@/components/ui/button'
@@ -35,9 +35,25 @@ export default function MyResults() {
   const [message, setMessage] = useState('')
   const [data, setData] = useState<{ members: FamilyMember[]; records: ResultRow[] }>({ members: [], records: [] })
 
+  // The emailed link ends "#code=ABCD2345". The part after "#" never reaches a
+  // server or log; take the code from it, then clear it from the address bar
+  // so it isn't left in history or a shared screenshot.
+  useEffect(() => {
+    const m = window.location.hash.match(/code=([A-Za-z0-9 ]+)/)
+    if (!m) return
+    window.history.replaceState(null, '', window.location.pathname + window.location.search)
+    setCode(m[1])
+    void lookup(m[1])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   async function submit(e: React.FormEvent) {
     e.preventDefault()
-    const c = code.trim().toUpperCase().replace(/[^A-Z0-9]/g, '')
+    await lookup(code)
+  }
+
+  async function lookup(raw: string) {
+    const c = raw.trim().toUpperCase().replace(/[^A-Z0-9]/g, '')
     if (c.length < 6) {
       setStatus('error')
       setMessage('Enter the access code you were given.')

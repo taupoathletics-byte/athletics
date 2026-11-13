@@ -20,6 +20,8 @@ export interface GradeInfo {
   cap?: GradeCap
 }
 
+// Ribbon Day events per grade, from the club's Information Booklet (Ribbon Day
+// programme). Hurdles and walks are optional: host clubs may not offer them.
 const RIBBON: Record<number, string> = {
   3: '2 races, any distance',
   4: '2 races, any distance',
@@ -28,11 +30,11 @@ const RIBBON: Record<number, string> = {
   7: '60m, 100m, 200m, Long Jump, Shot, Discus, 4x100m Relay',
   8: '60m, 100m, 200m, Long Jump, Shot, Discus, 4x100m Relay',
   9: '60m, 100m, 200m, 800m, Long Jump, Shot, Discus, 4x100m Relay',
-  10: '100m, 200m, 400m, 800m, 1500m, 1200m Race Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
+  10: '100m, 200m, 400m, 800m, 1500m, 1200m Race Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay; 70m Hurdles',
   11: '100m, 200m, 400m, 800m, 1500m, 1200m Race Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay; 70m Hurdles',
   12: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, 1200m Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
-  13: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, 1600m Walk, Long Jump, High Jump, Triple Jump, Shot, Discus, 4x100m Relay',
-  14: '100m, 200m, 400m, 800m, 1500m, 100m Hurdles, 2000m Walk, Long Jump, High Jump, Triple Jump, Shot, Discus, 4x100m Relay',
+  13: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, 1600m Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
+  14: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), 2000m Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
 }
 
 export function gradeForBirthYear(birthYear: number): GradeInfo | undefined {

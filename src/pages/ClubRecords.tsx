@@ -1,150 +1,117 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Download, Trophy } from 'lucide-react'
+import { Download } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { buttonVariants } from '@/components/ui/button'
 import { recordsPdf } from '@/data/site'
-
-interface RecordRow {
-  id: string
-  memberName: string
-  event: string
-  grade: string
-  gender: string
-  date: string
-  result: string
-  value: number | null
-  isTime: boolean
-}
-
-const EVENT_ORDER = ['60m', '100m', '200m', '400m', '800m', '1500m', 'Long Jump', 'High Jump', 'Shot Put', 'Discus']
-const LIMIT = 10
-
-function fmt(r: RecordRow) {
-  return r.isTime ? `${r.result}s` : `${r.result}m`
-}
+import { clubRecords, clubRecordsAsAt, displayDate, displayMark, type ClubRecord, type RecordEvent } from '@/data/clubRecords'
+import { cn } from '@/lib/utils'
 
 /**
- * Public record board.
+ * The club's historical records (best ever mark per event, grade and gender).
  *
- * Deliberately shows only the top 10 marks per event. A member's full record is
- * personal, so it is not exposed here — see the admin portal / the member-access
- * path for the complete history. This also keeps the published name list to the
- * athletes actually on the board rather than the whole membership.
+ * Club-night measurements are NOT shown here: they are private. Families see
+ * their own children's results on /my-results with their access code, and the
+ * committee sees everything in the admin portal.
  */
+function Holder({ rec, unit }: { rec?: ClubRecord; unit: RecordEvent['unit'] }) {
+  if (!rec) return <span className="text-on-surface-variant">—</span>
+  return (
+    <div>
+      <p className="font-semibold text-on-surface">{displayMark(rec.mark, unit)}</p>
+      <p className="text-on-surface">{rec.names.join(' & ')}</p>
+      <p className="text-xs text-on-surface-variant">{[...new Set(rec.dates)].map(displayDate).join(', ')}</p>
+    </div>
+  )
+}
+
 export default function ClubRecords() {
-  const [records, setRecords] = useState<RecordRow[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetch('/api/records')
-      .then((r) => r.json())
-      .then((d) => setRecords(d.records || []))
-      .catch(() => {})
-      .finally(() => setLoading(false))
-  }, [])
-
-  const board = useMemo(() => {
-    const byEvent: Record<string, RecordRow[]> = {}
-    for (const r of records) {
-      if (r.value == null) continue
-      ;(byEvent[r.event] ||= []).push(r)
-    }
-    return EVENT_ORDER.filter((e) => (byEvent[e]?.length || 0) > 0).map((event) => {
-      const rows = byEvent[event]
-        .sort((a, b) => (a.isTime ? a.value! - b.value! : b.value! - a.value!))
-        .slice(0, LIMIT)
-      return { event, rows }
-    })
-  }, [records])
+  const [active, setActive] = useState(clubRecords[0].event)
+  const ev = clubRecords.find((e) => e.event === active) ?? clubRecords[0]
+  const grades = [...new Set(ev.rows.map((r) => r.grade))].sort((a, b) => a - b)
 
   return (
     <>
       <PageHero
-        eyebrow="Top 10 per event"
+        eyebrow="Taupō Athletics"
         title="Club Records"
-        subtitle="The ten best recorded marks in each event. Records are measured in Grades 7–14 and updated through the season."
+        subtitle={`The best marks ever set at Taupō Athletics club nights, by event, grade and gender — as at the ${clubRecordsAsAt}.`}
         photo={35}
       />
 
       <section className="container-page section-pad">
-        {/* Family self-service: full record behind the access code. */}
         <div className="mx-auto mb-8 flex max-w-3xl flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/20 bg-primary-container/40 px-4 py-3">
           <p className="text-sm text-on-surface">
-            <span className="font-semibold">Athletes &amp; families:</span> see your own full record with your access
-            code.
+            <span className="font-semibold">Families:</span> your children&rsquo;s club night results are private — view
+            them with your family access code.
           </p>
           <Link to="/my-results" className={buttonVariants({ variant: 'outline', size: 'sm' })}>
             View my results
           </Link>
         </div>
 
-        {loading ? (
-          <p className="text-center text-on-surface-variant">Loading records…</p>
-        ) : board.length === 0 ? (
-          <div className="mx-auto max-w-2xl rounded-xl bg-white p-gutter-md text-center shadow-soft">
-            <Trophy className="mx-auto mb-3 h-8 w-8 text-primary" />
-            <p className="text-on-surface-variant">
-              No results recorded yet — the record board will appear here as volunteers enter results.
-            </p>
-            <a
-              href={recordsPdf}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex min-h-[24px] items-center gap-2 py-1 text-sm font-semibold text-primary hover:underline"
+        <nav aria-label="Events" className="mb-6 flex flex-wrap gap-2">
+          {clubRecords.map((e) => (
+            <button
+              key={e.event}
+              type="button"
+              aria-pressed={e.event === active}
+              onClick={() => setActive(e.event)}
+              className={cn(
+                'min-h-[40px] rounded-full border px-4 text-sm font-semibold transition-colors',
+                e.event === active
+                  ? 'border-primary bg-primary text-white'
+                  : 'border-outline-variant bg-white text-on-surface hover:border-primary',
+              )}
             >
-              <Download className="h-4 w-4" /> Open previous records (PDF, March 2025)
-            </a>
-          </div>
-        ) : (
-          <>
-            <div className="grid gap-6 md:grid-cols-2">
-              {board.map(({ event, rows }) => (
-                <div key={event} className="rounded-xl bg-white p-gutter-md shadow-soft">
-                  <h3 className="mb-3 text-lg font-bold text-primary">{event}</h3>
-                  <table className="w-full text-left text-sm">
-                    <thead>
-                      <tr className="border-b border-outline-variant text-on-surface-variant">
-                        <th className="py-1.5 font-semibold">#</th>
-                        <th className="py-1.5 font-semibold">Grade</th>
-                        <th className="py-1.5 font-semibold">Name</th>
-                        <th className="py-1.5 font-semibold">Result</th>
-                        <th className="py-1.5 font-semibold">Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {rows.map((r, i) => (
-                        <tr key={r.id} className="border-b border-outline-variant">
-                          <td className="py-1.5 text-on-surface-variant">{i + 1}</td>
-                          <td className="py-1.5 font-semibold text-on-surface">
-                            {r.grade}
-                            {r.gender}
-                          </td>
-                          <td className="py-1.5 text-on-surface">{r.memberName}</td>
-                          <td className="py-1.5 text-on-surface">{fmt(r)}</td>
-                          <td className="py-1.5 text-on-surface-variant">{r.date}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ))}
-            </div>
+              {e.event}
+            </button>
+          ))}
+        </nav>
 
-            <p className="mt-6 text-sm text-on-surface-variant">
-              Showing the ten best recorded marks in each event.{' '}
-              <a
-                href={recordsPdf}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-primary underline"
-              >
-                Download the full historical records PDF
-              </a>
-              .
-            </p>
-          </>
-        )}
+        <div className="overflow-hidden rounded-xl bg-white shadow-soft">
+          <h2 className="px-gutter-md pt-gutter-md text-xl font-bold text-primary">{ev.event}</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[480px] text-left text-sm">
+              <thead>
+                <tr className="border-b border-outline-variant text-on-surface-variant">
+                  <th scope="col" className="px-gutter-md py-2 font-semibold">Grade</th>
+                  <th scope="col" className="px-3 py-2 font-semibold">Girls</th>
+                  <th scope="col" className="px-3 py-2 font-semibold">Boys</th>
+                </tr>
+              </thead>
+              <tbody>
+                {grades.map((g) => (
+                  <tr key={g} className="border-b border-outline-variant align-top last:border-0">
+                    <th scope="row" className="px-gutter-md py-3 font-semibold text-on-surface">{g}</th>
+                    <td className="px-3 py-3">
+                      <Holder rec={ev.rows.find((r) => r.grade === g && r.gender === 'F')} unit={ev.unit} />
+                    </td>
+                    <td className="px-3 py-3">
+                      <Holder rec={ev.rows.find((r) => r.grade === g && r.gender === 'M')} unit={ev.unit} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p className="mt-6 text-sm text-on-surface-variant">
+          Think a record is missing or wrong? Email{' '}
+          <a href="mailto:taupoathletics@gmail.com" className="font-semibold text-primary underline">
+            taupoathletics@gmail.com
+          </a>
+          .{' '}
+          <a
+            href={recordsPdf}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 font-semibold text-primary underline"
+          >
+            <Download className="h-4 w-4" /> Download the records (PDF)
+          </a>
+        </p>
       </section>
     </>
   )

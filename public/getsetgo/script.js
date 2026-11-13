@@ -1463,8 +1463,10 @@ function renderAccessCodes() {
       <div class="codes-actions">
         <button type="button" class="btn btn-primary" id="codes-print-list"><span class="material-symbols-outlined">print</span> Print A–Z list</button>
         <button type="button" class="btn btn-ghost" id="codes-print-slips"><span class="material-symbols-outlined">content_cut</span> Print hand-out slips</button>
+        <button type="button" class="btn btn-ghost" id="codes-email-open" aria-expanded="false" aria-controls="codes-email"><span class="material-symbols-outlined">forward_to_inbox</span> Email codes to families</button>
       </div>
     </div>
+    <section id="codes-email" class="records-box codes-email" hidden></section>
     <div id="codes-summary" class="codes-summary"></div>
     <nav id="codes-jump" class="codes-jump" aria-label="Jump to letter"></nav>
     <div id="codes-list" class="codes-list"><p class="codes-empty">Loading codes…</p></div>`;
@@ -1477,7 +1479,110 @@ function renderAccessCodes() {
   }));
   $('#codes-print-list').addEventListener('click', printCodesList);
   $('#codes-print-slips').addEventListener('click', printCodeSlips);
+  $('#codes-email-open').addEventListener('click', toggleCodesEmail);
   loadAccessCodes();
+}
+
+/* ---------- email each family their code (api/familyemails.mjs) ----------
+   One email per registration email, listing that family's children. The
+   server keeps the addresses and codes; this page only sees counts and a
+   sample. Already-emailed families are skipped, so Send can be pressed again
+   (e.g. the next day, under the sending provider's daily limit). */
+function toggleCodesEmail() {
+  const box = $('#codes-email');
+  const open = box.hidden;
+  box.hidden = !open;
+  $('#codes-email-open').setAttribute('aria-expanded', String(open));
+  if (open) loadCodesEmail();
+}
+
+async function loadCodesEmail() {
+  const box = $('#codes-email');
+  box.innerHTML = '<p class="codes-empty">Checking families…</p>';
+  try {
+    const res = await authedFetch('/api/familyemails');
+    const d = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(d.error || 'Could not load the family list.');
+    renderCodesEmail(d);
+  } catch (e) {
+    box.innerHTML = `<p class="codes-empty">⚠ ${esc(e.message)}</p>`;
+  }
+}
+
+function renderCodesEmail(d) {
+  const sk = d.skipped || {};
+  const notes = [
+    sk.noEmail ? `${sk.noEmail} athlete${sk.noEmail > 1 ? 's have' : ' has'} no email — use a printed slip` : '',
+    sk.badEmail ? `${sk.badEmail} email${sk.badEmail > 1 ? 's look' : ' looks'} invalid — fix in Notion` : '',
+    sk.noCode ? `${sk.noCode} athlete${sk.noCode > 1 ? 's have' : ' has'} no code yet` : '',
+    sk.mixedCodes ? `${sk.mixedCodes} famil${sk.mixedCodes > 1 ? 'ies have' : 'y has'} more than one code — re-run the access-code script` : '',
+  ].filter(Boolean);
+  $('#codes-email').innerHTML = `
+    <h2 class="codes-email__title">Email codes to families</h2>
+    <p>One email per family (children who share a registration email share a code). Only athletes are included — not volunteers or committee.</p>
+    <ul class="codes-email__stats">
+      <li><strong>${d.families}</strong> families · ${d.children} athletes</li>
+      <li><strong>${d.sent}</strong> already emailed</li>
+      <li><strong>${d.waiting}</strong> still to email</li>
+    </ul>
+    ${notes.length ? `<p class="codes-summary__warn"><span class="material-symbols-outlined">warning</span> ${esc(notes.join(' · '))}</p>` : ''}
+    ${!d.ready ? `<p class="codes-email__setup"><strong>Not set up yet.</strong> Verify the club's domain in Resend, then add <code>RESEND_API_KEY</code> and <code>EMAIL_FROM</code> (e.g. <code>Taupō Athletics &lt;results@mail.taupoathletics.org.nz&gt;</code>) in Vercel and redeploy. Replies go to ${esc(d.replyTo)}.</p>` : `<p>From <strong>${esc(d.from)}</strong> · replies to <strong>${esc(d.replyTo)}</strong></p>`}
+    ${!d.logReady && d.ready ? '<p class="codes-summary__warn">⚠ Could not open the “Access code emails” log in Notion — sending will try to create it.</p>' : ''}
+    ${d.sample ? `<details class="codes-email__sample"><summary>Preview the email (sample family: ${esc(d.sample.to)})</summary><p><strong>${esc(d.sample.subject)}</strong></p><pre>${esc(d.sample.text)}</pre></details>` : ''}
+    <div class="codes-email__row">
+      <label>Send a test to <input type="email" id="codes-email-test-to" placeholder="you@example.com" autocomplete="email"></label>
+      <button type="button" class="btn btn-ghost" id="codes-email-test" ${d.ready ? '' : 'disabled'}><span class="material-symbols-outlined">send</span> Send test</button>
+    </div>
+    <div class="codes-email__row">
+      <label>How many families now <input type="number" id="codes-email-max" min="1" max="${d.waiting}" value="${Math.min(d.waiting, 100)}"></label>
+      <button type="button" class="btn btn-primary" id="codes-email-send" ${d.ready && d.waiting ? '' : 'disabled'}><span class="material-symbols-outlined">forward_to_inbox</span> Send to families</button>
+    </div>
+    <p class="codes-email__hint">Resend's free plan sends up to 100 emails a day — send the rest tomorrow; families already emailed are skipped.</p>
+    <p id="codes-email-status" class="codes-email__status" role="status"></p>`;
+  $('#codes-email-test').addEventListener('click', sendCodesTest);
+  $('#codes-email-send').addEventListener('click', () => sendCodesToFamilies(d.waiting));
+}
+
+async function postFamilyEmails(body) {
+  const res = await authedFetch('/api/familyemails', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const d = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(d.error || 'Sending failed.');
+  return d;
+}
+
+async function sendCodesTest() {
+  const to = $('#codes-email-test-to').value.trim();
+  const status = $('#codes-email-status');
+  if (!to) { status.textContent = 'Enter an address for the test.'; return; }
+  status.textContent = 'Sending test…';
+  try {
+    await postFamilyEmails({ action: 'test', to });
+    status.textContent = `Test sent to ${to} (with a made-up code). Check it looks right before sending to families.`;
+  } catch (e) {
+    status.textContent = `⚠ ${e.message}`;
+  }
+}
+
+async function sendCodesToFamilies(waiting) {
+  const want = Math.max(0, Math.min(waiting, Number($('#codes-email-max').value) || 0));
+  const status = $('#codes-email-status');
+  if (!want) { status.textContent = 'Nothing to send.'; return; }
+  if (!confirm(`Email ${want} famil${want > 1 ? 'ies' : 'y'} their access code now? This can't be undone.`)) return;
+  const btn = $('#codes-email-send');
+  btn.disabled = true;
+  let sent = 0;
+  try {
+    while (sent < want) {
+      status.textContent = `Sending… ${sent} of ${want}`;
+      const r = await postFamilyEmails({ action: 'send', max: Math.min(50, want - sent) });
+      if (!r.sent) break;
+      sent += r.sent;
+    }
+    status.textContent = `Sent ${sent} email${sent === 1 ? '' : 's'}.`;
+  } catch (e) {
+    status.textContent = `⚠ Stopped after ${sent}: ${e.message} Families already emailed won't be emailed again.`;
+  }
+  setTimeout(loadCodesEmail, 1500);
 }
 
 async function loadAccessCodes() {

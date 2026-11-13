@@ -61,29 +61,23 @@ export const ribbonEvents: RibbonGrade[] = [
   {
     grade: 'Grades 10 & 11',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 1200m Race Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay, 70m Hurdles (Grade 11 only)',
+      '100m, 200m, 400m, 800m, 1500m, 1200m Race Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay, 70m Hurdles',
   },
   {
-    grade: 'Grade 12 (girls & boys)',
+    grade: 'Grade 12',
     events:
       '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, 1200m Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
   },
   {
-    grade: 'Grade 13 (girls & boys)',
+    grade: 'Grade 13',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, 1600m Walk, Long Jump, High Jump, Triple Jump, Shot, Discus, 4x100m Relay',
+      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, 1600m Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
   },
   {
-    grade: 'Grade 14 girls',
+    grade: 'Grade 14',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, 2000m Walk, Long Jump, High Jump, Triple Jump, Shot, Discus, 4x100m Relay',
+      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), 2000m Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
   },
-  {
-    grade: 'Grade 14 boys',
-    events:
-      '100m, 200m, 400m, 800m, 1500m, 100m Hurdles, 2000m Walk, Long Jump, High Jump, Triple Jump, Shot, Discus, 4x100m Relay',
-  },
-  { grade: 'Grade U16', events: 'Same as Grade 14' },
 ]
 
 // Club night times: Thursdays 5:30–7:00pm; the 3–6 yr olds (Get Set Go) finish at 6:30pm.

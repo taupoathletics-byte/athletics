@@ -1,4 +1,5 @@
-// Vercel serverless function — read/write the Club Records database (Notion proxy).
+// Vercel serverless function — read/write the club-night results (the Notion
+// "Club Records" database). Committee only: families use /api/myrecords.
 import { hasAdmin, requireAdmin } from './_guard.mjs';
 import { isNotionId, publicError, sameNotionId } from './_safety.mjs';
 
@@ -9,24 +10,6 @@ const MEMBERS_DB = process.env.MEMBERS_DB_ID || '3e30d85f-784c-81e6-a79b-ca720cb
 const RECORDS_DB = process.env.CLUB_RECORDS_DB_ID || '3e30d85f-784c-81e4-a908-f87400031506';
 
 const TIME_EVENTS = ['60m', '100m', '200m', '400m', '800m', '1500m'];
-
-/** The public board shows the ten best marks per event — and only those leave the server. */
-const PUBLIC_LIMIT = 10;
-
-function publicBoard(records) {
-  const byEvent = {};
-  for (const r of records) {
-    if (r.value == null) continue;
-    (byEvent[r.event] ||= []).push(r);
-  }
-  return Object.values(byEvent).flatMap((rows) =>
-    rows
-      .sort((a, b) => (a.isTime ? a.value - b.value : b.value - a.value))
-      .slice(0, PUBLIC_LIMIT)
-      // No member IDs publicly — just what the board prints.
-      .map(({ id, memberName, event, grade, gender, date, result, value, isTime }) => ({ id, memberName, event, grade, gender, date, result, value, isTime })),
-  );
-}
 
 async function notion(method, path, body) {
   const res = await fetch(`https://api.notion.com/v1${path}`, {
@@ -91,19 +74,17 @@ export default async function handler(req, res) {
 
   try {
     if (req.method === 'GET') {
-      // Public: the records themselves - the club publishes these, names and all.
-      // Admin: additionally the member detail the result-entry form needs.
-      // The roster is sent to admins only; publicly the records carry each
-      // athlete's name inline, so the member list is not needed and must not be
-      // exposed (it names children who may have no published record at all).
-      const isAdmin = hasAdmin(req);
+      // Club-night results are private: committee only. Families see their own
+      // children's results through their access code (/api/myrecords). The
+      // public Club Records page shows the club's historical records instead,
+      // which ship with the site (src/data/clubRecords.ts) — nothing from here.
+      if (!requireAdmin(req, res)) return;
       const [memberRows, recordRows] = await Promise.all([queryAll(MEMBERS_DB), queryAll(RECORDS_DB)]);
       const nameById = {};
       const members = [];
       for (const m of memberRows) {
         const name = title(m.properties.Name || {});
         nameById[m.id] = name;
-        if (!isAdmin) continue;
         const birth = (m.properties['Birth Date']?.date?.start) || '';
         const age = birth ? 2026 - Number(String(birth).slice(0, 4)) : NaN;
         members.push({
@@ -136,20 +117,16 @@ export default async function handler(req, res) {
           value: parseValue(event, result),
           isTime: TIME_EVENTS.includes(event),
           // When the result was last logged — the page's last-edited time, so an
-          // overwritten mark shows its new time. Not in publicBoard()'s whitelist,
-          // so it stays admin-only.
+          // overwritten mark shows its new time.
           createdTime: r.last_edited_time || r.created_time || '',
         };
       });
 
-      // Publicly, only the top-10-per-event board is sent. Every other result is
-      // personal and stays behind the admin session or the family access code.
-      return send(res, 200, isAdmin ? { records, members } : { records: publicBoard(records) });
+      return send(res, 200, { records, members });
     }
 
     if (req.method === 'POST') {
-      // Writing a record requires an admin session. GET stays public (records
-      // are meant to be read by everyone).
+      // Writing a record requires an admin session, as reading does.
       if (!requireAdmin(req, res)) return;
       const body = await readBody(req);
 

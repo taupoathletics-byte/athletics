@@ -3,7 +3,7 @@
 //
 //   node scripts/test_security.mjs
 //
-// Covers: the public records board only ships the top 10 per event, birthdates
+// Covers: club-night results are committee-only (no public board), birthdates
 // never appear in a public response, the public
 // check-in search is rate-limited (full names shown, but no ages or roster),
 // record delete can only archive a Club Records row, logout really expires the
@@ -118,11 +118,7 @@ const admin = { cookie };
 /* ---------- 1. public records board ---------- */
 
 const pub = await call(records_, mockReq('GET', '/api/records'));
-const perEvent = {};
-for (const r of pub.json.records) perEvent[r.event] = (perEvent[r.event] || 0) + 1;
-check('public /api/records: at most 10 results per event', Object.values(perEvent).every((n) => n <= 10), JSON.stringify(perEvent));
-check('public /api/records: no member ids', pub.json.records.every((r) => !('memberId' in r)));
-check('public /api/records: no member roster', !('members' in pub.json));
+check('public /api/records: refused without an admin session', pub.code === 401 && !/Test|Zebra|CODE/.test(pub.body), `got ${pub.code}`);
 const adm = await call(records_, mockReq('GET', '/api/records', null, admin));
 check('admin /api/records: full history + roster', adm.json.records.length === 30 && adm.json.members.length === members.length);
 

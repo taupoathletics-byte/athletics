@@ -8,7 +8,7 @@ entered their own access code.**
 
 | Who | How | Can see |
 |---|---|---|
-| Public | — | Club info, the **top 10 per event** record board, the self check-in page |
+| Public | — | Club info, the club's historical Club Records (published list), the self check-in page. **No club-night results.** |
 | Family | Access code from the sign-in desk → `/my-results` | Their own children's results only |
 | Committee | Shared passcode → `/getsetgo` (12-hour HttpOnly cookie) | Run sheets, check-in, attendance, all results, access codes |
 
@@ -16,6 +16,14 @@ entered their own access code.**
   the browser code. Sessions are HMAC-signed with `SESSION_SECRET`.
 - **Logout now ends the session on the server** (`DELETE /api/auth`). Before,
   it only hid the portal, and the cookie stayed valid on that device for 12 hours.
+- **Emailing access codes** (`/api/familyemails`, admin only): one email per
+  registration email, sent through Resend. Addresses and codes stay on the
+  server — the admin page sees counts and a masked sample; the test email uses
+  a made-up code. Sent families are logged in the Notion "Access code emails"
+  database as a hash of email + code (no addresses), so nobody is emailed
+  twice. The emailed link puts the code after `#`, which is never sent to a
+  server, and My Results clears it from the address bar. Covered by
+  `node scripts/test_family_emails.mjs`.
 - Every write endpoint and every endpoint that returns personal detail calls
   `requireAdmin()` from `api/_guard.mjs`.
 - **Get Set Go station cards** (`/api/stations`) are admin-only too: reading
@@ -59,10 +67,10 @@ characters, so guessing is impractical at the rate limit.
    Athletics NZ's Run Jump Throw material, used under the club's licence, and
    the site deliberately serves it only to signed-in admins. A public repo
    publishes it. The Get Set Go run sheets are in there too.
-2. **The public record board shows children's full names** next to their
-   results. It's the club's call, but check it's covered by the same consent as
-   the photos. Showing "Mia S." instead is a one-line change in `publicBoard()`
-   in `api/records.mjs`.
+2. ~~The public record board shows children's full names.~~ **Done (November
+   2026):** club-night results are no longer public at all — `GET /api/records`
+   needs an admin session. The public Club Records page shows only the club's
+   historical records list (`src/data/clubRecords.ts`), as the old website did.
 3. **Use a strong passcode and rotate it** when the committee changes. Use a
    32+ byte random `SESSION_SECRET`, and change it to sign everyone out.
 4. **Limit the Notion integration** to the *Athletics* page only, so a leaked
