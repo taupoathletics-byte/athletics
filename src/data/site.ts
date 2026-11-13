@@ -61,29 +61,29 @@ export const ribbonEvents: RibbonGrade[] = [
   {
     grade: 'Grades 10 & 11',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 1200m Race Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay, 70m Hurdles',
+      '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot, Discus, 4x100m Relay, 70m Hurdles',
   },
   {
     grade: 'Grade 12',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, 1200m Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
+      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
   },
   {
     grade: 'Grade 13',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, 1600m Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
+      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
   },
   {
     grade: 'Grade 14',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), 2000m Walk, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
+      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), Long Jump, High Jump, Shot, Discus, 4x100m Relay',
   },
 ]
 
 // Club night times: Thursdays 5:30–7:00pm; the 3–6 yr olds (Get Set Go) finish at 6:30pm.
 export const seasonDates = {
   clubNights: [
-    'Term 4 (2026): Thursday 15 Oct – Thursday 17 Dec',
+    'Term 4 (2026): Thursday 15 Oct – Thursday 10 Dec',
     'Term 1 (2027): Thursday 4 Feb – Thursday 1 Apr (final night is prizegiving)',
   ],
   developmentSquad: [

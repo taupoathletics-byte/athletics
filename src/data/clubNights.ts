@@ -19,7 +19,6 @@ export const clubNights: ClubNight[] = [
   { iso: '2026-11-26', term: 'Term 4' },
   { iso: '2026-12-03', term: 'Term 4' },
   { iso: '2026-12-10', term: 'Term 4' },
-  { iso: '2026-12-17', term: 'Term 4' },
   { iso: '2027-02-04', term: 'Term 1' },
   { iso: '2027-02-11', term: 'Term 1' },
   { iso: '2027-02-18', term: 'Term 1' },

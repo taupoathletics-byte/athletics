@@ -182,9 +182,9 @@ export default function Events() {
 
           <p className="max-w-3xl text-on-surface-variant">
             Ribbon days are a great extension of what the athletes learn at club nights and are a fun day out. If a
-            Ribbon Day is washed out on the Saturday, it may be run on the Sunday. Hurdles and walks are optional
+            Ribbon Day is washed out on the Saturday, it may be run on the Sunday. Hurdles are optional
             events; host clubs may offer some, but not necessarily all, of the events for each age group. An athlete
-            cannot compete in more than 2 longer events (400m, 800m, 1500m, Walk) on any one day.
+            cannot compete in more than 2 longer events (400m, 800m, 1500m) on any one day.
           </p>
 
           {/* Legend */}

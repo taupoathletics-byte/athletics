@@ -116,11 +116,10 @@ export const ribbonDayKit = [
  */
 
 /** Event families, used to colour-code the Ribbon Day table. */
-export type EventFamily = 'sprints' | 'distance' | 'hurdles' | 'walks' | 'jumps' | 'throws' | 'relay'
+export type EventFamily = 'sprints' | 'distance' | 'hurdles' | 'jumps' | 'throws' | 'relay'
 
 const FAMILY_PATTERNS: [EventFamily, RegExp][] = [
   ['hurdles', /hurdle/i],
-  ['walks', /walk/i],
   ['relay', /relay/i],
   ['jumps', /jump/i],
   ['throws', /shot|discus/i],
@@ -137,7 +136,6 @@ export const FAMILY_LABELS: Record<EventFamily, string> = {
   sprints: 'Sprints',
   distance: 'Distance',
   hurdles: 'Hurdles',
-  walks: 'Walks',
   jumps: 'Jumps',
   throws: 'Throws',
   relay: 'Relay',
@@ -148,7 +146,6 @@ export const FAMILY_CLASSES: Record<EventFamily, string> = {
   sprints: 'bg-signal/15 text-on-signal border-signal/30',
   distance: 'bg-sky-info/15 text-on-sky border-sky-info/30',
   hurdles: 'bg-secondary-container/40 text-on-secondary-container border-secondary/30',
-  walks: 'bg-tertiary/15 text-on-tertiary-container border-tertiary/30',
   jumps: 'bg-mint-go/20 text-on-mint border-mint-go/40',
   throws: 'bg-primary/15 text-on-primary-container border-primary/30',
   relay: 'bg-surface-container-high text-on-surface border-outline-variant',
