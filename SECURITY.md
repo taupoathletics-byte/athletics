@@ -8,7 +8,7 @@ entered their own access code.**
 
 | Who | How | Can see |
 |---|---|---|
-| Public | — | Club info, the club's historical Club Records (published list), the self check-in page. **No club-night results.** |
+| Public | — | Club info, the Club Records board (`/api/clubrecords`: the historical list plus any club-night result that beats or equals a record — record holders only), the self check-in page. **No other club-night results.** |
 | Family | Access code from the sign-in desk → `/my-results` | Their own children's results only |
 | Committee | Shared passcode → `/getsetgo` (12-hour HttpOnly cookie) | Run sheets, check-in, attendance, all results, access codes |
 

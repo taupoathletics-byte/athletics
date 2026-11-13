@@ -1657,3 +1657,10 @@ body {
 .mail-member--off { opacity: 0.55; cursor: default; }
 .mail-tagbar { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
 .mail-tagbar label { display: grid; gap: 4px; font-size: 0.9rem; font-weight: 600; flex: 1 1 200px; }
+
+/* ---------- new club record alert ---------- */
+.new-record { display: flex; gap: 12px; align-items: flex-start; margin-top: 12px; padding: 14px 16px; border-radius: var(--radius-xl, 16px); background: #fff4e0; border: 2px solid #e0a63a; color: #3d2a00; }
+.new-record > .material-symbols-outlined { font-size: 32px; color: #c98a10; }
+.new-record__title { margin: 0 0 4px; font-weight: 800; font-size: 1.1rem; }
+.new-record ul { margin: 0 0 6px; padding-left: 18px; }
+.new-record__note { margin: 0; font-size: 0.85rem; }

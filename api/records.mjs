@@ -2,6 +2,7 @@
 // "Club Records" database). Committee only: families use /api/myrecords.
 import { hasAdmin, requireAdmin } from './_guard.mjs';
 import { isNotionId, publicError, sameNotionId } from './_safety.mjs';
+import { newRecordsFor } from './_clubrecords.mjs';
 
 export const config = { maxDuration: 60 };
 
@@ -67,6 +68,51 @@ function send(res, code, obj) {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Cache-Control', 'no-store');
   res.end(JSON.stringify(obj));
+}
+
+/**
+ * Every club-night result as { id, memberId, name, event, grade, gender, date,
+ * result } — for working out club records (api/_clubrecords.mjs).
+ */
+export async function recordRows() {
+  const [memberRows, rows] = await Promise.all([queryAll(MEMBERS_DB), queryAll(RECORDS_DB)]);
+  const nameById = new Map(memberRows.map((m) => [m.id.replace(/-/g, ''), title(m.properties.Name || {})]));
+  return rows.map((r) => {
+    const p = r.properties;
+    const memberId = (p.Member?.relation || [])[0]?.id || '';
+    return {
+      id: r.id,
+      memberId,
+      name: nameById.get(memberId.replace(/-/g, '')) || '',
+      event: p.Event?.select?.name || '',
+      grade: p.Grade?.select?.name || '',
+      gender: p.Gender?.select?.name || '',
+      date: p.Date?.date?.start || '',
+      result: (p.Result?.rich_text || []).map((t) => t.plain_text).join(''),
+    };
+  });
+}
+
+/**
+ * New club records among the rows just written (never fails the save itself).
+ * `saved` carries the values written, so a row Notion hasn't indexed yet still
+ * counts.
+ */
+async function recordsSetBy(saved) {
+  if (!saved.length) return [];
+  try {
+    const rows = await recordRows();
+    const byId = new Map(rows.map((r) => [r.id.replace(/-/g, ''), r]));
+    for (const w of saved) {
+      const k = String(w.id).replace(/-/g, '');
+      const old = byId.get(k) || {};
+      byId.set(k, { ...old, ...Object.fromEntries(Object.entries(w).filter(([, v]) => v !== undefined && v !== '')) });
+    }
+    return newRecordsFor([...byId.values()], saved.map((w) => w.id));
+  } catch (e) {
+    console.error('club record check failed', e);
+    return [];
+  }
 }
 
 export default async function handler(req, res) {
@@ -151,6 +197,7 @@ export default async function handler(req, res) {
         let created = 0;
         let updated = 0;
         const skipped = [];
+        const savedIds = [];
         for (const r of results) {
           const memberId = r && r.memberId;
           const resultText = String((r && r.result) || '').trim();
@@ -167,8 +214,9 @@ export default async function handler(req, res) {
                 },
               });
               updated += 1;
+              savedIds.push({ id: existingId, memberId, name: r.memberName, event, grade, gender: r.gender, date, result: resultText });
             } else {
-              await notion('POST', '/pages', {
+              const page = await notion('POST', '/pages', {
                 parent: { database_id: RECORDS_DB },
                 properties: {
                   Name: { title: rich(`${(r && r.memberName) || memberId} — ${event}${grade || ''}${(r && r.gender) || ''}`) },
@@ -182,12 +230,13 @@ export default async function handler(req, res) {
                 },
               });
               created += 1;
+              savedIds.push({ id: page.id, memberId, name: r.memberName, event, grade, gender: r.gender, date, result: resultText });
             }
           } catch (e) {
             skipped.push(`${(r && r.memberName) || memberId}: ${e.message}`);
           }
         }
-        return send(res, 200, { ok: true, created, updated, skipped });
+        return send(res, 200, { ok: true, created, updated, skipped, newRecords: await recordsSetBy(savedIds) });
       }
 
       // Delete a record (archive it) — fixes a result entered against the wrong
@@ -229,7 +278,7 @@ export default async function handler(req, res) {
             ...(date ? { Date: { date: { start: date } } } : {}),
           },
         });
-        return send(res, 200, { ok: true, id: existing.id, updated: true });
+        return send(res, 200, { ok: true, id: existing.id, updated: true, newRecords: await recordsSetBy([{ id: existing.id, memberId, name: memberName, event, grade, gender, date, result }]) });
       }
 
       const page = await notion('POST', '/pages', {
@@ -245,7 +294,7 @@ export default async function handler(req, res) {
           Season: season ? { select: { name: season } } : {},
         },
       });
-      return send(res, 200, { ok: true, id: page.id });
+      return send(res, 200, { ok: true, id: page.id, newRecords: await recordsSetBy([{ id: page.id, memberId, name: memberName, event, grade, gender, date, result }]) });
     }
 
     return send(res, 405, { error: 'method not allowed' });

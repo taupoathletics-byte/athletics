@@ -1354,8 +1354,9 @@ async function saveBulk() {
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || 'Save failed');
     const saved = $('#bulk-saved');
-    saved.textContent = `\u2713 Saved ${data.created} \u00d7 ${event} for grade ${grade}` + (data.skipped && data.skipped.length ? ` — ${data.skipped.length} failed, see console.` : '');
+    saved.textContent = `\u2713 Saved ${(data.created || 0) + (data.updated || 0)} \u00d7 ${event} for grade ${grade}` + (data.skipped && data.skipped.length ? ` — ${data.skipped.length} failed, see console.` : '');
     saved.classList.remove('hidden');
+    showNewRecords(data.newRecords, saved);
     if (data.skipped && data.skipped.length) console.warn('bulk save skipped:', data.skipped);
     $$('#bulk-tables .bulk-result').forEach((i) => { i.value = ''; });
     // Re-pull so the marks just saved show up in the "Last recorded" column.
@@ -1820,6 +1821,48 @@ function showMemberRecords(member) {
   });
 }
 
+/* ---------- new club records ----------
+   The server compares every saved result with the club records (the
+   historical list plus earlier club-night records) and returns any it beats
+   or equals. They go onto the public Club Records page automatically, so a
+   mistyped result should be fixed or deleted straight away. */
+const FIELD_EVENT = /jump|put|shot|discus/i;
+
+function recordMarkLabel(mark, event) {
+  const m = String(mark || '').trim();
+  const sheet = m.match(/^(\d{2})[:.](\d{2})(?:[:.](\d+))?$/);
+  if (sheet && !FIELD_EVENT.test(event)) {
+    // Historical sheet format "00:09:14" / "01:28:41" -> "9.14s" / "1:28.41".
+    const [, mi, se, fr] = sheet;
+    const tail = fr ? `.${fr}` : '';
+    return Number(mi) ? `${Number(mi)}:${se}${tail}` : `${Number(se)}${tail}s`;
+  }
+  if (/[a-z]/i.test(m) || m.includes(':')) return m;
+  return FIELD_EVENT.test(event) ? `${m}m` : `${m}s`;
+}
+
+function showNewRecords(list, after) {
+  $$('.new-record').forEach((el) => el.parentNode.removeChild(el));
+  if (!list || !list.length || !after) return;
+  const g = (x) => (x === 'F' ? 'girls' : 'boys');
+  const items = list.map((r) => {
+    const was = r.previous
+      ? `${r.tie ? 'Equals' : 'Beats'} ${esc(recordMarkLabel(r.previous.mark, r.event))} by ${esc(r.previous.names.join(' & '))}${r.previous.date ? ` (${esc(r.previous.date.slice(0, 4))})` : ''}`
+      : 'First record for this grade';
+    return `<li><strong>${esc(r.name)}</strong> — ${esc(r.event)}, Grade ${esc(r.grade)} ${g(r.gender)}: <strong>${esc(recordMarkLabel(r.mark, r.event))}</strong>. ${was}.</li>`;
+  }).join('');
+  const title = list.length === 1 ? (list[0].tie ? 'Club record equalled!' : 'New club record!') : `${list.length} new club records!`;
+  after.insertAdjacentHTML('afterend', `
+    <div class="new-record" role="alert">
+      <span class="material-symbols-outlined filled" aria-hidden="true">emoji_events</span>
+      <div>
+        <p class="new-record__title">${title}</p>
+        <ul>${items}</ul>
+        <p class="new-record__note">It's now on the public Club Records page. If a result was typed wrong, fix or delete it and the record board updates too.</p>
+      </div>
+    </div>`);
+}
+
 /** Archive a result from the Club Records board (soft delete). */
 async function deleteRecord(member, btn) {
   const label = `${btn.dataset.event} (${btn.dataset.result})`;
@@ -1941,6 +1984,7 @@ async function saveRecord(member, overlay) {
     const saved = $('#record-saved');
     saved.textContent = `\u2713 Saved ${event} (${result}) for ${member.name}`;
     saved.classList.remove('hidden');
+    showNewRecords(data.newRecords, saved);
   } catch (e) {
     btn.disabled = false;
     btn.textContent = 'Save record';

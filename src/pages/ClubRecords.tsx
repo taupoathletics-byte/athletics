@@ -1,41 +1,60 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Download } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { buttonVariants } from '@/components/ui/button'
 import { contactEmail, recordsPdf } from '@/data/site'
-import { clubRecords, clubRecordsAsAt, displayDate, displayMark, type ClubRecord, type RecordEvent } from '@/data/clubRecords'
+import { baseBoard, holderMark, isoToDisplay, type BoardEvent, type BoardRow, type RecordEvent } from '@/data/clubRecords'
 import { cn } from '@/lib/utils'
 
 /**
- * The club's historical records (best ever mark per event, grade and gender).
+ * The club's records (best ever mark per event, grade and gender): the
+ * historical list, plus any club-night result that has since beaten or
+ * equalled one — the server adds those automatically (/api/clubrecords).
  *
- * Club-night measurements are NOT shown here: they are private. Families see
- * their own children's results on /my-results with their access code, and the
- * committee sees everything in the admin portal.
+ * Other club-night measurements are NOT shown here: they are private. Families
+ * see their own children's results on /my-results with their access code.
  */
-function Holder({ rec, unit }: { rec?: ClubRecord; unit: RecordEvent['unit'] }) {
-  if (!rec) return <span className="text-on-surface-variant">—</span>
+function Holder({ row, unit }: { row?: BoardRow; unit: RecordEvent['unit'] }) {
+  if (!row || !row.holders.length) return <span className="text-on-surface-variant">—</span>
+  const fresh = row.holders.some((h) => h.source === 'club-night')
   return (
     <div>
-      <p className="font-semibold text-on-surface">{displayMark(rec.mark, unit)}</p>
-      <p className="text-on-surface">{rec.names.join(' & ')}</p>
-      <p className="text-xs text-on-surface-variant">{[...new Set(rec.dates)].map(displayDate).join(', ')}</p>
+      <p className="font-semibold text-on-surface">
+        {holderMark(row.holders[0], unit)}
+        {fresh && (
+          <span className="ml-2 inline-block rounded-full bg-signal px-2 py-0.5 align-middle text-[11px] font-bold uppercase tracking-wide text-signal-ink">
+            New
+          </span>
+        )}
+      </p>
+      <p className="text-on-surface">{row.holders.map((h) => h.name).join(' & ')}</p>
+      <p className="text-xs text-on-surface-variant">{[...new Set(row.holders.map((h) => isoToDisplay(h.date)))].join(', ')}</p>
     </div>
   )
 }
 
 export default function ClubRecords() {
-  const [active, setActive] = useState(clubRecords[0].event)
-  const ev = clubRecords.find((e) => e.event === active) ?? clubRecords[0]
+  const [board, setBoard] = useState<BoardEvent[]>(baseBoard)
+  const [active, setActive] = useState(baseBoard[0].event)
+
+  useEffect(() => {
+    fetch('/api/clubrecords')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (d && Array.isArray(d.events) && d.events.length) setBoard(d.events) })
+      .catch(() => { /* keep the historical list */ })
+  }, [])
+
+  const ev = board.find((e) => e.event === active) ?? board[0]
   const grades = [...new Set(ev.rows.map((r) => r.grade))].sort((a, b) => a - b)
+  const newCount = board.reduce((n, e) => n + e.rows.filter((r) => r.holders.some((h) => h.source === 'club-night')).length, 0)
 
   return (
     <>
       <PageHero
         eyebrow="Taupō Athletics"
         title="Club Records"
-        subtitle={`The best marks ever set at Taupō Athletics club nights, by event, grade and gender — as at the ${clubRecordsAsAt}.`}
+        subtitle="The best marks ever set at Taupō Athletics club nights, by event, grade and gender. New records are added as they're set."
         photo={35}
       />
 
@@ -50,8 +69,15 @@ export default function ClubRecords() {
           </Link>
         </div>
 
+        {newCount > 0 && (
+          <p className="mb-4 text-sm font-semibold text-on-surface">
+            {newCount} new club record{newCount === 1 ? '' : 's'} set at club nights since the 2024/25 season — look for{' '}
+            <span className="rounded-full bg-signal px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-signal-ink">New</span>.
+          </p>
+        )}
+
         <nav aria-label="Events" className="mb-6 flex flex-wrap gap-2">
-          {clubRecords.map((e) => (
+          {board.map((e) => (
             <button
               key={e.event}
               type="button"
@@ -85,10 +111,10 @@ export default function ClubRecords() {
                   <tr key={g} className="border-b border-outline-variant align-top last:border-0">
                     <th scope="row" className="px-gutter-md py-3 font-semibold text-on-surface">{g}</th>
                     <td className="px-3 py-3">
-                      <Holder rec={ev.rows.find((r) => r.grade === g && r.gender === 'F')} unit={ev.unit} />
+                      <Holder row={ev.rows.find((r) => r.grade === g && r.gender === 'F')} unit={ev.unit} />
                     </td>
                     <td className="px-3 py-3">
-                      <Holder rec={ev.rows.find((r) => r.grade === g && r.gender === 'M')} unit={ev.unit} />
+                      <Holder row={ev.rows.find((r) => r.grade === g && r.gender === 'M')} unit={ev.unit} />
                     </td>
                   </tr>
                 ))}
