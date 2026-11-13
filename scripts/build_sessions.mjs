@@ -41,7 +41,7 @@ function buildSeason() {
     title: 'Get Set Go',
     subtitle: extras.subtitle,
     time: extras.time,
-    length: '19 weeks — 18 teaching sessions plus a Week 19 mini meet',
+    length: `19 weeks — ${lessons.series.filter((x) => x.series !== 10).reduce((n, x) => n + String(x.dates || '').split('·').filter((d) => d.trim()).length, 0)} teaching sessions plus a Week 19 mini meet`,
     term4: `Term 4 2026 · ${span(term4)}`,
     term1: `Term 1 2027 · ${span(term1)}`,
     finalNight: finalSeries ? `${finalSeries.dates} — ${finalSeries.name}` : '',
@@ -94,9 +94,16 @@ function buildSeries() {
           '',
       }));
 
+    const dates = s.dates ? String(s.dates).split('·').map((d) => d.trim()).filter(Boolean) : [];
+    // A series cut to one night (e.g. Series 5: Thu 17 Dec dropped) keeps only
+    // its Week A — no Week B lesson, cards or progressions.
+    const oneNight = !isFinal && dates.length === 1;
+    if (oneNight) for (const r of rotations) { r.weekB = {}; r.weekBProgression = ''; }
+
     // The week pages belonging to this series, with their run of show.
     const weeks = lessons.weeks
       .filter((w) => (w.week ?? 0) >= 1 && seriesForWeek(w.week ?? 0) === s.series)
+      .filter((w, i) => !oneNight || i === 0)
       .map((w) => ({
         week: w.week,
         title: w.title,
@@ -107,7 +114,6 @@ function buildSeries() {
         runOfShow: w.runOfShow || [],
       }));
 
-    const dates = s.dates ? String(s.dates).split('·').map((d) => d.trim()).filter(Boolean) : [];
     const seed = curated.series[String(s.series)] || {};
     return {
       series: s.series,
@@ -132,7 +138,7 @@ function buildSeries() {
       // The volunteer station cards: four per week, Week A then Week B.
       cards: isFinal ? { A: buildMeetCards(s, dates[0]), B: [] } : {
         A: rotations.map((r) => buildCard(s, r, 'A', dates[0])),
-        B: rotations.map((r) => buildCard(s, r, 'B', dates[1])),
+        B: oneNight ? [] : rotations.map((r) => buildCard(s, r, 'B', dates[1])),
       },
       // Week 19 is a celebration night, not a rotation night: its timed plan,
       // passport and certificate wording live here.

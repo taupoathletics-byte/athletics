@@ -45,7 +45,11 @@ for (const s of teaching) {
     // The six-station Fitness Circuit instead has a fixed course plus a Week B tweak,
     // so it legitimately has no Week A/B challenge pair.
     const isCircuit = r.category === 'Fitness Circuit' || !!r.course;
-    if (isCircuit) {
+    // A one-night series (Series 5: Thu 17 Dec dropped) has no Week B at all.
+    const oneNightSeries = (s.dates || []).length === 1;
+    if (oneNightSeries) {
+      check(!r.weekB?.challenge && !r.weekBProgression, `series ${s.series} rot ${r.order}: a one-night series should have no Week B`);
+    } else if (isCircuit) {
       check(r.course, `series ${s.series} rot ${r.order} is a circuit but has no course`);
       check(r.weekBProgression, `series ${s.series} rot ${r.order} (${r.course.split('\n')[0]}) has no Week B progression`);
     } else {
@@ -56,11 +60,12 @@ for (const s of teaching) {
   }
 }
 
-// 19 week pages: two per teaching series, plus the mini meet.
+// 19 week pages: two per teaching series, plus the mini meet — less Week 10
+// (Thu 17 Dec 2026), which was dropped from the season.
 const totalWeeks = series.reduce((n, s) => n + (s.weeks || []).length, 0);
-check(totalWeeks === 19, `expected 19 weekly lesson pages, found ${totalWeeks}`);
+check(totalWeeks === 18, `expected 18 weekly lesson pages, found ${totalWeeks}`);
 const weeksWithRun = series.flatMap((s) => s.weeks || []).filter((w) => (w.runOfShow || []).length);
-check(weeksWithRun.length === 18, `expected 18 weeks with a run of show, found ${weeksWithRun.length}`);
+check(weeksWithRun.length === 17, `expected 17 weeks with a run of show, found ${weeksWithRun.length}`);
 
 // Programme-level content a coach needs before the first night.
 check(season.howEverySessionWorks?.steps?.length >= 3, 'missing the run-of-show structure for every session');
@@ -226,11 +231,15 @@ check(!grid.includes('No station detail'), 'a rotation rendered without content'
 const CATS = ['Game', 'Manipulative', 'Fitness Circuit', 'Athletics'];
 const allCards = teaching.flatMap((s) => [...s.cards.A, ...s.cards.B]);
 const keys = new Set(allCards.map((c) => c.key));
-check(allCards.length === teaching.length * 8, `expected 8 cards per series, got ${allCards.length}`);
+// Series 5 runs one night only (Thu 17 Dec 2026 was dropped): 4 cards, no Week B.
+const oneNight = teaching.filter((s) => s.dates.length === 1).map((s) => s.series);
+check(oneNight.join() === '5', `only Series 5 should be a one-night series, got ${oneNight}`);
+check(allCards.length === teaching.length * 8 - oneNight.length * 4, `expected 8 cards per series (4 for a one-night series), got ${allCards.length}`);
 check(keys.size === allCards.length, 'station card keys are not unique');
 for (const s of teaching) {
   for (const [i, week] of ['A', 'B'].entries()) {
     const cards = s.cards[week];
+    if (week === 'B' && s.dates.length === 1) { check(cards.length === 0, `series ${s.series}: a one-night series has no Week B cards`); continue; }
     check(cards.map((c) => c.category).join() === CATS.join(), `series ${s.series} week ${week}: stations are not Game, Manipulative, Fitness Circuit, Athletics`);
     check(cards.every((c) => c.week === week && c.date === s.isoDates[i] && /^\d{4}-\d{2}-\d{2}$/.test(c.date)), `series ${s.series} week ${week}: card week/date doesn't match the series dates`);
     for (const c of cards) {
@@ -245,7 +254,7 @@ for (const s of teaching) {
     }
   }
   // Week A and Week B are separate nights.
-  check(s.cards.A.every((c, i) => c.key !== s.cards.B[i].key), `series ${s.series}: Week A and Week B share card keys`);
+  check(s.cards.A.every((c, i) => !s.cards.B[i] || c.key !== s.cards.B[i].key), `series ${s.series}: Week A and Week B share card keys`);
 }
 const card = (key) => allCards.find((c) => c.key === key);
 const names = (series, week) => teaching.find((s) => s.series === series).cards[week].map((c) => c.name);
@@ -293,8 +302,9 @@ const LATER = {
 };
 for (const [n, [a, b]] of Object.entries(LATER)) {
   check(names(Number(n), 'A').join('|') === a.join('|'), `series ${n} week A: ${names(Number(n), 'A')}`);
-  check(names(Number(n), 'B').join('|') === b.join('|'), `series ${n} week B: ${names(Number(n), 'B')}`);
-  for (const w of ['A', 'B']) check(card(`s${n}-${w}-3`).layout === 'circuit' && card(`s${n}-${w}-3`).steps.length === 6, `s${n}-${w}-3: circuit should have six exercises`);
+  const weeks = oneNight.includes(Number(n)) ? ['A'] : ['A', 'B'];
+  if (weeks.length === 2) check(names(Number(n), 'B').join('|') === b.join('|'), `series ${n} week B: ${names(Number(n), 'B')}`);
+  for (const w of weeks) check(card(`s${n}-${w}-3`).layout === 'circuit' && card(`s${n}-${w}-3`).steps.length === 6, `s${n}-${w}-3: circuit should have six exercises`);
 }
 check(allCards.every((c) => !c.auto), `every Series 1–9 card should be hand-condensed; still auto: ${allCards.filter((c) => c.auto).map((c) => c.key).join(', ')}`);
 // Series 6 and 7: the board decides Station 4; the lesson pages' version is one click away, and the clash is flagged.

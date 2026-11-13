@@ -14,8 +14,8 @@ export default {
     "title": "Get Set Go",
     "subtitle": "Taupō Athletics — 3 to 6 year olds",
     "time": "Thursdays · 5:30–6:30 pm",
-    "length": "19 weeks — 18 teaching sessions plus a Week 19 mini meet",
-    "term4": "Term 4 2026 · Thu 15 Oct 2026 – Thu 17 Dec 2026",
+    "length": "19 weeks — 17 teaching sessions plus a Week 19 mini meet",
+    "term4": "Term 4 2026 · Thu 15 Oct 2026 – Thu 10 Dec 2026",
     "term1": "Term 1 2027 · Thu 4 Feb 2027 – Thu 25 Mar 2027",
     "finalNight": "Thu 1 Apr 2027 — Week 19 — Mini Meet & prizegiving",
     "howEverySessionWorks": {
@@ -426,45 +426,46 @@ export default {
             "auto": false,
             "volunteers": "",
             "layout": "steps",
-            "safety": "HIGH JUMP MAT REQUIRED. Breakaway elastic only — never a pole or rigid bar. Feet-first landings only.",
+            "safety": "High jump mat required with a low breakaway elastic (or a flexible foam bar with no restraining straps). Never a pole or rigid bar. Feet-first landings only — never on the back, no flop.",
             "review": "",
             "name": "Scissor Basics",
             "skill": "High jump · feet-first scissor",
             "equipment": [
-              "1 low breakaway elastic",
-              "2 cones",
-              "Flat approach markers",
-              "High jump mat (required)"
+              "High jump mat (required)",
+              "Flexible foam high jump bar (no restraining straps)",
+              "3 cones to mark the approach"
             ],
-            "setup": "Stretch a low breakaway elastic (never rope) between two cones at ankle-to-knee height, in front of the high jump mat. Mark a short diagonal approach with flat markers.",
+            "setup": "Put the landing mat out and set the flexible foam bar at a low height — no restraining straps. One lane per 2–3 children, with 3 cones marking a short straight approach.",
             "steps": [
-              "Walk beside the low elastic and step one leg over.",
-              "Approach diagonally at walking pace.",
-              "Scissor the lead leg over, then follow with the other.",
-              "Land on your FEET with soft knees; repeat with control."
+              "Start with no bar, or the flexible foam bar at a very low height.",
+              "Run straight down the marked approach towards the mat.",
+              "Step up onto the mat with one foot, then the other.",
+              "Land tall and balanced on both feet; add the bar once the straight run is steady."
             ],
             "cues": [
-              "Eyes forward",
-              "Lift lead knee",
-              "Land on feet"
+              "Run straight",
+              "Keep tall and balanced",
+              "Land on your feet on the mat"
             ],
-            "younger": "Walk through a very low elastic; give support if needed.",
-            "older": "Add a short diagonal run-up only with full control.",
-            "watch": "Any attempt to land backwards or flop — stop immediately and reset.",
-            "discovery": "Walk beside a very low elastic and explore stepping over with one foot, then the other.",
-            "developing": "Approach diagonally at walking pace; scissor the lead leg over the low elastic, trail leg follows, land on feet.",
-            "consolidating": "Choose a comfortable low elastic height; repeat with a smoother rhythm and land in control.",
-            "observation": "No back landings or flop; breakaway elastic only.",
+            "younger": "Run straight to the mat and step up. Very low bar, or no bar to begin.",
+            "older": "Add the bar at a low height to the straight step-up, then try the angled approach.",
+            "watch": "Falling over the bar instead of lifting hips and stepping over.",
+            "discovery": "Run straight at the mat and step up with no bar, then with a very low bar.",
+            "developing": "Add a marked straight approach lane; step up onto the mat keeping tall posture.",
+            "consolidating": "Repeat the straight run and step-up with a low bar, staying tall and landing on both feet.",
+            "observation": "No back landings or flop — feet-first only.",
             "alternative": "Elastic Step-Over — walk in, step over the low elastic one leg then the other, walk out the far side.",
+            "video": "https://www.youtube.com/watch?v=XE54eKUbWc8&t=14s",
             "sources": [
-              "Club Series 1 package (condensed from the Rotations board)"
+              "High Jump — Scissors Technique teaching card",
+              "Rotations board: S1 · R4"
             ],
             "image": {
               "src": "/getsetgo/stations/scissor-basics.jpg",
               "alt": "Cartoon of a child doing a scissor jump between two cones beside a high jump mat",
               "note": "Illustration only — use a breakaway elastic, never a bar, and land on the mat"
             },
-            "hash": "62e1745cc2db"
+            "hash": "6b773f0aafc6"
           }
         ],
         "B": [
@@ -640,42 +641,42 @@ export default {
             "auto": false,
             "volunteers": "",
             "layout": "steps",
-            "safety": "HIGH JUMP MAT REQUIRED. Breakaway elastic only — never a pole or rigid bar. Feet-first landings only.",
-            "review": "Steps are a draft built from the board's name, cues and progression — the Rotations board has no full Week B how-to for Scissor Rhythm.",
+            "safety": "High jump mat required with a low breakaway elastic (or a flexible foam bar with no restraining straps). Never a pole or rigid bar. Feet-first landings only — never on the back, no flop.",
+            "review": "",
             "name": "Scissor Rhythm",
             "skill": "High jump · scissor rhythm",
             "equipment": [
-              "1 low breakaway elastic",
-              "2 cones",
-              "Flat approach markers",
-              "High jump mat (required)"
+              "High jump mat (required)",
+              "Flexible foam high jump bar (no restraining straps)",
+              "3 cones to mark the approach"
             ],
-            "setup": "Same as Week A: a low breakaway elastic between two cones in front of the high jump mat, with a short diagonal approach.",
+            "setup": "Same mat and flexible foam bar as Week A. Mark an approach that runs in at a slight angle (~30°) from the take-off side.",
             "steps": [
-              "Start with a very low breakaway elastic and a clear mat.",
-              "Walk in diagonally; scissor one leg, then the other.",
-              "Make the approach and two-leg movement smoother.",
-              "Land feet-first with control; keep the elastic low."
+              "Run in from a slight angle (~30°) down the marked approach.",
+              "Take off from the OUTSIDE foot — the one furthest from the bar.",
+              "Drive the inside (lead) leg up with a bent knee, then straighten it over the bar.",
+              "Bring the other leg over and land standing on the mat."
             ],
             "cues": [
-              "Tall approach",
-              "Lift knee",
-              "Land on feet"
+              "Run, step and lift",
+              "Eyes on the bar",
+              "Land on your feet on the mat"
             ],
-            "younger": "Slow walk-through of a very low elastic.",
-            "older": "A slightly longer run-in, only while fully controlled — the elastic stays low.",
-            "watch": "A faster approach that upsets balance, or any backwards landing.",
-            "discovery": "Practise stepping over a low elastic and choose the leading foot.",
-            "developing": "Approach with a few light steps; lead one leg and then the second across in a scissor action.",
-            "consolidating": "Add arm drive and a more continuous approach while keeping feet-first landings.",
-            "observation": "Is a faster approach upsetting balance?",
+            "younger": "Run straight to the mat and step up. Very low bar, or no bar to begin.",
+            "older": "Use the angled approach with scissor technique; practise different bar heights; focus on the correct take-off leg and lifting the lead leg.",
+            "watch": "Does the child adjust their approach, take-off and leg lift to clear the bar, rather than just running faster or throwing their body over it?",
+            "discovery": "Walk in from a slight angle and step over a very low bar, choosing the take-off foot.",
+            "developing": "Take off from the outside foot; drive the lead leg up bent, then straighten it over the bar.",
+            "consolidating": "Lead leg then trail leg, landing standing on the mat — add arm drive and a smoother rhythm.",
+            "observation": "Common mistakes: kicking both legs straight like scissors (keep the lead knee bent, then straighten); taking off from the inside foot; running too straight for the scissor; falling over the bar instead of lifting hips and stepping over.",
             "alternative": "Elastic Step-Over — walk in, step over the low elastic one leg then the other, walk out the far side.",
+            "video": "https://www.youtube.com/watch?v=XE54eKUbWc8&t=14s",
             "sources": [
-              "Club Series 1 package (draft steps)",
-              "Rotations board: Week B progression and observation"
+              "High Jump — Scissors Technique teaching card",
+              "Rotations board: Week B progression"
             ],
             "image": null,
-            "hash": "88e8035ff874"
+            "hash": "3d9aeb648cf8"
           }
         ]
       },
@@ -2457,24 +2458,22 @@ export default {
       "name": "Series 5 — Jump and strike",
       "theme": "Jump and Strike",
       "term": "Term 4",
-      "weeksLabel": "Weeks 9 & 10",
+      "weeksLabel": "Weeks 9",
       "dates": [
-        "Thu 10 Dec 2026",
-        "Thu 17 Dec 2026"
+        "Thu 10 Dec 2026"
       ],
       "isoDates": [
-        "2026-12-10",
-        "2026-12-17"
+        "2026-12-10"
       ],
       "athleticsEvent": "Long jump",
       "manipulative": "Striking",
       "fitnessCircuit": "Frosty's Winter Trail",
-      "coachNote": "Last two weeks of Term 4 — week 10 is the last night before Christmas. Mix the teams so no team is all sixes. Announce when EVERY team has finished, never who finished first.",
+      "coachNote": "Last night of Term 4 and the last before Christmas (Thu 17 Dec was dropped, so Series 5 runs one night only). Mix the teams so no team is all sixes. Announce when EVERY team has finished, never who finished first.",
       "eventLabel": "Long jump",
-      "sessionNote": "Thu 17 Dec is the last night of Term 4 and the last series before the summer break, so keep it light and fun. Every child beats their own marker and is never compared with anyone else. All T-ball strikes go one way, and adults retrieve only on the coach's signal.",
+      "sessionNote": "Thu 10 Dec is the last night of Term 4 (17 Dec was dropped) and the last series before the summer break, so keep it light and fun. Every child beats their own marker and is never compared with anyone else. All T-ball strikes go one way, and adults retrieve only on the coach's signal.",
       "conflicts": [
-        "Series name: the Rotations board (all four rows) and the repo's older season_plan.json call Series 5 'Swing and hit'. The Week 9/10 lessons, the Notion Season Plan entry and the package call it 'Jump and strike'. The stations are long jump/hopping plus striking, so the dashboard uses 'Jump and Strike'. Admin: update the board's 'Series name', or confirm that 'Swing and hit' is intended.",
-        "Repo snapshot: scripts/data/lessons.json (pulled 8 Oct 2026) matches the live Rotations board field for field on all four Series 5 rows, so there are no differences. One thing to know: lessons.json still carries the Notion Season Plan page 'Series 5 — Jump and strike' as the series entry, but that page is now in Notion's trash. Its text says the Rotations board is the canonical schedule. Admin: restore the page or remove it from the next pull.",
+        "Series name: the Rotations board (all four rows) and the repo's older season_plan.json call Series 5 'Swing and hit'. The Week 9/10 lessons, scripts/data/series-meta.json and the package call it 'Jump and strike'. The stations are long jump/hopping plus striking, so the dashboard uses 'Jump and Strike'. Admin: update the board's 'Series name', or confirm that 'Swing and hit' is intended.",
+        "Repo snapshot: scripts/data/lessons.json (pulled 12 Oct 2026) matches the live Rotations board field for field on all four Series 5 rows, so there are no differences.",
         "Station 1, Frogs and Flies (Week A): in the board's how-to, the coach waves a soft ball as a 'fly' and the frogs jump up to catch it. The board's own Consolidating step and the Week 9 lesson use a floating scarf 'fly', and children control the landing before they reach. The card has children land first and then reach, and offers either fly: the board's soft balls, or the scarf from the lesson. Admin: make the board's how-to match its Consolidating step.",
         "Station 1 equipment: the board lists only 12 hoops/flat markers and 2 soft balls, and its how-to and set-up describe Frogs and Flies only. The Week 9/10 checklists add '12–20 cones and props' for each game. The cards add boundary cones, plus cones for the personal markers in Measure Your Hop, and build the Week B card from the board's Week B progression and the Week 10 lesson. Admin: add the cones to the board's Equipment and a Week B how-to.",
         "Station 1 backup: 'Lily Pad Dash — hop hoop-to-hoop' is a hopping game (same foot), while Week A's Frogs and Flies teaches two-foot jumping. The cards keep the backup and label the hop as same foot. Admin: confirm this is the backup you want for Week A.",
@@ -2486,10 +2485,10 @@ export default {
         "Station 3: the board has no Set up, How to play, Backup or Game for Frosty's Winter Trail, and its Learning cues read 'Week A:  | Week B:'. The cards take the set-up from the lessons. The cues are condensed from the lesson's Develop lap and Week B focus plus the board's watch-for ('two feet to land'). Admin: add cues, a set-up and a backup to the board.",
         "Station 4, Jump and Freeze — revisit: the board's how-to says each child 'jumps or hops from the line'. That text is identical to the old 'Measure Your Hop' entry in the repo's games.json, and the old season_plan.json had Measure Your Hop as the Station 4 game, so it looks like leftover text. The club long jump rule and the Week 9 lesson require a two-foot take-off and landing, so the card says jump only. Admin: remove 'or hops' from the board's how-to.",
         "Station 4, Long Jump Journey: the board's Week B progression and the Week 10 lesson say '2–3 approach steps, plant and push' but don't say how many feet take off. The card follows the club rule: push off two feet and land on two feet. Admin: confirm, and make the board's wording explicit.",
-        "Station 4 'revisit': the name assumes Series 4 introduced Jump and Freeze. The Series 4 Station 4 cards in station-cards.json are still provisional (Relays vs Long jump) and await admin approval. If Relays is approved, 10 Dec is the children's first Jump and Freeze. The card still works as an introduction because Discover starts with safe landings. Admin: drop '— revisit' from the board name if Series 4 runs Relays.",
         "Senior schedule (scripts/data/senior-schedule-2026-27.json, from the Season Schedule Working Document 26/27): Thu 10 Dec 2026 has no senior events ('Xmas BBQ'), so the long jump pit/mat doesn't clash with Jump and Freeze. Thu 17 Dec isn't in the senior schedule at all; the next senior night listed is 4 Feb 2027. Admin: check with the senior coaches before relying on the pit/mat for Long Jump Journey on 17 Dec.",
-        "Coach note: the trashed Notion Season Plan entry says 'Mix the teams so no team is all sixes. Announce when EVERY team has finished, never who finished first.' That is relay/race wording, and Series 5 has no relay station. The repo's season_plan.json note says 'Last series before the summer break. Keep it light and fun… Certificates wait for the mini meet in April.' The dashboard note uses the end-of-term line plus the club's own-marker and striking rules. Admin: add the 'mix the groups' line if it should apply.",
-        "Older repo plan: scripts/data/season_plan.json (Series 5 'Swing and hit') uses Measure Your Hop as the Station 4 athletics game and has different cues and adaptations for every station. The live board moves Measure Your Hop to Station 1 Week B and runs Jump and Freeze → Long Jump Journey at Station 4. The cards follow the board. Nothing needs changing in Notion, but treat that repo file as historical."
+        "Coach note: scripts/data/series-meta.json gives Series 5 'Last two weeks of Term 4 — week 10 is the last night before Christmas. Mix the teams so no team is all sixes. Announce when EVERY team has finished, never who finished first.', and the run sheet shows it. The second half is relay/race wording, and Series 5 has no relay station. The dashboard note uses the end-of-term line plus the club's own-marker and striking rules. Admin: trim the series-meta.json note if the race line shouldn't apply.",
+        "Older repo plan: scripts/data/season_plan.json (Series 5 'Swing and hit') uses Measure Your Hop as the Station 4 athletics game and has different cues and adaptations for every station. The live board moves Measure Your Hop to Station 1 Week B and runs Jump and Freeze → Long Jump Journey at Station 4. The cards follow the board. Nothing needs changing in Notion, but treat that repo file as historical.",
+        "Thu 17 Dec 2026 was dropped (Term 4 now ends Thu 10 Dec), so Series 5 runs Week A only. The Week B cards (Measure Your Hop, Super Strikers, Frosty's Winter Trail Week B, Long Jump Journey) are kept in this file but not shown. Admin: update the Week 10 lesson page and the board's S5 rows in Notion if wanted."
       ],
       "isFinal": false,
       "weeks": [
@@ -2502,19 +2501,6 @@ export default {
           "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
           "runOfShow": [
             "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Frogs and Flies. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
-            "5:40–6:24 — Four simultaneous rotations: Small groups A–D each spend 11 minutes at their current station, then switch on coach signal until every group has visited all four. One coach or parent helper leads each station; allow room for safety.",
-            "6:24–6:30 — Run-through sprints and reflection: 3–4-year-olds 15 m; five-year-olds 20 m; six-year-olds 25–30 m, each child up to two relaxed runs (more only if time). Cone 3 m beyond line. Cheer every child; cue run through finish. Ask: “What changed when you tried it again?”"
-          ]
-        },
-        {
-          "week": 10,
-          "title": "Week 10 — Jump and strike (Apply)",
-          "phase": "Apply",
-          "header": "Get Set Go · Week 10 · 17 December 2026 · 5:30–6:30 pm · Ages 3–6",
-          "seriesBits": "Series 5: Jump and strike | Core athletics: Long jump | Object skill: Striking | B — Apply and extend",
-          "intendedLearning": "Children get many turns to explore movement, practise ONE simple cue at a time, then apply a version of that skill through play. Discovery, Developing and Consolidating are offered within each station; nobody must progress past their readiness.",
-          "runOfShow": [
-            "5:30–5:40 — Welcome and warm-up: Greet each child by name. Walk boundaries and demonstrate the key movement for today's first game: Measure Your Hop. Play an easy version, then let a child demonstrate. Give water and explain the four stations.",
             "5:40–6:24 — Four simultaneous rotations: Small groups A–D each spend 11 minutes at their current station, then switch on coach signal until every group has visited all four. One coach or parent helper leads each station; allow room for safety.",
             "6:24–6:30 — Run-through sprints and reflection: 3–4-year-olds 15 m; five-year-olds 20 m; six-year-olds 25–30 m, each child up to two relaxed runs (more only if time). Cone 3 m beyond line. Cheer every child; cue run through finish. Ask: “What changed when you tried it again?”"
           ]
@@ -2536,14 +2522,11 @@ export default {
             "challenge": "Frogs and Flies",
             "cues": "Two feet; swing and spring; quiet."
           },
-          "weekB": {
-            "challenge": "Measure Your Hop",
-            "cues": "Same foot up and down; land softly."
-          },
+          "weekB": {},
           "discovery": "Frogs and Flies: Choose a hoop lily pad and explore jumping in/out with both feet.",
           "developing": "Crouch, swing arms and land softly on a lily pad; pause to check knees bent.",
           "consolidating": "Coach offers floating scarf-fly to catch after a jump; children control landing before reaching.",
-          "weekBProgression": "Measure Your Hop: Discover — Stand on either foot; try a tiny same-foot spring and balance. Develop — Same-foot hops across two short spots; switch feet at return, with full rest. Apply — Child sets personal marker showing how far a controlled single-foot hop travelled.",
+          "weekBProgression": "",
           "setup": "Lay hoops or flat markers as lily pads, roughly a small jump apart.",
           "how": "Children are frogs jumping from lily pad to lily pad with two-foot take-offs and two-foot landings. Coach walks around waving a soft ball as a fly; frogs jump up to catch it. The point is a quiet, bent-knee landing.",
           "equipment": "12 hoops or flat markers, 2 soft balls",
@@ -2568,14 +2551,11 @@ export default {
             "challenge": "T-ball Strike",
             "cues": "Eyes on ball; side on; step and swing."
           },
-          "weekB": {
-            "challenge": "Super Strikers",
-            "cues": "Eyes on ball; step and swing; finish."
-          },
+          "weekB": {},
           "discovery": "T-ball Strike: Hold wide foam bat safely, stand side-on and watch ball on tee.",
           "developing": "Two hands together, swing level through stationary large soft ball; follow through.",
           "consolidating": "Choose a target arc; strike from tee and name where ball travelled; adults retrieve.",
-          "weekBProgression": "Super Strikers: Discover — Explore angle of bat against large still ball on tee. Develop — Rotate hips, step forward and make controlled two-hand horizontal swing. Apply — Strike off tee toward a wide target gate; change swing force carefully.",
+          "weekBProgression": "",
           "setup": "A batting tee with a large soft ball on top; a fielding area marked with cones.",
           "how": "Strike the ball off the tee with the bat, then run to a cone and back. Set up two or three tees so several children hit at once and nobody queues. Everyone bats every round.",
           "equipment": "T-ball set (bat, tee, 8 soft balls), 20 cones",
@@ -2601,14 +2581,11 @@ export default {
             "challenge": "",
             "cues": ""
           },
-          "weekB": {
-            "challenge": "",
-            "cues": ""
-          },
+          "weekB": {},
           "discovery": "Frosty's Winter Trail: Let children test each movement slowly and select a comfortable way to do it; model eyes-forward and arms-out balance.",
           "developing": "Focus on one technique: stable feet, soft bent-knee landing, or steady balance. Give short feedback.",
           "consolidating": "Apply to an imagined story mission while maintaining control; child may choose a different safe route.",
-          "weekBProgression": "Week B: Swing arms before jumping soft snow mounds; freeze quiet landing for 2 counts; balance on both legs.",
+          "weekBProgression": "",
           "setup": "",
           "how": "",
           "equipment": "10 cones, balance blocks, 3 foam hurdles",
@@ -2633,14 +2610,11 @@ export default {
             "challenge": "Jump and Freeze — revisit",
             "cues": "Swing arms; spring; freeze."
           },
-          "weekB": {
-            "challenge": "Long Jump Journey",
-            "cues": "Eyes ahead; reach; land bent."
-          },
+          "weekB": {},
           "discovery": "Jump and Freeze — revisit: Explore safe landing and arm swing next to line.",
           "developing": "Two-foot push, reach forwards, quiet two-foot bent-knee landing.",
           "consolidating": "Place personal marker and practise consistent arm swing from same start.",
-          "weekBProgression": "Long Jump Journey: Discover — Rehearse take-off at personal line, stable landing. Develop — Coordinate 2–3 approach steps, plant and push; keep landing balanced. Apply — Choose standing jump or short-run jump, compare own safe controlled attempts.",
+          "weekBProgression": "",
           "setup": "A start line and a long open run.",
           "how": "Each child jumps or hops from the line and places their own cone where they landed. Next turn they try to beat their own cone. Nobody compares to anybody else — that is the whole design.",
           "equipment": "30 cones, long jump mat or sandpit",
@@ -2827,7 +2801,7 @@ export default {
             "volunteers": "",
             "layout": "steps",
             "safety": "Long jump = two-foot take-off and two-foot landing into the mat or pit; no hopping here. Each child beats their OWN marker; never compare children. Wait in the marked waiting spaces.",
-            "review": "The board's how-to says each child 'jumps or hops from the line'. That's the same text as the old Measure Your Hop entry in the repo's games data. The club long jump rule and the Week 9 lesson require a two-foot take-off and landing, so the card says jump only. Update the board's how-to. The 5–6 option adds 'still a two-foot take-off' to match the club rule. 'Revisit' assumes Series 4 introduced Jump and Freeze, but the Series 4 Station 4 cards are still provisional (Relays vs Long jump), so this may be the children's first time.",
+            "review": "The board's how-to says each child 'jumps or hops from the line'. That's the same text as the old Measure Your Hop entry in the repo's games data. The club long jump rule and the Week 9 lesson require a two-foot take-off and landing, so the card says jump only. Update the board's how-to. The 5–6 option adds 'still a two-foot take-off' to match the club rule.",
             "name": "Jump and Freeze — revisit",
             "skill": "Standing long jump · two-foot landing",
             "equipment": [
@@ -2861,215 +2835,10 @@ export default {
               "Club Series 5 package"
             ],
             "image": null,
-            "hash": "32f681d5a8e1"
+            "hash": "7c6fd8f6bd3c"
           }
         ],
-        "B": [
-          {
-            "key": "s5-B-1",
-            "series": 5,
-            "week": "B",
-            "station": 1,
-            "category": "Game",
-            "ledBy": "Coach",
-            "minutes": 11,
-            "date": "2026-12-17",
-            "dateLabel": "Thu 17 Dec 2026",
-            "auto": false,
-            "volunteers": "",
-            "layout": "steps",
-            "safety": "Hopping = take off and land on the SAME foot. Short goes, swap feet, and a full rest between goes. Personal markers only; never compare children.",
-            "review": "The board's how-to, set-up and equipment list describe Frogs and Flies only, so the Week B steps are built from the board's Week B progression and the Week 10 lesson. The soft balls aren't needed this week. The cones for the boundary and personal markers come from the Week 10 checklist ('12–20 cones and props for Measure Your Hop'), not the board; confirm quantities. The 'stiff-legged' watch-for is the board's general watch-for for this row, applied here to hop landings.",
-            "name": "Measure Your Hop",
-            "skill": "Hopping · same foot up and down",
-            "equipment": [
-              "12 hoops or flat markers (hop spots)",
-              "12–20 cones (boundary and personal markers)"
-            ],
-            "setup": "A spacious coned zone with clear boundaries. Lay flat markers or hoops as short hop spots, and have a cone ready for each child's personal marker.",
-            "steps": [
-              "Stand on either foot. Try a tiny same-foot spring, then balance.",
-              "Hop across two short spots, taking off and landing on the SAME foot.",
-              "Switch to the other foot on the way back, then have a full rest.",
-              "Place your own cone to show how far one controlled hop travelled. It's your marker; never compare with anyone else."
-            ],
-            "cues": [
-              "Same foot up and down",
-              "Land softly"
-            ],
-            "younger": "Hold the coach's hand and do one hop at a time.",
-            "older": "2–3 connected hops, only if they're softly controlled.",
-            "watch": "Children mixing up a HOP (same foot) with a two-foot JUMP. Stiff-legged landings: cue 'land quiet, bend your knees'.",
-            "discovery": "Stand on either foot; try a tiny same-foot spring and balance.",
-            "developing": "Same-foot hops across two short spots; switch feet at the return, with a full rest.",
-            "consolidating": "Each child sets a personal marker showing how far a controlled single-foot hop travelled.",
-            "observation": "Distinguish a HOP from a two-foot long JUMP.",
-            "alternative": "Lily Pad Dash: hop from hoop to hoop with quick feet (same foot up and down).",
-            "sources": [
-              "Rotations board: S5 · R1 Week B progression",
-              "Week 10 lesson",
-              "Club Series 5 package"
-            ],
-            "image": null,
-            "hash": "1fffc8cf9850"
-          },
-          {
-            "key": "s5-B-2",
-            "series": 5,
-            "week": "B",
-            "station": 2,
-            "category": "Manipulative",
-            "ledBy": "Assistant Coach",
-            "minutes": 11,
-            "date": "2026-12-17",
-            "dateLabel": "Thu 17 Dec 2026",
-            "auto": false,
-            "volunteers": "",
-            "layout": "steps",
-            "safety": "Foam bats and soft balls only. The ball must never be struck towards another group, so all strikes go one way. Nobody stands behind or within the swing zone. Adults retrieve only on the coach's signal, never across another lane.",
-            "review": "The board's how-to and set-up describe T-ball Strike, so the Week B steps are built from the board's Week B progression and the Week 10 lesson, with no run to a cone this week. Equipment has the same question as Week A: the board lists one T-ball set, but 2–3 tees are needed. 'Nobody behind or within the swing zone' is carried over from the board's Week A observation as a standing safety line for the same tees. The 5–6 rolled-ball option needs a skilled adult feeder; leave it out if there isn't one.",
-            "name": "Super Strikers",
-            "skill": "Striking · controlled swing to a target",
-            "equipment": [
-              "2–3 batting tees",
-              "2–3 foam bats",
-              "8 large soft balls",
-              "20 cones (lane markers and wide target gates)"
-            ],
-            "setup": "One clear striking lane per 2–3 children, all facing the same way. Put a large soft ball on each tee and a wide cone target gate at the end of each lane.",
-            "steps": [
-              "Explore the angle of the bat against the large, still ball on the tee.",
-              "Step forward, turn your hips and make a controlled two-hand level swing.",
-              "Strike off the tee towards the wide target gate.",
-              "Carefully try changing how hard you swing. Adults retrieve on the coach's signal."
-            ],
-            "cues": [
-              "Eyes on ball",
-              "Step and swing",
-              "Finish"
-            ],
-            "younger": "A slow foam-bat strike off the tee.",
-            "older": "A gently rolled ball, only with a skilled feeder and a clear area.",
-            "watch": "The two-handed grip separating: tape the hand position on the bat. Watch for any ball heading towards another group.",
-            "discovery": "Explore the angle of the bat against a large, still ball on the tee.",
-            "developing": "Rotate the hips, step forward and make a controlled two-hand horizontal swing.",
-            "consolidating": "Strike off the tee towards a wide target gate; change the swing force carefully.",
-            "observation": "The ball must never be struck towards another group.",
-            "alternative": "T-ball Bases: hit the ball off the tee, then run to a cone and back on a path outside the striking lanes.",
-            "sources": [
-              "Rotations board: S5 · R2 Week B progression",
-              "Week 10 lesson",
-              "Club Series 5 package"
-            ],
-            "image": null,
-            "hash": "32f2bdd87404"
-          },
-          {
-            "key": "s5-B-3",
-            "series": 5,
-            "week": "B",
-            "station": 3,
-            "category": "Fitness Circuit",
-            "ledBy": "Coach",
-            "minutes": 11,
-            "date": "2026-12-17",
-            "dateLabel": "Thu 17 Dec 2026",
-            "auto": false,
-            "volunteers": "",
-            "layout": "circuit",
-            "safety": "Not a race. Soft foam hurdles that collapse if clipped; never rigid hurdles. Balance blocks stay on the ground; no raised or unsecured obstacles. Snow mounds and bunny jumps are two-foot jumps: take off and land on two feet.",
-            "review": "The board has no Week B how-to or learning cues. The Week B steps add the board's Week B progression and the Week 10 lesson's Week B focus to the same course, and the cues are condensed from that focus and the board's watch-for. The board says 'balance on both legs', but the lesson says try the other foot; the card follows the lesson. The board and lesson differ here in the same ways as Week A (side-step beside the blocks; 'bunny jumps', not 'bunny hop').",
-            "name": "Frosty's Winter Trail",
-            "skill": "Balance · two-foot jumping · crawling (progression)",
-            "equipment": [
-              "10 cones (including the snow-tunnel lines)",
-              "Balance blocks (on the ground)",
-              "3 soft foam hurdles (snow mounds)",
-              "Floor markers",
-              "Soft mats (as needed)"
-            ],
-            "setup": "The same six stations around a spacious one-way loop, 1–2 children per station, with groups starting at different stations. Week B focus: choose an arm swing before each snow-mound jump and freeze the quiet landing for 2 counts. At the balance spot, try the other foot before moving on.",
-            "steps": [
-              "Penguin waddle — heels together, short shuffling steps from A to B.",
-              "Ice skate — side-step beside the low balance blocks, like skating on ice; eyes up.",
-              "Snow mounds — swing your arms, two-foot jump each low foam hurdle, then FREEZE a quiet landing for 2 counts.",
-              "Snowflake balance — one foot, arms out, count to 3; then try the other foot before moving on.",
-              "Bear crawl — on all fours through the snow tunnel; stay between the two cone lines.",
-              "Bunny jumps — two feet together, small jumps to the finish."
-            ],
-            "cues": [
-              "Swing your arms",
-              "Freeze for 2",
-              "Try the other foot",
-              "Two feet to land"
-            ],
-            "younger": "Low, wide pathways, supported balancing and fewer obstacles if needed.",
-            "older": "Controlled arms-out balance and longer (but still manageable) challenges. Never raise the equipment.",
-            "watch": "Jumping off one foot. Cue 'two feet to land'.",
-            "discovery": "First lap: let children test each movement slowly and choose a comfortable way to do it; model eyes-forward, arms-out balance.",
-            "developing": "Second lap: focus on one technique (stable feet, a soft bent-knee landing or steady balance) and give short feedback.",
-            "consolidating": "Last lap: turn it into an imagined story mission while staying in control; children may choose a different safe route.",
-            "observation": "Queues, fatigue, collisions and unstable or unsecured equipment.",
-            "alternative": "",
-            "sources": [
-              "Rotations board: S5 · R3 course and Week B progression",
-              "Week 10 lesson",
-              "Club Series 5 package"
-            ],
-            "image": null,
-            "hash": "01713a4fe232"
-          },
-          {
-            "key": "s5-B-4",
-            "series": 5,
-            "week": "B",
-            "station": 4,
-            "category": "Athletics",
-            "ledBy": "Assistant Coach",
-            "minutes": 11,
-            "date": "2026-12-17",
-            "dateLabel": "Thu 17 Dec 2026",
-            "auto": false,
-            "volunteers": "",
-            "layout": "steps",
-            "safety": "Long jump = two-foot take-off and two-foot landing into the mat or pit. Each child compares only with their OWN attempts, never with other children. Short run-ups only with proper space. Wait in the marked waiting spaces.",
-            "review": "The board's how-to and set-up describe Week A, so the Week B steps are built from the board's Week B progression and the Week 10 lesson. The lesson's 'plant and push' after the approach steps is written as a two-foot take-off to match the club long jump rule. Confirm. Thu 17 Dec isn't in the senior schedule, so check the long jump pit/mat is free that night.",
-            "name": "Long Jump Journey",
-            "skill": "Long jump · short approach and take-off",
-            "equipment": [
-              "Long jump mat or sandpit",
-              "30 cones (personal take-off lines, waiting spaces, markers)"
-            ],
-            "setup": "An age-appropriate runway leading to the long jump mat or sandpit, with marked waiting spaces and a personal take-off line for each child. Short run-ups only where there's proper space.",
-            "steps": [
-              "Rehearse the take-off at your own personal line and land stable on two feet.",
-              "Take 2–3 approach steps, then plant and push off two feet.",
-              "Keep the landing balanced: two feet, knees bent, into the mat or pit.",
-              "Choose a standing jump or a short-run jump.",
-              "Compare only with your own earlier jumps, and keep every attempt safe and controlled."
-            ],
-            "cues": [
-              "Eyes ahead",
-              "Reach",
-              "Land bent"
-            ],
-            "younger": "A standing jump from a close line.",
-            "older": "A short run-up, only with proper space.",
-            "watch": "Children comparing themselves with each other. Redirect: 'beat your own cone'.",
-            "discovery": "Rehearse the take-off at a personal line, with a stable landing.",
-            "developing": "Coordinate 2–3 approach steps, plant and push; keep the landing balanced.",
-            "consolidating": "Choose a standing jump or a short-run jump and compare your own safe, controlled attempts.",
-            "observation": "Don't sacrifice a stable two-foot landing for distance.",
-            "alternative": "Frog Jump Freeze: jump forward with two feet, then freeze the landing in a bent-knee shape.",
-            "sources": [
-              "Rotations board: S5 · R4 Week B progression",
-              "Week 10 lesson",
-              "Club Series 5 package"
-            ],
-            "image": null,
-            "hash": "388682e4f11b"
-          }
-        ]
+        "B": []
       },
       "meet": null
     },
@@ -3091,12 +2860,10 @@ export default {
       "manipulative": "Catching",
       "fitnessCircuit": "Space Station",
       "coachNote": "First two weeks back after the break — re-walk the boundaries and re-learn names. Foam hurdles only for the hurdle station.",
-      "eventLabel": "Hurdles (lessons and board Event tag say High jump)",
+      "eventLabel": "Hurdles",
       "sessionNote": "First two weeks back after the break: walk the boundaries again and re-learn names. The hurdle station uses foam hurdles only, the kind that collapse if clipped. Never use rigid hurdles.",
       "conflicts": [
-        "Station 4, event: the Rotations board has hurdles (Step and Run — recap → Hurdle Trail). The live Week 11 and Week 12 lessons teach high jump instead (Scissor Jump Review → High Jump Choices), and their headers say 'Core athletics: High jump'. The senior schedule (senior-schedule-2026-27.json) has the seniors on High jump, 200m and Discus on Thu 4 Feb 2027. High jump that night would break the rule that Get Set Go never runs the same event as the seniors. Hurdles clash with neither night: on Thu 11 Feb the seniors do Long jump, 100m and Shot put. The cards follow the board (hurdles). The lesson's high jump versions are drafted as alternates so you can compare. Admin: rewrite Rotation 4 and the 'Core athletics' line on the Week 11 and Week 12 lesson pages for hurdles.",
-        "Board Event column: the live Rotations board says 'High jump' in Event on all four Series 6 rows, even though Station 4 is a hurdling station (Skill: Hurdling; Skills Covered: Hurdling, Running). The repo snapshot (lessons.json, pulled 8 Oct 2026 04:51 UTC) had 'Hurdles' on all four rows, so this tag has been changed in Notion since. That is the only field where the repo's Series 6 rotation rows differ from the live board. The dashboard header says Hurdles. Admin: set Event back to Hurdles on the four S6 rows.",
-        "Repo snapshot vs live lessons: lessons.json shows the Week 11/12 headers as 'Core athletics: Hurdles', with Rotation 4 as 'Step and Run — recap' / 'Hurdle Trail'. The live Week 11/12 pages (last edited 8 Oct 2026, 02:34 and 02:42 UTC) say High jump, with 'Scissor Jump Review' / 'High Jump Choices'. Admin: once the lesson pages are corrected in Notion, re-run the sync so the snapshot and Notion agree.",
+        "Station 4, event: the Rotations board has hurdles (Step and Run — recap → Hurdle Trail). The Week 11/12 lesson headers now say 'Core athletics: Hurdles', and Rotation 4 is headed 'Step and Run — recap' / 'Hurdle Trail'. But the Rotation 4 text under those headings still teaches high jump (scissor over a low elastic; step-run to a low elastic), word for word the S7 · R4 board row (Scissor Jump Review → High Jump Choices), and the Athletics checklist line still says 'only low breakaway elastic for high jump, no fixed bar'. The seniors do High jump, 200m and Discus on Thu 4 Feb 2027, so high jump that night would break the no-clash rule; hurdles clash with neither night (Thu 11 Feb: Long jump, 100m, Shot put). The cards follow the board (hurdles), and the lesson's high jump text is kept as alternates to compare. Admin: on the Week 11 and Week 12 lesson pages, rewrite Rotation 4's Set-up, Discover/Develop/Consolidate, Say, 3–4 years, 5–6 years and Watch for for hurdles, and the Athletics checklist line, then re-run the sync.",
         "Other repo sources still say high jump. The repo Season Plan snapshot (season_plan.json) lists Series 6 as High jump: Station 4 'Scissor Jump', backup Elastic Step-Over, kit '1 low elastic, 2 cones, flat markers'. scripts/notion_sync.mjs and scripts/notion_fix_tables.mjs hard-code Series 6 as 'Catch it again' / 'High jump'. Admin: update the Series 6 entry in the Notion Season Plan to Hurdles, and get those script rows corrected.",
         "Series name: the Rotations board (and the repo Season Plan) say 'Catch it again'. The Week 11/12 lessons, the Series 6 package and the repo series list say 'Catch and push'. The stations are catching plus a two-handed chest push (Push Throw Hoop), so the dashboard uses 'Catch and Push'. Admin: update the board's 'Series name', or confirm that 'Catch it again' is meant (it does fit 'Clever Catchers — return').",
         "Space Station card 4: the board's course builds the solar panel from 'a balance block laid across two cones'. That is a raised, unsecured obstacle, which the club rules forbid. The lessons say 'crawl under soft stable space panel; alternative around'. The package says 'safely secured lightweight foam panel (never heavy unsecured block)'. The cards use a secured lightweight foam panel, with the option of going around it. Admin: change the board's course text, and add the panel to the Station 3 Equipment column.",
@@ -3109,7 +2876,7 @@ export default {
         "Thu 11 Feb: the seniors do shot put, and the Week 11 lesson links the chest push to shot-put skills. Push Throw Hoop is a foam-ball game, not the shot put event, so it doesn't break the no-clash rule. Still, keep Station 1 well away from the seniors' shot put area.",
         "Station 4 backup: the board describes 'Hurdle Hop' as a 'two-foot hop over each hurdle' (season-extras.json says 'hop … on two feet'). Under the club definitions, taking off and landing on two feet is a jump, not a hop. The cards describe it as a two-foot jump. Admin: reword the backup on the board and in season-extras.json.",
         "Station 4 equipment: both Step and Run — recap and Hurdle Trail use flat markers, but the board's equipment is only '8 foam hurdles, 20 cones'. The cards list flat markers. Admin: add them to the board's Equipment.",
-        "If an admin switches to the lesson's high jump instead: Week A (Scissor Jump Review, Thu 4 Feb) clashes outright with the seniors' high jump. Week B (High Jump Choices, Thu 11 Feb) has no senior high jump event, but the seniors' Run Jump Throw rotation that night includes 'Jump height', so check the high jump mat is free. Neither lesson lists the high jump mat. The alternates add 'High jump mat (required)', as the club rule requires."
+        "If an admin switches to the lessons' high jump text instead (the Week 11/12 Rotation 4 text, which matches the S7 · R4 board's Scissor Jump Review → High Jump Choices): Week A on Thu 4 Feb clashes outright with the seniors' high jump. Week B on Thu 11 Feb has no senior high jump event, but the seniors' Run Jump Throw rotation that night includes 'Jump height', so check the high jump mat is free. Neither lesson lists the high jump mat. The alternates add 'High jump mat (required)', as the club rule requires."
       ],
       "isFinal": false,
       "weeks": [
@@ -3404,12 +3171,12 @@ export default {
             ],
             "setup": "Six small stations around a spacious one-way loop, 1–2 children per station. Start groups at different stations so nobody queues. All equipment is stable and at floor level, with soft mats as needed. Not a race.",
             "steps": [
-              "Moon walk: big, slow lunge steps from A to B. Bend the front knee.",
-              "Rocket launch: crouch low, then ONE quiet jump straight up off two feet. Land on two feet with bent knees.",
-              "Asteroid balance: walk along the ground-level balance blocks between the asteroids. Arms out, slow steps.",
-              "Solar panel crawl: stay low and crawl under the soft, SECURED lightweight panel without touching it, or go around it.",
-              "Star reach: balance on one foot and reach a hand towards a star. Hold steady and don't lean back.",
-              "Crab walk: hands behind, bottom up, walk backwards to base in your own clear lane."
+              "Moon walk — big, slow lunge steps from A to B. Bend the front knee.",
+              "Rocket launch — crouch low, then ONE quiet jump straight up off two feet. Land on two feet with bent knees.",
+              "Asteroid balance — walk along the ground-level balance blocks between the asteroids. Arms out, slow steps.",
+              "Solar panel crawl — stay low and crawl under the soft, SECURED lightweight panel without touching it, or go around it.",
+              "Star reach — balance on one foot and reach a hand towards a star. Hold steady and don't lean back.",
+              "Crab walk — hands behind, bottom up, walk backwards to base in your own clear lane."
             ],
             "cues": [
               "Eyes forward, arms out",
@@ -3431,7 +3198,7 @@ export default {
               "Series 6 package (secured foam panel)"
             ],
             "image": null,
-            "hash": "316d1005eb7d"
+            "hash": "af965c82050c"
           },
           {
             "key": "s6-A-4",
@@ -3447,7 +3214,7 @@ export default {
             "volunteers": "",
             "layout": "steps",
             "safety": "Only foam hurdles that collapse if clipped. Never use rigid hurdles. Each child runs at their own pace; it's not a race.",
-            "review": "This card follows the Rotations board. The Week 11 lesson has high jump (Scissor Jump Review) at this station, but the seniors do high jump on Thu 4 Feb 2027, so the card uses the board's hurdles. See the lesson-version alternate. Flat markers aren't on the board's equipment list. The board calls its backup a 'two-foot hop', but under the club definitions that's a jump, so the card says jump.",
+            "review": "This card follows the Rotations board. The Week 11 lesson heads Rotation 4 'Step and Run — recap', but the text under that heading still teaches high jump (scissor over a low elastic). The seniors do high jump on Thu 4 Feb 2027, so the card uses the board's hurdles. See the lesson-text alternate. Flat markers aren't on the board's equipment list. The board calls its backup a 'two-foot hop', but under the club definitions that's a jump, so the card says jump.",
             "name": "Step and Run — recap",
             "skill": "Hurdling · running rhythm",
             "equipment": [
@@ -3485,8 +3252,8 @@ export default {
             "alternate": {
               "layout": "steps",
               "safety": "HIGH JUMP MAT REQUIRED. Low breakaway elastic only: never a high jump pole, rope or rigid bar. Feet-first landings only: no back landings, no flop.",
-              "review": "NOT the board's activity; this card is for comparison only. The seniors do high jump on Thu 4 Feb 2027, so running this that night would break the no-clash rule. The lesson doesn't list the high jump mat or give quantities. The mat is added because the club high jump rule requires it. The backup comes from the Series 6 high jump entry in the repo Season Plan, not from the current board.",
-              "label": "Week 11 lesson version — Scissor Jump Review",
+              "review": "NOT the board's activity; this card is for comparison only. The seniors do high jump on Thu 4 Feb 2027, so running this that night would break the no-clash rule. The lesson doesn't list the high jump mat or give quantities. The mat is added because the club high jump rule requires it. The backup comes from the Series 6 high jump entry in the repo Season Plan, not from the current board. The lesson heads this rotation 'Step and Run — recap'. The high jump text under that heading is word for word the S7 · R4 board row, and the name 'Scissor Jump Review' comes from that row.",
+              "label": "Week 11 lesson text (high jump): NOT for Thu 4 Feb, the seniors do high jump",
               "name": "Scissor Jump Review",
               "skill": "High jump · feet-first scissor",
               "equipment": [
@@ -3518,11 +3285,12 @@ export default {
                 "Week 11 lesson (Rotation 4)",
                 "Club high jump rule",
                 "Season plan snapshot: S6 backup",
-                "Senior schedule 2026–27 (Thu 4 Feb)"
+                "Senior schedule 2026–27 (Thu 4 Feb)",
+                "Rotations board: S7 · R4 (name 'Scissor Jump Review', same text)"
               ],
               "image": null
             },
-            "hash": "53af81a624af"
+            "hash": "b7ad14df6a7b"
           }
         ],
         "B": [
@@ -3654,12 +3422,12 @@ export default {
             ],
             "setup": "The same six stations as Week A. Week B: take slower, balanced moon-walk steps. At the asteroid blocks, stop and reach towards a star on either side, then reset before carrying on.",
             "steps": [
-              "Moon walk: slower, balanced lunge steps from A to B. Bend the front knee.",
-              "Rocket launch: crouch low, then ONE quiet jump straight up off two feet. Land on two feet with bent knees.",
-              "Asteroid balance: walk the ground-level balance blocks. STOP, reach towards a star on one side and then the other, then reset and carry on.",
-              "Solar panel crawl: stay low and crawl under the soft, SECURED lightweight panel without touching it, or go around it.",
-              "Star reach: balance on one foot and reach a hand towards a star. Hold steady and don't lean back.",
-              "Crab walk: hands behind, bottom up, walk backwards to base in your own clear lane."
+              "Moon walk — slower, balanced lunge steps from A to B. Bend the front knee.",
+              "Rocket launch — crouch low, then ONE quiet jump straight up off two feet. Land on two feet with bent knees.",
+              "Asteroid balance — walk the ground-level balance blocks. STOP, reach towards a star on one side and then the other, then reset and carry on.",
+              "Solar panel crawl — stay low and crawl under the soft, SECURED lightweight panel without touching it, or go around it.",
+              "Star reach — balance on one foot and reach a hand towards a star. Hold steady and don't lean back.",
+              "Crab walk — hands behind, bottom up, walk backwards to base in your own clear lane."
             ],
             "cues": [
               "Slow, balanced steps",
@@ -3681,7 +3449,7 @@ export default {
               "Series 6 package (secured foam panel)"
             ],
             "image": null,
-            "hash": "1d949962a1aa"
+            "hash": "0896d6612ff2"
           },
           {
             "key": "s6-B-4",
@@ -3697,7 +3465,7 @@ export default {
             "volunteers": "",
             "layout": "steps",
             "safety": "Only foam hurdles that collapse if clipped. Never use rigid hurdles. Never force a height or stride pattern. The sprint start is not a race: no racing and no rankings.",
-            "review": "The board has no Week B how-to, so the steps are built from its Week B progression, cues and adaptations. The Week 12 lesson has high jump (High Jump Choices) at this station. This card follows the board; see the lesson-version alternate. Flat markers aren't on the board's equipment list. The backup is worded as a two-foot jump, as in Week A, because a two-foot movement is a jump, not a hop.",
+            "review": "The board has no Week B how-to, so the steps are built from its Week B progression, cues and adaptations. The Week 12 lesson heads Rotation 4 'Hurdle Trail', but the text under that heading still teaches high jump. This card follows the board; see the lesson-text alternate. Flat markers aren't on the board's equipment list. The backup is worded as a two-foot jump, as in Week A, because a two-foot movement is a jump, not a hop.",
             "name": "Hurdle Trail",
             "skill": "Hurdling · rhythm and run-through",
             "equipment": [
@@ -3733,14 +3501,15 @@ export default {
             "alternate": {
               "layout": "steps",
               "safety": "HIGH JUMP MAT REQUIRED. Low breakaway elastic only: never a high jump pole, rope or rigid bar. Feet-first landings only: no back landings, no flop. No raised height targets.",
-              "review": "NOT the board's activity; this card is for comparison only. Thu 11 Feb has no senior high jump (the seniors do Long jump, 100m and Shot put). However, their Run Jump Throw rotation that night includes 'Jump height', so check the high jump mat is free. This week also follows a Week A high jump that would clash on 4 Feb. The mat is added because the club rule requires it; the lesson gives no quantities. The backup comes from the repo Season Plan's Series 6 entry.",
-              "label": "Week 12 lesson version — High Jump Choices",
+              "review": "NOT the board's activity; this card is for comparison only. Thu 11 Feb has no senior high jump (the seniors do Long jump, 100m and Shot put). However, their Run Jump Throw rotation that night includes 'Jump height', so check the high jump mat is free. This week also follows a Week A high jump that would clash on 4 Feb. The mat is added because the club rule requires it; the lesson gives no quantities. The backup comes from the repo Season Plan's Series 6 entry. The lesson heads this rotation 'Hurdle Trail'. The name 'High Jump Choices' comes from the S7 · R4 board row, which has the same text. The ground marker comes from the lesson's Discover step; the lesson checklist doesn't list it.",
+              "label": "Week 12 lesson text (high jump): check the high jump mat is free (seniors' 'Jump height', Thu 11 Feb)",
               "name": "High Jump Choices",
               "skill": "High jump · approach and take-off choices",
               "equipment": [
                 "High jump mat (required)",
                 "Low breakaway elastic",
-                "Cones (approach and landing zones)"
+                "Cones (approach and landing zones)",
+                "Flat marker (ground marker)"
               ],
               "setup": "An age-appropriate runway with marked waiting spaces and a ground marker, leading to a low breakaway elastic in front of the high jump mat.",
               "steps": [
@@ -3766,11 +3535,12 @@ export default {
                 "Week 12 lesson (Rotation 4)",
                 "Club high jump rule",
                 "Season plan snapshot: S6 backup",
-                "Senior schedule 2026–27 (Thu 11 Feb)"
+                "Senior schedule 2026–27 (Thu 11 Feb)",
+                "Rotations board: S7 · R4 Week B progression (name 'High Jump Choices', same text)"
               ],
               "image": null
             },
-            "hash": "14299ae6f889"
+            "hash": "fb54d3ad147f"
           }
         ]
       },
@@ -3794,22 +3564,19 @@ export default {
       "manipulative": "Kicking",
       "fitnessCircuit": "Farmyard Fitness",
       "coachNote": "IMPORTANT: no Fosbury flop and no landing on the back. Use the high jump mat with a low ELASTIC — never a rope or a high jump pole. Scissor over and land on the feet, every time.",
-      "eventLabel": "High jump (lessons say Hurdles)",
+      "eventLabel": "High jump",
       "sessionNote": "Station 4 is high jump: use the high jump mat with a low breakaway elastic, never a rope or high jump pole. Children scissor over and land on their feet every time, with no back landings and no flop. In Ballrush, tagged children never join the taggers. Reset everyone each round so nobody is out.",
       "conflicts": [
-        "Station 4 event: the live Rotations board has high jump at S7 · R4. The Game is 'Scissor Jump Review → High Jump Choices', with Skill 'Jumping for height' and an elastic in the Equipment. The live Week 13 and Week 14 lessons ('Core athletics: Hurdles') teach hurdles here instead: 'Step and Run — recap' and 'Hurdle Trail'. The package names the series 'Kick, dodge and hurdle', but its own table and focus line say 'Station 4 high jump in Rotations'. The cards follow the board (high jump). The lesson hurdle version of both weeks is drafted under alternates. Senior schedule (Season Schedule Working Document 26/27, repo copy): on Thu 18 Feb the seniors do Discus and Long jump (RJT: jump combination jumps, run starts, throw pulling). On Thu 25 Feb they do 800m, Long jump and Discus (RJT: run relays). Neither night uses high jump or hurdles, so either event avoids a clash. However, Series 6 already runs hurdles (Step and Run — recap → Hurdle Trail) on 4 and 11 Feb, because the seniors do high jump on 4 Feb. The lesson version would make four hurdle weeks in a row. Admin: rewrite Rotation 4 and the 'Core athletics' header on the Week 13/14 lesson pages as high jump. If hurdles is what you want, change the board row instead.",
-        "The Week 13/14 lesson hurdle content matches the Series 6 Station 4 board row word for word: the same activity names, the Say cues ('Eyes ahead; lift knees; keep moving' / 'Run tall; knee lift; soft contact'), the 3–4 and 5–6 options and the watch-fors. It appears to have been copied from Series 6, as happened with the Series 3 lessons. Admin: replace it with the S7 high jump content when fixing the lesson pages.",
-        "Board Event column: the live board tags all four S7 rows 'Hurdles', even though Station 4's activity is high jump. The repo snapshot (scripts/data/lessons.json, pulled 2026-10-08 04:51 UTC) tags all four 'High jump'. The live S6 · R4 row is a hurdles activity but is now tagged 'High jump', so the Event tags seem to have been swapped between Series 6 and 7 after the snapshot. The dashboard label uses High jump to match the Station 4 activity. Admin: set the S7 rows' Event to 'High jump' and S6 · R4's Event to 'Hurdles', unless the activities are what should change.",
-        "Series name: the board's 'Series name' is 'Kick and chase'. The live Week 13/14 lessons and the package say 'Kick, dodge and hurdle'. The site, the repo snapshot's Season Plan entry and the snapshot's Week 13/14 titles say 'Kick, dodge and leap'. The dashboard uses 'Kick, Dodge and Leap' because it matches the stations: dodging (S1), kicking (S2) and high jump (S4). Admin: choose one name, then update the board's 'Series name' and the lesson titles to match.",
-        "Repo snapshot vs live lessons: the snapshot records Week 13/14 as 'Kick, dodge and leap' with 'Core athletics: High jump' and Rotation 4 as 'Scissor Jump Review' / 'High Jump Choices'. The live pages (last edited 8 Oct 2026, 02:34 and 02:42 UTC) now say hurdles. The snapshot's pulledAt time is later than those edits, so its lesson text may have been aligned by hand in the repo. Re-pull the snapshot once Station 4 is decided. Apart from the Event tags and the lesson text, all S7 board fields in the snapshot match the live board.",
+        "Station 4 event: the Rotations board has high jump at S7 · R4 (Scissor Jump Review → High Jump Choices). The Week 13/14 lessons now say 'Core athletics: High jump' and use those Rotation 4 headings, but the Rotation 4 text under the headings still describes hurdles. The cards follow the board, and the lesson hurdle text is kept as alternates. Neither night clashes with the seniors (18 Feb: discus, long jump; 25 Feb: 800m, long jump, discus), but Series 6 already runs hurdles on 4 and 11 Feb, so the hurdle text would make four hurdle weeks in a row. Admin: rewrite the Rotation 4 text on the Week 13/14 lesson pages as high jump.",
+        "The Rotation 4 text under the high jump headings on the Week 13/14 lessons is word for word the Series 6 · R4 board row (Step and Run — recap → Hurdle Trail): the same Discover/Develop/Consolidate steps, Say cues ('Eyes ahead; lift knees; keep moving' / 'Run tall; knee lift; soft contact'), 3–4 and 5–6 options and watch-fors. Only the headings were renamed. Admin: replace it with the S7 high jump content.",
+        "Series name: the board's 'Series name' is 'Kick and chase'. The Week 13/14 lessons (live and repo snapshot) and the package say 'Kick, dodge and hurdle'. The site and the snapshot's series list say 'Kick, dodge and leap'. The dashboard uses 'Kick, Dodge and Leap' because it matches the stations: dodging (S1), kicking (S2) and high jump (S4). Admin: choose one name, then update the board's 'Series name' and the lesson titles to match.",
         "Ballrush (S1, Week A): the board's 'How to play' has tagged children join the taggers 'until only a few are left', which is an elimination chain. The board's own Coach Observation and Consolidating step say to avoid that chain and 'reset everyone each round', and so do the Week 13 lesson and the club no-elimination rule. The card follows the safety rule: nobody joins the taggers and nobody is out. The board says 'two or three taggers'; the card uses the lesson's two walking taggers. Admin: rewrite the board's 'How to play'.",
         "High jump kit (S4): the board's Equipment ('1 low elastic, 2 cones, flat markers') and Set up ('between two cones') leave out the high jump mat, but the board's own how-to says to use it. The board also says 'low elastic'; the package and the lesson checklist say 'low breakaway elastic'. The cards list 'High jump mat (required)', specify a breakaway elastic and put it in front of the mat. Admin: add the mat to the board's Equipment and Set up, and change the wording to 'breakaway elastic'.",
-        "Lesson checklists: the Week 13/14 'Athletics' checklist line still reads 'only low breakaway elastic for high jump, no fixed bar', which matches the board's high jump rather than the lesson's own hurdles Rotation 4. The fitness-loop checklist lists 'soft foam hurdles', but Farmyard Fitness has no hurdles. The cards leave out the foam hurdles for Station 3. Admin: tidy the lesson checklists when fixing Rotation 4.",
+        "Lesson checklists: the Week 13/14 fitness-loop line lists 'soft foam hurdles', but Farmyard Fitness has no hurdles, so the cards leave them out. The Athletics line does not mention the high jump mat. Admin: tidy both lines when fixing Rotation 4.",
         "Farmyard Fitness (S3): the board has no set-up, how-to, backup or learning cues (Learning cues reads 'Week A:  | Week B:'). The set-up comes from the Week 13/14 lessons, and the cues are condensed from the lesson's Discover and Develop laps. Admin: add cues and a set-up to the board row.",
         "Farmyard Fitness, horse gallop: the board's course says 'Horse gallop from B to C (step-hop) — Step then hop, same foot leading'. The lessons say 'Horse gallop A to B with same lead leg; change lead next lap', and the Week A focus says galloping prepares for step-hop skipping but is not yet skipping. The cards follow the lessons and say gallop with the same lead leg. Admin: remove '(step-hop)' and 'step then hop' from the board's course.",
         "Farmyard Fitness, chicken balance: the board says 'one foot … for a count of 3', and the Week 13 lesson says 'count 3 each side'. The board's Week B progression says 'Flamingo on other foot', and the Week 14 lesson says to try the other standing leg at the chicken station. The Week A card uses the board's one foot so that Week B's other-leg progression still makes sense. Both cards keep the name 'Chicken balance'. Admin: clarify the Week A wording and use 'chicken' rather than 'flamingo' on the board.",
-        "Dragons Tail (S1, Week B): the soft scarf tails from the Week B progression aren't in the board's Equipment ('20 cones, bibs'). The lesson asks for 'props for Dragons Tail'. The card lists soft scarf tails. Admin: add them to the board.",
-        "Older repo draft (scripts/data/season_plan.json, reference only): it still has Series 6 as high jump (Scissor Jump) and Series 7 as hurdles (Step and Run), with a hurdles coach note ('The opposite-foot step returns…'). That is the order before the swap, and it agrees with the current lessons rather than the board. It is not used on the cards."
+        "Dragons Tail (S1, Week B): the soft scarf tails from the Week B progression aren't in the board's Equipment ('20 cones, bibs'). The lesson asks for 'props for Dragons Tail'. The card lists soft scarf tails. Admin: add them to the board."
       ],
       "isFinal": false,
       "weeks": [
@@ -4066,14 +3833,14 @@ export default {
             "developing": "Dribble slowly around spaced cones; plant the non-kicking foot beside the ball.",
             "consolidating": "Kick the ball through a wide cone goal and follow through; choose a safe force.",
             "observation": "Safe ball lanes, and lots of touches instead of queues.",
-            "alternative": "Kick and Chase: kick the ball far, chase after it, then dribble it back.",
+            "alternative": "Kick and Chase: kick the ball along your own lane, then on the coach's signal chase it and dribble it back.",
             "sources": [
               "Rotations board: S7 · R2",
               "Week 13 lesson",
               "Season extras: backup game summary (Kick and Chase)"
             ],
             "image": null,
-            "hash": "00ba3aa35624"
+            "hash": "c08188959db2"
           },
           {
             "key": "s7-A-3",
@@ -4100,12 +3867,12 @@ export default {
             ],
             "setup": "Six small stations around a spacious one-way loop, with 1–2 children per station. Start groups at different stations so there are no queues. Week A focus: the gallop prepares children for skipping; it isn't true skipping yet.",
             "steps": [
-              "Duck waddle: from A to B, squat a little with heels together and take small bent-knee steps.",
-              "Horse gallop: from B to C, keeping the same lead leg. Change the lead leg next lap.",
-              "Frog jumps: TWO-foot jumps across the 3 flat puddle markers. Bend the knees to land.",
-              "Walk the fence line: along the low balance blocks on the ground, arms out, heel to toe.",
-              "Chicken balance: stand on one foot and flap your wings gently for a count of 3. Look at one spot.",
-              "Bear crawl: back to the barn on all fours, bottom up, eyes towards a clear lane."
+              "Duck waddle — from A to B, squat a little with heels together and take small bent-knee steps.",
+              "Horse gallop — from B to C, keeping the same lead leg. Change the lead leg next lap.",
+              "Frog jumps — TWO-foot jumps across the 3 flat puddle markers. Bend the knees to land.",
+              "Walk the fence line — along the low balance blocks on the ground, arms out, heel to toe.",
+              "Chicken balance — stand on one foot and flap your wings gently for a count of 3. Look at one spot.",
+              "Bear crawl — back to the barn on all fours, bottom up, eyes towards a clear lane."
             ],
             "cues": [
               "Eyes forward, arms out",
@@ -4126,7 +3893,7 @@ export default {
               "Week 13 lesson: set-up, station cards, Week A focus, laps"
             ],
             "image": null,
-            "hash": "590d9ae5cbe3"
+            "hash": "8f19e8351061"
           },
           {
             "key": "s7-A-4",
@@ -4142,7 +3909,7 @@ export default {
             "volunteers": "",
             "layout": "steps",
             "safety": "HIGH JUMP MAT REQUIRED, with a low breakaway elastic. Never a high jump pole, rope or rigid bar. Feet-first landings only: no back landings and no flop.",
-            "review": "The board's Equipment ('1 low elastic, 2 cones, flat markers') and set-up leave out the high jump mat, but the board's own how-to requires it. The card lists the mat as required and puts the elastic in front of it. It says 'breakaway' elastic, as the club rule, the package and the lesson checklist do. The Week 13 lesson teaches hurdles (Step and Run — recap) at this station; this card follows the board. The lesson version is drafted as an alternate.",
+            "review": "The board's Equipment ('1 low elastic, 2 cones, flat markers') and set-up leave out the high jump mat, but the board's own how-to requires it. The card lists the mat as required and puts the elastic in front of it. It says 'breakaway' elastic, as the club rule, the package and the lesson checklist do. The Week 13 lesson heads this station Scissor Jump Review, but its text still describes hurdles (copied from S6 · R4); this card follows the board. The lesson version is drafted as an alternate.",
             "name": "Scissor Jump Review",
             "skill": "High jump · feet-first scissor",
             "equipment": [
@@ -4181,8 +3948,8 @@ export default {
             "alternate": {
               "layout": "steps",
               "safety": "Soft FOAM hurdles that collapse if clipped. Never rigid hurdles. Each child chooses their own pace, with no racing or comparing.",
-              "review": "LESSON VERSION ONLY. The Rotations board has high jump (Scissor Jump Review) at this station. This content is word for word the Series 6 Station 4 row (Step and Run — recap), which runs on Thu 4 Feb, so choosing it means four hurdle weeks in a row. The lesson gives no quantities apart from '3 very low foam hurdles', so the cones aren't counted. The S7 board has no hurdle backup activity, so 'alternative' is blank. The Series 6 backup 'Hurdle Hop — two-foot hop' would also need renaming, because a two-foot movement is a jump.",
-              "label": "Week 13 lesson version — Step and Run — recap (hurdles)",
+              "review": "LESSON TEXT ONLY. The lesson heads this station with the board's high jump name, but the text describes hurdles; the hurdle name is taken from the identical S6 · R4 row. The Rotations board has high jump (Scissor Jump Review) at this station. This content is word for word the Series 6 Station 4 row (Step and Run — recap), which runs on Thu 4 Feb, so choosing it means four hurdle weeks in a row. The lesson gives no quantities apart from '3 very low foam hurdles', so the cones aren't counted. The S7 board has no hurdle backup activity, so 'alternative' is blank. The Series 6 backup 'Hurdle Hop — two-foot hop' would also need renaming, because a two-foot movement is a jump.",
+              "label": "Week 13 lesson text (hurdles): Series 6 already runs hurdles on 4 and 11 Feb",
               "name": "Step and Run — recap",
               "skill": "Hurdling · running rhythm",
               "equipment": [
@@ -4208,15 +3975,16 @@ export default {
               "discovery": "Step across flat markers in a walking line.",
               "developing": "Jog to 3 very low foam hurdles and clear each without stopping.",
               "consolidating": "Run through the line of hurdles at a child-selected pace with balanced finishes.",
-              "observation": "Saw / Trying / Next: note one thing each child achieved, such as looking up and keeping moving.",
+              "observation": "Use collapsing hurdles only.",
               "alternative": "",
               "sources": [
                 "Week 13 lesson (Rotation 4: hurdles)",
-                "Club hurdles rule"
+                "Club hurdles rule",
+                "Rotations board: S6 · R4 (activity name)"
               ],
               "image": null
             },
-            "hash": "c36c55434717"
+            "hash": "a538d397c308"
           }
         ],
         "B": [
@@ -4283,7 +4051,7 @@ export default {
             "auto": false,
             "volunteers": "",
             "layout": "steps",
-            "safety": "Soft footballs only. Never kick at a partner who isn't watching. Kicks go one way along your own lane, and balls are fetched only on the coach's signal, never across another lane.",
+            "safety": "Soft footballs only. Never kick at a partner who isn't watching. Kick only along your own lane, never across another, and fetch stray balls only on the coach's signal.",
             "review": "The board's set-up and how-to are written for Crazy Kickers (Week A). The Week B set-up and steps come from the board's Week B progression and the Week 14 lesson. Neither source says how far apart partners stand for 5–6 year olds; only the 3–4 option gives a distance (1–2 m).",
             "name": "Partner Kicking — accuracy",
             "skill": "Kicking · passing accuracy",
@@ -4311,14 +4079,14 @@ export default {
             "developing": "Step beside the ball and kick smoothly to a partner, who traps it before passing back.",
             "consolidating": "The partner changes position between marked gates; the kicker adjusts power and direction.",
             "observation": "Do not kick at a partner who is not watching.",
-            "alternative": "Kick and Chase: kick the ball far, chase after it, then dribble it back.",
+            "alternative": "Kick and Chase: kick the ball along your own lane, then on the coach's signal chase it and dribble it back.",
             "sources": [
               "Rotations board: S7 · R2 Week B progression",
               "Week 14 lesson",
               "Season extras: backup game summary (Kick and Chase)"
             ],
             "image": null,
-            "hash": "59f2be4762ff"
+            "hash": "89ba7db0f16e"
           },
           {
             "key": "s7-B-3",
@@ -4346,12 +4114,12 @@ export default {
             ],
             "setup": "The same six stations as Week A. Week B: do the chicken balance on the other standing leg, add an optional tiny same-foot hop on a marked flat spot before the bear crawl, and keep the gallop slow and rhythmic.",
             "steps": [
-              "Duck waddle: from A to B, squat a little with heels together and take small bent-knee steps.",
-              "Horse gallop: slow and rhythmic, keeping the same lead leg. Change the lead leg next lap.",
-              "Frog jumps: TWO-foot jumps across the 3 flat puddle markers. Bend the knees to land.",
-              "Walk the fence line: along the low balance blocks on the ground, arms out, heel to toe.",
-              "Chicken balance: now stand on the OTHER leg and flap gently for a count of 3. If they want, children then make one tiny same-foot hop on the marked flat spot.",
-              "Bear crawl: back to the barn on all fours, bottom up, eyes towards a clear lane."
+              "Duck waddle — from A to B, squat a little with heels together and take small bent-knee steps.",
+              "Horse gallop — slow and rhythmic, keeping the same lead leg. Change the lead leg next lap.",
+              "Frog jumps — TWO-foot jumps across the 3 flat puddle markers. Bend the knees to land.",
+              "Walk the fence line — along the low balance blocks on the ground, arms out, heel to toe.",
+              "Chicken balance — now stand on the OTHER leg and flap gently for a count of 3. Optional: one tiny same-foot hop on the marked flat spot.",
+              "Bear crawl — back to the barn on all fours, bottom up, eyes towards a clear lane."
             ],
             "cues": [
               "Eyes forward, arms out",
@@ -4372,7 +4140,7 @@ export default {
               "Week 14 lesson: Week B focus"
             ],
             "image": null,
-            "hash": "9d3086226f74"
+            "hash": "98f7ab13a577"
           },
           {
             "key": "s7-B-4",
@@ -4388,7 +4156,7 @@ export default {
             "volunteers": "",
             "layout": "steps",
             "safety": "HIGH JUMP MAT REQUIRED, with a low breakaway elastic. Never a high jump pole, rope or rigid bar. Feet-first landings only: no back landings and no flop. Keep the elastic low, with no height targets.",
-            "review": "The board's how-to and set-up are written for Week A. The Week B steps come from the board's Week B progression, cues, options and observation. The Week 14 lesson teaches hurdles (Hurdle Trail) here, so there is no lesson coaching for High Jump Choices. The mat and breakaway elastic are added per the club rule, since they're missing from the board's Equipment.",
+            "review": "The board's how-to and set-up are written for Week A. The Week B steps come from the board's Week B progression, cues, options and observation. The Week 14 lesson heads this station High Jump Choices, but its text still describes hurdles (the S6 Hurdle Trail), so there is no lesson coaching for high jump. The mat and breakaway elastic are added per the club rule, since they're missing from the board's Equipment.",
             "name": "High Jump Choices",
             "skill": "High jump · choosing an approach",
             "equipment": [
@@ -4426,8 +4194,8 @@ export default {
             "alternate": {
               "layout": "steps",
               "safety": "Soft FOAM hurdles that collapse if clipped. Never rigid hurdles. Never force a height or stride pattern, and no racing or comparing.",
-              "review": "LESSON VERSION ONLY. The Rotations board has high jump (High Jump Choices) at this station. This content is word for word the Series 6 Week B row (Hurdle Trail), which runs on Thu 11 Feb. The lesson gives '4 soft foam hurdles' but no cone or marker counts. The S7 board has no hurdle backup activity, so 'alternative' is blank.",
-              "label": "Week 14 lesson version — Hurdle Trail (hurdles)",
+              "review": "LESSON TEXT ONLY. The lesson heads this station with the board's high jump name, but the text describes hurdles; the hurdle name is taken from the identical S6 · R4 row. The Rotations board has high jump (High Jump Choices) at this station. This content is word for word the Series 6 Week B row (Hurdle Trail), which runs on Thu 11 Feb. The lesson gives '4 soft foam hurdles' but no cone or marker counts. The S7 board has no hurdle backup activity, so 'alternative' is blank.",
+              "label": "Week 14 lesson text (hurdles): Series 6 already runs hurdles on 4 and 11 Feb",
               "name": "Hurdle Trail",
               "skill": "Hurdling · head-up rhythm",
               "equipment": [
@@ -4457,11 +4225,12 @@ export default {
               "alternative": "",
               "sources": [
                 "Week 14 lesson (Rotation 4: hurdles)",
-                "Club hurdles rule"
+                "Club hurdles rule",
+                "Rotations board: S6 · R4 (activity name)"
               ],
               "image": null
             },
-            "hash": "bc5f5a0e9809"
+            "hash": "fba7fd102a97"
           }
         ]
       },
@@ -4499,8 +4268,9 @@ export default {
         "Station 1, Rippa Tag: the board's how-to says to put tags back on 'when both tags are gone'. The Week 15 lesson says to 'replace immediately'. Either way nobody is out. The card says put them straight back on and rejoin. Also, the board's backup (Rush Hour) is almost the same game as Rippa Tag, so it gives little fallback. Admin: optional tidy-up.",
         "Station 4, Smooth Relay: the board gives no separate Week B set-up. Its set-up (teams of three split at either end of a 15 m run) fits Half and Half Relay, while the Week B progression adds a 'controlled turnaround' and the lesson says 'keep lanes separate and cone each turnaround'. The card combines these and flags the run length for review. Admin: add a Week B set-up to the board.",
         "Senior schedule (Season Schedule Working Document 26/27): on Thu 4 Mar the seniors do shot put and high jump (RJT: jump distance, run over obstacles, throw pushing), so there is no relay clash. On Thu 11 Mar the seniors do discus, long jump, 60 m (timed, blocks for 10+) and high jump, and their Run Jump Throw rotation is 'Run relays'. Get Set Go runs Smooth Relay that night. The cards flag a shared-space check. Admin: confirm with the senior coaches that the relay lanes and the timed 60 m track don't overlap with the Get Set Go relay area (or the 6:24 run-through sprints).",
-        "Coach note: the repo series list's Series 8 note ('Hand the beanbag over — never throw it — and keep the changeover zone clear') and the Season Plan's note ('Review block. Ask each child one thing they can do now that they could not in series one — the answers feed the mini meet certificates') differ. The dashboard uses the relay safety note plus the 11 Mar space check. Admin: add the review-block line if it's still wanted.",
-        "Repo snapshot: scripts/data/lessons.json (pulled 8 Oct 2026) matches the live Rotations board for all four Series 8 rows: activities, Event = Relays, equipment, cues, progressions and backups. No differences."
+        "Coach note: the repo series list's Series 8 note ('Hand the beanbag over — never throw it — and keep the changeover zone clear') and the repo Season Plan's older note ('Review block. Ask each child one thing they can do now that they could not in series one — the answers feed the mini meet certificates') differ. That certificate question now sits in Series 9's coach note, so the dashboard uses the relay safety note plus the 11 Mar space check. Admin: no action unless you also want the question asked in Series 8.",
+        "Repo snapshot: scripts/data/lessons.json (pulled 12 Oct 2026) matches the live Rotations board for all four Series 8 rows: activities, Event = Relays, equipment, cues, progressions and backups. No differences.",
+        "Station 4: the board's Watch for says 'Throwing the baton', but its Equipment and how-to use beanbags (no baton). The cards say 'Throwing the beanbag'. Admin: change 'baton' to 'beanbag' on the board."
       ],
       "isFinal": false,
       "weeks": [
@@ -4691,7 +4461,7 @@ export default {
             "steps": [
               "Jog around the coned space with your eyes up, looking for gaps.",
               "On 'go', everyone runs and everyone rips. Gently pull a tag, never clothing.",
-              "When your tags are gone, put them straight back on and rejoin. Nobody is out.",
+              "If a tag is pulled, put it straight back on and rejoin. Nobody is out.",
               "Change pace and direction to dodge.",
               "Short rounds: two minutes on, one minute off. No teams, no score."
             ],
@@ -4714,7 +4484,7 @@ export default {
               "Club backup-game summaries (Rush Hour)"
             ],
             "image": null,
-            "hash": "9123ff80b05a"
+            "hash": "b8d717c5d8d0"
           },
           {
             "key": "s8-A-2",
@@ -4729,7 +4499,7 @@ export default {
             "auto": false,
             "volunteers": "",
             "layout": "steps",
-            "safety": "Foam bat and soft ball only, never a hard cricket ball. Keep a clear swing zone around every batter. Strikes go one way down your own lane. Bat down before running, run outside the striking lanes, and retrieve only on the coach's signal.",
+            "safety": "Foam bat and soft ball only, never a hard cricket ball. Keep a clear swing zone around every batter. Strikes go one way down your own lane. Bat down before running, run outside the striking lanes, and retrieve only on the coach's signal, never across another lane.",
             "review": "The board's equipment says 'Cricket set (bat, ball, stumps)' and its how-to says 'cricket bat'. The card uses foam bats, large soft balls and tees, as the Week 15 lesson and the soft-equipment rule require, so no hard cricket ball. The stumps aren't used in any step and are left off. No source gives the number of bats, tees or balls; the lesson asks for at least 3 children striking at once. The board's how-to also allows a gently rolled ball, but the card keeps Week A on the tee (as the lesson does). The board's 'run to a cone and back' happens outside the striking lanes (club rule).",
             "name": "Cricket Hit",
             "skill": "Striking · off a tee",
@@ -4742,7 +4512,7 @@ export default {
             "setup": "One clear striking lane per 2–3 children, each with a low tee, a large soft ball and a cone-gate target. Strikes go one way, and the run cone sits outside the striking lanes.",
             "steps": [
               "Put two hands together on the foam bat and hit the still ball off the tee.",
-              "Stand side on, then step and swing, turning your hips toward the target.",
+              "Stand side on, then step and swing, turning your hips towards the target.",
               "Aim through the cone gate. Keep it gentle: this is about the swing, not power.",
               "Put the bat on the ground, then run a short distance to the cone and back, outside the striking lanes.",
               "Collect balls only on the coach's signal, and never across another lane."
@@ -4756,8 +4526,8 @@ export default {
             "older": "Control the direction and force of the hit.",
             "watch": "Hands separating on the bat: tape the hand position on the bat. Watch for anyone stepping into the swing zone.",
             "discovery": "Explore hand position and strike a large, still soft ball from the tee.",
-            "developing": "Side-on stance, two hands on the foam bat; step and rotate the hips toward the target.",
-            "consolidating": "Strike toward a ground cone gate, then run a short distance after placing the bat down safely.",
+            "developing": "Side-on stance, two hands on the foam bat; step and rotate the hips towards the target.",
+            "consolidating": "Strike towards a ground cone gate, then run a short distance after placing the bat down safely.",
             "observation": "Keep a safe bat-swing exclusion zone.",
             "alternative": "Cricket Roll and Hit: hit a gently rolled ball with the foam bat.",
             "sources": [
@@ -4766,7 +4536,7 @@ export default {
               "Club rules: soft equipment, separate striking lanes"
             ],
             "image": null,
-            "hash": "3b486af19009"
+            "hash": "a50a815a5861"
           },
           {
             "key": "s8-A-3",
@@ -4905,7 +4675,7 @@ export default {
               "March in rhythm along the line. Then step-hop slowly: step onto one foot and hop on that SAME foot, then switch feet.",
               "Try a slow skip with opposite arm and leg. In pairs, follow the leader's movements.",
               "Small chain tag: the chasers travel by skipping or galloping, and anyone tagged joins the chain.",
-              "Chain links hold a soft ribbon between them or just stay close. No dragging.",
+              "Chain links hold a soft ribbon between them or keep a small space. No pulling or dragging.",
               "Switch the chasers and runners often. Nobody is out."
             ],
             "cues": [
@@ -4926,7 +4696,7 @@ export default {
               "Club backup-game summaries (Chain Tag, Rush Hour)"
             ],
             "image": null,
-            "hash": "192513e65479"
+            "hash": "1114e577b27a"
           },
           {
             "key": "s8-B-2",
@@ -4942,7 +4712,7 @@ export default {
             "volunteers": "",
             "layout": "steps",
             "safety": "Soft bat and soft ball only. An adult supervises every rolled-ball turn, and the roll stays very slow and gentle. Keep a clear swing zone around each batter. Strikes go one way, and retrieve only on the coach's signal, never across another lane.",
-            "review": "The board's equipment says 'Cricket set (bat, ball, stumps)'. The card uses soft bats, foam/soft balls and tees (Week 16 lesson and soft-equipment rule) and leaves the stumps off. No source gives the number of bats, tees or balls. The Apply step says 'compare safe accuracy', and the card makes that each child's own accuracy (club rule: never compare children). The run to a cone from the board's Week A how-to isn't in the Week B progression, so this card has no run. The club games library's 'Super Strikers' (fielders collect while the batter runs) is a different game and is not used.",
+            "review": "The board's equipment says 'Cricket set (bat, ball, stumps)'. The card uses soft bats, foam/soft balls and tees (Week 16 lesson and soft-equipment rule) and leaves the stumps off. No source gives the number of bats, tees or balls. The Apply step says 'compare safe accuracy', and the card makes that each child's own accuracy (club rule: never compare children). The run to a cone from the board's Week A how-to isn't in the Week B progression, so this card has no run. The club games library's 'Super Strikers' (fielders collect while the batter runs) is a different game and is not used. No source says where the feeder stands for the rolled ball: keep the feeder and the helping adult out of the batter's swing zone and strike line.",
             "name": "Super Strikers — moving ball",
             "skill": "Striking · a moving ball",
             "equipment": [
@@ -4954,7 +4724,7 @@ export default {
             "setup": "One clear striking lane per 2–3 children, each with a tee and a cone-gate target. Strikes go one way. An adult supervises every rolled-ball turn.",
             "steps": [
               "Hit a still ball gently off the tee to find your technique again.",
-              "Stand side on, step and swing through the foam ball, and follow through toward the target.",
+              "Stand side on, step and swing through the foam ball, and follow through towards the target.",
               "Only children who are ready try a gentle, very slow rolled ball, with an adult watching.",
               "In pairs, take turns as batter and as feeder (with an adult helping), striking at the cone gates.",
               "Check your own hits: did they go through the gate? No comparing children. Collect balls only on the coach's signal."
@@ -4978,7 +4748,7 @@ export default {
               "Club rules: soft equipment, separate striking lanes"
             ],
             "image": null,
-            "hash": "5b268fa2886a"
+            "hash": "1b8cf56fed9a"
           },
           {
             "key": "s8-B-3",
@@ -5049,7 +4819,7 @@ export default {
             "auto": false,
             "volunteers": "",
             "layout": "steps",
-            "safety": "An adult supervises every handover. Hand to hand, never thrown, and no blind handovers. Keep lanes separate. Count clean handovers, never race ranks. Thu 11 Mar: the seniors' Run Jump Throw rotation also has a relays station, so check the two relay areas don't share the same track.",
+            "safety": "An adult supervises every handover: hand to hand, never thrown, no blind handovers. Keep lanes separate. Count clean handovers, never race ranks. Thu 11 Mar: the seniors also run relays, so check our relay lanes don't share their track.",
             "review": "The board gives no separate Week B set-up. The layout combines the board's set-up (teams of three, 15 m run) with the Week 16 lesson's 'keep lanes separate and cone each turnaround'. Confirm the run length for a turnaround relay. On Thu 11 Mar the seniors run relays in their Run Jump Throw rotation and a timed 60 m, so check the relay area doesn't share the same track.",
             "name": "Smooth Relay",
             "skill": "Relay changeover · smooth handovers",
@@ -5084,7 +4854,7 @@ export default {
               "Senior schedule 2026–27 (11 Mar)"
             ],
             "image": null,
-            "hash": "acf2a89d1393"
+            "hash": "00936cf40128"
           }
         ]
       },
@@ -5111,7 +4881,7 @@ export default {
       "eventLabel": "Long jump",
       "sessionNote": "These are the last two weeks before the Mini Meet on Thu 1 Apr. Every child tries to beat their own best, never anyone else's. Ask each child one thing they can do now that they couldn't do in October, and write it down for their certificate.",
       "conflicts": [
-        "Series name: the Rotations board's 'Series name' (and the old season_plan.json) says 'Beat your best'. The Week 17 and Week 18 lessons, the Notion Season Plan entry ('Series 9 — Beat your own best') and the package (activity_map.json title, SERIES_9_CODEX_PROMPT.md) all say 'Beat your own best'. Every station is about beating your own marker or goal, so the dashboard uses 'Beat Your Own Best'. Admin: change the board's 'Series name' on the four S9 rows to 'Beat your own best', or confirm that 'Beat your best' is intended.",
+        "Series name: the Rotations board's 'Series name' (and the old season_plan.json) says 'Beat your best'. The Week 17 and Week 18 lessons, scripts/data/series-meta.json ('Series 9 — Beat your own best') and the package (activity_map.json title, SERIES_9_CODEX_PROMPT.md) all say 'Beat your own best'. Every station is about beating your own marker or goal, so the dashboard uses 'Beat Your Own Best'. Admin: change the board's 'Series name' on the four S9 rows to 'Beat your own best', or confirm that 'Beat your best' is intended.",
         "Station 3, Challenge Trail card 1: the board's course says 'Bear crawl from A to B — time yourself, match it next lap'. Both lessons say 'at steady personal pace, no timed race', and the club rule bans speed contests. The cards follow the lessons: steady personal pace with no timing. Admin: remove 'time yourself, match it next lap' from the board's course text.",
         "Station 3: the board's 'Watch for' says 'Frustration if they step off the rope', but the Challenge Trail uses balance blocks (board course and both lessons) and has no rope. The cards say 'the blocks'. Admin: change 'rope' to 'balance blocks' on the board.",
         "Station 3: the board has no Set up, How to play or Backup for Challenge Trail, and its Learning cues are blank ('Week A: | Week B:'). The set-up comes from the Week 17/18 lessons. The cues are condensed from the lessons' laps, the course's how-to lines and the Week B focus. The cards have no backup activity. Admin: add a set-up, cues and a backup to the board.",
@@ -5376,13 +5146,13 @@ export default {
             "developing": "Opposite step, smooth pendulum arm and accurate release; choose a closer or farther target.",
             "consolidating": "Repeat the target accuracy challenge; report personal improvement in control.",
             "observation": "Does the release adjust to the target distance?",
-            "alternative": "Toy Basketball: one person holds a hoop up as the basket. The front of the line throws a soft toy in, then swaps with the holder.",
+            "alternative": "Toy Basketball: throw a soft toy into a high hoop held by an adult. Rotate quickly so nobody waits long.",
             "sources": [
               "Rotations board: S9 · R2",
               "Week 17 lesson"
             ],
             "image": null,
-            "hash": "9896ffa8a08d"
+            "hash": "2c287290fef0"
           },
           {
             "key": "s9-A-3",
@@ -5412,7 +5182,7 @@ export default {
             "steps": [
               "Bear crawl — all fours from A to B at a steady personal pace. No timing, no racing.",
               "Frog jumps — TWO-foot jumps over the 4 flat markers; bend your knees to land.",
-              "Balance walk — the whole length of the low balance blocks: arms out, heel-to-toe, slow. You can also walk alongside them.",
+              "Balance walk — the full length of the low blocks: arms out, heel-to-toe, slow (or walk alongside).",
               "One-foot balance — look at one spot, arms out, and hold for a slow count of 5 on each foot. Holding a hand is fine.",
               "Hurdle step-overs — lift your knees over the 4 soft foam hurdles; head up, keep moving.",
               "Crab walk — backwards to the finish at a comfortable pace: hands behind, bottom up."
@@ -5436,7 +5206,7 @@ export default {
               "Week 17 lesson"
             ],
             "image": null,
-            "hash": "9e9199e9b7d3"
+            "hash": "bb38d14e19d4"
           },
           {
             "key": "s9-A-4",
@@ -5461,7 +5231,7 @@ export default {
             ],
             "setup": "An age-appropriate runway with a start line leading to the long jump mat or sandpit. Mark the waiting spaces and have a cone ready for each child's personal marker.",
             "steps": [
-              "Next to the line, swing your arms into a standing jump and land quietly.",
+              "At the line, swing your arms into a two-foot standing jump and land quietly on two feet in the mat or pit.",
               "Choose your take-off line. Swing and spring off TWO feet into the mat or pit.",
               "Land on two feet with bent knees and freeze. Place your own cone where you landed.",
               "Pick ONE thing to improve (arm swing, quiet landing or reach) and have three goes.",
@@ -5485,7 +5255,7 @@ export default {
               "Senior schedule 2026–27"
             ],
             "image": null,
-            "hash": "6af620652345"
+            "hash": "6b1eadc9b7d6"
           }
         ],
         "B": [
@@ -5580,13 +5350,13 @@ export default {
             "developing": "Overarm: the pointing hand aims, the other hand goes back, the opposite foot steps and the arm follows through.",
             "consolidating": "Choose a suitable throw for a near or far target; make 3 controlled throws and explain the choice.",
             "observation": "Throws go in the same direction; retrieve on the signal.",
-            "alternative": "Toy Basketball: one person holds a hoop up as the basket. The front of the line throws a soft toy in, then swaps with the holder.",
+            "alternative": "Toy Basketball: throw a soft toy into a high hoop held by an adult. Rotate quickly so nobody waits long.",
             "sources": [
               "Rotations board: S9 · R2 Week B progression",
               "Week 18 lesson"
             ],
             "image": null,
-            "hash": "c10949eecf5e"
+            "hash": "2bf434dbf23a"
           },
           {
             "key": "s9-B-3",
@@ -5615,11 +5385,11 @@ export default {
             "setup": "The same six stations as Week A. Week B: each child chooses one personal goal (a steady bear crawl, quiet two-foot landings or a five-count balance on each foot) and retests it on the last lap, without racing or comparing.",
             "steps": [
               "Bear crawl — all fours from A to B, steady and controlled. No timing, no racing.",
-              "Frog jumps — TWO-foot jumps over the 4 flat markers; make every landing quiet.",
-              "Balance walk — the whole length of the low balance blocks: arms out, heel-to-toe, slow. You can also walk alongside them.",
-              "One-foot balance — look at one spot, arms out: a five-count on one foot, then the other.",
+              "Frog jumps — TWO-foot jumps over the 4 flat markers; bend your knees to land.",
+              "Balance walk — the full length of the low blocks: arms out, heel-to-toe, slow (or walk alongside).",
+              "One-foot balance — look at one spot, arms out: a slow five-count on one foot, then the other. Holding a hand is fine.",
               "Hurdle step-overs — lift your knees over the 4 soft foam hurdles; head up, keep moving.",
-              "Crab walk — backwards to the finish, hands behind, bottom up. On the last lap, retest your chosen goal."
+              "Crab walk — backwards to the finish at a comfortable pace: hands behind, bottom up."
             ],
             "cues": [
               "Choose your goal",
@@ -5640,7 +5410,7 @@ export default {
               "Week 18 lesson"
             ],
             "image": null,
-            "hash": "4c8086288bc1"
+            "hash": "50cbf372cddc"
           },
           {
             "key": "s9-B-4",

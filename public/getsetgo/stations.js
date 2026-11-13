@@ -291,7 +291,8 @@ function gsgReviewItems(night, cards) {
 function gsgSessionHTML(night, cards, review) {
   const s = night.s;
   const when = gsgWhen(night);
-  const other = s.isoDates && s.cards ? (night.week === 'A' ? 'B' : 'A') : null;
+  // Only offer the Week A/B switch when the series has both nights (Series 5 has one).
+  const other = s.isoDates && s.cards && s.cards.A?.length && s.cards.B?.length ? (night.week === 'A' ? 'B' : 'A') : null;
   const weekBtn = (w, i) => `<button class="gsg-week${night.week === w ? ' active' : ''}" data-night="s${s.series}-${w}" aria-pressed="${night.week === w}">Week ${w}<small>${esc((s.dates || [])[i] || '')}</small></button>`;
   const game = cards.find((c) => c.category === 'Game');
   const needs = cards.filter((c) => c.needsReview).length;

@@ -1,7 +1,9 @@
 /**
  * Taupō Athletics Club Records — the best mark ever set at club nights, per
  * event, grade and gender. Transcribed from "Club Records as at end of 2024/25
- * season" (public/club-records-2025.pdf, March 2025), names as written there.
+ * season" (public/club-records-2025.pdf, March 2025). Name typos on the sheet
+ * were corrected with the club (Knox Short, Ben Matthews, Kaiah Bosshart,
+ * Lukas Haver, Mackenzie Meihana).
  *
  * These are the club's published records (they were on the old website). They
  * are NOT the club-night measurements logged this season, which are private:
@@ -91,7 +93,7 @@ export const clubRecords: RecordEvent[] = [
       r(10, 'F', 'Te Rerewai Meihana', '01-Dec-22', '00:32:8'),
       r(10, 'M', 'Johnny Wills', '20-Feb-25', '00:33:11'),
       r(11, 'F', 'Te Rerewai Meihana', '07-Dec-23', '00:31:13'),
-      r(11, 'M', 'Ben Mathews', '07-Dec-23', '00:32:20'),
+      r(11, 'M', 'Ben Matthews', '07-Dec-23', '00:32:20'),
       r(12, 'F', 'Te Rerewai Meihana', '20-Feb-25', '00:29:80'),
       r(12, 'M', 'Max McGregor-Lynn', '20-Feb-25', '00:32:82'),
       r(13, 'F', 'Kelsey Keys', '20-Feb-25', '00:32:31'),
@@ -115,7 +117,7 @@ export const clubRecords: RecordEvent[] = [
       r(11, 'M', 'Ben Matthews', '23-Nov-23', '01:21:01'),
       r(12, 'F', 'Te Rerewai Meihana', '27-Mar-25', '01:16:67'),
       r(12, 'M', 'Charlie McCormack', '10-Nov-22', '01.14.10'),
-      r(13, 'F', 'Kaiha Bosshart', '27-Mar-25', '01:24:90'),
+      r(13, 'F', 'Kaiah Bosshart', '27-Mar-25', '01:24:90'),
       r(13, 'M', 'Zander Van den Berg', '23-Nov-23', '01:10:45'),
       r(14, 'F', 'Maddie Wroe', '25-Feb-21', '01:17:03'),
       r(14, 'M', 'Elias Drinnan', '25-Feb-21', '01:04:47'),
@@ -136,7 +138,7 @@ export const clubRecords: RecordEvent[] = [
       r(11, 'F', 'Te Rerewai Meihana', '14-Mar-24', '02:43:00'),
       r(11, 'M', 'Emmett Bond', '05-Dec-24', '03:02:00'),
       r(12, 'F', 'Te Rerewai Meihana', '05-Dec-24', '02:44:00'),
-      r(12, 'M', 'Lucas Haver', '05-Dec-24', '02:54:00'),
+      r(12, 'M', 'Lukas Haver', '05-Dec-24', '02:54:00'),
       r(13, 'F', 'Kelsey Keys', '05-Dec-24', '02:59:00'),
       r(13, 'M', 'Austin Pask', '05-Dec-24', '02:51:00'),
       r(14, 'F', 'Ashlee Partelow', '25-Feb-21', '03:02:20'),
@@ -152,7 +154,7 @@ export const clubRecords: RecordEvent[] = [
       r(11, 'F', 'Te Rerewai Meihana', '28-Mar-24', '05:48:89'),
       r(11, 'M', 'David Haver', '13-Feb-25', '05:38:61'),
       r(12, 'F', 'Te Rerewai Meihana', '13-Feb-25', '05:53:30'),
-      r(12, 'M', 'Lucas Haver', '13-Feb-25', '05:42:27'),
+      r(12, 'M', 'Lukas Haver', '13-Feb-25', '05:42:27'),
       r(13, 'F', 'Kelsey Keys', '13-Feb-25', '06:04:01'),
       r(13, 'M', 'Austin Pask', '13-Feb-25', '05:36:72'),
     ],
@@ -184,7 +186,7 @@ export const clubRecords: RecordEvent[] = [
     unit: 'height',
     rows: [
       r(7, 'F', 'Mackenzie Meihana', '02-Mar-23', '0.89'),
-      r(7, 'M', 'Knox Sort', '02-Mar-23', '1.08'),
+      r(7, 'M', 'Knox Short', '02-Mar-23', '1.08'),
       r(8, 'F', 'Tea Bosshart', '02-Mar-23', '1.10'),
       r(8, 'M', 'Knox Short', '07-Mar-24', '1.15'),
       r(9, 'F', 'Jessica Rakei', '07-Mar-24', '1.10'),
@@ -205,7 +207,7 @@ export const clubRecords: RecordEvent[] = [
     event: 'Shot Put',
     unit: 'distance',
     rows: [
-      r(7, 'F', 'Mackenzie McLaren', '02-Mar-23', '5.8'),
+      r(7, 'F', 'Mackenzie Meihana', '02-Mar-23', '5.8'),
       r(7, 'M', 'Leo Smith', '02-Mar-23', '7.7'),
       r(8, 'F', 'Jessica Rakei', '02-Mar-23', '5.38'),
       r(8, 'M', 'Dylan Fullwood', '30-Nov-23', '5.42'),
@@ -216,7 +218,7 @@ export const clubRecords: RecordEvent[] = [
       r(11, 'F', 'Te Rerewai Meihana', '30-Nov-23', '6.46'),
       r(11, 'M', 'Dante Minhinnick', '10-Dec-20', '10.9'),
       r(12, 'F', 'Te Rerewai Meihana', '05-Dec-24', '6.29'),
-      r(12, 'M', 'Lucas Haver', '05-Dec-24', '6.94'),
+      r(12, 'M', 'Lukas Haver', '05-Dec-24', '6.94'),
       r(13, 'F', 'Kamaia Minhinnick', '10-Dec-20', '9.91'),
       r(13, 'M', 'Kaden Christie', '10-Dec-20', '7.14'),
       r(14, 'F', 'Maddie Wroe', '10-Dec-20', '5.41'),
@@ -239,7 +241,7 @@ export const clubRecords: RecordEvent[] = [
       r(11, 'F', 'Mikayla Blackbourn', '06-Mar-25', '15.5'),
       r(11, 'M', 'Dante Minhinnick', '17-Feb-22', '22.73'),
       r(12, 'F', 'Te Rerewai Meihana', '06-Mar-25', '24.39'),
-      r(12, 'M', 'Lucas Haver', '06-Mar-25', '20.92'),
+      r(12, 'M', 'Lukas Haver', '06-Mar-25', '20.92'),
       r(13, 'F', 'Chloe McCallum', '09-Feb-23', '12.63'),
       r(13, 'M', 'Austin Pask', '06-Mar-25', '16.81'),
       r(14, 'F', 'Ashlee Partelow', '04-Feb-21', '14.78'),
