@@ -2079,6 +2079,11 @@ function renderEmailMembers() {
         <span id="cancel-status" class="mail-hint" role="status"></span>
       </div>
     </section>
+    <section class="records-box results-mail" aria-labelledby="results-mail-title">
+      <h2 id="results-mail-title" class="mail-h2"><span class="material-symbols-outlined">emoji_events</span> Email results after a measure night</h2>
+      <p class="mail-hint">Each family gets one email with their children's marks from that night, with new club records and personal bests highlighted, and a link to all their results.</p>
+      <div id="results-mail-body"><p class="codes-empty">Loading measure nights…</p></div>
+    </section>
     <div class="mail-layout">
       <section class="records-box mail-compose" aria-label="Compose">
         <div class="mail-to"><span class="mail-to__label">To</span><div id="mail-to-chips" class="mail-chips"></div><span id="mail-count" class="mail-to__count"></span></div>
@@ -2168,7 +2173,82 @@ function renderEmailMembers() {
   $('#mail-send').addEventListener('click', sendMailToMembers);
   renderMailFormatHint();
   setupCancelNight();
+  loadResultsMail();
   loadMailMembers();
+}
+
+/* ---------- results emails (api/resultsemail.mjs) ---------- */
+async function loadResultsMail(date) {
+  const box = $('#results-mail-body');
+  try {
+    const res = await authedFetch(`/api/resultsemail${date ? `?date=${encodeURIComponent(date)}` : ''}`);
+    const d = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(d.error || 'Could not load measure nights.');
+    renderResultsMail(d);
+  } catch (e) {
+    box.innerHTML = `<p class="codes-empty">⚠ ${esc(e.message)}</p>`;
+  }
+}
+
+function renderResultsMail(d) {
+  const box = $('#results-mail-body');
+  if (!d.nights.length) { box.innerHTML = '<p class="mail-hint">No results recorded yet.</p>'; return; }
+  const label = (iso) => new Date(`${iso}T12:00:00`).toLocaleDateString('en-NZ', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+  box.innerHTML = `
+    <div class="cancel-night__row">
+      <label>Measure night <select id="results-night">${d.nights.map((n) => `<option value="${esc(n.date)}"${n.date === d.date ? ' selected' : ''}>${esc(label(n.date))} · ${n.results} results</option>`).join('')}</select></label>
+    </div>
+    <ul class="codes-email__stats">
+      <li><strong>${d.families}</strong> families · ${d.athletes} athletes</li>
+      <li><strong>${d.sent}</strong> already emailed</li>
+      <li><strong>${d.waiting}</strong> still to email</li>
+      ${d.records ? `<li><strong>${d.records}</strong> new club record${d.records === 1 ? '' : 's'}</li>` : ''}
+    </ul>
+    ${!d.ready ? '<p class="codes-email__setup"><strong>Email is not set up yet.</strong> Add <code>RESEND_API_KEY</code> and <code>EMAIL_FROM</code> in Vercel, then redeploy.</p>' : ''}
+    ${d.sample ? `<details class="codes-email__sample"><summary>Preview the email (sample family: ${esc(d.sample.to)})</summary><p><strong>${esc(d.sample.subject)}</strong></p><pre>${esc(d.sample.text)}</pre></details>` : ''}
+    <div class="codes-email__row">
+      <label>Send a test to <input type="email" id="results-test-to" placeholder="you@example.com" autocomplete="email"></label>
+      <button type="button" class="btn btn-ghost" id="results-test" ${d.ready ? '' : 'disabled'}><span class="material-symbols-outlined">send</span> Send test</button>
+      <button type="button" class="btn btn-primary" id="results-send" ${d.ready && d.waiting ? '' : 'disabled'}><span class="material-symbols-outlined">forward_to_inbox</span> Email ${d.waiting} famil${d.waiting === 1 ? 'y' : 'ies'}</button>
+    </div>
+    <p id="results-status" class="mail-hint" role="status"></p>`;
+  $('#results-night').addEventListener('change', (e) => loadResultsMail(e.target.value));
+  $('#results-test').addEventListener('click', async () => {
+    const to = $('#results-test-to').value.trim();
+    const st = $('#results-status');
+    if (!to) { st.textContent = 'Enter an address for the test.'; return; }
+    st.textContent = 'Sending test…';
+    try {
+      await postResults({ action: 'test', date: d.date, to });
+      st.textContent = `Test sent to ${to} (a real family's results — it's your own address, so that's fine).`;
+    } catch (e) { st.textContent = `⚠ ${e.message}`; }
+  });
+  $('#results-send').addEventListener('click', async () => {
+    if (!confirm(`Email ${d.waiting} families their results from ${label(d.date)}? This can't be undone.`)) return;
+    const st = $('#results-status');
+    const btn = $('#results-send');
+    btn.disabled = true;
+    let sent = 0;
+    try {
+      for (;;) {
+        st.textContent = `Sending… ${sent} of ${d.waiting}`;
+        const r = await postResults({ action: 'send', date: d.date, max: 50 });
+        sent += r.sent;
+        if (!r.sent || !r.waiting) break;
+      }
+      st.textContent = `Sent ${sent} email${sent === 1 ? '' : 's'}.`;
+    } catch (e) {
+      st.textContent = `⚠ Stopped after ${sent}: ${e.message} Press the button again later — families already emailed are skipped.`;
+    }
+    setTimeout(() => loadResultsMail(d.date), 1500);
+  });
+}
+
+async function postResults(body) {
+  const res = await authedFetch('/api/resultsemail', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const d = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(d.error || 'Sending failed.');
+  return d;
 }
 
 /* ---------- weather cancellation (api/notice.mjs) ---------- */

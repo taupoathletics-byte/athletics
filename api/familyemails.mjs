@@ -56,10 +56,11 @@ export function families(memberPages) {
     if (!email) { skipped.noEmail++; continue; }
     if (!EMAIL_RE.test(email)) { skipped.badEmail++; continue; }
     if (!code) { skipped.noCode++; continue; }
-    if (!byEmail.has(email)) byEmail.set(email, { email, codes: new Set(), children: [] });
+    if (!byEmail.has(email)) byEmail.set(email, { email, codes: new Set(), children: [], members: [] });
     const f = byEmail.get(email);
     f.codes.add(code);
     f.children.push(first);
+    f.members.push({ id: page.id, first });
   }
   const list = [];
   for (const f of byEmail.values()) {
@@ -67,7 +68,7 @@ export function families(memberPages) {
     // in Notion first (re-run scripts/notion_access_codes.mjs).
     if (f.codes.size !== 1) { skipped.mixedCodes++; continue; }
     const code = [...f.codes][0];
-    list.push({ email: f.email, code, children: [...new Set(f.children)].sort((a, b) => a.localeCompare(b, 'en-NZ')), key: familyKey(f.email, code) });
+    list.push({ email: f.email, code, children: [...new Set(f.children)].sort((a, b) => a.localeCompare(b, 'en-NZ')), members: f.members, key: familyKey(f.email, code) });
   }
   list.sort((a, b) => a.email.localeCompare(b.email));
   return { list, skipped };

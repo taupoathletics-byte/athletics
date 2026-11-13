@@ -1673,3 +1673,9 @@ body {
 .cancel-night__row input { min-height: 40px; padding: 6px 10px; border: 1px solid var(--outline-variant); border-radius: 8px; font: inherit; box-sizing: border-box; max-width: 100%; }
 .cancel-night__msg { flex: 1 1 320px; }
 .cancel-night__msg input { width: 100%; }
+
+/* ---------- results emails ---------- */
+.results-mail { display: grid; gap: 10px; margin-bottom: 16px; border-left: 6px solid #e0a63a; }
+.results-mail .mail-h2 { display: flex; align-items: center; gap: 8px; margin: 0; }
+.results-mail select { min-height: 40px; padding: 6px 10px; border: 1px solid var(--outline-variant); border-radius: 8px; font: inherit; max-width: 100%; }
+#results-mail-body { display: grid; gap: 10px; }
