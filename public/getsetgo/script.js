@@ -1017,6 +1017,7 @@ function renderAdmin() {
     ${section('records', 'emoji_events', 'Record Results')}
     ${section('lookup', 'manage_search', 'Member Records')}
     ${section('codes', 'key', 'Access Codes')}
+    ${section('email', 'mail', 'Email Members')}
     <button class="sidenav__item" id="logout-btn"><span class="material-symbols-outlined">logout</span> Logout</button>`;
 
   $$('#sidenav [data-section]').forEach((b) => {
@@ -1037,6 +1038,7 @@ function renderAdmin() {
   if (adminSection === 'records') renderRecordsEntry();
   else if (adminSection === 'lookup') renderMemberRecords();
   else if (adminSection === 'codes') renderAccessCodes();
+  else if (adminSection === 'email') renderEmailMembers();
   else if (adminSection === 'checkin') renderCheckin();
   else if (adminSection === 'rjt') renderRJT();
   else renderRunSheets();
@@ -1971,3 +1973,346 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+
+/* ============================================================
+   Email Members — announcements and newsletters (api/membermail.mjs)
+   ============================================================ */
+
+/* Recipients are built from built-in audiences, groups (tags on the Members
+   database) and hand-picked members. The server works out the addresses —
+   siblings sharing an email get one copy — so this page only ever sees
+   masked addresses. The draft is kept in this browser until it's sent. */
+const mail = {
+  data: null,
+  audience: { types: [], groups: [], members: [] },
+  query: '',
+  groupFilter: '',
+  format: 'text',
+  subject: '',
+  body: '',
+  count: null,
+};
+const MAIL_DRAFT_KEY = 'ta-mail-draft';
+
+function loadMailDraft() {
+  try {
+    const d = JSON.parse(localStorage.getItem(MAIL_DRAFT_KEY) || 'null');
+    if (d) Object.assign(mail, { subject: d.subject || '', body: d.body || '', format: d.format === 'html' ? 'html' : 'text' });
+  } catch { /* storage unavailable: start blank */ }
+}
+function saveMailDraft() {
+  try { localStorage.setItem(MAIL_DRAFT_KEY, JSON.stringify({ subject: mail.subject, body: mail.body, format: mail.format })); } catch { /* ignore */ }
+}
+
+async function postMail(body) {
+  const res = await authedFetch('/api/membermail', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const d = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(d.error || 'Something went wrong.');
+  return d;
+}
+
+function renderEmailMembers() {
+  loadMailDraft();
+  mail.resumeOffered = false;
+  $('#admin-content').innerHTML = `
+    <div class="page-head">
+      <h1>Email Members</h1>
+      <p>Send announcements and newsletters to everyone, to a group, or to chosen members. Families who share an email address get one copy, and nobody sees anyone else's address.</p>
+    </div>
+    <div class="mail-layout">
+      <section class="records-box mail-compose" aria-label="Compose">
+        <div class="mail-to"><span class="mail-to__label">To</span><div id="mail-to-chips" class="mail-chips"></div><span id="mail-count" class="mail-to__count"></span></div>
+        <input type="text" id="mail-subject" class="mail-subject" placeholder="Subject" maxlength="200" value="${esc(mail.subject)}" aria-label="Subject">
+        <div class="mail-format" role="tablist" aria-label="Message format">
+          <button type="button" role="tab" data-format="text" aria-selected="${mail.format === 'text'}">Write</button>
+          <button type="button" role="tab" data-format="html" aria-selected="${mail.format === 'html'}">Paste HTML</button>
+          <button type="button" id="mail-preview-btn" class="mail-format__preview" aria-expanded="false"><span class="material-symbols-outlined">visibility</span> Preview</button>
+        </div>
+        <textarea id="mail-body" class="mail-body" rows="14" aria-label="Message"></textarea>
+        <p id="mail-format-hint" class="mail-hint"></p>
+        <iframe id="mail-preview" class="mail-preview" title="Email preview" sandbox="" hidden></iframe>
+        <div id="mail-setup"></div>
+        <div class="mail-actions">
+          <label class="mail-test">Send a test to <input type="email" id="mail-test-to" placeholder="you@example.com" autocomplete="email"></label>
+          <button type="button" class="btn btn-ghost" id="mail-test"><span class="material-symbols-outlined">send</span> Send test</button>
+          <button type="button" class="btn btn-primary" id="mail-send"><span class="material-symbols-outlined">forward_to_inbox</span> Send</button>
+        </div>
+        <p id="mail-status" class="mail-hint" role="status"></p>
+      </section>
+
+      <section class="records-box mail-people" aria-label="Recipients">
+        <h2 class="mail-h2">Audiences</h2>
+        <div id="mail-audiences" class="mail-checks"><p class="codes-empty">Loading members…</p></div>
+        <h2 class="mail-h2">Groups</h2>
+        <div id="mail-groups" class="mail-checks"></div>
+        <h2 class="mail-h2">Members</h2>
+        <div class="checkin-search">
+          <span class="material-symbols-outlined">search</span>
+          <input type="text" id="mail-search" placeholder="Search a name or group…" autocomplete="off">
+        </div>
+        <div class="mail-member-tools">
+          <span id="mail-selected-count"></span>
+          <button type="button" class="gsg-link mail-linkbtn" id="mail-select-shown">Select shown</button>
+          <button type="button" class="gsg-link mail-linkbtn" id="mail-clear">Clear</button>
+        </div>
+        <ul id="mail-members" class="mail-members"></ul>
+        <div class="mail-tagbar">
+          <label>Group <input type="text" id="mail-group-name" list="mail-group-list" placeholder="e.g. Development Squad" maxlength="60"></label>
+          <datalist id="mail-group-list"></datalist>
+          <button type="button" class="btn btn-ghost" id="mail-tag-add"><span class="material-symbols-outlined">label</span> Add selected</button>
+          <button type="button" class="btn btn-ghost" id="mail-tag-remove">Remove selected</button>
+        </div>
+      </section>
+    </div>`;
+
+  $('#mail-body').value = mail.body;
+  $('#mail-subject').addEventListener('input', (e) => { mail.subject = e.target.value; saveMailDraft(); });
+  $('#mail-body').addEventListener('input', (e) => { mail.body = e.target.value; saveMailDraft(); if (!$('#mail-preview').hidden) renderMailPreview(); });
+  $$('.mail-format [data-format]').forEach((b) => b.addEventListener('click', () => {
+    mail.format = b.dataset.format;
+    $$('.mail-format [data-format]').forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+    saveMailDraft();
+    renderMailFormatHint();
+    if (!$('#mail-preview').hidden) renderMailPreview();
+  }));
+  $('#mail-preview-btn').addEventListener('click', () => {
+    const f = $('#mail-preview');
+    f.hidden = !f.hidden;
+    $('#mail-preview-btn').setAttribute('aria-expanded', String(!f.hidden));
+    if (!f.hidden) renderMailPreview();
+  });
+  $('#mail-search').addEventListener('input', (e) => { mail.query = e.target.value; renderMailMembers(); });
+  $('#mail-select-shown').addEventListener('click', () => {
+    const ids = new Set(mail.audience.members);
+    for (const m of shownMailMembers()) if (m.hasEmail) ids.add(m.id);
+    mail.audience.members = [...ids];
+    mailAudienceChanged();
+  });
+  $('#mail-clear').addEventListener('click', () => { mail.audience = { types: [], groups: [], members: [] }; mailAudienceChanged(); });
+  $('#mail-tag-add').addEventListener('click', () => tagSelected('add'));
+  $('#mail-tag-remove').addEventListener('click', () => tagSelected('remove'));
+  $('#mail-test').addEventListener('click', sendMailTest);
+  $('#mail-send').addEventListener('click', sendMailToMembers);
+  renderMailFormatHint();
+  loadMailMembers();
+}
+
+function renderMailFormatHint() {
+  $('#mail-body').placeholder = mail.format === 'html'
+    ? 'Paste the full HTML here (e.g. an email an agent or newsletter tool wrote for you).'
+    : 'Write your message. Leave a blank line between paragraphs; links become clickable.';
+  $('#mail-format-hint').textContent = mail.format === 'html'
+    ? 'Sent exactly as pasted, with the club footer added. Use Preview and Send test to check it before sending.'
+    : 'Sent in the club layout with the club footer. Replies come back to the club inbox.';
+}
+
+/* The preview is a sandboxed frame: pasted HTML can't run scripts or reach the portal. */
+function renderMailPreview() {
+  const body = mail.format === 'html'
+    ? mail.body
+    : `<div style="font-family:Arial,Helvetica,sans-serif;color:#0e2a47;max-width:600px;margin:16px auto;padding:0 16px">${mail.body.trim().split(/\n{2,}/).map((p) => `<p style="line-height:1.5">${esc(p).replace(/\n/g, '<br>')}</p>`).join('')}</div>`;
+  $('#mail-preview').srcdoc = body || '<p style="font-family:sans-serif;color:#888">Nothing to preview yet.</p>';
+}
+
+async function loadMailMembers() {
+  try {
+    const res = await authedFetch('/api/membermail');
+    const d = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(d.error || 'Could not load members.');
+    mail.data = d;
+    renderMailSetup();
+    renderMailAudiences();
+    if (d.ready && !mail.resumeOffered) { mail.resumeOffered = true; offerMailResume(); }
+  } catch (e) {
+    $('#mail-audiences').innerHTML = `<p class="codes-empty">⚠ ${esc(e.message)}</p>`;
+  }
+}
+
+function renderMailSetup() {
+  const d = mail.data;
+  $('#mail-setup').innerHTML = d.ready
+    ? `<p class="mail-hint">From <strong>${esc(d.from)}</strong> · replies to <strong>${esc(d.replyTo)}</strong></p>`
+    : `<p class="codes-email__setup"><strong>Not set up yet.</strong> Verify the club's domain in Resend, then add <code>RESEND_API_KEY</code> and <code>EMAIL_FROM</code> in Vercel and redeploy. You can still write and preview emails and manage groups.</p>`;
+  $('#mail-test').disabled = !d.ready;
+}
+
+function renderMailAudiences() {
+  const d = mail.data;
+  const check = (kind, value, label, count) => {
+    const on = mail.audience[kind].includes(value);
+    return `<label class="mail-check"><input type="checkbox" data-kind="${kind}" value="${esc(value)}"${on ? ' checked' : ''}> <span>${esc(label)}</span> <small>${count}</small></label>`;
+  };
+  $('#mail-audiences').innerHTML = d.audiences.map((a) => check('types', a.key, a.label, `${a.count} address${a.count === 1 ? '' : 'es'}`)).join('');
+  $('#mail-groups').innerHTML = d.groups.length
+    ? d.groups.map((g) => `<div class="mail-group">${check('groups', g.name, g.name, `${g.count} member${g.count === 1 ? '' : 's'}`)}
+        <button type="button" class="gsg-link mail-linkbtn" data-group-show="${esc(g.name)}">Show</button>
+        <button type="button" class="gsg-link mail-linkbtn" data-group-rename="${esc(g.name)}">Rename</button>
+        <button type="button" class="gsg-link mail-linkbtn" data-group-delete="${esc(g.name)}">Delete</button></div>`).join('')
+    : '<p class="mail-hint">No groups yet. Select members below, type a group name (e.g. Development Squad) and press “Add selected”.</p>';
+  $('#mail-group-list').innerHTML = d.groups.map((g) => `<option value="${esc(g.name)}">`).join('');
+  $$('#mail-audiences input, #mail-groups input').forEach((i) => i.addEventListener('change', () => {
+    const list = new Set(mail.audience[i.dataset.kind]);
+    if (i.checked) list.add(i.value); else list.delete(i.value);
+    mail.audience[i.dataset.kind] = [...list];
+    mailAudienceChanged();
+  }));
+  $$('[data-group-show]').forEach((b) => b.addEventListener('click', () => { mail.query = b.dataset.groupShow; $('#mail-search').value = mail.query; renderMailMembers(); }));
+  $$('[data-group-rename]').forEach((b) => b.addEventListener('click', () => groupAction('rename', b.dataset.groupRename)));
+  $$('[data-group-delete]').forEach((b) => b.addEventListener('click', () => groupAction('delete', b.dataset.groupDelete)));
+  mailAudienceChanged();
+}
+
+function shownMailMembers() {
+  const q = mail.query.toLowerCase().trim();
+  const list = mail.data ? mail.data.members : [];
+  if (!q) return list;
+  return list.filter((m) => m.name.toLowerCase().includes(q) || m.groups.some((g) => g.toLowerCase().includes(q)) || m.type.toLowerCase().includes(q));
+}
+
+function renderMailMembers() {
+  const sel = new Set(mail.audience.members);
+  const shown = shownMailMembers();
+  $('#mail-members').innerHTML = shown.slice(0, 400).map((m) => `
+    <li><label class="mail-member${m.hasEmail ? '' : ' mail-member--off'}">
+      <input type="checkbox" value="${esc(m.id)}"${sel.has(m.id) ? ' checked' : ''}${m.hasEmail ? '' : ' disabled'}>
+      <span class="mail-member__name">${esc(m.name)}</span>
+      <span class="mail-member__meta">${esc(m.type || '—')}${m.hasEmail ? ` · ${esc(m.email)}` : ' · no email'}</span>
+      ${m.groups.length ? `<span class="mail-member__groups">${m.groups.map((g) => `<span class="mail-tag">${esc(g)}</span>`).join('')}</span>` : ''}
+    </label></li>`).join('') || '<li class="mail-hint">No members match.</li>';
+  $$('#mail-members input').forEach((i) => i.addEventListener('change', () => {
+    const ids = new Set(mail.audience.members);
+    if (i.checked) ids.add(i.value); else ids.delete(i.value);
+    mail.audience.members = [...ids];
+    mailAudienceChanged(false);
+  }));
+  $('#mail-selected-count').textContent = `${sel.size} selected${shown.length > 400 ? ` · showing 400 of ${shown.length}, search to narrow` : ''}`;
+}
+
+let mailCountTimer = null;
+function mailAudienceChanged(redrawList = true) {
+  const d = mail.data;
+  if (!d) return;
+  const byKey = Object.fromEntries(d.audiences.map((a) => [a.key, a.label]));
+  const names = new Map(d.members.map((m) => [m.id, m.name]));
+  const chips = [
+    ...mail.audience.types.map((t) => byKey[t]),
+    ...mail.audience.groups.map((g) => `Group: ${g}`),
+    ...mail.audience.members.slice(0, 6).map((id) => names.get(id)),
+  ].filter(Boolean);
+  if (mail.audience.members.length > 6) chips.push(`+${mail.audience.members.length - 6} more`);
+  $('#mail-to-chips').innerHTML = chips.length ? chips.map((c) => `<span class="mail-tag">${esc(c)}</span>`).join('') : '<span class="mail-hint">Choose an audience, a group or members on the right.</span>';
+  $$('#mail-audiences input, #mail-groups input').forEach((i) => { i.checked = mail.audience[i.dataset.kind].includes(i.value); });
+  if (redrawList) renderMailMembers(); else $('#mail-selected-count').textContent = `${mail.audience.members.length} selected`;
+  $('#mail-count').textContent = '…';
+  clearTimeout(mailCountTimer);
+  mailCountTimer = setTimeout(async () => {
+    try {
+      mail.count = (await postMail({ action: 'count', audience: mail.audience })).recipients;
+      $('#mail-count').textContent = `${mail.count} email address${mail.count === 1 ? '' : 'es'}`;
+    } catch (e) { $('#mail-count').textContent = ''; }
+    $('#mail-send').disabled = !(mail.data.ready && mail.count > 0);
+  }, 250);
+}
+
+async function tagSelected(mode) {
+  const group = $('#mail-group-name').value.trim();
+  const ids = mail.audience.members;
+  const status = $('#mail-status');
+  if (!group) { status.textContent = 'Type a group name first.'; return; }
+  if (!ids.length) { status.textContent = 'Select members in the list first.'; return; }
+  status.textContent = `${mode === 'add' ? 'Adding' : 'Removing'} ${ids.length} member${ids.length === 1 ? '' : 's'}…`;
+  try {
+    const r = await postMail({ action: 'tag', group, [mode]: ids });
+    status.textContent = `${r.changed} member${r.changed === 1 ? '' : 's'} ${mode === 'add' ? 'added to' : 'removed from'} “${group}”.`;
+    await loadMailMembers();
+  } catch (e) { status.textContent = `⚠ ${e.message}`; }
+}
+
+async function groupAction(kind, name) {
+  const status = $('#mail-status');
+  try {
+    if (kind === 'rename') {
+      const to = prompt(`Rename the group “${name}” to:`, name);
+      if (!to || to.trim() === name) return;
+      await postMail({ action: 'rename-group', from: name, to: to.trim() });
+      mail.audience.groups = mail.audience.groups.map((g) => (g === name ? to.trim() : g));
+      status.textContent = `Renamed “${name}” to “${to.trim()}”.`;
+    } else {
+      if (!confirm(`Delete the group “${name}”? Members stay; only the tag is removed.`)) return;
+      await postMail({ action: 'delete-group', group: name });
+      mail.audience.groups = mail.audience.groups.filter((g) => g !== name);
+      status.textContent = `Deleted the group “${name}”.`;
+    }
+    await loadMailMembers();
+  } catch (e) { status.textContent = `⚠ ${e.message}`; }
+}
+
+function mailMessage() {
+  return { subject: mail.subject.trim(), format: mail.format, body: mail.body };
+}
+
+async function sendMailTest() {
+  const to = $('#mail-test-to').value.trim();
+  const status = $('#mail-status');
+  if (!to) { status.textContent = 'Enter an address for the test.'; return; }
+  status.textContent = 'Sending test…';
+  try {
+    await postMail({ action: 'test', to, ...mailMessage() });
+    status.textContent = `Test sent to ${to}. Check it on your phone and computer before sending.`;
+  } catch (e) { status.textContent = `⚠ ${e.message}`; }
+}
+
+const MAIL_PENDING_KEY = 'ta-mail-pending';
+
+async function sendMailToMembers() {
+  const status = $('#mail-status');
+  const msg = mailMessage();
+  if (!msg.subject || !msg.body.trim()) { status.textContent = 'Add a subject and a message first.'; return; }
+  if (!mail.count) { status.textContent = 'Choose who to send it to.'; return; }
+  if (!confirm(`Send “${msg.subject}” to ${mail.count} email address${mail.count === 1 ? '' : 'es'} now? This can't be undone.`)) return;
+  const job = { campaignId: `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`, offset: 0, total: mail.count, audience: mail.audience, msg };
+  await runMailJob(job);
+}
+
+/* Sends 100 addresses per request until done. If it stops (e.g. the daily
+   sending limit), the job is kept in this browser so it can resume from the
+   same place later — the order of addresses is fixed and each 100 can only
+   ever be sent once. */
+async function runMailJob(job) {
+  const status = $('#mail-status');
+  const btn = $('#mail-send');
+  btn.disabled = true;
+  try {
+    for (;;) {
+      status.textContent = `Sending… ${job.offset} of ${job.total}`;
+      const r = await postMail({ action: 'send', campaignId: job.campaignId, offset: job.offset, audience: job.audience, ...job.msg });
+      job.total = r.total;
+      if (!r.sent) break;
+      job.offset = r.next;
+      try { localStorage.setItem(MAIL_PENDING_KEY, JSON.stringify(job)); } catch { /* ignore */ }
+      if (job.offset >= job.total) break;
+    }
+    status.textContent = `Sent “${job.msg.subject}” to ${job.offset} email address${job.offset === 1 ? '' : 'es'}.`;
+    try { localStorage.removeItem(MAIL_PENDING_KEY); localStorage.removeItem(MAIL_DRAFT_KEY); } catch { /* ignore */ }
+    if (job.msg.subject === mail.subject) {
+      mail.subject = ''; mail.body = '';
+      $('#mail-subject').value = ''; $('#mail-body').value = '';
+    }
+  } catch (e) {
+    try { localStorage.setItem(MAIL_PENDING_KEY, JSON.stringify(job)); } catch { /* ignore */ }
+    status.innerHTML = `⚠ Stopped after ${job.offset} of ${job.total}: ${esc(e.message)} <button type="button" class="gsg-link mail-linkbtn" id="mail-resume">Resume sending</button>`;
+    $('#mail-resume').addEventListener('click', () => runMailJob(job));
+  }
+  btn.disabled = false;
+}
+
+function offerMailResume() {
+  let job = null;
+  try { job = JSON.parse(localStorage.getItem(MAIL_PENDING_KEY) || 'null'); } catch { /* ignore */ }
+  if (!job || job.offset >= job.total) return;
+  const status = $('#mail-status');
+  status.innerHTML = `“${esc(job.msg.subject)}” stopped after ${job.offset} of ${job.total}. <button type="button" class="gsg-link mail-linkbtn" id="mail-resume">Resume sending</button> <button type="button" class="gsg-link mail-linkbtn" id="mail-forget">Forget it</button>`;
+  $('#mail-resume').addEventListener('click', () => runMailJob(job));
+  $('#mail-forget').addEventListener('click', () => { try { localStorage.removeItem(MAIL_PENDING_KEY); } catch { /* ignore */ } status.textContent = ''; });
+}

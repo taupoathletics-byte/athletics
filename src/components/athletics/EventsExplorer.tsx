@@ -22,7 +22,7 @@ import { EventStage } from './events/Stage'
 import { sceneById } from './events/scenes'
 
 /**
- * "Explore the seven events" — each event is a little animated scene of a
+ * "Explore seven of our events" — each event is a little animated scene of a
  * teenage athlete (src/components/athletics/events).
  *
  * - Desktop: the section pins a stage while you scroll. Each event gets one
@@ -66,11 +66,11 @@ function Intro({ pinned }: { pinned: boolean }) {
         The events
       </p>
       <h2 id="explore-heading" className="display-xl mt-4 max-w-5xl text-[clamp(3.25rem,9vw,8rem)]">
-        Explore the <span className="text-signal">seven</span> events
+        Explore <span className="text-signal">seven</span> of our events
       </h2>
       <p className="mt-5 max-w-2xl text-lg text-cream/75 md:text-xl">
-        From 7 years up, athletes rotate through the track and field events at club night. Our 3–6 year olds learn the
-        same skills through games in Get Set Go.{' '}
+        From 7 years up, athletes rotate through sprints, distance, jumps, throws and relays at club night, and hurdles
+        are an option at Ribbon Days. Our 3–6 year olds learn the same skills through games in Get Set Go.{' '}
         {pinned ? 'Scroll to see each event in action.' : 'Swipe through to see each event in action.'}
       </p>
     </div>

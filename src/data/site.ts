@@ -8,7 +8,7 @@
  *   committee.ts  — committee & coaches (single source of truth)
  *   fees.ts       — fees & registration
  *   grades.ts     — grade/age helpers
- *   clubNights.ts — the 19-night schedule
+ *   clubNights.ts — the 18-night schedule
  *   sponsors.ts   — sponsors & supporters
  *   volunteers.ts — volunteer roles
  *   photos.ts     — photo album manifest
@@ -56,27 +56,27 @@ export interface RibbonGrade {
 export const ribbonEvents: RibbonGrade[] = [
   { grade: 'Tiny Tots (Grades 3 & 4)', events: '2 races, any distance' },
   { grade: 'Grades 5 & 6', events: '40m, 60m, Shuttle Relay' },
-  { grade: 'Grades 7 & 8', events: '60m, 100m, 200m, Long Jump, Shot, Discus, 4x100m Relay' },
-  { grade: 'Grade 9', events: '60m, 100m, 200m, 800m, Long Jump, Shot, Discus, 4x100m Relay' },
+  { grade: 'Grades 7 & 8', events: '60m, 100m, 200m, Long Jump, Shot Put, Discus, 4x100m Relay' },
+  { grade: 'Grade 9', events: '60m, 100m, 200m, 800m, Long Jump, Shot Put, Discus, 4x100m Relay' },
   {
     grade: 'Grades 10 & 11',
     events:
-      '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot, Discus, 4x100m Relay, 70m Hurdles',
+      '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay, 70m Hurdles',
   },
   {
     grade: 'Grade 12',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
+      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
   },
   {
     grade: 'Grade 13',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
+      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
   },
   {
     grade: 'Grade 14',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), Long Jump, High Jump, Shot, Discus, 4x100m Relay',
+      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
   },
 ]
 

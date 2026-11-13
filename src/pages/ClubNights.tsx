@@ -7,7 +7,7 @@ import { FacebookFeed } from '@/components/FacebookFeed'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
 import { clubName, links, seasonDates } from '@/data/site'
-import { developmentSquad, eventRotation, eveningTimeline } from '@/data/clubNights'
+import { developmentSquad, developmentSquadTimeLabel, eventRotation, eveningTimeline } from '@/data/clubNights'
 
 /** Reveals children one by one as the list scrolls into view. */
 function useReveal<T extends HTMLElement>() {
@@ -89,7 +89,7 @@ export default function ClubNights() {
                 programme. Parents stay and help — it makes the night run, and the children love it.
               </p>
               <Link to="/volunteer" className={`${buttonVariants({ variant: 'outline' })} mt-4`}>
-                Volunteer portal →
+                Ways to help →
               </Link>
             </div>
           </article>
@@ -102,7 +102,8 @@ export default function ClubNights() {
               <p className="mt-1 font-semibold text-on-signal">Thursdays 5:30–7:00pm</p>
               <p className="mt-3 text-on-surface-variant">
                 Older athletes work through a rotation of 3&ndash;4 events with coaching on safe and proper use of
-                equipment — usually one running event and two field events, plus some skills.
+                equipment — usually one running event (60m–1500m) and two field events, plus some skills, with a relay
+                to finish if there&rsquo;s time.
               </p>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {eventRotation.map((e) => (
@@ -167,7 +168,7 @@ export default function ClubNights() {
               record of how they have done over the season.
             </p>
             <Link to="/club-records" className={`${buttonVariants({ variant: 'outline' })} mt-4`}>
-              See club records
+              See all-time club records
             </Link>
           </div>
 
@@ -208,7 +209,7 @@ export default function ClubNights() {
               <h2 className="font-bold text-on-surface">Development Squad</h2>
             </div>
             <p className="text-on-surface-variant">
-              {developmentSquad.day} {developmentSquad.start}&ndash;{developmentSquad.finish}. {developmentSquad.who}
+              {developmentSquad.day} {developmentSquadTimeLabel}. {developmentSquad.who}
             </p>
             <ul className="mt-2 space-y-2 text-on-surface-variant">
               {seasonDates.developmentSquad.map((d) => (

@@ -1,5 +1,5 @@
 /**
- * Copy for the "Explore the seven events" section on the home page.
+ * Copy for the "Explore seven of our events" section on the home page.
  *
  * The grade lines come from the Ribbon Day programme (RIBBON in grades.ts) —
  * keep them in step if that table changes. "Club night" means the event is in
@@ -30,7 +30,7 @@ export const eventShowcase: EventShowcase[] = [
     tagline: 'Attack. Clear. Sprint.',
     description:
       'A sprint with barriers in the way. Hurdlers attack each one with a straight lead leg, fold the trail leg over and keep their rhythm between hurdles.',
-    who: 'Grade 11: 70m · Grades 12–13: 80m · Grade 14: 100m',
+    who: 'Grades 10–11: 70m · Grades 12–13: 80m · Grade 14: 80m (girls), 100m (boys)',
     where: 'An optional event at Ribbon Days',
     cta: { label: 'Ribbon Day events', to: '/events' },
   },
@@ -40,7 +40,7 @@ export const eventShowcase: EventShowcase[] = [
     tagline: 'Run fast. Fly far.',
     description:
       'Speed down the runway, hit the take-off board and fly into the sandpit. The jump is measured from the board to the nearest mark in the sand.',
-    who: 'Grades 7–14',
+    who: 'Ribbon Days: Grades 7–14',
     where: 'In the club-night rotation for 7 years and up',
     cta: clubNight,
   },
@@ -50,7 +50,7 @@ export const eventShowcase: EventShowcase[] = [
     tagline: 'Up and over.',
     description:
       'A curved run-up, a one-foot take-off and an arch over the bar onto a deep landing mat. Clear it and the bar goes up a notch.',
-    who: 'Grades 10–14',
+    who: 'Ribbon Days: Grades 10–14',
     where: 'In the club-night rotation for 7 years and up',
     cta: clubNight,
   },
@@ -60,7 +60,7 @@ export const eventShowcase: EventShowcase[] = [
     tagline: 'Push. Don’t throw.',
     description:
       'The shot starts tucked against the neck. Athletes drive across the circle and punch it away with one arm — then stay inside the circle until it lands.',
-    who: 'Grades 7–14',
+    who: 'Ribbon Days: Grades 7–14',
     where: 'In the club-night rotation for 7 years and up',
     cta: clubNight,
   },
@@ -70,7 +70,7 @@ export const eventShowcase: EventShowcase[] = [
     tagline: 'Spin. Release. Glide.',
     description:
       'Wind up, turn across the circle and let the discus go flat off the fingertips so it glides. Timing beats strength every time.',
-    who: 'Grades 7–14',
+    who: 'Ribbon Days: Grades 7–14',
     where: 'In the club-night rotation for 7 years and up',
     cta: clubNight,
   },
@@ -90,7 +90,7 @@ export const eventShowcase: EventShowcase[] = [
     tagline: 'Find your rhythm.',
     description:
       'Distance running is about pacing — settle into a rhythm, run the bends well and save something for a strong finish.',
-    who: '800m from Grade 9 · 1500m from Grade 10',
+    who: 'Ribbon Days: 800m from Grade 9 · 1500m from Grade 10',
     where: 'In the club-night rotation for 7 years and up',
     cta: clubNight,
   },

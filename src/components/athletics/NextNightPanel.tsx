@@ -20,9 +20,11 @@ function useTick(ms: number) {
   return now
 }
 
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`
+
 const GROUP_COPY: Record<string, string> = {
-  juniors: 'Get Set Go: games-based running, jumping and throwing in four small-group rotations.',
-  seniors: 'Track and field rotations — sprints, distance, jumps, throws — and a relay to finish.',
+  juniors: 'Get Set Go: games-based running, jumping and throwing in small groups, with coaches and whānau helping.',
+  seniors: 'Track and field rotations — sprints, distance, jumps, throws — and a relay to finish when there’s time.',
 }
 
 /**
@@ -65,7 +67,7 @@ export function NextNightPanel() {
                 </p>
                 <Odometer
                   className="mt-6"
-                  label={`${d} days, ${h} hours, ${m} minutes until the next club night`}
+                  label={`${plural(d, 'day')}, ${plural(h, 'hour')}, ${plural(m, 'minute')} until the next club night`}
                   groups={[
                     { value: d, label: 'days' },
                     { value: h, label: 'hrs' },
@@ -138,8 +140,8 @@ export function NextNightPanel() {
             <p className="mx-auto mt-6 flex max-w-2xl items-start gap-2 rounded-lg bg-signal/15 px-4 py-3 text-sm text-on-signal">
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
               <span>
-                <strong>We do not hold open days.</strong> Junior grades are capped each season to keep coach-to-athlete
-                ratios healthy, so register early.
+                <strong>We don’t run an open day.</strong> Junior grades (3–6) are capped, fill quickly and have no
+                waitlist, so register early.
               </span>
             </p>
           </div>

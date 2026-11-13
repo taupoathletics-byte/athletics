@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { contactEmail, seasonDates } from '@/data/site'
 import { capsNote, fees, noWaitlistNote, registration } from '@/data/fees'
-import { developmentSquad, groupTimeLabel } from '@/data/clubNights'
+import { developmentSquad, developmentSquadTimeLabel, groupTimeLabel } from '@/data/clubNights'
 import { birthYearOptions, competitionYear, gradeForBirthYear } from '@/data/grades'
 
 const STEPS = [
@@ -15,6 +15,12 @@ const STEPS = [
   'Fill in your athlete’s details',
   'Pay the season fee',
 ]
+
+/** "Term 4 (2026): Thursday 15 Oct – Thursday 10 Dec" → "Thursday 15 Oct – Thursday 10 Dec 2026". */
+function termDates(line: string): string {
+  const m = line.match(/^Term \d \((\d{4})\): (.*?)( \(.*\))?$/)
+  return m ? `${m[2]} ${m[1]}${m[3] ?? ''}` : line
+}
 
 export default function Registration() {
   const [birthYear, setBirthYear] = useState<number>(2018)
@@ -119,7 +125,7 @@ export default function Registration() {
         </div>
 
         {/* Grade finder — one card, result directly under the select */}
-        <div className="mt-12 rounded-xl bg-white p-gutter-sm shadow-soft md:p-gutter-md">
+        <div id="grade-finder" className="mt-12 scroll-mt-24 rounded-xl bg-white p-gutter-sm shadow-soft md:p-gutter-md">
           <h2 className="font-display text-2xl font-bold text-on-surface">What grade is my child?</h2>
           <p className="mt-2 max-w-2xl text-on-surface-variant">
             Grade is your child&rsquo;s age at <strong>31 December {competitionYear}</strong>, and it stays the same all
@@ -226,18 +232,23 @@ export default function Registration() {
           <dl className="mt-4 grid gap-4 sm:grid-cols-3">
             <div>
               <dt className="text-sm font-bold uppercase tracking-wide text-on-surface-variant">Term 4</dt>
-              <dd className="mt-1 text-on-surface">{seasonDates.clubNights[0]}</dd>
+              <dd className="mt-1 text-on-surface">{termDates(seasonDates.clubNights[0])}</dd>
             </div>
             <div>
               <dt className="text-sm font-bold uppercase tracking-wide text-on-surface-variant">Term 1</dt>
-              <dd className="mt-1 text-on-surface">{seasonDates.clubNights[1]}</dd>
+              <dd className="mt-1 text-on-surface">{termDates(seasonDates.clubNights[1])}</dd>
             </div>
             <div>
               <dt className="text-sm font-bold uppercase tracking-wide text-on-surface-variant">
                 Development Squad
               </dt>
               <dd className="mt-1 text-on-surface">
-                {developmentSquad.day} {developmentSquad.start}&ndash;{developmentSquad.finish}
+                {developmentSquad.day} {developmentSquadTimeLabel}
+                <ul className="mt-1 space-y-1 text-sm text-on-surface-variant">
+                  {seasonDates.developmentSquad.map((d) => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
               </dd>
             </div>
           </dl>

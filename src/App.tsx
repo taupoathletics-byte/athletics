@@ -12,6 +12,7 @@ import Volunteer from '@/pages/Volunteer'
 import Brand from '@/pages/Brand'
 import MyResults from '@/pages/MyResults'
 import CheckIn from '@/pages/CheckIn'
+import NotFound from '@/pages/NotFound'
 
 export default function App() {
   return (
@@ -29,7 +30,7 @@ export default function App() {
         <Route path="faqs" element={<Faqs />} />
         <Route path="volunteer" element={<Volunteer />} />
         <Route path="brand" element={<Brand />} />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )

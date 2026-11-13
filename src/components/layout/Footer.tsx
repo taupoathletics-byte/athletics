@@ -18,7 +18,7 @@ export function Footer() {
         <div>
           <img src="/logo.svg" alt={`${clubName} logo`} className="h-16 w-16 rounded-full bg-cream p-1" />
           <p className="mt-4 max-w-xs text-sm text-cream/70">
-            {clubName} — athletics for ages 3 to 14 at {venue.name}. Term 4 &amp; Term 1.
+            {clubName} — club nights for ages 3 to 14 at {venue.name}, Thursdays in Term 4 and Term 1.
           </p>
           <div className="mt-6">
             {registration.isOpen && (

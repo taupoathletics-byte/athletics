@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Download } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { buttonVariants } from '@/components/ui/button'
-import { recordsPdf } from '@/data/site'
+import { contactEmail, recordsPdf } from '@/data/site'
 import { clubRecords, clubRecordsAsAt, displayDate, displayMark, type ClubRecord, type RecordEvent } from '@/data/clubRecords'
 import { cn } from '@/lib/utils'
 
@@ -99,8 +99,8 @@ export default function ClubRecords() {
 
         <p className="mt-6 text-sm text-on-surface-variant">
           Think a record is missing or wrong? Email{' '}
-          <a href="mailto:taupoathletics@gmail.com" className="font-semibold text-primary underline">
-            taupoathletics@gmail.com
+          <a href={`mailto:${contactEmail}`} className="font-semibold text-primary underline">
+            {contactEmail}
           </a>
           .{' '}
           <a

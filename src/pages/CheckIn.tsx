@@ -21,7 +21,7 @@ function nzNow(now = new Date()) {
 /** The club night relevant to "now": tonight (from 12:30pm NZ) if it's a club night, else the most recent one. */
 const OPEN_MINUTES = 12 * 60 + 30 // 12:30pm NZ, when the check-in QR goes live
 
-type CheckinState = { open: true; date: string } | { open: false; label: string }
+type CheckinState = { open: true; date: string } | { open: false; label: string; seasonOver?: boolean }
 
 /** Whether check-in is open now, and the club night to record attendance against. */
 function checkinState(now = new Date()): CheckinState {
@@ -43,11 +43,15 @@ function checkinState(now = new Date()): CheckinState {
     if (age <= 7) return { open: true, date: mostRecent.iso }
   }
 
-  const next = clubNights.find((n) => n.iso > today) || clubNights[0]
-  return { open: false, label: next ? `Check-in opens ${formatClubNightLabel(next.iso)} at 12:30pm.` : 'Check-in is closed for the season.' }
+  const next = clubNights.find((n) => n.iso > today)
+  if (!next) return { open: false, label: 'Check-in is closed for the season. See you next season!', seasonOver: true }
+  return { open: false, label: `Check-in opens ${formatClubNightLabel(next.iso)} at 12:30pm.` }
 }
 
-/** The API returns first + last name (so parents can tell children apart) — never ages or the roster. */
+/**
+ * For searches of 2+ letters the API returns matching first + last names (so
+ * parents can tell children apart). Ages and contact details are never returned.
+ */
 type Suggestion = { id: string; label: string; firstName: string }
 type CheckResult = { name: string; firstName: string | null; status: 'ok' | 'already' | 'notfound' }
 
@@ -64,6 +68,7 @@ export default function CheckIn() {
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState<Suggestion[]>([])
   const [result, setResult] = useState<{ created: number; already: number; results: CheckResult[] } | null>(null)
+  const [checkedInDate, setCheckedInDate] = useState('')
   const debounce = useRef<number | undefined>(undefined)
   const boxRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -132,6 +137,7 @@ export default function CheckIn() {
         return
       }
       setResult(json as { created: number; already: number; results: CheckResult[] })
+      setCheckedInDate(st.date)
       setStatus('done')
     } catch {
       setStatus('error')
@@ -144,6 +150,7 @@ export default function CheckIn() {
     setName('')
     setSelected([])
     setResult(null)
+    setCheckedInDate('')
     setMessage('')
   }
 
@@ -163,7 +170,9 @@ export default function CheckIn() {
           {!state.open ? (
             <div className="py-1">
               <QrCode className="mx-auto h-10 w-10 text-primary" aria-hidden />
-              <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">Check-in isn't open yet</h2>
+              <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">
+                {state.seasonOver ? 'Check-in is closed' : "Check-in isn't open yet"}
+              </h2>
               <p className="mt-2 text-sm text-on-surface-variant">{state.label}</p>
             </div>
           ) : status === 'done' && result ? (
@@ -185,7 +194,11 @@ export default function CheckIn() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-on-surface-variant">See you on the field — have a great night!</p>
+              <p className="mt-3 text-on-surface-variant">
+                {checkedInDate && checkedInDate !== nzNow().iso
+                  ? `Checked in for ${formatClubNightLabel(checkedInDate)}. Thanks!`
+                  : 'See you on the field — have a great night!'}
+              </p>
               <button
                 type="button"
                 className={`${buttonVariants({ variant: 'outline' })} mt-4`}
@@ -201,7 +214,7 @@ export default function CheckIn() {
               <p className="mt-1 text-sm text-on-surface-variant">Scan and go — no sign-in needed.</p>
 
               <label htmlFor="checkin-name" className="sr-only">
-                A family member's full name
+                Start typing a family member's name
               </label>
               <div className="relative mt-5" ref={boxRef}>
                 <input
@@ -212,7 +225,7 @@ export default function CheckIn() {
                     setName(e.target.value)
                     search(e.target.value)
                   }}
-                  placeholder="Start typing a first name…"
+                  placeholder="Start typing a family member's name…"
                   autoComplete="off"
                   autoCapitalize="words"
                   autoFocus

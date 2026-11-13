@@ -29,10 +29,10 @@ export const faqs: FaqCategory[] = [
       },
       {
         q: 'Is there a limit on numbers?',
-        a: 'Yes, for our junior grades. Grades 3 & 4 are capped at 10 per age group and Grades 5 & 6 at 20 per age group. These caps can increase if more adults volunteer to help on club nights \u2014 no athletics experience is needed, our Get Set Go sessions are planned for you with equipment ready and plenty of support. Junior grades fill quickly and there is no waitlist once a grade is full, so get in early.',
+        a: 'Yes, for our junior grades. Grades 3 & 4 are capped at 10 per age group and Grades 5 & 6 at 20 per age group. These caps can increase if more adults volunteer to help on club nights \u2014 no athletics experience is needed: our Get Set Go sessions are planned for you with equipment ready and plenty of support. Junior grades fill quickly and there is no waitlist once a grade is full, so get in early.',
       },
       {
-        q: 'Do you hold an open day for children to give Athletics a go?',
+        q: 'Do you hold an open day for children to give athletics a go?',
         a: 'No, this is something that we used to do however due to the higher number of children wanting to take part in athletics we no longer run an open day.',
       },
       {
@@ -49,7 +49,7 @@ export const faqs: FaqCategory[] = [
     category: 'Club Nights',
     items: [
       {
-        q: 'My child is aged 3-6, can I leave them with you and watch from the stands / go for a walk?',
+        q: 'My child is aged 3\u20136, can I leave them with you and watch from the stands / go for a walk?',
         a: 'Our Club Nights are run with the help of dedicated volunteers, and this is especially important for our junior athletes. Parental supervision is essential for this age group, and we kindly ask that parents assist our coaches where possible. We encourage parents to stay engaged during each rotation, offering support in ensuring that the children remain focused and that everyone has an enjoyable experience.',
       },
       {
@@ -60,10 +60,11 @@ export const faqs: FaqCategory[] = [
       {
         q: 'What will my child be doing at Club Nights?',
         a: 'All information relating to how we run our Club Nights can be found on the Club Nights page.',
+        link: { label: 'More about club nights', href: '/club-nights' },
       },
       {
         q: 'Can my child only attend the Development Squad night?',
-        a: 'The Development Squad is for athletes aged 10+ (and is also open to teen and masters athletes) and is an add-on to Club Nights. It is recommended that all children attend Club Night as the first priority. The expectation for children that attend Development Squad is that they are training for external competitions like Ribbon Days, Colgate Games, Children Champs, Interschools etc.',
+        a: 'The Development Squad is for athletes aged 10+ (and is also open to teen and masters athletes) and is an add-on to Club Nights. It is recommended that all children attend Club Night as the first priority. The expectation for children that attend Development Squad is that they are training for external competitions like Ribbon Days, Colgate Games, Children\u2019s Champs, Interschools etc.',
       },
     ],
   },
@@ -73,6 +74,7 @@ export const faqs: FaqCategory[] = [
       {
         q: 'Does it cost anything to attend a Ribbon Day?',
         a: 'No, Ribbon Days are free! Ribbon Day events are a great extension of what the athlete learns at Club Nights. Please see our Events page for more info on Ribbon Days.',
+        link: { label: 'Ribbon Days', href: '/events' },
       },
       {
         q: 'How do I buy a singlet for my child to compete in external events like Ribbon Days?',

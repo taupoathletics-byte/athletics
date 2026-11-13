@@ -123,8 +123,8 @@ export const eveningTimeline: TimelineStep[] = [
     detail: 'Our 3–6 year olds are done for the night. Grades 7–14 keep going.',
   },
   {
-    time: '7:00pm',
-    title: 'Relay and finish',
+    time: 'By 7:00pm',
+    title: 'Relay (if time) and finish',
     detail:
       'If there is time we finish with a relay combining all of the 7+ children — and some parents if numbers are needed!',
   },
@@ -143,16 +143,19 @@ export const eventRotation = [
 
 /**
  * Development Squad — Mondays. Open to athletes aged 10+ wanting extra
- * training, plus teen and masters athletes.
+ * training; masters athletes welcome too.
  */
 export const developmentSquad = {
   day: 'Mondays',
   start: '5:30pm',
   finish: '6:30pm',
   startsLabel: 'From Monday 19 October 2026',
-  who: 'Athletes aged 10+ wanting extra training, plus teen and masters athletes.',
+  who: 'Open to athletes aged 10+ wanting extra training — masters athletes welcome too.',
   detail:
     'An extension of club nights for those who want to work on the more technical components of their events and build strength, agility and power.',
   facebookGroup: 'Taupō Athletics Development Squad',
   noExtraFee: true,
 }
+
+/** "5:30–6:30pm" — same format as groupTimeLabel. */
+export const developmentSquadTimeLabel = `${developmentSquad.start.replace('pm', '')}–${developmentSquad.finish}`

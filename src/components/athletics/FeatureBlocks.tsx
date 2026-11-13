@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { Photo } from '@/components/Photo'
-import { developmentSquad } from '@/data/clubNights'
+import { developmentSquad, developmentSquadTimeLabel } from '@/data/clubNights'
 import { cn } from '@/lib/utils'
 import { EventFloater } from './EventIcon'
 import { Reveal } from './motion'
@@ -20,13 +20,13 @@ const BLOCKS: Block[] = [
     photo: 35,
     eyebrow: 'For families',
     title: 'Your results, your PBs',
-    body: 'Every result recorded on club nights lands in your family’s own record. Ask the sign-in desk for your family access code, then open My Results to see every jump, throw and time — and watch the PBs roll in.',
+    body: 'Every result recorded on club nights lands in your family’s own record. Ask the check-in desk for your family access code, then open My Results to see every jump, throw and time — and watch the PBs roll in.',
     cta: { label: 'View my results', to: '/my-results' },
     band: 'bg-sky',
   },
   {
     photo: 26,
-    eyebrow: `${developmentSquad.day} · ${developmentSquad.start}–${developmentSquad.finish}`,
+    eyebrow: `${developmentSquad.day} · ${developmentSquadTimeLabel}`,
     title: 'Development Squad',
     body: `${developmentSquad.detail} ${developmentSquad.who} No extra fee.`,
     cta: { label: 'Club nights & squad', to: '/club-nights' },
@@ -36,7 +36,7 @@ const BLOCKS: Block[] = [
     photo: 41,
     eyebrow: 'Powered by volunteers',
     title: 'Lend a hand on the night',
-    body: 'Timing, measuring, moving groups and packing down — no athletics experience needed. The Get Set Go sessions are planned for you, with equipment ready and plenty of support. More helpers means more places for kids.',
+    body: 'Timing, measuring, moving groups and packing down — no athletics experience needed. Coaches plan every session, with equipment ready and plenty of support. More helpers means more places for kids.',
     cta: { label: 'See volunteer roles', to: '/volunteer' },
     band: 'bg-primary',
   },

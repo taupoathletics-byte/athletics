@@ -4,7 +4,7 @@ import { PageHero } from '@/components/PageHero'
 import { Photo } from '@/components/Photo'
 import { Card, CardContent } from '@/components/ui/card'
 import { buttonVariants } from '@/components/ui/button'
-import { awbopCalendarUrl, links, ribbonEvents } from '@/data/site'
+import { awbopCalendarUrl, links, ribbonEvents, secretaryEmail } from '@/data/site'
 import {
   CURRENT_SEASON,
   FAMILY_CLASSES,
@@ -66,7 +66,7 @@ export default function Events() {
       <PageHero
         eyebrow="Beyond club nights"
         title="Events"
-        subtitle="Regional Ribbon Days and other competing opportunities outside of Taupō throughout the season."
+        subtitle="Regional Ribbon Days and other competitions through the season — in Taupō and around the region."
         photo={36}
       />
 
@@ -105,11 +105,11 @@ export default function Events() {
               <Info className="mt-0.5 h-5 w-5 shrink-0 text-sky-info" aria-hidden />
               <div>
                 <p className="font-semibold text-on-surface">
-                  The {CURRENT_SEASON} fixture dates have not been confirmed yet.
+                  We haven&rsquo;t added the {CURRENT_SEASON} Ribbon Day dates here yet.
                 </p>
                 <p className="mt-1 text-on-surface-variant">
-                  Athletics Waikato Bay of Plenty publishes the regional calendar before the season starts. We will
-                  list the dates here and share them on Facebook and at club nights as soon as they are out.
+                  Check the Athletics Waikato Bay of Plenty events calendar for the latest dates. We also share them on
+                  Facebook and at club nights.
                 </p>
                 <a
                   href={awbopCalendarUrl}
@@ -155,14 +155,14 @@ export default function Events() {
             ))}
           </ul>
           <p className="mt-4 text-on-surface-variant">
-            Club singlets are ordered direct from Code Sport —{' '}
+            Order club singlets direct from{' '}
             <a
               className="font-semibold text-primary underline"
               href={links.codesport}
               target="_blank"
               rel="noopener noreferrer"
             >
-              order a club singlet
+              Code Sport
             </a>
             . Age flashes are free from the check-in desk on club night.
           </p>
@@ -175,15 +175,15 @@ export default function Events() {
               <Medal className="h-6 w-6 text-primary" aria-hidden />
               <h2 className="font-display text-3xl font-bold text-on-surface">Ribbon Day events</h2>
             </div>
-            <Link to="/registration" className="font-semibold text-primary underline">
+            <Link to="/registration#grade-finder" className="font-semibold text-primary underline">
               Find my child&rsquo;s grade →
             </Link>
           </div>
 
           <p className="max-w-3xl text-on-surface-variant">
-            Ribbon days are a great extension of what the athletes learn at club nights and are a fun day out. If a
-            Ribbon Day is washed out on the Saturday, it may be run on the Sunday. Hurdles are optional
-            events; host clubs may offer some, but not necessarily all, of the events for each age group. An athlete
+            Ribbon Days are a great extension of what the athletes learn at club nights and are a fun day out. If a
+            Ribbon Day is washed out on the Saturday, it may be run on the Sunday. Hurdles are optional, and host clubs
+            may not offer every event for every grade. An athlete
             cannot compete in more than 2 longer events (400m, 800m, 1500m) on any one day.
           </p>
 
@@ -238,10 +238,13 @@ export default function Events() {
           <CardContent className="p-0">
             <h2 className="font-display text-2xl font-bold text-on-surface">Pentathlon</h2>
             <p className="mt-2 text-on-surface-variant">
-              A variation on the Ribbon Day programme run by the Cambridge Athletics Club in February. Children aged 7,
-              8 and 9 compete in 100m, 200m, long jump and discus in the morning. Children aged 10 to 14 compete in the
-              pentathlon in the afternoon: 200m, 800m, long jump, shot put and discus. Entry is by pre-registration only
-              for athletes in Grades 7&ndash;14 — contact the club secretary for more information.
+              Run by Cambridge Athletics Club in February, this is a variation on the Ribbon Day programme. Grades
+              7&ndash;9 compete in 100m, 200m, long jump and discus in the morning; Grades 10&ndash;14 do the pentathlon
+              in the afternoon: 200m, 800m, long jump, shot put and discus. Entry is by pre-registration only —{' '}
+              <a className="font-semibold text-primary underline" href={`mailto:${secretaryEmail}`}>
+                email the club secretary
+              </a>{' '}
+              for details.
             </p>
           </CardContent>
         </Card>
@@ -270,9 +273,9 @@ export default function Events() {
             </div>
             <p className="mt-2 text-on-surface-variant">
               Held in the summer school holiday break each year, with a North Island and a South Island event. It is a
-              great opportunity to compete against athletes from around the country. No qualification standards are
-              required and all registered athletes are welcome to enter, but no late entries are accepted — please let
-              us know if you intend to compete.
+              great opportunity to compete against athletes from around the country. Open to athletes in Grades
+              7&ndash;14, with no qualifying standards. Late entries are not accepted, so please let us know early if you
+              plan to compete.
             </p>
             <a
               href="https://athletics.org.nz/colgate-games/"

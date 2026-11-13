@@ -38,7 +38,7 @@ export function LifeStrip() {
       </h2>
       <div className="max-w-md pb-2">
         <p className="text-lg text-on-surface-variant">
-          Sack races and sandpits, Ribbon Day podiums and end-of-night huddles. Club nights are where tamariki find their
+          Sack races and sandpits, end-of-night huddles and Ribbon Day ribbons. Club nights are where tamariki find their
           event, their mates and their confidence.
         </p>
       </div>

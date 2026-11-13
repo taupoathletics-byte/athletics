@@ -10,7 +10,7 @@
     "build:sessions": "node scripts/build_sessions.mjs",
     "preview": "vite preview",
     "add:images": "node scripts/add_station_images.mjs",
-    "test": "node scripts/test_sessions.mjs && node scripts/test_security.mjs && node scripts/test_family_emails.mjs && node scripts/test_stations.mjs && node scripts/test_event_scenes.mjs",
+    "test": "node scripts/test_sessions.mjs && node scripts/test_security.mjs && node scripts/test_family_emails.mjs && node scripts/test_member_mail.mjs && node scripts/test_stations.mjs && node scripts/test_event_scenes.mjs",
     "events:frames": "node scripts/render_event_frames.mjs"
   },
   "dependencies": {

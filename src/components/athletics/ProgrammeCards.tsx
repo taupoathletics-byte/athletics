@@ -6,7 +6,7 @@ import { Reveal, TrackBands } from './motion'
 const CARDS = [
   { photo: 46, title: 'Little legs, big starts', cta: 'Get Set Go', to: '/club-nights', note: 'Grades 3–6 · 5:30–6:30pm' },
   { photo: 37, title: 'Run, jump & throw', cta: 'Club nights', to: '/club-nights', note: 'Grades 7–14 · 5:30–7:00pm' },
-  { photo: 38, title: 'Ribbon days & big meets', cta: 'Events', to: '/events', note: 'Across the Waikato & BOP' },
+  { photo: 38, title: 'Ribbon Days & big meets', cta: 'Events', to: '/events', note: 'Across Waikato & Bay of Plenty' },
 ]
 
 /** Three tall photo cards with heavy headlines over a band of running-track lanes. */

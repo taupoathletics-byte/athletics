@@ -15,9 +15,9 @@ export interface ClubStat {
 
 export const clubStats: ClubStat[] = [
   {
-    value: 19,
+    value: 18,
     label: 'Club nights this season',
-    source: 'Derived from clubNights.ts — 10 in Term 4 + 9 in Term 1.',
+    source: 'Derived from clubNights.ts — 9 in Term 4 + 9 in Term 1.',
   },
   // TODO confirm: registered member count for 2026/27.
   { value: 0, label: 'Registered members' },

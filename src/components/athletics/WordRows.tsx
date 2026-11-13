@@ -3,7 +3,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { Photo } from '@/components/Photo'
 
 const ROWS: { words: string[]; photos: number[] }[] = [
-  { words: ['Personal bests', 'Ribbon days', 'Club records'], photos: [35, 39, 36] },
+  { words: ['Personal bests', 'Ribbon Days', 'Club records'], photos: [35, 39, 36] },
   { words: ['Whānau welcome', 'No experience needed', 'Ages 3–14'], photos: [42, 46, 47] },
   { words: ['Sprint finishes', 'Sandpit landings', 'Relay glory'], photos: [37, 44, 43] },
 ]

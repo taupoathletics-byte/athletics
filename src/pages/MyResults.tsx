@@ -20,8 +20,24 @@ interface ResultRow {
   isTime: boolean
 }
 
+/** Add the unit only to a bare number: "1:52.3", "DNF" or "12.4s" are shown as recorded. */
 function fmt(r: ResultRow) {
-  return r.isTime ? `${r.result}s` : `${r.result}m`
+  const v = String(r.result).trim()
+  if (!v || v.includes(':') || /[a-z]/i.test(v)) return v
+  return r.isTime ? `${v}s` : `${v}m`
+}
+
+/** "2026-10-22" → "22 Oct 2026". */
+function fmtDate(iso: string) {
+  const d = new Date(`${iso.slice(0, 10)}T00:00:00`)
+  if (Number.isNaN(d.getTime())) return iso
+  return d.toLocaleDateString('en-NZ', { day: 'numeric', month: 'short', year: 'numeric' })
+}
+
+/** "Grade 9 · F" */
+function fmtGrade(r: ResultRow) {
+  const grade = /^\d+$/.test(r.grade) ? `Grade ${r.grade}` : r.grade
+  return [grade, r.gender].filter(Boolean).join(' · ')
 }
 
 /**
@@ -100,8 +116,8 @@ export default function MyResults() {
             </label>
           </div>
           <p className="mt-1 text-sm text-on-surface-variant">
-            Your family access code was issued at registration. It is the same for every child in your family. If you
-            don't have it, ask at the check-in desk on club night.
+            Your family access code was emailed to you after registration. It is the same for every child in your
+            family. If you can&rsquo;t find it, ask at the check-in desk on club night.
           </p>
           <div className="mt-3 flex gap-2">
             <input
@@ -148,12 +164,9 @@ export default function MyResults() {
                         <tr key={i} className="border-t border-surface-container">
                           <td className="px-4 py-2.5 font-semibold text-on-surface">{r.memberName}</td>
                           <td className="px-4 py-2.5 text-on-surface">{r.event}</td>
-                          <td className="px-4 py-2.5 text-on-surface">
-                            {r.grade}
-                            {r.gender}
-                          </td>
+                          <td className="whitespace-nowrap px-4 py-2.5 text-on-surface">{fmtGrade(r)}</td>
                           <td className="px-4 py-2.5 text-on-surface">{fmt(r)}</td>
-                          <td className="px-4 py-2.5 text-on-surface-variant">{r.date}</td>
+                          <td className="whitespace-nowrap px-4 py-2.5 text-on-surface-variant">{fmtDate(r.date)}</td>
                           <td className="px-4 py-2.5 text-on-surface-variant">{r.season}</td>
                         </tr>
                       ))}

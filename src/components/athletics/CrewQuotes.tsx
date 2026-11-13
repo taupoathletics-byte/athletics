@@ -52,7 +52,7 @@ export function CrewQuotes() {
           <span id="crew-heading">Meet the crew</span>
         </SectionLabel>
         <p className="mx-auto mt-3 max-w-xl text-cream/75">
-          Volunteers run everything — from the sign-in desk to the start line. In their own words:
+          Volunteers run everything — from the check-in desk to the start line. In their own words:
         </p>
       </div>
       <Marquee className="mask-fade-x mt-10 py-4" items={cards} itemClassName="gap-6 pr-6" />

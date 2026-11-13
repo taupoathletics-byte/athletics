@@ -21,7 +21,7 @@ export const registration = {
   url: 'https://regoform.mygameday.app/#/AIYMtqSliPYrpZAIT5/Ah1tUjkzXge5s7Htn7',
   seasonLabel: '2026/27',
   /** The season fee covers Term 4 and Term 1 together. */
-  coversLabel: 'Covers Term 4 and Term 1',
+  coversLabel: 'One season fee covers Term 4 and Term 1',
 }
 
 export const fees: FeeRow[] = [

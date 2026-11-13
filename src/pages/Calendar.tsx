@@ -16,7 +16,7 @@ export default function Calendar() {
       <PageHero
         eyebrow="Regional fixtures"
         title="AWBoP Calendar"
-        subtitle="Updates of dates are available via the Athletics Waikato Bay of Plenty events calendar."
+        subtitle="The latest regional competition dates, straight from the Athletics Waikato Bay of Plenty events calendar."
         photo={37}
       />
 

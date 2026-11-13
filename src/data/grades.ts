@@ -28,14 +28,14 @@ const RIBBON: Record<number, string> = {
   4: '2 races, any distance',
   5: '40m, 60m, Shuttle Relay',
   6: '40m, 60m, Shuttle Relay',
-  7: '60m, 100m, 200m, Long Jump, Shot, Discus, 4x100m Relay',
-  8: '60m, 100m, 200m, Long Jump, Shot, Discus, 4x100m Relay',
-  9: '60m, 100m, 200m, 800m, Long Jump, Shot, Discus, 4x100m Relay',
-  10: '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot, Discus, 4x100m Relay; 70m Hurdles',
-  11: '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot, Discus, 4x100m Relay; 70m Hurdles',
-  12: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
-  13: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot, Discus, 4x100m Relay',
-  14: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), Long Jump, High Jump, Shot, Discus, 4x100m Relay',
+  7: '60m, 100m, 200m, Long Jump, Shot Put, Discus, 4x100m Relay',
+  8: '60m, 100m, 200m, Long Jump, Shot Put, Discus, 4x100m Relay',
+  9: '60m, 100m, 200m, 800m, Long Jump, Shot Put, Discus, 4x100m Relay',
+  10: '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay; 70m Hurdles',
+  11: '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay; 70m Hurdles',
+  12: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
+  13: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
+  14: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
 }
 
 export function gradeForBirthYear(birthYear: number): GradeInfo | undefined {
@@ -45,7 +45,7 @@ export function gradeForBirthYear(birthYear: number): GradeInfo | undefined {
     age,
     gradeLabel: age <= 4 ? `Tiny Tots (Grade ${age})` : `Grade ${age}`,
     // Ribbon Days call grades 3 & 4 "Tiny Tots"; club nights call 3–6 "Get Set Go".
-    programme: age <= 6 ? 'Get Set Go (3–6 yrs)' : 'Club night group: 7 yrs +',
+    programme: age <= 6 ? 'Get Set Go (3–6 yrs)' : 'Club night rotation (7 yrs +)',
     ribbon: RIBBON[age],
     fee: feeForGrade(age),
     group: clubNightGroupForGrade(age),

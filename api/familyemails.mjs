@@ -24,65 +24,17 @@
 // under ATHLETICS_PAGE_ID by title).
 import { createHash } from 'node:crypto';
 import { requireAdmin } from './_guard.mjs';
+import { EMAIL_RE, MEMBERS_DB, ensureDb, mailSettings, mask, notReady, notion, plain, queryAll, readBody, resend, send } from './_mail.mjs';
 
 export const config = { maxDuration: 60 };
 
-const NOTION = process.env.NOTION_TOKEN;
-const MEMBERS_DB = process.env.MEMBERS_DB_ID || '3e30d85f-784c-81e6-a79b-ca720cb76a5b';
-const ATHLETICS_PAGE = process.env.ATHLETICS_PAGE_ID || '3e20d85f-784c-819c-a575-f22bfb38c49b';
 const LOG_TITLE = 'Access code emails';
-const RESEND = 'https://api.resend.com';
 /**
  * Families per request. Resend's batch endpoint takes up to 100, but each one
  * also gets a Notion log row (~3 writes a second), so 50 keeps a request well
  * inside the 60-second limit. The admin page repeats the call for more.
  */
 const PER_REQUEST = 50;
-
-async function notion(method, path, body) {
-  const res = await fetch(`https://api.notion.com/v1${path}`, {
-    method,
-    headers: { Authorization: `Bearer ${NOTION}`, 'Notion-Version': '2022-06-28', 'Content-Type': 'application/json' },
-    body: body ? JSON.stringify(body) : undefined,
-  });
-  const text = await res.text();
-  let json; try { json = text ? JSON.parse(text) : {}; } catch { json = { raw: text }; }
-  if (!res.ok) throw new Error(`Notion ${method} ${path}: ${res.status} ${String(json.message || text).slice(0, 200)}`);
-  return json;
-}
-
-async function queryAll(dbId) {
-  const out = [];
-  let cursor;
-  do {
-    const body = { page_size: 100 };
-    if (cursor) body.start_cursor = cursor;
-    const r = await notion('POST', `/databases/${dbId}/query`, body);
-    out.push(...r.results);
-    cursor = r.has_more ? r.next_cursor : undefined;
-  } while (cursor);
-  return out;
-}
-
-const plain = (arr) => (arr || []).map((t) => t.plain_text).join('').trim();
-
-function send(res, code, obj) {
-  res.statusCode = code;
-  res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Cache-Control', 'no-store');
-  res.end(JSON.stringify(obj));
-}
-
-function readBody(req) {
-  if (req.body && typeof req.body === 'object') return Promise.resolve(req.body);
-  return new Promise((resolve) => {
-    let raw = '';
-    req.on('data', (c) => { raw += c; if (raw.length > 10_000) req.destroy(); });
-    req.on('end', () => { try { resolve(JSON.parse(raw || '{}')); } catch { resolve({}); } });
-  });
-}
-
-const EMAIL_RE = /^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+$/;
 
 /** Stable key for "this family has been sent this code" — no address stored. */
 export const familyKey = (email, code) => createHash('sha256').update(`${email}|${code}`).digest('hex').slice(0, 32);
@@ -162,56 +114,22 @@ export function compose({ children, code }, siteUrl, replyTo) {
   return { subject, text, html };
 }
 
-/** "jane.smith@gmail.com" → "j•••@gmail.com" for the preview. */
-const mask = (email) => email.replace(/^(.).*(@.*)$/, '$1•••$2');
-
-async function logDbId() {
-  if (process.env.FAMILY_EMAIL_LOG_DB_ID) return process.env.FAMILY_EMAIL_LOG_DB_ID;
-  const found = await notion('POST', '/search', { query: LOG_TITLE, filter: { property: 'object', value: 'database' } });
-  const hit = (found.results || []).find((d) => plain(d.title) === LOG_TITLE && !d.archived);
-  if (hit) return hit.id;
-  const created = await notion('POST', '/databases', {
-    parent: { type: 'page_id', page_id: ATHLETICS_PAGE },
-    title: [{ type: 'text', text: { content: LOG_TITLE } }],
-    properties: {
-      Family: { title: {} },
-      Children: { rich_text: {} },
-      Sent: { date: {} },
-      'Resend id': { rich_text: {} },
-    },
-  });
-  return created.id;
-}
+const logDbId = () => ensureDb(LOG_TITLE, {
+  Family: { title: {} },
+  Children: { rich_text: {} },
+  Sent: { date: {} },
+  'Resend id': { rich_text: {} },
+}, process.env.FAMILY_EMAIL_LOG_DB_ID);
 
 async function sentKeys(dbId) {
   return new Set((await queryAll(dbId)).map((p) => plain(p.properties?.Family?.title)).filter(Boolean));
 }
 
-async function resend(path, payload, idempotencyKey) {
-  const headers = { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' };
-  if (idempotencyKey) headers['Idempotency-Key'] = idempotencyKey;
-  const res = await fetch(`${RESEND}${path}`, { method: 'POST', headers, body: JSON.stringify(payload) });
-  const text = await res.text();
-  let json; try { json = text ? JSON.parse(text) : {}; } catch { json = { raw: text }; }
-  if (!res.ok) throw new Error(`Resend ${res.status}: ${String(json.message || json.name || text).slice(0, 200)}`);
-  return json;
-}
-
-function settings(req) {
-  const host = req.headers?.['x-forwarded-host'] || req.headers?.host || 'taupoathletics.vercel.app';
-  return {
-    from: process.env.EMAIL_FROM || '',
-    replyTo: process.env.EMAIL_REPLY_TO || 'taupoathletics@gmail.com',
-    siteUrl: process.env.SITE_URL || `https://${host}`,
-    ready: Boolean(process.env.RESEND_API_KEY && process.env.EMAIL_FROM),
-  };
-}
-
 export default async function handler(req, res) {
-  if (!NOTION) return send(res, 500, { error: 'NOTION_TOKEN is not configured on the server.' });
+  if (!process.env.NOTION_TOKEN) return send(res, 500, { error: 'NOTION_TOKEN is not configured on the server.' });
   if (req.method !== 'GET' && req.method !== 'POST') return send(res, 405, { error: 'method not allowed' });
   if (!requireAdmin(req, res)) return;
-  const cfg = settings(req);
+  const cfg = mailSettings(req);
 
   try {
     if (req.method === 'GET') {
@@ -236,7 +154,7 @@ export default async function handler(req, res) {
     }
 
     const body = await readBody(req);
-    if (!cfg.ready) return send(res, 400, { error: 'Email is not set up yet: add RESEND_API_KEY and EMAIL_FROM in Vercel (Settings → Environment Variables), then redeploy.' });
+    if (!cfg.ready) return send(res, 400, { error: notReady });
 
     if (body.action === 'test') {
       const to = String(body.to || '').trim();

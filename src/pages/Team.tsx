@@ -70,6 +70,12 @@ function PersonCard({ p, tone, onOpen }: { p: Person; tone: string; onOpen?: () 
   )
 }
 
+/** Per-group line on the "Could this be you?" recruiting card. */
+const RECRUIT_COPY: Partial<Record<string, string>> = {
+  committee: 'We’re looking for committee members.',
+  getsetgo: 'Help with Get Set Go on Thursdays.',
+}
+
 export default function Team() {
   const [open, setOpen] = React.useState<Person | null>(null)
   const closeRef = React.useRef<HTMLButtonElement>(null)
@@ -127,7 +133,7 @@ export default function Team() {
                 <span>
                   <span className="block font-semibold text-on-surface">Could this be you?</span>
                   <span className="block text-sm text-on-surface-variant">
-                    We need helpers on Thursday nights.
+                    {RECRUIT_COPY[group.id] ?? 'We need helpers on Thursday nights.'}
                   </span>
                 </span>
               </Link>

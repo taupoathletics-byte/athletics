@@ -176,7 +176,7 @@ export function ZoomHero() {
       playsInline
       preload={reduce ? 'none' : 'metadata'}
       controls={!!reduce}
-      aria-label="Club promo film: athletes on the track, Ribbon Day podiums and club nights at Owen Delany Park"
+      aria-label="Club promo film: athletes on the track, at Ribbon Days and at club nights at Owen Delany Park"
     />
   )
 

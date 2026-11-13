@@ -1616,3 +1616,44 @@ body {
   .codes-table th:nth-child(3), .codes-table td:nth-child(3),
   .codes-table th:nth-child(5), .codes-table td:nth-child(5) { display: none; }
 }
+
+/* ---------- Email Members ---------- */
+.mail-layout { display: grid; gap: 16px; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; }
+@media (max-width: 1100px) { .mail-layout { grid-template-columns: 1fr; } }
+.mail-compose, .mail-people { display: grid; gap: 10px; min-width: 0; }
+.mail-to { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; padding-bottom: 8px; border-bottom: 1px solid var(--outline-variant); }
+.mail-to__label { font-weight: 700; color: var(--on-surface-variant); }
+.mail-to__count { margin-left: auto; font-size: 0.85rem; color: var(--on-surface-variant); }
+.mail-chips { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
+.mail-tag { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--surface-container); font-size: 0.8rem; font-weight: 600; }
+.mail-subject { min-height: 44px; padding: 8px 12px; border: 1px solid var(--outline-variant); border-radius: 8px; font: inherit; font-size: 1.05rem; font-weight: 600; width: 100%; box-sizing: border-box; }
+.mail-format { display: flex; flex-wrap: wrap; gap: 6px; }
+.mail-format button { min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--outline-variant); background: transparent; font: inherit; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+.mail-format button[aria-selected="true"] { background: var(--primary); border-color: var(--primary); color: #fff; }
+.mail-format__preview { margin-left: auto; }
+.mail-body { width: 100%; box-sizing: border-box; min-height: 260px; padding: 12px; border: 1px solid var(--outline-variant); border-radius: 8px; font: inherit; line-height: 1.5; resize: vertical; }
+.mail-preview { width: 100%; min-height: 420px; border: 1px solid var(--outline-variant); border-radius: 8px; background: #fff; }
+.mail-hint { margin: 0; font-size: 0.9rem; color: var(--on-surface-variant); }
+.mail-actions { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; }
+.mail-test { display: grid; gap: 4px; font-size: 0.9rem; font-weight: 600; flex: 1 1 220px; }
+.mail-test input, .mail-tagbar input { min-height: 40px; padding: 6px 10px; border: 1px solid var(--outline-variant); border-radius: 8px; font: inherit; width: 100%; box-sizing: border-box; }
+.mail-h2 { margin: 6px 0 0; font-size: 1rem; }
+.mail-checks { display: grid; gap: 4px; }
+.mail-check { display: flex; align-items: center; gap: 8px; min-height: 36px; cursor: pointer; }
+.mail-check small { margin-left: auto; color: var(--on-surface-variant); }
+.mail-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0 10px; padding: 2px 0; border-bottom: 1px solid var(--outline-variant); }
+.mail-group .mail-check { flex: 1 1 100%; }
+.mail-group .mail-linkbtn { margin: -4px 0 4px 26px; }
+.mail-group .mail-linkbtn ~ .mail-linkbtn { margin-left: 0; }
+.mail-linkbtn { background: none; border: 0; padding: 4px 2px; font: inherit; font-size: 0.85rem; cursor: pointer; }
+.mail-member-tools { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; font-size: 0.85rem; color: var(--on-surface-variant); }
+.mail-members { list-style: none; margin: 0; padding: 0; max-height: 420px; overflow-y: auto; border: 1px solid var(--outline-variant); border-radius: 8px; }
+.mail-members li + li { border-top: 1px solid var(--outline-variant); }
+.mail-member { display: grid; grid-template-columns: auto 1fr; gap: 0 10px; padding: 8px 10px; cursor: pointer; align-items: center; }
+.mail-member input { grid-row: span 3; }
+.mail-member__name { font-weight: 600; }
+.mail-member__meta { font-size: 0.8rem; color: var(--on-surface-variant); overflow-wrap: anywhere; }
+.mail-member__groups { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.mail-member--off { opacity: 0.55; cursor: default; }
+.mail-tagbar { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+.mail-tagbar label { display: grid; gap: 4px; font-size: 0.9rem; font-weight: 600; flex: 1 1 200px; }

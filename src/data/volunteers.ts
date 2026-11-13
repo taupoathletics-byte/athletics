@@ -21,7 +21,7 @@ export const volunteerRoles: VolunteerRole[] = [
     ],
     commitment: [
       '1 meeting per month in Term 4 and Term 1 (approx. 1.5 hours)',
-      'Up to 1 hr per week depending on tasks',
+      'Up to 1 hour per week, depending on tasks',
     ],
   },
   {
@@ -47,7 +47,7 @@ export const volunteerRoles: VolunteerRole[] = [
     entails: [
       'Support coaches with event setup, timing and group management',
       'Help during club events and external meets (e.g. Ribbon Days)',
-      'Ensure safety and fun',
+      'Help keep things safe and fun',
     ],
     commitment: [
       'Thursdays, 5:30–7:00pm (Term 4 & Term 1)',
@@ -58,11 +58,11 @@ export const volunteerRoles: VolunteerRole[] = [
     role: 'Student Helper — Get Set Go',
     entails: [
       'Support coaches with event setup, timing and group management',
-      'Assist to deliver Get Set Go to 3–6 year olds',
-      'Ensure safety and fun',
+      'Help deliver Get Set Go to 3–6 year olds',
+      'Help keep things safe and fun',
     ],
     commitment: ['Thursdays, 5:30–6:30pm (Term 4 & Term 1)'],
     footnote:
-      'Volunteer hours can be signed off against Duke of Ed or Student Volunteer awards needed for High School.',
+      'Volunteer hours can count towards the Duke of Edinburgh\u2019s Hillary Award or your school\u2019s volunteer awards.',
   },
 ]

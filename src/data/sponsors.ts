@@ -47,6 +47,6 @@ export const sponsors: Sponsor[] = [
     url: 'https://www.dpa.co.nz/',
     tier: 'inkind',
     logo: '/sponsors/dpa.png',
-    note: 'The use of their meeting facilities throughout the year.',
+    note: 'Provides meeting space for our committee throughout the year.',
   },
 ]

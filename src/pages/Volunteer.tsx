@@ -20,8 +20,8 @@ export default function Volunteer() {
           <h2 className="font-display text-2xl font-bold text-on-surface">Can you help?</h2>
           <p className="mt-3 text-on-surface-variant">
             We are always after helpers on club nights — setting up, timing and recording, moving groups between
-            events, and pack-down. No athletics experience is needed: our Get Set Go sessions are planned for you,
-            with the equipment ready and plenty of support.
+            events, and pack-down. No athletics experience is needed: coaches plan every session, the equipment is
+            ready, and there is plenty of support.
           </p>
           <p className="mt-3 text-on-surface-variant">
             More helpers also means more places for children. Our junior grades are capped by how many adults we
