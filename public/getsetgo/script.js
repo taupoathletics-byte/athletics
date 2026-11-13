@@ -2065,6 +2065,20 @@ function renderEmailMembers() {
       <h1>Email Members</h1>
       <p>Send announcements and newsletters to everyone, to a group, or to chosen members. Families who share an email address get one copy, and nobody sees anyone else's address.</p>
     </div>
+    <section class="records-box cancel-night" aria-labelledby="cancel-title">
+      <h2 id="cancel-title" class="mail-h2"><span class="material-symbols-outlined">thunderstorm</span> Cancel a club night</h2>
+      <p class="mail-hint">Puts a banner across the top of every page of the website for that night, and can email every member a club notice.</p>
+      <div class="cancel-night__row">
+        <label>Club night <input type="date" id="cancel-date"></label>
+        <label class="cancel-night__msg">Message <input type="text" id="cancel-msg" maxlength="300"></label>
+      </div>
+      <label class="mail-check"><input type="checkbox" id="cancel-email" checked> <span>Also email all members (club notice)</span></label>
+      <div class="cancel-night__row">
+        <button type="button" class="btn btn-primary" id="cancel-go"><span class="material-symbols-outlined">thunderstorm</span> Cancel club night</button>
+        <button type="button" class="btn btn-ghost" id="cancel-clear" hidden>Remove the notice</button>
+        <span id="cancel-status" class="mail-hint" role="status"></span>
+      </div>
+    </section>
     <div class="mail-layout">
       <section class="records-box mail-compose" aria-label="Compose">
         <div class="mail-to"><span class="mail-to__label">To</span><div id="mail-to-chips" class="mail-chips"></div><span id="mail-count" class="mail-to__count"></span></div>
@@ -2153,7 +2167,84 @@ function renderEmailMembers() {
   $('#mail-test').addEventListener('click', sendMailTest);
   $('#mail-send').addEventListener('click', sendMailToMembers);
   renderMailFormatHint();
+  setupCancelNight();
   loadMailMembers();
+}
+
+/* ---------- weather cancellation (api/notice.mjs) ---------- */
+const nzToday = () => new Date().toLocaleDateString('en-CA', { timeZone: 'Pacific/Auckland' });
+
+function cancelMessage(iso) {
+  const d = new Date(`${iso}T12:00:00`);
+  const label = d.toLocaleDateString('en-NZ', { weekday: 'long', day: 'numeric', month: 'long' });
+  const when = iso === nzToday() ? `tonight (${label})` : `on ${label}`;
+  return `Club night is cancelled ${when} because of the weather. Stay safe — see you next week!`;
+}
+
+function setupCancelNight() {
+  const date = $('#cancel-date');
+  date.value = nzToday();
+  $('#cancel-msg').value = cancelMessage(date.value);
+  date.addEventListener('change', () => { $('#cancel-msg').value = cancelMessage(date.value); loadCancelState(); });
+  $('#cancel-go').addEventListener('click', cancelClubNight);
+  $('#cancel-clear').addEventListener('click', clearCancellation);
+  loadCancelState();
+}
+
+async function loadCancelState() {
+  const iso = $('#cancel-date').value;
+  try {
+    const res = await authedFetch(`/api/notice?date=${encodeURIComponent(iso)}`);
+    const d = await res.json().catch(() => ({}));
+    const on = !!(d && d.notice);
+    $('#cancel-clear').hidden = !on;
+    $('#cancel-status').textContent = on ? `Showing on the website: “${d.notice.message}”` : '';
+  } catch { /* leave as is */ }
+}
+
+async function cancelClubNight() {
+  const iso = $('#cancel-date').value;
+  const message = $('#cancel-msg').value.trim();
+  const email = $('#cancel-email').checked;
+  const status = $('#cancel-status');
+  if (!iso || !message) { status.textContent = 'Choose the night and write the message.'; return; }
+  const ask = email
+    ? `Cancel club night on ${iso}? This puts the banner on the website and emails every member now.`
+    : `Put the cancellation banner on the website for ${iso}?`;
+  if (!confirm(ask)) return;
+  status.textContent = 'Posting the notice…';
+  try {
+    const res = await authedFetch('/api/notice', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'set', date: iso, message }) });
+    const d = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(d.error || 'Could not post the notice.');
+    status.textContent = 'The banner is on the website (it can take a minute to appear).';
+    $('#cancel-clear').hidden = false;
+    if (email) {
+      if (!mail.data || !mail.data.ready) { status.textContent += ' Email is not set up yet, so nobody was emailed.'; return; }
+      const label = new Date(`${iso}T12:00:00`).toLocaleDateString('en-NZ', { weekday: 'short', day: 'numeric', month: 'short' });
+      const total = (await postMail({ action: 'count', audience: { types: ['everyone'] }, category: 'notice' })).recipients;
+      await runMailJob({
+        campaignId: `cancel-${iso}-${Date.now().toString(36)}`,
+        offset: 0,
+        total,
+        audience: { types: ['everyone'] },
+        msg: { subject: `Club night cancelled — ${label}`, format: 'text', category: 'notice', body: `Kia ora,\n\n${message}\n\nWe'll post any updates on our Facebook page.\n\nNgā mihi,\nTaupō Athletics` },
+      });
+    }
+  } catch (e) {
+    status.textContent = `⚠ ${e.message}`;
+  }
+}
+
+async function clearCancellation() {
+  const iso = $('#cancel-date').value;
+  if (!confirm(`Take the cancellation notice for ${iso} off the website?`)) return;
+  try {
+    const res = await authedFetch('/api/notice', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'clear', date: iso }) });
+    if (!res.ok) throw new Error('Could not remove it.');
+    $('#cancel-status').textContent = 'Removed from the website.';
+    $('#cancel-clear').hidden = true;
+  } catch (e) { $('#cancel-status').textContent = `⚠ ${e.message}`; }
 }
 
 function renderMailKindHint() {

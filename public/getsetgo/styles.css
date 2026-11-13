@@ -1664,3 +1664,12 @@ body {
 .new-record__title { margin: 0 0 4px; font-weight: 800; font-size: 1.1rem; }
 .new-record ul { margin: 0 0 6px; padding-left: 18px; }
 .new-record__note { margin: 0; font-size: 0.85rem; }
+
+/* ---------- cancel a club night ---------- */
+.cancel-night { display: grid; gap: 10px; margin-bottom: 16px; border-left: 6px solid var(--primary); }
+.cancel-night .mail-h2 { display: flex; align-items: center; gap: 8px; margin: 0; }
+.cancel-night__row { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; }
+.cancel-night__row label { display: grid; gap: 4px; font-size: 0.9rem; font-weight: 600; }
+.cancel-night__row input { min-height: 40px; padding: 6px 10px; border: 1px solid var(--outline-variant); border-radius: 8px; font: inherit; box-sizing: border-box; max-width: 100%; }
+.cancel-night__msg { flex: 1 1 320px; }
+.cancel-night__msg input { width: 100%; }
