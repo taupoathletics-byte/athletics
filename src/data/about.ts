@@ -34,7 +34,7 @@ export const links = {
   facebook: 'https://www.facebook.com/taupoathletics',
   awbop: 'https://athleticswaikatobayofplenty.org.nz/competition/events/',
   /** Club singlets are ordered direct from Code Sport. */
-  codesport: 'https://codesport.co.nz/catalog/TaupoAthleticsClub%20-1107583.htmx',
+  codesport: 'https://codesport.co.nz/catalog/taupo-athletics-club-1107583.htmx',
   grassroots: 'https://www.grassrootstrust.co.nz/trust/',
   cheal: 'https://www.cheal.co.nz/',
   /** Get Set Go run sheets — the coach and helper lesson plans. */
