@@ -1338,6 +1338,7 @@ async function saveBulk() {
     const v = input.value.trim();
     if (v) results.push({ memberId: input.dataset.id, memberName: input.dataset.name, gender: input.dataset.gender, result: v });
   });
+  if (results.length && !(await confirmResults(event, grade, results))) return;
   if (!results.length) {
     const saved = $('#bulk-saved');
     saved.textContent = 'Enter at least one result first.';
@@ -1823,6 +1824,56 @@ function showMemberRecords(member) {
   });
 }
 
+/* ---------- typo check before saving results ----------
+   Club-night marks go straight onto the public Club Records page when they
+   beat a record, so a mistyped mark (6.5 for 9.5 in the 60m) would publish a
+   false record. Before saving, flag marks that can't be read, are outside
+   what a 7–14 year old could do, or beat the club record by a wide margin,
+   and ask the volunteer to check them. */
+const PLAUSIBLE = {
+  '60m': [6.5, 25], '100m': [11, 35], '200m': [22, 80], '400m': [50, 210], '800m': [120, 420], '1500m': [250, 900],
+  'Long Jump': [0.3, 6.5], 'High Jump': [0.4, 1.95], 'Shot Put': [0.5, 16], 'Discus': [1, 50],
+};
+let recordBoardCache = null;
+
+async function recordBoard() {
+  if (recordBoardCache) return recordBoardCache;
+  try {
+    const r = await fetch('/api/clubrecords');
+    recordBoardCache = r.ok ? await r.json() : { events: [] };
+  } catch { recordBoardCache = { events: [] }; }
+  return recordBoardCache;
+}
+
+/** Problems with one mark, as short sentences ([] when it looks fine). */
+function resultWarnings(event, grade, gender, raw, board) {
+  const r = String(raw || '').trim();
+  if (/^(NJ|NT|DNS|DNF|NM)$/i.test(r)) return [];
+  const wellFormed = /^\d+(?:[.,]\d+)?\s*[ms]?$/i.test(r) || /^\d+:\d{2}(?:[.:]\d+)?$/.test(r);
+  const v = wellFormed ? certValue(event, r) : null;
+  if (v == null) return [`“${r}” isn't a mark the site can read (use e.g. 9.85, 1:23.4, 3.42, or NJ / NT)`];
+  const out = [];
+  const [lo, hi] = PLAUSIBLE[event] || [0, Infinity];
+  if (v < lo || v > hi) out.push(`${certMark(event, r)} is outside the usual range for ${event}`);
+  const ev = (board.events || []).find((e) => e.event === event);
+  const row = ev && ev.rows.find((x) => String(x.grade) === String(grade) && x.gender === gender);
+  const rec = row && row.holders[0] ? certValue(event, row.holders[0].mark) : null;
+  if (rec != null) {
+    const time = !CERT_FIELD.test(event);
+    const margin = time ? (rec - v) / rec : (v - rec) / rec;
+    if (margin > (time ? 0.05 : 0.12)) out.push(`${certMark(event, r)} would beat the club record (${recordMarkLabel(row.holders[0].mark, event)}) by a lot`);
+  }
+  return out;
+}
+
+/** Ask before saving marks that look wrong. Resolves true to go ahead. */
+async function confirmResults(event, grade, rows) {
+  const board = await recordBoard();
+  const problems = rows.flatMap((row) => resultWarnings(event, grade, row.gender, row.result, board).map((w) => `• ${row.memberName}: ${w}`));
+  if (!problems.length) return true;
+  return confirm(`Please check these before saving:\n\n${problems.slice(0, 12).join('\n')}${problems.length > 12 ? `\n…and ${problems.length - 12} more` : ''}\n\nSave anyway?`);
+}
+
 /* ---------- new club records ----------
    The server compares every saved result with the club records (the
    historical list plus earlier club-night records) and returns any it beats
@@ -1844,6 +1895,7 @@ function recordMarkLabel(mark, event) {
 }
 
 function showNewRecords(list, after) {
+  if (list && list.length) recordBoardCache = null; // the board has changed
   $$('.new-record').forEach((el) => el.parentNode.removeChild(el));
   if (!list || !list.length || !after) return;
   const g = (x) => (x === 'F' ? 'girls' : 'boys');
@@ -1971,6 +2023,7 @@ async function saveRecord(member, overlay) {
   const result = $('#rec-result').value.trim();
   const season = $('#rec-season').value;
   if (!result) { $('#rec-result').focus(); return; }
+  if (!(await confirmResults(event, grade, [{ memberName: member.name, gender, result }]))) return;
   const btn = $('#rec-save');
   btn.disabled = true;
   btn.textContent = 'Saving…';
