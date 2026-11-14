@@ -1679,3 +1679,7 @@ body {
 .results-mail .mail-h2 { display: flex; align-items: center; gap: 8px; margin: 0; }
 .results-mail select { min-height: 40px; padding: 6px 10px; border: 1px solid var(--outline-variant); border-radius: 8px; font: inherit; max-width: 100%; }
 #results-mail-body { display: grid; gap: 10px; }
+
+/* ---------- certificates ---------- */
+.certs-box { display: grid; gap: 12px; }
+.certs-box select { min-height: 40px; padding: 6px 10px; border: 1px solid var(--outline-variant); border-radius: 8px; font: inherit; }

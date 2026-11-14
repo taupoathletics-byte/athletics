@@ -1018,6 +1018,7 @@ function renderAdmin() {
     ${section('lookup', 'manage_search', 'Member Records')}
     ${section('codes', 'key', 'Access Codes')}
     ${section('email', 'mail', 'Email Members')}
+    ${section('certs', 'workspace_premium', 'Certificates')}
     <button class="sidenav__item" id="logout-btn"><span class="material-symbols-outlined">logout</span> Logout</button>`;
 
   $$('#sidenav [data-section]').forEach((b) => {
@@ -1039,6 +1040,7 @@ function renderAdmin() {
   else if (adminSection === 'lookup') renderMemberRecords();
   else if (adminSection === 'codes') renderAccessCodes();
   else if (adminSection === 'email') renderEmailMembers();
+  else if (adminSection === 'certs') renderCertificates();
   else if (adminSection === 'checkin') renderCheckin();
   else if (adminSection === 'rjt') renderRJT();
   else renderRunSheets();
@@ -2551,4 +2553,155 @@ function offerMailResume() {
   status.innerHTML = `“${esc(job.msg.subject)}” stopped after ${job.offset} of ${job.total}. <button type="button" class="gsg-link mail-linkbtn" id="mail-resume">Resume sending</button> <button type="button" class="gsg-link mail-linkbtn" id="mail-forget">Forget it</button>`;
   $('#mail-resume').addEventListener('click', () => runMailJob(job));
   $('#mail-forget').addEventListener('click', () => { try { localStorage.removeItem(MAIL_PENDING_KEY); } catch { /* ignore */ } status.textContent = ''; });
+}
+
+
+/* ============================================================
+   Prizegiving certificates — one A4 (landscape) per athlete
+   ============================================================ */
+
+/* Each certificate lists the athlete's best mark this season in every event
+   they were measured in, and marks any club record they hold. The design is a
+   placeholder in the club's colours until the club's own certificate is
+   supplied — only certificateHTML() and CERT_CSS need to change for that. */
+const CERT_EVENTS = ['60m', '100m', '200m', '400m', '800m', '1500m', 'Long Jump', 'High Jump', 'Shot Put', 'Discus'];
+const CERT_FIELD = /jump|put|shot|discus/i;
+const cert = { records: [], members: [], board: null, season: '', grade: '', gender: '' };
+
+function certValue(event, raw) {
+  const r = String(raw || '').trim().replace(',', '.').replace(/[a-z\s]/gi, '');
+  if (!r) return null;
+  if (CERT_FIELD.test(event)) { const v = parseFloat(r); return Number.isFinite(v) && v > 0 ? v : null; }
+  const p = r.split(/[:.]/).filter((x) => x !== '');
+  if (p.some((x) => !/^\d+$/.test(x))) return null;
+  if (r.includes(':') || p.length === 3) { const [m, sec, fr = ''] = p; return Number(m) * 60 + Number(sec) + (fr ? Number(fr) / 10 ** fr.length : 0); }
+  const v = parseFloat(r);
+  return Number.isFinite(v) && v > 0 ? v : null;
+}
+
+function certMark(event, raw) {
+  const r = String(raw || '').trim().replace(',', '.');
+  const m = r.match(/^(\d+):(\d{2}):(\d+)$/);
+  if (m) return `${Number(m[1])}:${m[2]}.${m[3]}`;
+  if (/[a-z]/i.test(r) || r.includes(':')) return r;
+  return CERT_FIELD.test(event) ? `${r}m` : `${r}s`;
+}
+
+async function renderCertificates() {
+  $('#admin-content').innerHTML = `
+    <div class="page-head">
+      <h1>Certificates</h1>
+      <p>Prizegiving certificates, one per athlete: their best mark this season in every event they were measured in, and any club record they hold. Print on A4 (landscape).</p>
+    </div>
+    <section class="records-box certs-box">
+      <div class="cancel-night__row">
+        <label>Season <select id="cert-season"></select></label>
+        <label>Grade <select id="cert-grade"><option value="">All grades</option></select></label>
+        <label>Girls / boys <select id="cert-gender"><option value="">Both</option><option value="F">Girls</option><option value="M">Boys</option></select></label>
+        <label>Presented on <input type="date" id="cert-date"></label>
+      </div>
+      <p id="cert-summary" class="mail-hint">Loading results…</p>
+      <div class="cancel-night__row">
+        <button type="button" class="btn btn-primary" id="cert-print" disabled><span class="material-symbols-outlined">print</span> Print certificates</button>
+      </div>
+      <p class="mail-hint">This is a placeholder design in the club's colours. Send us last year's certificate and we'll match it.</p>
+    </section>`;
+  $('#cert-date').value = new Date().toLocaleDateString('en-CA', { timeZone: 'Pacific/Auckland' });
+  try {
+    const [r1, r2] = await Promise.all([authedFetch('/api/records'), fetch('/api/clubrecords')]);
+    const d = await r1.json().catch(() => ({}));
+    if (!r1.ok) throw new Error(d.error || 'Could not load results.');
+    cert.records = d.records || [];
+    cert.members = d.members || [];
+    cert.board = r2.ok ? await r2.json().catch(() => null) : null;
+  } catch (e) {
+    $('#cert-summary').textContent = `⚠ ${e.message}`;
+    return;
+  }
+  const seasons = [...new Set(cert.records.map((r) => r.season).filter(Boolean))].sort().reverse();
+  $('#cert-season').innerHTML = seasons.map((x) => `<option>${esc(x)}</option>`).join('') || '<option value="">—</option>';
+  const grades = [...new Set(cert.records.map((r) => r.grade).filter(Boolean))].sort((a, b) => a - b);
+  $('#cert-grade').innerHTML += grades.map((g) => `<option value="${esc(g)}">Grade ${esc(g)}</option>`).join('');
+  ['#cert-season', '#cert-grade', '#cert-gender'].forEach((id) => $(id).addEventListener('change', renderCertSummary));
+  $('#cert-print').addEventListener('click', printCertificates);
+  renderCertSummary();
+}
+
+/** Athletes for the chosen season/grade/gender, each with their season bests. */
+function certAthletes() {
+  const season = $('#cert-season').value;
+  const grade = $('#cert-grade').value;
+  const gender = $('#cert-gender').value;
+  const holders = new Set();
+  for (const ev of (cert.board && cert.board.events) || []) {
+    for (const row of ev.rows) for (const h of row.holders) if (h.source === 'club-night') holders.add(`${ev.event}|${h.name}`);
+  }
+  const byMember = new Map();
+  for (const r of cert.records) {
+    if (r.season !== season || (grade && r.grade !== grade) || (gender && r.gender !== gender)) continue;
+    const v = certValue(r.event, r.result);
+    if (v == null || !r.memberName) continue;
+    if (!byMember.has(r.memberId)) byMember.set(r.memberId, { name: r.memberName, grade: r.grade, best: {} });
+    const a = byMember.get(r.memberId);
+    const cur = a.best[r.event];
+    const better = !cur || (CERT_FIELD.test(r.event) ? v > cur.v : v < cur.v);
+    if (better) a.best[r.event] = { v, mark: certMark(r.event, r.result), record: holders.has(`${r.event}|${r.memberName}`) };
+  }
+  return [...byMember.values()].sort((a, b) => Number(a.grade) - Number(b.grade) || a.name.localeCompare(b.name));
+}
+
+function renderCertSummary() {
+  const list = certAthletes();
+  const recs = list.reduce((n, a) => n + Object.values(a.best).filter((b) => b.record).length, 0);
+  $('#cert-summary').textContent = list.length
+    ? `${list.length} certificate${list.length === 1 ? '' : 's'}${recs ? ` · ${recs} club record${recs === 1 ? '' : 's'} to celebrate` : ''}.`
+    : 'No measured results for that choice yet.';
+  $('#cert-print').disabled = !list.length;
+}
+
+const CERT_CSS = `
+  @page { size: A4 landscape; margin: 0; }
+  body { margin: 0; }
+  .cert { width: 297mm; height: 210mm; padding: 14mm; page-break-after: always; break-after: page; }
+  .cert__frame { position: relative; height: 100%; border: 3mm solid #0e2a47; outline: 1mm solid #b04f49; outline-offset: -6mm; padding: 14mm 18mm; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .cert__logo { height: 26mm; }
+  .cert__club { margin: 2mm 0 0; letter-spacing: .3em; text-transform: uppercase; font-size: 11pt; color: #b04f49; font-weight: 700; }
+  .cert h1 { margin: 5mm 0 2mm; font-size: 30pt; color: #0e2a47; font-family: Georgia, 'Times New Roman', serif; }
+  .cert__to { margin: 0; font-size: 12pt; color: #55606e; }
+  .cert__name { margin: 3mm 0 1mm; font-size: 34pt; font-weight: 700; color: #0e2a47; font-family: Georgia, 'Times New Roman', serif; border-bottom: .6mm solid #b04f49; padding: 0 10mm 2mm; }
+  .cert__grade { margin: 2mm 0 5mm; font-size: 12pt; color: #55606e; }
+  .cert__bests { display: flex; flex-wrap: wrap; justify-content: center; gap: 3mm; max-width: 230mm; }
+  .cert__best { border: .4mm solid #c9d3df; border-radius: 3mm; padding: 2.5mm 5mm; min-width: 34mm; }
+  .cert__best b { display: block; font-size: 15pt; color: #0e2a47; }
+  .cert__best span { font-size: 9.5pt; color: #55606e; }
+  .cert__best--rec { border-color: #b04f49; background: #fbefee; }
+  .cert__best--rec em { display: block; font-style: normal; font-size: 8pt; font-weight: 700; color: #b04f49; text-transform: uppercase; letter-spacing: .08em; }
+  .cert__foot { margin-top: auto; width: 100%; display: flex; justify-content: space-between; align-items: flex-end; font-size: 10pt; color: #55606e; }
+  .cert__sign { border-top: .4mm solid #55606e; padding-top: 1.5mm; min-width: 60mm; }
+  @media screen { body { background: #ddd; } .cert { background: #fff; margin: 0 auto 8mm; box-shadow: 0 2px 8px rgba(0,0,0,.2); } button.print { margin: 10px; } }
+`;
+
+function certificateHTML(a, seasonLabel, presented) {
+  const bests = CERT_EVENTS.filter((e) => a.best[e]).map((e) => {
+    const b = a.best[e];
+    return `<div class="cert__best${b.record ? ' cert__best--rec' : ''}"><span>${esc(e)}</span><b>${esc(b.mark)}</b>${b.record ? '<em>Club record</em>' : ''}</div>`;
+  }).join('');
+  return `<section class="cert"><div class="cert__frame">
+    <img class="cert__logo" src="${location.origin}/logo.svg" alt="">
+    <p class="cert__club">Taupō Athletics Club</p>
+    <h1>Certificate of Achievement</h1>
+    <p class="cert__to">Presented to</p>
+    <p class="cert__name">${esc(a.name)}</p>
+    <p class="cert__grade">Grade ${esc(a.grade)} · ${esc(seasonLabel)} season · season bests</p>
+    <div class="cert__bests">${bests}</div>
+    <div class="cert__foot"><span class="cert__sign">Club President</span><span>${esc(presented)}</span><span class="cert__sign">Coach Co-ordinator</span></div>
+  </div></section>`;
+}
+
+function printCertificates() {
+  const list = certAthletes();
+  if (!list.length) return;
+  const season = $('#cert-season').value.replace('-', '/');
+  const presented = new Date(`${$('#cert-date').value}T12:00:00`).toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
+  openPrintWindow('Prizegiving certificates', CERT_CSS, `<button class="print" onclick="window.print()">Print</button>${list.map((a) => certificateHTML(a, season, presented)).join('')}`);
 }
