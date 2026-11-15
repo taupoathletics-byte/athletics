@@ -7,9 +7,10 @@ import { javelin } from './javelin'
 import { longJump } from './long-jump'
 import { relays } from './relays'
 import { shotPut } from './shot-put'
+import { sprints } from './sprints'
 
-/** The club's seven events. */
-export const scenes: EventScene[] = [hurdles, longJump, highJump, shotPut, discus, relays, distance]
+/** The club's events, in the order the Explore page shows them (hurdles last, as the club asked). */
+export const scenes: EventScene[] = [sprints, longJump, highJump, shotPut, discus, relays, distance, hurdles]
 
 /** Every scene, including the javelin thrower in the home page header. */
 export const allScenes: EventScene[] = [...scenes, javelin]

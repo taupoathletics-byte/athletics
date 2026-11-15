@@ -20,22 +20,23 @@ export interface GradeInfo {
   cap?: GradeCap
 }
 
-// Ribbon Day events per grade, from the club's Information Booklet (Ribbon Day
-// programme), minus walks, which the club asked to leave off. Hurdles are
-// optional: host clubs may not offer them.
+// Ribbon Day events per grade, from the club's Information Booklet, as
+// corrected by the club (Nov 2026): no walks, no hurdles for Grades 10–11, and
+// Grades 3–6 events vary by host club. Relays are often 4x100m but some clubs
+// run a different format, so they're listed simply as "Relay".
 const RIBBON: Record<number, string> = {
-  3: '2 races, any distance',
-  4: '2 races, any distance',
-  5: '40m, 60m, Shuttle Relay',
-  6: '40m, 60m, Shuttle Relay',
-  7: '60m, 100m, 200m, Long Jump, Shot Put, Discus, 4x100m Relay',
-  8: '60m, 100m, 200m, Long Jump, Shot Put, Discus, 4x100m Relay',
-  9: '60m, 100m, 200m, 800m, Long Jump, Shot Put, Discus, 4x100m Relay',
-  10: '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay; 70m Hurdles',
-  11: '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay; 70m Hurdles',
-  12: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
-  13: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
-  14: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
+  3: 'Usually a sprint or two and a relay — events and distances vary by host club',
+  4: 'Usually a sprint or two and a relay — events and distances vary by host club',
+  5: 'Usually a sprint or two and a relay — events and distances vary by host club',
+  6: 'Usually a sprint or two and a relay — events and distances vary by host club',
+  7: '60m, 100m, 200m, Long Jump, Shot Put, Discus, Relay',
+  8: '60m, 100m, 200m, Long Jump, Shot Put, Discus, Relay',
+  9: '60m, 100m, 200m, 800m, Long Jump, Shot Put, Discus, Relay',
+  10: '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot Put, Discus, Relay',
+  11: '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot Put, Discus, Relay',
+  12: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, Relay',
+  13: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, Relay',
+  14: '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), Long Jump, High Jump, Shot Put, Discus, Relay',
 }
 
 export function gradeForBirthYear(birthYear: number): GradeInfo | undefined {
@@ -44,8 +45,8 @@ export function gradeForBirthYear(birthYear: number): GradeInfo | undefined {
   return {
     age,
     gradeLabel: age <= 4 ? `Tiny Tots (Grade ${age})` : `Grade ${age}`,
-    // Ribbon Days call grades 3 & 4 "Tiny Tots"; club nights call 3–6 "Get Set Go".
-    programme: age <= 6 ? 'Get Set Go (3–6 yrs)' : 'Club night rotation (7 yrs +)',
+    // Ribbon Days call grades 3 & 4 "Tiny Tots"; club nights are ASB Get Set Go (3–6) and ASB Run Jump Throw (7–14).
+    programme: age <= 6 ? 'ASB Get Set Go (Grades 3–6)' : 'ASB Run Jump Throw (Grades 7–14)',
     ribbon: RIBBON[age],
     fee: feeForGrade(age),
     group: clubNightGroupForGrade(age),

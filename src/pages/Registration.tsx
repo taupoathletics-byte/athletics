@@ -47,6 +47,7 @@ export default function Registration() {
               <p className="text-on-surface-variant">
                 Registrations for the {registration.seasonLabel} season are open now. {registration.coversLabel}.
               </p>
+              {registration.spacesNote && <p className="font-semibold text-on-surface">{registration.spacesNote}</p>}
               <RegisterButton className="mt-2 w-full">Register on GameDay</RegisterButton>
             </CardContent>
           </Card>

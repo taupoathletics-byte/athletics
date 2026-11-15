@@ -22,18 +22,25 @@ export const registration = {
   seasonLabel: '2026/27',
   /** The season fee covers Term 4 and Term 1 together. */
   coversLabel: 'One season fee covers Term 4 and Term 1',
+  /**
+   * Places left, set by hand — GameDay can't tell the site what's full.
+   * Grades 3–14 filled for 2026/27; college and masters athletes can still join.
+   * Set to '' when there's nothing to say.
+   */
+  spacesNote: 'Grades 3–14 are full for 2026/27 — we still have spaces for college (Grades 15–19) and masters athletes.',
 }
 
 export const fees: FeeRow[] = [
   {
     group: 'Grades 3–6',
     fee: '$50',
-    note: 'Get Set Go',
+    note: 'ASB Get Set Go',
     matches: (g) => g >= 3 && g <= 6,
   },
   {
     group: 'Grades 7–14',
     fee: '$100',
+    note: 'ASB Run Jump Throw',
     matches: (g) => g >= 7 && g <= 14,
   },
   {
@@ -69,7 +76,7 @@ export function capForGrade(grade: number): GradeCap | undefined {
 }
 
 export const capsNote =
-  'These caps can increase if more adults volunteer to help on club nights. No athletics experience is needed: our Get Set Go sessions are planned for you, with equipment ready and plenty of support.'
+  'These caps can increase if more adults volunteer to help on club nights. No athletics experience is needed: our ASB Get Set Go sessions are planned for you, with equipment ready and plenty of support.'
 
 export const noWaitlistNote =
   'Junior grades fill quickly and there’s no waitlist once a grade is full, so get in early.'

@@ -58,6 +58,10 @@ export function formatClubNightLabel(iso: string) {
   })
 }
 
+/** The club's two programmes, by their full names (the club's naming, Nov 2026). */
+export const GSG = 'ASB Get Set Go'
+export const RJT = 'ASB Run Jump Throw'
+
 /**
  * Club night times, by grade. Thursdays at Owen Delany Park.
  * "Grades 3–6" matches the club's own announcement wording.
@@ -75,7 +79,7 @@ export const clubNightGroups: ClubNightGroup[] = [
   {
     id: 'juniors',
     label: 'Grades 3–6',
-    programme: 'Get Set Go',
+    programme: GSG,
     start: '5:30pm',
     finish: '6:30pm',
     matches: (g) => g >= 3 && g <= 6,
@@ -83,6 +87,7 @@ export const clubNightGroups: ClubNightGroup[] = [
   {
     id: 'seniors',
     label: 'Grades 7–14',
+    programme: RJT,
     start: '5:30pm',
     finish: '7:00pm',
     matches: (g) => g >= 7,
@@ -115,11 +120,11 @@ export const eveningTimeline: TimelineStep[] = [
     time: '5:40pm',
     title: 'Split into age groups',
     detail:
-      'Grades 3–6 head off to Get Set Go. Grades 7–14 start their rotation of running and field events.',
+      `Grades 3–6 head off to ${GSG}. Grades 7–14 start ${RJT}: four stations of games and event practice.`,
   },
   {
     time: '6:30pm',
-    title: 'Get Set Go finishes',
+    title: `${GSG} finishes`,
     detail: 'Our 3–6 year olds are done for the night. Grades 7–14 keep going.',
   },
   {
@@ -130,17 +135,6 @@ export const eveningTimeline: TimelineStep[] = [
   },
 ]
 
-/** Event rotation for grades 7+, shown as chips rather than a sentence. */
-export const eventRotation = [
-  'Sprint',
-  'Distance',
-  'High jump',
-  'Long jump',
-  'Discus',
-  'Shot put',
-  'Relay',
-]
-
 /**
  * Development Squad — Mondays. Open to athletes aged 10+ wanting extra
  * training; masters athletes welcome too.
@@ -149,8 +143,8 @@ export const developmentSquad = {
   day: 'Mondays',
   start: '5:30pm',
   finish: '6:30pm',
-  startsLabel: 'From Monday 19 October 2026',
-  who: 'Open to athletes aged 10+ wanting extra training — masters athletes welcome too.',
+  startsLabel: 'Term 4: Monday 19 Oct – Monday 21 Dec · Term 1: from Monday 25 Jan',
+  who: 'For Grades 10+ competitive athletes, college athletes and masters athletes.',
   detail:
     'An extension of club nights for those who want to work on the more technical components of their events and build strength, agility and power.',
   facebookGroup: 'Taupō Athletics Development Squad',

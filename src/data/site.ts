@@ -34,6 +34,7 @@ export const navItems: NavItem[] = [
     label: 'Events',
     children: [
       { label: 'Ribbon Days', to: '/events' },
+      { label: 'Explore the events', to: '/explore-events' },
       { label: 'AWBoP Calendar', to: '/calendar' },
       { label: 'Club Records', to: '/club-records' },
     ],
@@ -54,29 +55,29 @@ export interface RibbonGrade {
 }
 
 export const ribbonEvents: RibbonGrade[] = [
-  { grade: 'Tiny Tots (Grades 3 & 4)', events: '2 races, any distance' },
-  { grade: 'Grades 5 & 6', events: '40m, 60m, Shuttle Relay' },
-  { grade: 'Grades 7 & 8', events: '60m, 100m, 200m, Long Jump, Shot Put, Discus, 4x100m Relay' },
-  { grade: 'Grade 9', events: '60m, 100m, 200m, 800m, Long Jump, Shot Put, Discus, 4x100m Relay' },
+  { grade: 'Tiny Tots (Grades 3 & 4)', events: 'Usually a sprint or two and a relay — events and distances vary by host club' },
+  { grade: 'Grades 5 & 6', events: 'Usually a sprint or two and a relay — events and distances vary by host club' },
+  { grade: 'Grades 7 & 8', events: '60m, 100m, 200m, Long Jump, Shot Put, Discus, Relay' },
+  { grade: 'Grade 9', events: '60m, 100m, 200m, 800m, Long Jump, Shot Put, Discus, Relay' },
   {
     grade: 'Grades 10 & 11',
     events:
-      '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay, 70m Hurdles',
+      '100m, 200m, 400m, 800m, 1500m, Long Jump, High Jump, Shot Put, Discus, Relay',
   },
   {
     grade: 'Grade 12',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
+      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, Relay',
   },
   {
     grade: 'Grade 13',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
+      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles, Long Jump, High Jump, Shot Put, Discus, Relay',
   },
   {
     grade: 'Grade 14',
     events:
-      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), Long Jump, High Jump, Shot Put, Discus, 4x100m Relay',
+      '100m, 200m, 400m, 800m, 1500m, 80m Hurdles (girls) or 100m Hurdles (boys), Long Jump, High Jump, Shot Put, Discus, Relay',
   },
 ]
 
@@ -87,8 +88,8 @@ export const seasonDates = {
     'Term 1 (2027): Thursday 4 Feb – Thursday 1 Apr (final night is prizegiving)',
   ],
   developmentSquad: [
-    'Term 4 (2026): Monday 19 Oct – Monday 7 Dec',
-    'Term 1 (2027): Monday 8 Feb – Monday 22 Mar',
+    'Term 4 (2026): Monday 19 Oct – Monday 21 Dec',
+    'Term 1 (2027): Monday 25 Jan – Monday 22 Mar',
   ],
 }
 

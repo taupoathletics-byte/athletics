@@ -499,13 +499,13 @@ function renderRJTTabs() {
 function renderRJT() {
   if (!rjt) {
     $('#admin-content').innerHTML = `
-      <div class="page-head"><h1>Run Jump Throw Sessions</h1></div>
+      <div class="page-head"><h1>ASB Run Jump Throw Sessions</h1></div>
       <p>${rjtFailed ? 'Could not load the Run Jump Throw timetable.' : 'Loading the timetable\u2026'}</p>`;
     return;
   }
   $('#admin-content').innerHTML = `
     <div class="page-head">
-      <h1>Run Jump Throw Sessions</h1>
+      <h1>ASB Run Jump Throw Sessions</h1>
       <p>Five stations a night — a different circuit every week. Tap a station for the set-up and coaching points.</p>
     </div>
     ${rjtProgrammeHTML(rjt.programme)}
@@ -1011,8 +1011,8 @@ function renderAdmin() {
     `<span class="material-symbols-outlined filled">${icon}</span> ${label}</button>`;
 
   $('#sidenav').innerHTML = `
-    ${section('runsheets', 'description', 'Get Set Go Sessions')}
-    ${section('rjt', 'sports_score', 'Run Jump Throw Sessions')}
+    ${section('runsheets', 'description', 'ASB Get Set Go Sessions')}
+    ${section('rjt', 'sports_score', 'ASB Run Jump Throw Sessions')}
     ${section('checkin', 'how_to_reg', 'Check In')}
     ${section('records', 'emoji_events', 'Record Results')}
     ${section('lookup', 'manage_search', 'Member Records')}

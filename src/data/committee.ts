@@ -92,7 +92,7 @@ export const committee: PeopleGroup[] = [
       {
         name: 'Ashleigh Carlson',
         role: 'Records & Registration Co-ordinator',
-        extra: 'Get Set Go coach & co-ordinator',
+        extra: 'ASB Get Set Go coach & co-ordinator',
         card: '/team/ash.png',
         qa: [
           {
@@ -127,12 +127,12 @@ export const committee: PeopleGroup[] = [
   },
   {
     id: 'getsetgo',
-    title: 'Get Set Go Coaches',
+    title: 'ASB Get Set Go Coaches',
     tone: 'teal',
     people: [
       {
         name: 'Erin James',
-        role: 'Get Set Go Coach',
+        role: 'ASB Get Set Go Coach',
         extra: 'Friend of the Committee',
         card: '/team/erin.png',
         qa: [
@@ -141,9 +141,9 @@ export const committee: PeopleGroup[] = [
           { q: 'Favourite ice cream flavour?', a: 'Chocolate!' },
         ],
       },
-      { name: 'Esme', role: 'Get Set Go Assistant Coach' },
-      { name: 'Jordyn', role: 'Get Set Go Assistant Coach' },
-      { name: 'Libby', role: 'Get Set Go Assistant Coach' },
+      { name: 'Esme', role: 'ASB Get Set Go Assistant Coach' },
+      { name: 'Jordyn', role: 'ASB Get Set Go Assistant Coach' },
+      { name: 'Libby', role: 'ASB Get Set Go Assistant Coach' },
     ],
   },
   {

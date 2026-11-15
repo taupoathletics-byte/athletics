@@ -12,6 +12,7 @@ import Volunteer from '@/pages/Volunteer'
 import Brand from '@/pages/Brand'
 import MyResults from '@/pages/MyResults'
 import Unsubscribe from '@/pages/Unsubscribe'
+import ExploreEvents from '@/pages/ExploreEvents'
 import CheckIn from '@/pages/CheckIn'
 import NotFound from '@/pages/NotFound'
 
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="registration" element={<Registration />} />
         <Route path="club-nights" element={<ClubNights />} />
         <Route path="events" element={<Events />} />
+        <Route path="explore-events" element={<ExploreEvents />} />
         <Route path="team" element={<Team />} />
         <Route path="club-records" element={<ClubRecords />} />
         <Route path="my-results" element={<MyResults />} />

@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CalendarDays, CloudRain, Facebook, HandHeart, Timer } from 'lucide-react'
+import { CalendarDays, Clock, CloudRain, Facebook, HandHeart, MapPin, QrCode, Timer } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { Photo } from '@/components/Photo'
 import { FacebookFeed } from '@/components/FacebookFeed'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
-import { clubName, links, seasonDates } from '@/data/site'
-import { developmentSquad, developmentSquadTimeLabel, eventRotation, eveningTimeline } from '@/data/clubNights'
+import { clubName, links, seasonDates, venue } from '@/data/site'
+import { GSG, RJT, developmentSquad, developmentSquadTimeLabel, eveningTimeline } from '@/data/clubNights'
 
 /** Reveals children one by one as the list scrolls into view. */
 function useReveal<T extends HTMLElement>() {
@@ -47,8 +47,44 @@ export default function ClubNights() {
         photo={41}
       />
 
+      {/* Arriving: where, when and what to do first. */}
+      <section className="container-page pt-gutter-md">
+        <ul className="grid gap-3 md:grid-cols-3">
+          <li>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue.mapsQuery)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-full items-start gap-3 rounded-xl bg-white p-gutter-sm shadow-soft transition-shadow hover:shadow-floating"
+            >
+              <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-signal" aria-hidden />
+              <span>
+                <span className="block font-bold text-on-surface">{venue.name}</span>
+                <span className="text-on-surface-variant">{venue.address} · open in Maps</span>
+              </span>
+            </a>
+          </li>
+          <li className="flex items-start gap-3 rounded-xl bg-white p-gutter-sm shadow-soft">
+            <Clock className="mt-0.5 h-5 w-5 shrink-0 text-signal" aria-hidden />
+            <span>
+              <span className="block font-bold text-on-surface">Thursdays from 5:30pm</span>
+              <span className="text-on-surface-variant">{GSG} until 6:30pm · {RJT} until 7:00pm</span>
+            </span>
+          </li>
+          <li>
+            <Link to="/check-in" className="flex h-full items-start gap-3 rounded-xl bg-white p-gutter-sm shadow-soft transition-shadow hover:shadow-floating">
+              <QrCode className="mt-0.5 h-5 w-5 shrink-0 text-signal" aria-hidden />
+              <span>
+                <span className="block font-bold text-on-surface">Check in when you arrive</span>
+                <span className="text-on-surface-variant">At the check-in desk, or on your phone — it takes a few seconds.</span>
+              </span>
+            </Link>
+          </li>
+        </ul>
+      </section>
+
       {/* Weather call — prominent, because this is the thing families need. */}
-      <section className="bg-signal/10">
+      <section className="mt-gutter-md bg-signal/10">
         <div className="container-page flex flex-wrap items-center gap-4 py-4">
           <CloudRain className="h-6 w-6 shrink-0 text-signal" aria-hidden />
           <p className="font-semibold text-on-surface">
@@ -78,15 +114,15 @@ export default function ClubNights() {
 
         {/* Two groups, side by side */}
         <div className="mt-8 grid gap-5 md:grid-cols-2">
-          <article className="overflow-hidden rounded-xl border-l-4 border-l-tertiary bg-white shadow-soft">
+          <article id="get-set-go" className="scroll-mt-24 overflow-hidden rounded-xl border-l-4 border-l-tertiary bg-white shadow-soft">
             <Photo id={39} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[16/9] w-full" />
             <div className="p-gutter-sm">
-              <Badge className="bg-tertiary text-white">Get Set Go</Badge>
-              <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">Littlies · 3–6 yrs</h2>
+              <Badge className="bg-tertiary text-white">{GSG}</Badge>
+              <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">Grades 3–6</h2>
               <p className="mt-1 font-semibold text-tertiary">Thursdays 5:30–6:30pm</p>
               <p className="mt-3 text-on-surface-variant">
-                Our littlies take part in running races and other game-based activities as part of the Get Set Go
-                programme. Parents stay and help — it makes the night run, and the children love it.
+                Running races and other game-based activities in small groups, run by our coaches with parents helping
+                at every station. Parents stay for the whole session.
               </p>
               <Link to="/volunteer" className={`${buttonVariants({ variant: 'outline' })} mt-4`}>
                 Ways to help →
@@ -94,30 +130,29 @@ export default function ClubNights() {
             </div>
           </article>
 
-          <article className="overflow-hidden rounded-xl border-l-4 border-l-signal bg-white shadow-soft">
+          <article id="run-jump-throw" className="scroll-mt-24 overflow-hidden rounded-xl border-l-4 border-l-signal bg-white shadow-soft">
             <Photo id={35} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[16/9] w-full" />
             <div className="p-gutter-sm">
-              <Badge className="bg-signal text-signal-ink">Club night rotation</Badge>
-              <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">7 yrs +</h2>
+              <Badge className="bg-signal text-signal-ink">{RJT}</Badge>
+              <h2 className="mt-3 font-display text-2xl font-bold text-on-surface">Grades 7–14</h2>
               <p className="mt-1 font-semibold text-on-signal">Thursdays 5:30–7:00pm</p>
               <p className="mt-3 text-on-surface-variant">
-                Older athletes work through a rotation of 3&ndash;4 events with coaching on safe and proper use of
-                equipment — usually one running event (60m–1500m) and two field events, plus some skills, with a relay
-                to finish if there&rsquo;s time.
+                Athletes rotate through four stations: a mix of game-based activities from the {RJT} programme and
+                event-specific practice, with coaching on safe and proper use of equipment. If there&rsquo;s time, we
+                finish with a relay.
               </p>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {eventRotation.map((e) => (
-                  <li
-                    key={e}
-                    className="rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 text-sm font-semibold text-on-surface"
-                  >
-                    {e}
-                  </li>
-                ))}
-              </ul>
+              <Link to="/volunteer" className={`${buttonVariants({ variant: 'outline' })} mt-4`}>
+                Ways to help →
+              </Link>
             </div>
           </article>
         </div>
+        <p className="mt-5 flex flex-wrap items-center gap-3 text-sm text-on-surface-variant">
+          <span>{GSG} and {RJT} are sponsored by</span>
+          <a href="https://www.asb.co.nz/" target="_blank" rel="noopener noreferrer" aria-label="ASB">
+            <img src="/sponsors/asb.png" alt="ASB" width={120} height={29} className="h-6 w-auto" />
+          </a>
+        </p>
       </section>
 
       {/* Evening timeline */}

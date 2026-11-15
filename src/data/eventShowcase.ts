@@ -1,10 +1,10 @@
 /**
- * Copy for the "Explore seven of our events" section on the home page.
+ * Copy for the "Explore our events" page (/explore-events), in the order shown.
  *
  * The grade lines come from the Ribbon Day programme (RIBBON in grades.ts) —
  * keep them in step if that table changes. "Club night" means the event is in
- * the rotation for 7 years and up (eventRotation in clubNights.ts); hurdles
- * aren't, so they point to Ribbon Days instead. Links go to existing pages only.
+ * the ASB Run Jump Throw club nights for 7 years and up; hurdles aren't, so
+ * they point to Ribbon Days instead. Links go to existing pages only.
  */
 import type { EventId } from '@/components/athletics/events/Stage'
 
@@ -25,14 +25,14 @@ const clubNight = { label: 'How club night works', to: '/club-nights' }
 
 export const eventShowcase: EventShowcase[] = [
   {
-    id: 'hurdles',
-    name: 'Hurdles',
-    tagline: 'Attack. Clear. Sprint.',
+    id: 'sprints',
+    name: 'Sprints',
+    tagline: 'Set. Go. Drive.',
     description:
-      'A sprint with barriers in the way. Hurdlers attack each one with a straight lead leg, fold the trail leg over and keep their rhythm between hurdles.',
-    who: 'Grades 10–11: 70m · Grades 12–13: 80m · Grade 14: 80m (girls), 100m (boys)',
-    where: 'An optional event at Ribbon Days',
-    cta: { label: 'Ribbon Day events', to: '/events' },
+      'Short and flat out: a quick reaction off the line, a low drive for the first few strides, then tall and relaxed to the finish — and dip for the line.',
+    who: 'Ribbon Days: 60m (Grades 7–9), 100m and 200m (Grades 7–14), 400m (Grades 10–14)',
+    where: 'At club night and every Ribbon Day',
+    cta: clubNight,
   },
   {
     id: 'long-jump',
@@ -80,7 +80,7 @@ export const eventShowcase: EventShowcase[] = [
     tagline: 'Four runners. One baton.',
     description:
       'It’s all in the changeover: the next runner sets off early and the baton passes hand to hand at full speed inside the exchange zone.',
-    who: 'Grades 5–6: shuttle relay · Grades 7–14: 4×100m',
+    who: 'Most Ribbon Days finish with a relay — often 4×100m, but some host clubs run a different format',
     where: 'Club night finishes with a relay for 7 years and up when there’s time',
     cta: clubNight,
   },
@@ -93,5 +93,15 @@ export const eventShowcase: EventShowcase[] = [
     who: 'Ribbon Days: 800m from Grade 9 · 1500m from Grade 10',
     where: 'In the club-night rotation for 7 years and up',
     cta: clubNight,
+  },
+  {
+    id: 'hurdles',
+    name: 'Hurdles',
+    tagline: 'Attack. Clear. Sprint.',
+    description:
+      'A sprint with barriers in the way. Hurdlers attack each one with a straight lead leg, fold the trail leg over and keep their rhythm between hurdles.',
+    who: 'Grades 12–13: 80m · Grade 14: 80m (girls), 100m (boys)',
+    where: 'An optional event at Ribbon Days',
+    cta: { label: 'Ribbon Day events', to: '/events' },
   },
 ]

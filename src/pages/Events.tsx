@@ -230,7 +230,8 @@ export default function Events() {
           <p className="max-w-3xl text-on-surface-variant">
             Ribbon Days are a great extension of what the athletes learn at club nights and are a fun day out. If a
             Ribbon Day is washed out on the Saturday, it may be run on the Sunday. Hurdles are optional, and host clubs
-            may not offer every event for every grade. An athlete
+            may not offer every event for every grade. Relays are often 4×100m, but some clubs run a different
+            format. An athlete
             cannot compete in more than 2 longer events (400m, 800m, 1500m) on any one day.
           </p>
 

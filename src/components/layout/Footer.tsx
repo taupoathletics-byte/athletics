@@ -48,7 +48,7 @@ export function Footer() {
             </li>
             <li>
               <a className={item} href={links.getSetGoPortal}>
-                Get Set Go lesson plans
+                ASB Get Set Go lesson plans
               </a>
             </li>
           </ul>

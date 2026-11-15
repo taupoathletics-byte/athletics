@@ -13,6 +13,7 @@ import { sceneById } from './events/scenes'
 
 /** A square window onto each 800 × 500 scene, framing its key moment. */
 export const ICON_CROP: Record<EventId, string> = {
+  sprints: '300 60 440 440',
   hurdles: '210 60 440 440',
   'long-jump': '320 60 440 440',
   'high-jump': '270 50 440 440',
@@ -31,6 +32,7 @@ export const ICON_CROP_SIZE = 440
  * left). The javelin plays all of it: its release timing drives JavelinFlight.
  */
 export const ICON_RANGE: Record<EventId, [number, number]> = {
+  sprints: [0.3, 0.8],
   hurdles: [0.28, 0.76],
   'long-jump': [0.26, 1],
   'high-jump': [0.3, 1],

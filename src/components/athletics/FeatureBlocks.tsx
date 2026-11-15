@@ -17,15 +17,16 @@ interface Block {
 
 const BLOCKS: Block[] = [
   {
-    photo: 35,
+    photo: 26,
     eyebrow: 'For families',
     title: 'Your results, your PBs',
-    body: 'Every result recorded on club nights lands in your family’s own record. Ask the check-in desk for your family access code, then open My Results to see every jump, throw and time — and watch the PBs roll in.',
+    body: 'Every result recorded on club nights lands in your family’s own record. Use the family access code we emailed you (or ask at the check-in desk), then open My Results to see every jump, throw and time — and watch the PBs roll in.',
     cta: { label: 'View my results', to: '/my-results' },
     band: 'bg-sky',
   },
   {
-    photo: 26,
+    // An older athlete, as the club asked; swap for a squad photo when there is one.
+    photo: 35,
     eyebrow: `${developmentSquad.day} · ${developmentSquadTimeLabel}`,
     title: 'Development Squad',
     body: `${developmentSquad.detail} ${developmentSquad.who} No extra fee.`,

@@ -3,7 +3,6 @@ import { AlertTriangle, Heart } from 'lucide-react'
 import { FacebookFeed } from '@/components/FacebookFeed'
 import { SponsorStrip } from '@/components/SponsorStrip'
 import { CrewQuotes } from '@/components/athletics/CrewQuotes'
-import { EventsExplorer } from '@/components/athletics/EventsExplorer'
 import { JavelinFlight } from '@/components/athletics/JavelinFlight'
 import { FeatureBlocks } from '@/components/athletics/FeatureBlocks'
 import { LifeStrip } from '@/components/athletics/LifeStrip'
@@ -41,7 +40,6 @@ export default function Home() {
       />
 
       <LifeStrip />
-      <EventsExplorer />
       <WordRows />
       <FeatureBlocks />
       <CrewQuotes />

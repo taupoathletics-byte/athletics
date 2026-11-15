@@ -55,10 +55,10 @@ export const volunteerRoles: VolunteerRole[] = [
     ],
   },
   {
-    role: 'Student Helper — Get Set Go',
+    role: 'Student Helper — ASB Get Set Go',
     entails: [
       'Support coaches with event setup, timing and group management',
-      'Help deliver Get Set Go to 3–6 year olds',
+      'Help deliver ASB Get Set Go to 3–6 year olds',
       'Help keep things safe and fun',
     ],
     commitment: ['Thursdays, 5:30–6:30pm (Term 4 & Term 1)'],

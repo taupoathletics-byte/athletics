@@ -5,7 +5,6 @@ import { RegisterButton } from '@/components/RegisterButton'
 import { clubNightGroups, formatClubNightLabel, groupTimeLabel, nextClubNight } from '@/data/clubNights'
 import { registration } from '@/data/fees'
 import { venue } from '@/data/site'
-import { cn } from '@/lib/utils'
 import { Odometer } from './Odometer'
 import { EventFloater } from './EventIcon'
 import { JavelinLanding } from './JavelinFlight'
@@ -23,8 +22,8 @@ function useTick(ms: number) {
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`
 
 const GROUP_COPY: Record<string, string> = {
-  juniors: 'Get Set Go: games-based running, jumping and throwing in small groups, with coaches and whānau helping.',
-  seniors: 'Track and field rotations — sprints, distance, jumps, throws — and a relay to finish when there’s time.',
+  juniors: 'Games-based running, jumping and throwing in small groups, with coaches and whānau helping.',
+  seniors: 'Four stations: game-based activities from the ASB Run Jump Throw programme and event-specific practice.',
 }
 
 /**
@@ -34,8 +33,6 @@ const GROUP_COPY: Record<string, string> = {
 export function NextNightPanel() {
   const now = useTick(1000)
   const next = nextClubNight(new Date(now))
-  const [tab, setTab] = useState(clubNightGroups[0].id)
-  const group = clubNightGroups.find((g) => g.id === tab) ?? clubNightGroups[0]
 
   const diff = next ? Math.max(0, next.when.getTime() - now) : 0
   const d = Math.floor(diff / 86_400_000)
@@ -82,30 +79,19 @@ export function NextNightPanel() {
               </p>
             )}
 
-            {/* Grade tabs */}
-            <div className="mt-8 flex justify-center gap-6 border-b border-ink/15" role="tablist" aria-label="Times by grade">
+            {/* Both programmes side by side — no tabs to find */}
+            <div className="mt-8 grid gap-3 md:grid-cols-2">
               {clubNightGroups.map((g) => (
-                <button
-                  key={g.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={tab === g.id}
-                  onClick={() => setTab(g.id)}
-                  className={cn(
-                    '-mb-px border-b-4 px-1 pb-2 font-display text-lg font-extrabold uppercase tracking-wide transition-colors',
-                    tab === g.id ? 'border-signal text-ink' : 'border-transparent text-on-surface-variant hover:text-ink',
-                  )}
-                >
-                  {g.label}
-                  {g.programme ? ` · ${g.programme}` : ''}
-                </button>
+                <div key={g.id} className="rounded-lg border border-ink/10 bg-white px-4 py-3 text-sm">
+                  <p className="font-display text-lg font-extrabold uppercase tracking-wide text-track">{g.programme}</p>
+                  <p className="font-display text-2xl font-black text-ink">
+                    {g.label} · {groupTimeLabel(g)}
+                  </p>
+                  <p className="text-on-surface-variant">{GROUP_COPY[g.id]}</p>
+                </div>
               ))}
             </div>
-            <div role="tabpanel" className="mt-5 grid gap-3 text-sm md:grid-cols-3">
-              <div className="rounded-lg border border-ink/10 bg-white px-4 py-3">
-                <p className="font-display text-2xl font-black text-ink">{groupTimeLabel(group)}</p>
-                <p className="text-on-surface-variant">{GROUP_COPY[group.id]}</p>
-              </div>
+            <div className="mt-3 grid gap-3 text-sm md:grid-cols-2">
               <a
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue.mapsQuery)}`}
                 target="_blank"
@@ -140,8 +126,16 @@ export function NextNightPanel() {
             <p className="mx-auto mt-6 flex max-w-2xl items-start gap-2 rounded-lg bg-signal/15 px-4 py-3 text-sm text-on-signal">
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
               <span>
-                <strong>We don’t run an open day.</strong> Junior grades (3–6) are capped, fill quickly and have no
-                waitlist, so register early.
+                {registration.spacesNote ? (
+                  <>
+                    <strong>{registration.spacesNote}</strong> We don&rsquo;t run an open day.
+                  </>
+                ) : (
+                  <>
+                    <strong>We don&rsquo;t run an open day.</strong> Junior grades (3–6) are capped, fill quickly and have
+                    no waitlist, so register early.
+                  </>
+                )}
               </span>
             </p>
           </div>

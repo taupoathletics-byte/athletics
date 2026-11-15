@@ -42,7 +42,7 @@ export const photos: Photo[] = [
     // TODO confirm this alt text. The club asked for photo 26 on the
     // Development Squad card, but it was wired up without a visual check, so
     // this describes the card's subject rather than what is actually in frame.
-    alt: 'Development Squad athletes training at Owen Delany Park',
+    alt: 'Taupō Athletics athletes at Owen Delany Park',
     focal: { x: 0.5, y: 0.45 },
     tags: ['team'],
   },

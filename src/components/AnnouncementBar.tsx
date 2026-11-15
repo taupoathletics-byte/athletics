@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ArrowRight, X } from 'lucide-react'
 import { registration } from '@/data/fees'
 
-const KEY = 'ta-announce-dismissed-2026-27'
+const KEY = 'ta-announce-dismissed-2026-27-spaces'
 
 /**
  * Slim dismissible bar above the header. The dismissal is remembered per
@@ -37,7 +37,7 @@ export function AnnouncementBar() {
     <div className="bg-primary text-white">
       <div className="container-page flex items-center justify-center gap-3 py-2 text-sm">
         <p className="text-center font-semibold">
-          {registration.seasonLabel} registrations are open
+          {registration.spacesNote ? 'Spaces left for college and masters athletes' : `${registration.seasonLabel} registrations are open`}
           <span className="mx-2 hidden opacity-60 sm:inline">·</span>
           <a
             href={registration.url}

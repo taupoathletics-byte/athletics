@@ -21,7 +21,7 @@ export const faqs: FaqCategory[] = [
     items: [
       {
         q: 'Are registrations open?',
-        a: 'Yes \u2014 registrations for the 2026/27 season are open now. Register through the GameDay form linked from any Register button on this site.',
+        a: 'Yes \u2014 registrations for the 2026/27 season are open, but Grades 3\u201314 are now full; we still have spaces for college (Grades 15\u201319) and masters athletes. Register through the GameDay form linked from any Register button on this site.',
       },
       {
         q: 'What does it cost?',
@@ -29,7 +29,7 @@ export const faqs: FaqCategory[] = [
       },
       {
         q: 'Is there a limit on numbers?',
-        a: 'Yes, for our junior grades. Grades 3 & 4 are capped at 10 per age group and Grades 5 & 6 at 20 per age group. These caps can increase if more adults volunteer to help on club nights \u2014 no athletics experience is needed: our Get Set Go sessions are planned for you with equipment ready and plenty of support. Junior grades fill quickly and there is no waitlist once a grade is full, so get in early.',
+        a: 'Yes, for our junior grades. Grades 3 & 4 are capped at 10 per age group and Grades 5 & 6 at 20 per age group. These caps can increase if more adults volunteer to help on club nights \u2014 no athletics experience is needed: our ASB Get Set Go sessions are planned for you with equipment ready and plenty of support. Junior grades fill quickly and there is no waitlist once a grade is full, so get in early.',
       },
       {
         q: 'Do you hold an open day for children to give athletics a go?',

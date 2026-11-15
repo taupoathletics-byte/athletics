@@ -21,6 +21,13 @@ export interface Sponsor {
 
 export const sponsors: Sponsor[] = [
   {
+    name: 'ASB',
+    url: 'https://www.asb.co.nz/',
+    tier: 'principal',
+    logo: '/sponsors/asb.png',
+    note: 'Sponsor of the ASB Get Set Go and ASB Run Jump Throw programmes.',
+  },
+  {
     name: 'Grassroots Trust',
     url: 'https://www.grassrootstrust.co.nz/',
     tier: 'principal',

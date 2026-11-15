@@ -557,7 +557,7 @@
   /* ---------- A4 PDF: one card per page, JPEG images ---------- */
 
   /** pages: [canvas] -> Blob (application/pdf) */
-  async function makePdf(pages, title = 'Get Set Go station cards') {
+  async function makePdf(pages, title = 'ASB Get Set Go station cards') {
     const enc = new TextEncoder();
     const A4W = 595.28;
     const A4H = 841.89;
@@ -623,7 +623,7 @@
     if (!navigator.canShare || !navigator.share) return false;
     if (!navigator.canShare({ files })) return false;
     try {
-      await navigator.share({ files, title: 'Get Set Go station cards', text });
+      await navigator.share({ files, title: 'ASB Get Set Go station cards', text });
     } catch (e) {
       if (e && e.name === 'AbortError') return true; // the volunteer closed the sheet
       return false;

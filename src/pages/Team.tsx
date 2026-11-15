@@ -73,7 +73,7 @@ function PersonCard({ p, tone, onOpen }: { p: Person; tone: string; onOpen?: () 
 /** Per-group line on the "Could this be you?" recruiting card. */
 const RECRUIT_COPY: Partial<Record<string, string>> = {
   committee: 'We’re looking for committee members.',
-  getsetgo: 'Help with Get Set Go on Thursdays.',
+  getsetgo: 'Help with ASB Get Set Go on Thursdays.',
 }
 
 export default function Team() {

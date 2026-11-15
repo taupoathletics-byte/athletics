@@ -47,8 +47,9 @@ const points = (pose) => {
 };
 const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
 
-const SEVEN = ['hurdles', 'long-jump', 'high-jump', 'shot-put', 'discus', 'relays', 'distance'];
-check('the club\'s seven events each have a scene', scenes.map((s) => s.id).join() === SEVEN.join(), scenes.map((s) => s.id).join());
+// The order the Explore page shows them: sprints first, hurdles last (the club's choice).
+const SEVEN = ['sprints', 'long-jump', 'high-jump', 'shot-put', 'discus', 'relays', 'distance', 'hurdles'];
+check('every club event has a scene', scenes.map((s) => s.id).join() === SEVEN.join(), scenes.map((s) => s.id).join());
 check('the seven scenes are in the same order as the section copy', scenes.map((s) => s.id).join() === eventShowcase.map((e) => e.id).join(),
   `${scenes.map((s) => s.id).join()} vs ${eventShowcase.map((e) => e.id).join()}`);
 check('every scene has a square icon crop', allScenes.every((s) => /^-?\d+ -?\d+ 440 440$/.test(ICON_CROP[s.id] ?? '')),

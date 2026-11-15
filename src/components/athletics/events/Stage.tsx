@@ -18,7 +18,7 @@ export interface Frame {
   props?: Record<string, PropState>
 }
 
-export type EventId = 'hurdles' | 'long-jump' | 'high-jump' | 'shot-put' | 'discus' | 'relays' | 'distance' | 'javelin'
+export type EventId = 'sprints' | 'hurdles' | 'long-jump' | 'high-jump' | 'shot-put' | 'discus' | 'relays' | 'distance' | 'javelin'
 
 export interface ArtProps {
   /** Places an athlete from the scene's cast, at its depth in the drawing. */

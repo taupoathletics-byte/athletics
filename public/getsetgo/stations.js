@@ -220,7 +220,7 @@ function renderSessionsDashboard() {
   const root = $('#admin-content');
   if (!root) return;
   if (!series.length) {
-    root.innerHTML = `<div class="page-head"><h1>Get Set Go Sessions</h1><p>Loading the run sheets…</p></div>`;
+    root.innerHTML = `<div class="page-head"><h1>ASB Get Set Go Sessions</h1><p>Loading the run sheets…</p></div>`;
     return;
   }
   gsgLoadOverrides();
@@ -248,7 +248,7 @@ function renderSessionsDashboard() {
     <div class="gsg">
       <div class="page-head gsg-pagehead">
         <div>
-          <h1>Get Set Go Sessions</h1>
+          <h1>ASB Get Set Go Sessions</h1>
           <p>Tonight’s four stations at a glance. Open a station for the volunteer card — the full coaching notes are tucked inside.</p>
         </div>
         ${storagePill}
@@ -428,7 +428,7 @@ function gsgOpenMeetPrint(kind, night) {
     <form class="gsg-form gsg-printform">
       <fieldset class="gsg-fieldset"><legend>Names</legend>
         <label class="gsg-radio"><input type="radio" name="names" value="blank" checked> Blank — write each child’s name on the night</label>
-        <label class="gsg-radio"><input type="radio" name="names" value="members"> Fill in names from the Get Set Go member list (6 and under)</label>
+        <label class="gsg-radio"><input type="radio" name="names" value="members"> Fill in names from the ASB Get Set Go member list (6 and under)</label>
         <label class="gsg-field gsg-printform__copies"><span>Blank copies</span><input type="number" name="copies" min="1" max="200" value="${kind === 'passport' ? 40 : 40}"></label>
       </fieldset>
       <p class="gsg-hint">${kind === 'passport' ? 'Four passports per A4 page — one sticker box per zone.' : 'One certificate per A4 page (landscape).'} No results or rankings are printed — participation only.</p>
@@ -445,7 +445,7 @@ function gsgOpenMeetPrint(kind, night) {
     try {
       if (form.elements.names.value === 'members') {
         people = (await gsgMeetNames()).map((m) => m.name || `${m.first} ${m.last}`.trim());
-        if (!people.length) throw new Error('No Get Set Go (6 and under) members found in the member list.');
+        if (!people.length) throw new Error('No ASB Get Set Go (6 and under) members found in the member list.');
       } else {
         const n = Math.max(1, Math.min(200, Number(form.elements.copies.value) || 1));
         people = Array.from({ length: n }, () => '');
@@ -462,7 +462,7 @@ function gsgPrintPassports(meet, night, people) {
   const labels = p.zoneLabels && p.zoneLabels.length ? p.zoneLabels : (night.cards || []).map((c) => c.name);
   const one = (name) => `
     <section class="pp">
-      <header><img src="/logo.svg" alt=""><div><strong>${esc(p.title || 'Skill passport')}</strong><small>Get Set Go · Mini Meet · ${esc(night.dateLabel)}</small></div></header>
+      <header><img src="/logo.svg" alt=""><div><strong>${esc(p.title || 'Skill passport')}</strong><small>ASB Get Set Go · Mini Meet · ${esc(night.dateLabel)}</small></div></header>
       <p class="pp__name">Name: <span>${esc(name)}</span></p>
       ${p.colourTeam ? '<p class="pp__name pp__team">Colour team: <span></span></p>' : ''}
       ${p.intro ? `<p class="pp__intro">${esc(p.intro)}</p>` : ''}
@@ -501,7 +501,7 @@ function gsgPrintCertificates(meet, night, people) {
       <p class="cert__to">This certificate is presented to</p>
       <p class="cert__name">${name ? esc(name) : '&nbsp;'}</p>
       ${c.body ? String(c.body).split('\n').filter(Boolean).map((line) => `<p class="cert__body">${esc(line)}</p>`).join('') : ''}
-      <p class="cert__meta">Taupō Athletics Club · Get Set Go Mini Meet · ${esc(night.dateLabel)}</p>
+      <p class="cert__meta">Taupō Athletics Club · ASB Get Set Go Mini Meet · ${esc(night.dateLabel)}</p>
       ${c.footer ? `<p class="cert__foot">${esc(c.footer)}</p>` : ''}
     </section>`;
   const css = `
@@ -994,7 +994,7 @@ async function gsgOpenExport(keys, { share = false } = {}) {
   $('.gsg-ex__toolbar', panel).hidden = false;
 
   const canShareFiles = (files) => Boolean(navigator.canShare && navigator.share && navigator.canShare({ files }));
-  const text = `Get Set Go — ${window.GSGCards.longDate(cards[0].date)}`;
+  const text = `ASB Get Set Go — ${window.GSGCards.longDate(cards[0].date)}`;
   $$('[data-dl]', panel).forEach((b) => b.addEventListener('click', () => { const r = results[Number(b.dataset.dl)]; window.GSGCards.download(r.blob, r.name); }));
   $$('[data-sh]', panel).forEach((b) => {
     const r = results[Number(b.dataset.sh)];

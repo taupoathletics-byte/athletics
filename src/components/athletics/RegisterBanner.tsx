@@ -15,7 +15,7 @@ export function RegisterBanner() {
           <div className="relative rounded-lg bg-sky px-2 py-4 text-center">
             <p className="display-xl text-[2.6rem] text-ink md:text-5xl">{registration.seasonLabel} registrations open</p>
             <p className="mx-auto mt-3 max-w-sm text-[15px] text-ink/80">
-              {registration.coversLabel}. {noWaitlistNote}
+              {registration.spacesNote || `${registration.coversLabel}. ${noWaitlistNote}`}
             </p>
             <RegisterButton className="mt-5 px-7 py-3 text-base">Register on GameDay</RegisterButton>
           </div>
