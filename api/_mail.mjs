@@ -90,7 +90,7 @@ export function mailSettings(req) {
   const host = req.headers?.['x-forwarded-host'] || req.headers?.host || 'taupoathletics.vercel.app';
   return {
     from: process.env.EMAIL_FROM || '',
-    replyTo: process.env.EMAIL_REPLY_TO || 'taupoathletics@gmail.com',
+    replyTo: process.env.EMAIL_REPLY_TO || 'secretary@taupoathletics.org.nz',
     siteUrl: process.env.SITE_URL || `https://${host}`,
     ready: Boolean(process.env.RESEND_API_KEY && process.env.EMAIL_FROM),
   };

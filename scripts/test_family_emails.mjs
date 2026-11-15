@@ -133,7 +133,7 @@ const batch2 = resendCalls.at(-1);
 const appleMail = [...batch1.body, ...batch2.body].find((m) => m.to[0] === 'parent.apple@example.com');
 check('send: the family email lists every child and their one code', appleMail && /Leo and Mia/.test(appleMail.text) && /AAAA 2222/.test(appleMail.text));
 check('send: link opens My Results with the code after "#"', /https:\/\/club\.example\/my-results#code=AAAA2222/.test(appleMail.html));
-check('send: replies go to the club address', appleMail.reply_to === 'taupoathletics@gmail.com');
+check('send: replies go to the club address', appleMail.reply_to === 'secretary@taupoathletics.org.nz');
 check('send: log created under the Athletics page, no addresses stored', logDb && logRows.length === 3 && !logRows.some((r) => /@/.test(r.properties.Family.title[0].plain_text)));
 
 check('send again: only the family still waiting is emailed', second.json.sent === 1 && batch2.body.length === 1 && !batch1.body.some((m) => m.to[0] === batch2.body[0].to[0]), second.body);

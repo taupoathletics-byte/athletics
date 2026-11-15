@@ -143,7 +143,7 @@ const all = [...b1.body, ...b2.body].map((e) => e.to[0]);
 check('send: second batch finishes, nobody twice', second.json.sent === 53 && second.json.next === 153 && new Set(all).size === 153 && logRows.length === 1);
 const done = await post({ action: 'send', campaignId: 'camp-12345', offset: 153, audience, ...msg });
 check('send: past the end sends nothing', done.json.sent === 0 && resendCalls.at(-1) === b2);
-check('plain text: club layout, clickable link, footer', /<a href="https:\/\/example\.org\/news"/.test(b1.body[0].html) && /member of Taupō Athletics/.test(b1.body[0].text) && b1.body[0].reply_to === 'taupoathletics@gmail.com');
+check('plain text: club layout, clickable link, footer', /<a href="https:\/\/example\.org\/news"/.test(b1.body[0].html) && /member of Taupō Athletics/.test(b1.body[0].text) && b1.body[0].reply_to === 'secretary@taupoathletics.org.nz');
 
 // Pasted HTML
 const pasted = compose({ subject: 'Newsletter', format: 'html', body: '<html><body><h1>Term 4 news</h1><p>Hello <a href="https://x.org">x</a></p></body></html>' });

@@ -18,8 +18,8 @@
 // records are only read, never written.
 //
 // Config: RESEND_API_KEY, EMAIL_FROM (an address on a domain verified in
-// Resend, e.g. "Taupō Athletics <results@mail.taupoathletics.org.nz>"),
-// optional EMAIL_REPLY_TO (default taupoathletics@gmail.com), SITE_URL
+// Resend, e.g. "Taupō Athletics <secretary@taupoathletics.org.nz>"),
+// optional EMAIL_REPLY_TO (default secretary@taupoathletics.org.nz), SITE_URL
 // (default: this deployment), FAMILY_EMAIL_LOG_DB_ID (else found or created
 // under ATHLETICS_PAGE_ID by title).
 import { createHash } from 'node:crypto';
