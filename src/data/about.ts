@@ -17,6 +17,9 @@ export const venue = {
   name: 'Owen Delany Park',
   address: 'Centennial Drive, Taupō',
   mapsQuery: 'Owen Delany Park, Taupō',
+  /** Where families should park for club nights (from the club, Nov 2026). */
+  parking:
+    'Park opposite the netball courts and walk straight down onto the athletics field — it’s quicker than walking around from the main Owen Delany carpark.',
 }
 
 export const contactEmail = 'taupoathletics@gmail.com'

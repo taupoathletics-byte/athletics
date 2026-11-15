@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CalendarDays, Clock, CloudRain, Facebook, HandHeart, MapPin, QrCode, Timer } from 'lucide-react'
+import { CalendarDays, Car, Clock, CloudRain, Facebook, HandHeart, MapPin, QrCode, Timer } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { Photo } from '@/components/Photo'
 import { FacebookFeed } from '@/components/FacebookFeed'
@@ -49,7 +49,7 @@ export default function ClubNights() {
 
       {/* Arriving: where, when and what to do first. */}
       <section className="container-page pt-gutter-md">
-        <ul className="grid gap-3 md:grid-cols-3">
+        <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
           <li>
             <a
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue.mapsQuery)}`}
@@ -69,6 +69,13 @@ export default function ClubNights() {
             <span>
               <span className="block font-bold text-on-surface">Thursdays from 5:30pm</span>
               <span className="text-on-surface-variant">{GSG} until 6:30pm · {RJT} until 7:00pm</span>
+            </span>
+          </li>
+          <li className="flex items-start gap-3 rounded-xl bg-white p-gutter-sm shadow-soft">
+            <Car className="mt-0.5 h-5 w-5 shrink-0 text-signal" aria-hidden />
+            <span>
+              <span className="block font-bold text-on-surface">Parking</span>
+              <span className="text-on-surface-variant">{venue.parking}</span>
             </span>
           </li>
           <li>

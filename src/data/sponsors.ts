@@ -25,6 +25,7 @@ export const sponsors: Sponsor[] = [
     url: 'https://www.asb.co.nz/',
     tier: 'principal',
     logo: '/sponsors/asb.png',
+    logoBackground: 'dark',
     note: 'Sponsor of the ASB Get Set Go and ASB Run Jump Throw programmes.',
   },
   {
