@@ -147,12 +147,6 @@ export default function ClubNights() {
             </div>
           </article>
         </div>
-        <p className="mt-5 flex flex-wrap items-center gap-3 text-sm text-on-surface-variant">
-          <span>{GSG} and {RJT} are sponsored by</span>
-          <a href="https://www.asb.co.nz/" target="_blank" rel="noopener noreferrer" aria-label="ASB">
-            <img src="/sponsors/asb.png" alt="ASB" width={120} height={29} className="h-6 w-auto" />
-          </a>
-        </p>
       </section>
 
       {/* Evening timeline */}
