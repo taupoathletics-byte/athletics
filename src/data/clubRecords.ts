@@ -13,7 +13,7 @@
  * mixes "00:09:14" and "00:09.14" for 9.14 seconds). Ties list every athlete.
  * A club-night result that beats or equals a record joins the board
  * automatically (api/_clubrecords.mjs); to correct the sheet itself, edit
- * api/_data/clubRecordsBase.json.
+ * api/_data/clubRecordsBase.mjs.
  */
 export interface ClubRecord {
   grade: number
@@ -31,11 +31,11 @@ export interface RecordEvent {
 }
 
 /**
- * The sheet itself lives in api/_data/clubRecordsBase.json so the server can
+ * The sheet itself lives in api/_data/clubRecordsBase.mjs so the server can
  * compare new club-night results against it (api/_clubrecords.mjs). The page
  * shows the live board from /api/clubrecords and falls back to this.
  */
-import base from '../../api/_data/clubRecordsBase.json'
+import base from '../../api/_data/clubRecordsBase.mjs'
 
 export const clubRecordsAsAt: string = base.asAt
 export const clubRecords = base.events as RecordEvent[]

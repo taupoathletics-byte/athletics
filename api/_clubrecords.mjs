@@ -1,14 +1,11 @@
-// Club Records: the historical sheet (api/_data/clubRecordsBase.json, as at the
+// Club Records: the historical sheet (api/_data/clubRecordsBase.mjs, as at the
 // end of 2024/25) merged with club-night results that beat or equal it.
 //
 // Shared by /api/clubrecords (the public board) and /api/records (which tells
 // the admin when a result they just saved is a new club record). Everything is
 // computed live from the Club Records database, so correcting or deleting a
 // mistyped result in the admin portal also takes it off the board.
-import { createRequire } from 'node:module';
-
-// require() so Vercel's bundler sees the JSON file and ships it with the function.
-const base = createRequire(import.meta.url)('./_data/clubRecordsBase.json');
+import base from './_data/clubRecordsBase.mjs';
 
 export const BASE_AS_AT = base.asAt;
 export const RECORD_EVENTS = base.events.map((e) => ({ event: e.event, unit: e.unit }));
