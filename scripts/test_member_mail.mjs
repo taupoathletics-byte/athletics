@@ -75,7 +75,7 @@ globalThis.fetch = async (url, opts = {}) => {
   return json(404, { message: `unexpected ${method} ${u.pathname}` });
 };
 
-const { default: handler, recipients, toMember, compose } = await import('../api/membermail.mjs');
+const { default: handler, recipients, toMember, compose } = await import('../api/_membermail.mjs');
 const { default: auth } = await import('../api/auth.mjs');
 
 function mockReq(method, url, body, headers = {}) {
@@ -152,7 +152,7 @@ check('HTML: plain-text part made from it', /Term 4 news/.test(pasted.text) && /
 
 // Newsletters: unsubscribe link per reader, and opted-out readers are skipped
 process.env.SITE_URL = 'https://club.example';
-const { default: unsubscribe } = await import('../api/unsubscribe.mjs');
+const { default: unsubscribe } = await import('../api/_unsubscribe.mjs');
 const news = { ...msg, category: 'newsletter', subject: 'Term 4 newsletter' };
 const n1 = await post({ action: 'send', campaignId: 'news-0001', offset: 0, audience: { types: ['juniors'] }, ...news });
 const nb = resendCalls.at(-1);

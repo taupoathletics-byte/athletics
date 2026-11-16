@@ -1,4 +1,4 @@
-// Shared helpers for the email features (api/familyemails.mjs, api/membermail.mjs).
+// Shared helpers for the email features (api/_familyemails.mjs, api/_membermail.mjs).
 // Files prefixed with "_" are shared modules, not deployed as functions.
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 

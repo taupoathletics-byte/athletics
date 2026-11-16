@@ -51,7 +51,7 @@ globalThis.fetch = async (url, opts = {}) => {
   return json(404, { message: `unexpected ${method} ${u.pathname}` });
 };
 
-const { default: handler } = await import('../api/resultsemail.mjs');
+const { default: handler } = await import('../api/_resultsemail.mjs');
 const { default: auth } = await import('../api/auth.mjs');
 function mockReq(method, url, body, headers = {}) {
   return { method, url, headers, on(ev, cb) { if (ev === 'data' && body) cb(body); else if (ev === 'end') setTimeout(cb, 0); } };

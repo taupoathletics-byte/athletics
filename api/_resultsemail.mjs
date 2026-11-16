@@ -17,7 +17,7 @@
 import { createHash } from 'node:crypto';
 import { requireAdmin } from './_guard.mjs';
 import { EMAIL_RE, MEMBERS_DB, ensureDb, mailSettings, mask, notReady, notion, plain, queryAll, readBody, resend, send } from './_mail.mjs';
-import { families } from './familyemails.mjs';
+import { families } from './_familyemails.mjs';
 import { recordRows } from './records.mjs';
 import { RECORD_EVENTS, markValue, newRecordsFor } from './_clubrecords.mjs';
 
