@@ -1,7 +1,9 @@
-// Public lookup: a family enters their access code and sees their own children's
-// records. The code is the only credential — no names, emails or birth dates of
-// anyone else are ever returned. A modest in-memory rate limit slows guessing.
-import { clientIp, publicError } from './_safety.mjs';
+// Public family self-service: a family enters their access code and sees their
+// own children's records, or recovers their code by proving a child's first
+// name, last name and date of birth. The response never includes another
+// family's names, a date of birth, or the roster. In-memory rate limits slow
+// guessing.
+import { clientIp, publicError, rateLimiter } from './_safety.mjs';
 
 export const config = { maxDuration: 60 };
 
@@ -37,8 +39,8 @@ async function queryAll(dbId, filter) {
   return out;
 }
 
-const title = (p) => (p.title || []).map((t) => t.plain_text).join('');
-const rich = (p) => (p.rich_text || []).map((t) => t.plain_text).join('');
+const title = (p) => ((p && p.title) || []).map((t) => t.plain_text).join('');
+const rich = (p) => ((p && p.rich_text) || []).map((t) => t.plain_text).join('');
 
 function parseValue(event, text) {
   const s = String(text || '').trim().replace(/[ms]/gi, '').trim();
@@ -65,8 +67,69 @@ const attempts = new Map();
 const WINDOW_MS = 5 * 60 * 1000;
 const MAX_ATTEMPTS = 30;
 
+/** Lowercase, strip diacritics (macrons), collapse whitespace. */
+const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim();
+
+function readBody(req) {
+  return new Promise((resolve) => {
+    let data = '';
+    req.on('data', (c) => { data += c; });
+    req.on('end', () => { try { resolve(JSON.parse(data || '{}')); } catch { resolve({}); } });
+    req.on('error', () => resolve({}));
+  });
+}
+
+const lookupLimited = rateLimiter({ max: 20, windowMs: 10 * 60 * 1000 });
+
+/**
+ * Recover a family's access code from a child's first name, last name and exact
+ * date of birth. Returns only the code and the matched child's first name.
+ */
+async function lookupCode(req, res) {
+  if (lookupLimited(clientIp(req))) return send(res, 429, { error: 'Too many attempts. Please try again shortly.' });
+
+  const body = await readBody(req);
+  const firstName = norm(body.firstName);
+  const lastName = norm(body.lastName);
+  const birthDate = String(body.birthDate || '').trim();
+
+  if (!firstName || !lastName) return send(res, 400, { error: 'Enter the child’s first and last name.' });
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(birthDate)) return send(res, 400, { error: 'Enter the child’s date of birth.' });
+
+  try {
+    const members = await queryAll(MEMBERS_DB);
+    const match = members.find((m) => {
+      const p = m.properties;
+      const name = title(p.Name);
+      const fn = rich(p['First Name']) || name.split(' ')[0] || '';
+      const ln = rich(p['Last Name']) || '';
+      const aliases = rich(p.Aliases);
+
+      // Exact date of birth and first name; the last name can match the
+      // surname, a blended-family alias (e.g. "Webb" → "Lempriere-Webb") or the
+      // full name, so hyphenated families are found under any of their names.
+      if ((p['Birth Date'] && p['Birth Date'].date && p['Birth Date'].date.start) !== birthDate) return false;
+      if (norm(fn) !== firstName) return false;
+      return `${norm(ln)} ${norm(aliases)} ${norm(name)}`.includes(lastName);
+    });
+
+    if (!match) return send(res, 404, { error: 'No member matches those details. Check the spelling and date of birth.' });
+
+    const code = rich(match.properties['Access code']).trim().toUpperCase();
+    if (!code) return send(res, 404, { error: 'No access code is set for that member yet. Ask at the check-in desk on club night.' });
+
+    const matchName = title(match.properties.Name);
+    const matchFirst = rich(match.properties['First Name']) || matchName.split(' ')[0] || '';
+    return send(res, 200, { code, firstName: matchFirst });
+  } catch (e) {
+    return publicError(res, send, e);
+  }
+}
+
 export default async function handler(req, res) {
   if (!NOTION) return send(res, 500, { error: 'NOTION_TOKEN is not configured on the server.' });
+
+  if (req.method === 'POST') return lookupCode(req, res);
   if (req.method !== 'GET') return send(res, 405, { error: 'method not allowed' });
 
   const ip = clientIp(req);

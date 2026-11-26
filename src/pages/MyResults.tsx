@@ -173,7 +173,7 @@ export default function MyResults() {
     setLookupStatus('loading')
     setLookupMessage('')
     try {
-      const res = await fetch('/api/codelookup', {
+      const res = await fetch('/api/myrecords', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ firstName: lookupFirst, lastName: lookupLast, birthDate: lookupDob }),
