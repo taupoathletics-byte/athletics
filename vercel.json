@@ -1,7 +1,7 @@
 {
   "rewrites": [
     { "source": "/getsetgo/(.*)", "destination": "/getsetgo/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
