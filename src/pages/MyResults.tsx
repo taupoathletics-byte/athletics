@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { KeyRound } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Copy, KeyRound, Search } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { buttonVariants } from '@/components/ui/button'
 
@@ -105,6 +105,17 @@ export default function MyResults() {
   const [message, setMessage] = useState('')
   const [data, setData] = useState<{ members: FamilyMember[]; records: ResultRow[] }>({ members: [], records: [] })
 
+  const [showLookup, setShowLookup] = useState(false)
+  const [lookupFirst, setLookupFirst] = useState('')
+  const [lookupLast, setLookupLast] = useState('')
+  const [lookupDob, setLookupDob] = useState('')
+  const [lookupStatus, setLookupStatus] = useState<'idle' | 'loading' | 'error' | 'ok'>('idle')
+  const [lookupMessage, setLookupMessage] = useState('')
+  const [foundCode, setFoundCode] = useState('')
+  const [foundFirst, setFoundFirst] = useState('')
+  const [copied, setCopied] = useState(false)
+  const resultsRef = useRef<HTMLDivElement>(null)
+
   // The emailed link ends "#code=ABCD2345". The part after "#" never reaches a
   // server or log; take the code from it, then clear it from the address bar
   // so it isn't left in history or a shared screenshot.
@@ -152,6 +163,60 @@ export default function MyResults() {
     }
   }
 
+  async function findCode(e: React.FormEvent) {
+    e.preventDefault()
+    if (!lookupFirst.trim() || !lookupLast.trim() || !lookupDob) {
+      setLookupStatus('error')
+      setLookupMessage('Enter the child’s first name, last name and date of birth.')
+      return
+    }
+    setLookupStatus('loading')
+    setLookupMessage('')
+    try {
+      const res = await fetch('/api/codelookup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName: lookupFirst, lastName: lookupLast, birthDate: lookupDob }),
+      })
+      const json = await res.json().catch(() => ({}))
+      if (res.status === 404) {
+        setLookupStatus('error')
+        setLookupMessage(json.error || 'No member matches those details. Check the spelling and date of birth.')
+        return
+      }
+      if (!res.ok) {
+        setLookupStatus('error')
+        setLookupMessage(json.error || 'Something went wrong. Try again.')
+        return
+      }
+      setFoundCode(json.code)
+      setFoundFirst(json.firstName)
+      setLookupStatus('ok')
+    } catch {
+      setLookupStatus('error')
+      setLookupMessage('Could not reach the server. Try again shortly.')
+    }
+  }
+
+  async function copyCode() {
+    if (!foundCode) return
+    try {
+      await navigator.clipboard.writeText(foundCode)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2000)
+    } catch {
+      /* clipboard unavailable */
+    }
+  }
+
+  async function viewResults() {
+    if (!foundCode) return
+    setShowLookup(false)
+    setCode(foundCode)
+    await lookup(foundCode)
+    resultsRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <>
       <PageHero
@@ -170,8 +235,8 @@ export default function MyResults() {
             </label>
           </div>
           <p className="mt-1 text-sm text-on-surface-variant">
-            Your family access code was emailed to you after registration. It is the same for every child in your
-            family. If you can&rsquo;t find it, ask at the check-in desk on club night.
+            Your family access code is the same for every child in your family. Can&rsquo;t find it? Look it up below with
+            your child&rsquo;s name and date of birth.
           </p>
           <div className="mt-3 flex gap-2">
             <input
@@ -190,8 +255,96 @@ export default function MyResults() {
           {status === 'error' && <p className="mt-3 text-sm font-semibold text-error">{message}</p>}
         </form>
 
+        <div className="mx-auto mt-4 max-w-xl text-center">
+          <button
+            type="button"
+            onClick={() => setShowLookup((v) => !v)}
+            className="text-sm font-semibold text-primary underline underline-offset-2 hover:no-underline"
+          >
+            Can&rsquo;t find your access code?
+          </button>
+        </div>
+
+        {showLookup && (
+          <form onSubmit={findCode} className="mx-auto mt-4 max-w-xl rounded-xl bg-white p-gutter-md shadow-soft">
+            <div className="flex items-center gap-2 text-primary">
+              <Search className="h-5 w-5" aria-hidden />
+              <h2 className="font-semibold text-on-surface">Find your access code</h2>
+            </div>
+            <p className="mt-1 text-sm text-on-surface-variant">
+              Enter one child&rsquo;s details to look up your family&rsquo;s code.
+            </p>
+
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <div>
+                <label htmlFor="lookup-first" className="text-sm font-semibold text-on-surface">
+                  First name
+                </label>
+                <input
+                  id="lookup-first"
+                  value={lookupFirst}
+                  onChange={(e) => setLookupFirst(e.target.value)}
+                  autoComplete="off"
+                  className="mt-1 w-full rounded-lg border-2 border-outline-variant bg-white px-4 py-2.5 text-on-surface outline-none transition-colors focus:border-primary"
+                />
+              </div>
+              <div>
+                <label htmlFor="lookup-last" className="text-sm font-semibold text-on-surface">
+                  Last name
+                </label>
+                <input
+                  id="lookup-last"
+                  value={lookupLast}
+                  onChange={(e) => setLookupLast(e.target.value)}
+                  autoComplete="off"
+                  className="mt-1 w-full rounded-lg border-2 border-outline-variant bg-white px-4 py-2.5 text-on-surface outline-none transition-colors focus:border-primary"
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="lookup-dob" className="text-sm font-semibold text-on-surface">
+                  Date of birth
+                </label>
+                <input
+                  id="lookup-dob"
+                  type="date"
+                  value={lookupDob}
+                  onChange={(e) => setLookupDob(e.target.value)}
+                  className="mt-1 w-full rounded-lg border-2 border-outline-variant bg-white px-4 py-2.5 text-on-surface outline-none transition-colors focus:border-primary"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className={`${buttonVariants({ size: 'lg' })} mt-4 w-full`}
+              disabled={lookupStatus === 'loading'}
+            >
+              {lookupStatus === 'loading' ? 'Looking up…' : 'Find code'}
+            </button>
+            {lookupStatus === 'error' && <p className="mt-3 text-sm font-semibold text-error">{lookupMessage}</p>}
+
+            {lookupStatus === 'ok' && (
+              <div className="mt-4 rounded-lg bg-surface-container-low p-4 text-center">
+                <p className="text-sm text-on-surface-variant">
+                  Your family access code{foundFirst ? ` for ${foundFirst}` : ''} is
+                </p>
+                <p className="mt-1 font-mono text-2xl font-bold uppercase tracking-[0.2em] text-primary">{foundCode}</p>
+                <div className="mt-3 flex flex-wrap justify-center gap-3">
+                  <button type="button" onClick={copyCode} className={buttonVariants({ variant: 'outline' })}>
+                    <Copy className="mr-1.5 h-4 w-4" aria-hidden />
+                    {copied ? 'Copied' : 'Copy code'}
+                  </button>
+                  <button type="button" onClick={viewResults} className={buttonVariants({})}>
+                    View my results
+                  </button>
+                </div>
+              </div>
+            )}
+          </form>
+        )}
+
         {status === 'ok' && (
-          <div className="mx-auto mt-8 max-w-3xl">
+          <div ref={resultsRef} className="mx-auto mt-8 max-w-3xl">
             <h2 className="text-lg font-bold text-on-surface">Your family&rsquo;s results</h2>
             <p className="mt-1 text-sm text-on-surface-variant">{data.members.map((m) => m.name).join(', ')}</p>
 

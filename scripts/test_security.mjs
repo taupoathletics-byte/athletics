@@ -92,6 +92,7 @@ const { default: auth } = await import('../api/auth.mjs');
 const { default: attendance } = await import('../api/attendance.mjs');
 const { default: myrecords } = await import('../api/myrecords.mjs');
 const { default: codes } = await import('../api/codes.mjs');
+const { default: codelookup } = await import('../api/codelookup.mjs');
 const { nzToday } = await import('../api/_safety.mjs');
 
 function mockReq(method, url, body, headers = {}) {
@@ -187,6 +188,21 @@ notionDown = true;
 const leak = await call(myrecords, mockReq('GET', '/api/myrecords?code=CODE0001', null, { 'x-real-ip': '10.0.0.9' }));
 check('my-records: Notion errors are not shown to the public', leak.code === 500 && !/notion|databases|secret/i.test(leak.body), leak.body);
 notionDown = false;
+
+/* ---------- 9. access-code lookup is gated by name + DOB ---------- */
+
+const found = await call(codelookup, mockReq('POST', '/api/codelookup', JSON.stringify({ firstName: 'Ari', lastName: 'Anderson', birthDate: '2016-05-01' }), { 'x-real-ip': '10.0.0.20' }));
+check('code lookup: name + DOB returns the family code', found.code === 200 && found.json.code === 'CODE0000' && found.json.firstName === 'Ari', found.body);
+check('code lookup: never leaks DOB or surname', !found.body.includes('2016-05-01') && !found.body.includes('Anderson'), found.body);
+const wrongDob = await call(codelookup, mockReq('POST', '/api/codelookup', JSON.stringify({ firstName: 'Ari', lastName: 'Anderson', birthDate: '2010-01-01' }), { 'x-real-ip': '10.0.0.21' }));
+check('code lookup: wrong DOB is refused', wrongDob.code === 404, `got ${wrongDob.code}`);
+const wrongName = await call(codelookup, mockReq('POST', '/api/codelookup', JSON.stringify({ firstName: 'Zed', lastName: 'Anderson', birthDate: '2016-05-01' }), { 'x-real-ip': '10.0.0.22' }));
+check('code lookup: wrong name is refused', wrongName.code === 404, `got ${wrongName.code}`);
+const badBody = await call(codelookup, mockReq('POST', '/api/codelookup', JSON.stringify({ firstName: 'Ari' }), { 'x-real-ip': '10.0.0.22' }));
+check('code lookup: missing fields are refused', badBody.code === 400, `got ${badBody.code}`);
+let lastLookup;
+for (let i = 0; i < 21; i++) lastLookup = await call(codelookup, mockReq('POST', '/api/codelookup', JSON.stringify({ firstName: 'Ari', lastName: 'Anderson', birthDate: '2016-05-01' }), { 'x-real-ip': '10.0.0.23' }));
+check('code lookup: rate-limited per IP', lastLookup.code === 429, `got ${lastLookup.code}`);
 
 console.log(results.join('\n'));
 if (results.some((r) => r.startsWith('FAIL'))) {
