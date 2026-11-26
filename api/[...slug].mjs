@@ -16,8 +16,18 @@ const routes = { familyemails, membermail, notice, resultsemail, unsubscribe };
 
 export const config = { maxDuration: 60 };
 
+/** The endpoint name: the first path segment after /api/ (e.g. "notice"). */
+function routeName(req) {
+  const slug = req.query?.slug;
+  if (Array.isArray(slug)) return slug[0] || '';
+  if (typeof slug === 'string' && slug) return slug;
+  const parts = String(req.url || '').split('?')[0].split('/').filter(Boolean);
+  if (parts[0] === 'api') parts.shift();
+  return parts[0] || '';
+}
+
 export default async function handler(req, res) {
-  const name = (req.query?.slug?.[0]) || '';
+  const name = routeName(req);
   const fn = routes[name];
   if (!fn) {
     res.statusCode = 404;
