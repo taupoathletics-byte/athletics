@@ -92,7 +92,7 @@ const { default: auth } = await import('../api/auth.mjs');
 const { default: attendance } = await import('../api/attendance.mjs');
 const { default: myrecords } = await import('../api/myrecords.mjs');
 const { default: codes } = await import('../api/codes.mjs');
-const { default: codelookup } = await import('../api/codelookup.mjs');
+const { default: codelookup } = await import('../api/_codelookup.mjs');
 const { nzToday } = await import('../api/_safety.mjs');
 
 function mockReq(method, url, body, headers = {}) {
