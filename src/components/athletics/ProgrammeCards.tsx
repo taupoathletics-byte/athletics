@@ -4,7 +4,7 @@ import { Photo } from '@/components/Photo'
 import { Reveal, TrackBands } from './motion'
 
 const CARDS = [
-  { photo: 46, title: 'Little legs, big starts', cta: 'ASB Get Set Go', to: '/club-nights#get-set-go', note: 'Grades 3–6 · 5:30–6:30pm' },
+  { photo: 46, title: 'GET, SET, GO', cta: 'ASB Get Set Go', to: '/club-nights#get-set-go', note: 'Grades 3–6 · 5:30–6:30pm' },
   { photo: 37, title: 'Run, jump & throw', cta: 'ASB Run Jump Throw', to: '/club-nights#run-jump-throw', note: 'Grades 7–14 · 5:30–7:00pm' },
   { photo: 38, title: 'Ribbon Days & big meets', cta: 'Events', to: '/events', note: 'Across Waikato & Bay of Plenty' },
 ]

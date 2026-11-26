@@ -9,7 +9,6 @@ import { LifeStrip } from '@/components/athletics/LifeStrip'
 import { Marquee, Reveal, SectionLabel } from '@/components/athletics/motion'
 import { NextNightPanel } from '@/components/athletics/NextNightPanel'
 import { ProgrammeCards } from '@/components/athletics/ProgrammeCards'
-import { RegisterBanner } from '@/components/athletics/RegisterBanner'
 import { WordRows } from '@/components/athletics/WordRows'
 import { ZoomHero } from '@/components/athletics/ZoomHero'
 import { Hurdle } from '@/components/athletics/icons'
@@ -43,7 +42,6 @@ export default function Home() {
       <WordRows />
       <FeatureBlocks />
       <CrewQuotes />
-      <RegisterBanner />
 
       {/* Stay in the loop — weather calls go to Facebook by 4pm */}
       <section className="bg-ink pb-16 pt-6 text-cream md:pb-24">

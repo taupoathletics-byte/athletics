@@ -15,8 +15,8 @@ export interface FeeRow {
 }
 
 export const registration = {
-  /** Registrations for 2026/27 are OPEN. */
-  isOpen: true,
+  /** Registrations for 2026/27 are CLOSED — they re-open September 2027. */
+  isOpen: false,
   /** Direct GameDay form (tracking parameters stripped). */
   url: 'https://regoform.mygameday.app/#/AIYMtqSliPYrpZAIT5/Ah1tUjkzXge5s7Htn7',
   seasonLabel: '2026/27',
@@ -24,10 +24,11 @@ export const registration = {
   coversLabel: 'One season fee covers Term 4 and Term 1',
   /**
    * Places left, set by hand — GameDay can't tell the site what's full.
-   * Grades 3–14 filled for 2026/27; college and masters athletes can still join.
    * Set to '' when there's nothing to say.
    */
-  spacesNote: 'Grades 3–14 are full for 2026/27 — we still have spaces for college (Grades 15–19) and masters athletes.',
+  spacesNote: '',
+  /** Shown once registrations have closed for the season. */
+  closedNote: 'Registrations have now closed and will re-open September 2027.',
 }
 
 export const fees: FeeRow[] = [

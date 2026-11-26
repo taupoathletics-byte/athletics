@@ -143,7 +143,7 @@ export const developmentSquad = {
   day: 'Mondays',
   start: '5:30pm',
   finish: '6:30pm',
-  startsLabel: 'Term 4: Monday 19 Oct – Monday 21 Dec · Term 1: from Monday 25 Jan',
+  startsLabel: 'Term 4: Monday 19 Oct – Monday 7 Dec · Term 1: from Monday 8 Feb',
   who: 'For Grades 10+ competitive athletes, college athletes and masters athletes.',
   detail:
     'An extension of club nights for those who want to work on the more technical components of their events and build strength, agility and power.',

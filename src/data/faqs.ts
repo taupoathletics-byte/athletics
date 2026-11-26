@@ -21,7 +21,7 @@ export const faqs: FaqCategory[] = [
     items: [
       {
         q: 'Are registrations open?',
-        a: 'Yes \u2014 registrations for the 2026/27 season are open, but Grades 3\u201314 are now full; we still have spaces for college (Grades 15\u201319) and masters athletes. Register through the GameDay form linked from any Register button on this site.',
+        a: 'No \u2014 registrations for the 2026/27 season are now closed and will re-open in September 2027.',
       },
       {
         q: 'What does it cost?',

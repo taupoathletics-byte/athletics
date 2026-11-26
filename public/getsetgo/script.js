@@ -565,7 +565,7 @@ function updateCheckedinCount() {
 function searchMatches() {
   const t = ($('#member-search').value || '').toLowerCase().trim();
   if (!t) return [];
-  return attendanceMembers.filter((m) => m.name.toLowerCase().includes(t)).slice(0, 8);
+  return attendanceMembers.filter((m) => m.name.toLowerCase().includes(t) || (m.aliases || '').toLowerCase().includes(t)).slice(0, 8);
 }
 
 function renderDropdown() {
@@ -1437,7 +1437,7 @@ function visibleCodeMembers() {
   return codeMembers.filter((m) => {
     if (codesScope === 'juniors' && !JUNIOR_MEMBER_TYPES.includes(m.memberType)) return false;
     if (!q) return true;
-    return m.name.toLowerCase().includes(q) || (qCode.length >= 3 && (m.accessCode || '').includes(qCode));
+    return m.name.toLowerCase().includes(q) || (m.aliases || '').toLowerCase().includes(q) || (qCode.length >= 3 && (m.accessCode || '').includes(qCode));
   });
 }
 
@@ -1774,7 +1774,7 @@ function renderMemberRecords() {
 function renderLookupDropdown() {
   const dd = $('#lookup-dropdown');
   const t = ($('#lookup-search').value || '').toLowerCase().trim();
-  const matches = t ? recordMembers.filter((m) => m.name.toLowerCase().includes(t)).slice(0, 8) : [];
+  const matches = t ? recordMembers.filter((m) => m.name.toLowerCase().includes(t) || (m.aliases || '').toLowerCase().includes(t)).slice(0, 8) : [];
   if (!matches.length) { dd.classList.add('hidden'); dd.innerHTML = ''; return; }
   dd.innerHTML = matches.map((m) => `
     <button type="button" class="checkin-option" data-id="${esc(m.id)}">
@@ -1948,7 +1948,7 @@ function bindRecordSearch() {
 function renderRecordDropdown() {
   const dd = $('#record-dropdown');
   const t = ($('#record-search').value || '').toLowerCase().trim();
-  const matches = t ? recordMembers.filter((m) => m.name.toLowerCase().includes(t)).slice(0, 8) : [];
+  const matches = t ? recordMembers.filter((m) => m.name.toLowerCase().includes(t) || (m.aliases || '').toLowerCase().includes(t)).slice(0, 8) : [];
   if (!matches.length) { dd.classList.add('hidden'); dd.innerHTML = ''; return; }
   dd.innerHTML = matches.map((m) => `
     <button type="button" class="checkin-option" data-id="${esc(m.id)}">

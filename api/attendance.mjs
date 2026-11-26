@@ -109,6 +109,7 @@ export default async function handler(req, res) {
             age: ageInYears(birth, date),
             grade: gradeFor(birth),
             nights: (m.properties['Nights attended'] && m.properties['Nights attended'].rollup && m.properties['Nights attended'].rollup.number) || 0,
+            aliases: (m.properties['Aliases'] && m.properties['Aliases'].rich_text || []).map((t) => t.plain_text).join(''),
             present: presentIds.has(m.id),
           };
         })

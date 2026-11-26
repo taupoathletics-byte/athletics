@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AlertTriangle, CalendarDays, CheckCircle2, ExternalLink, Info, Mail, Users } from 'lucide-react'
+import { AlertTriangle, CalendarDays, ExternalLink, Info, Mail, Users } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { PageHero } from '@/components/PageHero'
 import { RegisterButton } from '@/components/RegisterButton'
@@ -38,17 +38,13 @@ export default function Registration() {
       <section className="container-page section-pad">
         {/* The three questions, answered immediately */}
         <div className="grid gap-4 md:grid-cols-3">
-          <Card className="border-l-4 border-l-signal p-gutter-sm">
+          <Card className="border-l-4 border-l-sky-info p-gutter-sm">
             <CardContent className="space-y-2 p-0">
-              <div className="flex items-center gap-2 text-signal">
-                <CheckCircle2 className="h-5 w-5" aria-hidden />
-                <h2 className="font-display text-xl font-bold text-on-surface">Registrations are open</h2>
+              <div className="flex items-center gap-2 text-sky-info">
+                <Info className="h-5 w-5" aria-hidden />
+                <h2 className="font-display text-xl font-bold text-on-surface">Registrations are closed</h2>
               </div>
-              <p className="text-on-surface-variant">
-                Registrations for the {registration.seasonLabel} season are open now. {registration.coversLabel}.
-              </p>
-              {registration.spacesNote && <p className="font-semibold text-on-surface">{registration.spacesNote}</p>}
-              <RegisterButton className="mt-2 w-full">Register on GameDay</RegisterButton>
+              <p className="text-on-surface-variant">{registration.closedNote}</p>
             </CardContent>
           </Card>
 

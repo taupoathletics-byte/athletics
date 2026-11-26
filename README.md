@@ -63,7 +63,7 @@ kit where Sixes uses cricket balls. Building blocks live in
 |---|---|
 | `ZoomHero` | Giant headline over three cards; scrolling zooms the promo film to full screen |
 | `NextNightPanel` + `Odometer` | Countdown to the next club night in rolling digits, with times by grade |
-| `ProgrammeCards`, `FeatureBlocks`, `RegisterBanner` | Photo cards and offset blocks on running-track lanes |
+| `ProgrammeCards`, `FeatureBlocks` | Photo cards and offset blocks on running-track lanes |
 | `LifeStrip` | Pinned horizontal photo strip |
 | `EventBadges`, `WordRows` | Event badges and giant word rows that slide as you scroll |
 | `CrewQuotes` | The committee's own Q&A answers (no invented testimonials) |

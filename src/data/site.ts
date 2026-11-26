@@ -88,8 +88,8 @@ export const seasonDates = {
     'Term 1 (2027): Thursday 4 Feb – Thursday 1 Apr (final night is prizegiving)',
   ],
   developmentSquad: [
-    'Term 4 (2026): Monday 19 Oct – Monday 21 Dec',
-    'Term 1 (2027): Monday 25 Jan – Monday 22 Mar',
+    'Term 4 (2026): Monday 19 Oct – Monday 7 Dec',
+    'Term 1 (2027): Monday 8 Feb – Monday 22 Mar',
   ],
 }
 

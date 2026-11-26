@@ -125,18 +125,7 @@ export function NextNightPanel() {
 
             <p className="mx-auto mt-6 flex max-w-2xl items-start gap-2 rounded-lg bg-signal/15 px-4 py-3 text-sm text-on-signal">
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
-              <span>
-                {registration.spacesNote ? (
-                  <>
-                    <strong>{registration.spacesNote}</strong> We don&rsquo;t run an open day.
-                  </>
-                ) : (
-                  <>
-                    <strong>We don&rsquo;t run an open day.</strong> Junior grades (3–6) are capped, fill quickly and have
-                    no waitlist, so register early.
-                  </>
-                )}
-              </span>
+              <span>{registration.closedNote}</span>
             </p>
           </div>
         </Reveal>

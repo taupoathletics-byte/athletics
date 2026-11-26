@@ -53,6 +53,8 @@ export function RegisterButton({ className, children = 'Register', pulse = true 
   const ref = React.useRef<HTMLAnchorElement>(null)
   const fired = React.useRef(false)
 
+  if (!registration.isOpen) return null
+
   return (
     <a
       ref={ref}

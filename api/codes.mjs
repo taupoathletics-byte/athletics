@@ -59,6 +59,7 @@ export function toCodeRow(page) {
     ageGroup: (p['Age Group'] && p['Age Group'].select && p['Age Group'].select.name) || '',
     memberType: plain(p['Member Type'] && p['Member Type'].rich_text),
     accessCode: plain(p['Access code'] && p['Access code'].rich_text).toUpperCase(),
+    aliases: plain(p['Aliases'] && p['Aliases'].rich_text),
   };
 }
 

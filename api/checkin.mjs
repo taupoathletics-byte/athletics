@@ -66,7 +66,8 @@ async function listMembers() {
     const name = title(m.properties.Name);
     const firstName = richText(m.properties['First Name']) || name.split(' ')[0] || '';
     const lastName = richText(m.properties['Last Name']) || name.split(' ').slice(1).join(' ');
-    return { id: m.id, name, firstName, lastName, label: lastName ? `${firstName} ${lastName}` : firstName };
+    const aliases = richText(m.properties['Aliases'] || {});
+    return { id: m.id, name, firstName, lastName, aliases, label: lastName ? `${firstName} ${lastName}` : firstName };
   });
   memberCacheAt = Date.now();
   return memberCache;
@@ -111,7 +112,8 @@ export default async function handler(req, res) {
         .filter((m) =>
           (m.firstName || '').toLowerCase().startsWith(q) ||
           (m.lastName || '').toLowerCase().startsWith(q) ||
-          (m.name || '').toLowerCase().startsWith(q)
+          (m.name || '').toLowerCase().startsWith(q) ||
+          (m.aliases || '').toLowerCase().includes(q)
         )
         .sort((a, b) => a.name.localeCompare(b.name))
         .slice(0, 8)
