@@ -1,4 +1,4 @@
-import { ArrowRight, CalendarDays, Facebook, MessagesSquare, ShieldCheck, Sparkles, Timer, Users } from 'lucide-react'
+import { ArrowRight, CalendarDays, Facebook, MessagesSquare, Timer, Users } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { Photo } from '@/components/Photo'
 import { buttonVariants } from '@/components/ui/button'
@@ -10,16 +10,6 @@ const FACTS = [
     icon: Users,
     title: 'Grades 10+',
     body: 'For our older athletes — and masters athletes are welcome too.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Self-selected',
-    body: 'Choose to come. There is no trial and no selection process.',
-  },
-  {
-    icon: Sparkles,
-    title: 'No extra fee',
-    body: 'It is part of your club night membership, at no additional cost.',
   },
 ]
 
@@ -110,7 +100,7 @@ export default function DevelopmentSquad() {
               </ul>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            <div className="grid gap-3">
               {FACTS.map((f) => (
                 <div key={f.title} className="rounded-xl bg-white p-4 shadow-soft">
                   <p className="flex items-center gap-2 font-bold text-on-surface">
