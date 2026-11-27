@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom'
 import { ArrowRight, CalendarDays, Facebook, MessagesSquare, ShieldCheck, Sparkles, Timer, Users } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { Photo } from '@/components/Photo'
 import { buttonVariants } from '@/components/ui/button'
 import { developmentSquad, developmentSquadTimeLabel } from '@/data/clubNights'
-import { clubName, contactEmail, seasonDates } from '@/data/site'
+import { contactEmail, seasonDates } from '@/data/site'
 
 const FACTS = [
   {
@@ -102,7 +101,7 @@ export default function DevelopmentSquad() {
               </div>
               <p className="flex items-center gap-2 text-sm font-semibold text-on-surface">
                 <Timer className="h-4 w-4 text-signal" aria-hidden />
-                {developmentSquad.day}s, {developmentSquadTimeLabel}
+                {developmentSquad.day}, {developmentSquadTimeLabel}
               </p>
               <ul className="mt-2 space-y-2 text-on-surface-variant">
                 {seasonDates.developmentSquad.map((d) => (
@@ -125,18 +124,12 @@ export default function DevelopmentSquad() {
           </div>
         </div>
 
-        <p className="mt-12 text-on-surface-variant">
-          Development Squad is a training add-on — club night stays the first priority.{' '}
-          <Link to="/club-nights" className="font-semibold text-primary underline">
-            How club nights run
-          </Link>
-          .
-        </p>
-
-        <hr className="mt-10 border-outline-variant" />
-        <p className="mt-6 text-sm text-on-surface-variant">
-          {clubName} · Development Squad runs alongside the club-night season.
-        </p>
+        <div className="mt-12 rounded-xl border-l-4 border-l-sky-info bg-white p-gutter-sm shadow-soft">
+          <p className="flex items-start gap-3 text-lg text-on-surface">
+            <Users className="mt-1 h-5 w-5 shrink-0 text-sky-info" aria-hidden />
+            College students and Masters members can come along and use the equipment.
+          </p>
+        </div>
       </section>
     </>
   )

@@ -186,10 +186,7 @@ export function ZoomHero() {
     return (
       <section className="bg-ink pb-16 pt-24 text-cream">
         <div className="container-page">
-          <p className="text-center text-sm font-bold uppercase tracking-[0.2em] text-sky-soft">
-            Season {registration.seasonLabel} · Ages 3–14 · {venue.name}
-          </p>
-          <div className="mt-4">{headline}</div>
+          <div>{headline}</div>
           <div className="mx-auto mt-8 aspect-video max-w-4xl overflow-hidden rounded-3xl">{video}</div>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <RegisterButton className="px-7 py-3 text-base">Register now</RegisterButton>
@@ -243,9 +240,6 @@ export function ZoomHero() {
 
         {/* Headline + floating kit */}
         <motion.div style={{ y: headY, opacity: headOpacity }} className="absolute inset-x-0 top-[13%] z-10 px-4 md:top-[11%]">
-          <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.22em] text-sky-soft md:text-sm">
-            Taupō Athletics Club · Season {registration.seasonLabel} · Ages 3–14
-          </p>
           {headline}
         </motion.div>
         {/* The event icons, alive. The javelin thrower's throw leaves the tile and
