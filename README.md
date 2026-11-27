@@ -74,19 +74,26 @@ hover. Scroll animations run on the browser's native ScrollTimeline, so every
 `useTransform` range must span 0→1 with explicit end values. A partial range
 eases back to the start value; see the comment in `ZoomHero.tsx`.
 
-`public/media/promo-loop.mp4` (about 4 MB, caption bands cropped, with the
-promo's music) and `promo-poster.jpg` are cut from the club's 58 MB
-`public/promo.mp4`:
+`public/media/promo-loop.mp4` (1920×944, ~22 MB, caption bands cropped, with the
+promo's music), `promo-loop-720.mp4` (1280×630, ~10 MB, served to phones) and
+`promo-poster.jpg` are cut from the club's 4K master (`Athletics Promo Video.mp4`,
+3840×2160). Downscaling from 4K keeps the hero sharp when it zooms to full
+screen; derive both encodes from the master rather than upscaling a small file.
 
 ```bash
-# video: 39 s from 0:33, caption band cropped, 960 px
-ffmpeg -ss 33 -t 39 -i public/promo.mp4 -an -vf "crop=iw:ih*0.875:0:0,scale=960:-2,fps=24" \
-  -c:v libx264 -crf 29 -pix_fmt yuv420p video.mp4
+MASTER="Athletics Promo Video.mp4"
+# video: 39 s from 0:33, caption band cropped, desktop 1080p class
+ffmpeg -ss 33 -t 39 -i "$MASTER" -an -vf "crop=iw:ih*0.875:0:0,scale=1920:944:flags=lanczos,fps=24" \
+  -c:v libx264 -crf 21 -preset slow -tune film -pix_fmt yuv420p video.mp4
+# the same cut at phone size (ZoomHero swaps to it below 768 px)
+ffmpeg -ss 33 -t 39 -i "$MASTER" -an -vf "crop=iw:ih*0.875:0:0,scale=1280:630:flags=lanczos,fps=24" \
+  -c:v libx264 -crf 24 -preset slow -tune film -pix_fmt yuv420p video-720.mp4
 # audio: the same 39 s, faded at both ends so the loop doesn't click
-ffmpeg -ss 33 -t 39 -i public/promo.mp4 -vn \
+ffmpeg -ss 33 -t 39 -i "$MASTER" -vn \
   -af "afade=t=in:st=0:d=0.8,afade=t=out:st=37.3:d=1.7,loudnorm=I=-18:TP=-1.5:LRA=11" \
-  -c:a aac -b:a 112k audio.m4a
+  -c:a aac -b:a 128k audio.m4a
 ffmpeg -i video.mp4 -i audio.m4a -map 0:v -map 1:a -c copy -movflags +faststart public/media/promo-loop.mp4
+ffmpeg -i video-720.mp4 -i audio.m4a -map 0:v -map 1:a -c copy -movflags +faststart public/media/promo-loop-720.mp4
 ```
 
 The film always starts **muted**, because browsers block autoplay with sound.

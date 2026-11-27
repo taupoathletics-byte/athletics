@@ -12,6 +12,8 @@ import { EventFloater } from './EventIcon'
 import { THROW_SPAN } from './JavelinFlight'
 
 const VIDEO = '/media/promo-loop.mp4'
+/** Same cut, smaller encode: phones have ~1/3 the pixels to fill, so 720p looks identical there. */
+const VIDEO_MOBILE = '/media/promo-loop-720.mp4'
 const POSTER = '/media/promo-poster.jpg'
 /** The promo's music is mastered loud; 70% sits comfortably under speech on a phone. */
 const SOUND_VOLUME = 0.7
@@ -167,7 +169,9 @@ export function ZoomHero() {
     <video
       ref={videoRef}
       className="h-full w-full object-cover"
-      src={VIDEO}
+      // <source media="..."> is ignored by most browsers for video, so pick the
+      // encode in JS. Crossing 767px reloads the film from the new file.
+      src={mobile ? VIDEO_MOBILE : VIDEO}
       poster={POSTER}
       // Autoplay is muted; with reduced motion nothing autoplays, so the
       // native controls (and their volume) are left to the visitor.
