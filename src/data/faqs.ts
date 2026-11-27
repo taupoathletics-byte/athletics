@@ -21,7 +21,7 @@ export const faqs: FaqCategory[] = [
     items: [
       {
         q: 'Are registrations open?',
-        a: 'No \u2014 registrations for the 2026/27 season are now closed and will re-open in September 2027.',
+        a: 'Grades 3\u201314 are closed, but Grades 15 and over can still register.',
       },
       {
         q: 'What does it cost?',
@@ -50,7 +50,7 @@ export const faqs: FaqCategory[] = [
     items: [
       {
         q: 'My child is aged 3\u20136, can I leave them with you and watch from the stands / go for a walk?',
-        a: 'Our Club Nights are run with the help of dedicated volunteers, and this is especially important for our junior athletes. Parental supervision is essential for this age group, and we kindly ask that parents assist our coaches where possible. We encourage parents to stay engaged during each rotation, offering support in ensuring that the children remain focused and that everyone has an enjoyable experience.',
+        a: 'Our Club Nights are run with the help of dedicated volunteers, and this is especially important for our junior athletes. Parental supervision is essential for this age group, and we kindly ask that parents assist our coaches where possible. Parents to participate in the sessions and encourage children to stay engaged.',
       },
       {
         q: 'Do you need my help to run club nights?',

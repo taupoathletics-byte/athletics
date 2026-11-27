@@ -3,6 +3,7 @@ import { Mail, MapPin, Clock, Facebook } from 'lucide-react'
 import { Marquee, Sticker } from '@/components/athletics/motion'
 import { ShotPut } from '@/components/athletics/icons'
 import { clubName, contactEmail, secretaryEmail, legal, venue, links, navItems } from '@/data/site'
+import { policyLinks } from '@/data/policies'
 import { registration } from '@/data/fees'
 import { sponsors } from '@/data/sponsors'
 
@@ -14,12 +15,9 @@ const item = 'inline-block py-1 text-cream/70 transition-colors hover:text-signa
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-ink text-cream">
-      <div className="container-page relative grid gap-10 pb-10 pt-16 md:grid-cols-[1.2fr_1fr_1.2fr_1fr]">
+      <div className="container-page relative grid gap-10 pb-10 pt-16 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.1fr_1fr]">
         <div>
           <img src="/logo.svg" alt={`${clubName} logo`} className="h-16 w-16 rounded-full bg-cream p-1" />
-          <p className="mt-4 max-w-xs text-sm text-cream/70">
-            {clubName} — club nights for ages 3 to 14 at {venue.name}, Thursdays in Term 4 and Term 1.
-          </p>
           <div className="mt-6">
             {registration.isOpen && (
               <Sticker text={`REGISTER NOW · ${registration.seasonLabel} · `} href={registration.url} center="Go!" />
@@ -38,19 +36,26 @@ export function Footer() {
             ))}
             <li>
               <Link className={item} to="/my-results">
-                My results (family code)
+                My results
               </Link>
             </li>
             <li>
               <Link className={item} to="/check-in">
-                Self check-in
+                Check-In
               </Link>
             </li>
-            <li>
-              <a className={item} href={links.getSetGoPortal}>
-                ASB Get Set Go lesson plans
-              </a>
-            </li>
+          </ul>
+        </div>
+        <div>
+          <h2 className={heading}>Policies</h2>
+          <ul className="space-y-1 text-sm">
+            {policyLinks.map((p) => (
+              <li key={p.to}>
+                <Link className={item} to={p.to}>
+                  {p.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div>

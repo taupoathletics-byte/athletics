@@ -148,6 +148,7 @@ export const developmentSquad = {
   detail:
     'An extension of club nights for those who want to work on the more technical components of their events and build strength, agility and power.',
   facebookGroup: 'Taupō Athletics Development Squad',
+  facebookGroupUrl: 'https://www.facebook.com/share/g/1eQBuagSMW/',
   noExtraFee: true,
 }
 

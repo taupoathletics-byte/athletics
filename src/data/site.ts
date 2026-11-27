@@ -29,12 +29,12 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   { label: 'Home', to: '/' },
   { label: 'Club Nights', to: '/club-nights' },
+  { label: 'Development Squad', to: '/devsquad' },
   { label: 'Registration', to: '/registration' },
   {
     label: 'Events',
     children: [
       { label: 'Ribbon Days', to: '/events' },
-      { label: 'Explore the events', to: '/explore-events' },
       { label: 'AWBoP Calendar', to: '/calendar' },
       { label: 'Club Records', to: '/club-records' },
     ],

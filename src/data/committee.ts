@@ -19,13 +19,18 @@ export type Person = {
   /** Q&A transcribed from that card, so the words are real text for search
    *  and screen readers rather than pixels. */
   qa?: { q: string; a: string }[];
+  /**
+   * Accredited coaching courses the person holds. Any entry here shows the
+   * "Accredited coach" badge and lists the courses in their profile dialog.
+   */
+  accreditations?: string[];
 };
 
 export type PeopleGroup = {
-  id: 'committee' | 'getsetgo' | 'friends';
+  id: 'committee' | 'getsetgo' | 'rjt' | 'friends';
   title: string;
   /** Avatar tint for this group, so the page is not a wall of identical blue. */
-  tone: 'blue' | 'teal' | 'neutral';
+  tone: 'blue' | 'teal' | 'signal' | 'neutral';
   people: Person[];
 };
 
@@ -39,6 +44,7 @@ export const committee: PeopleGroup[] = [
         name: 'Tia Rakei',
         role: 'Chairperson',
         extra: 'Throws coach',
+        accreditations: ['Shot Put', 'Discus', 'Long Jump', 'Hurdles'],
         card: '/team/tia.png',
         qa: [
           {
@@ -52,6 +58,7 @@ export const committee: PeopleGroup[] = [
       {
         name: 'Shiree Rakei',
         role: 'Treasurer',
+        accreditations: ['Shot Put', 'Long Jump'],
         card: '/team/shiree.png',
         qa: [
           {
@@ -66,6 +73,16 @@ export const committee: PeopleGroup[] = [
         name: 'Leah White',
         role: 'Coach Coordinator',
         extra: 'Committee member & coach',
+        accreditations: [
+          'Run Jump Throw',
+          'Shot Put',
+          'Long Jump',
+          'Triple Jump',
+          'High Jump',
+          'Hurdles',
+          'Sprints',
+          'Middle Distance',
+        ],
         card: '/team/leah.png',
         qa: [
           {
@@ -93,6 +110,7 @@ export const committee: PeopleGroup[] = [
         name: 'Ashleigh Carlson',
         role: 'Records & Registration Co-ordinator',
         extra: 'ASB Get Set Go coach & co-ordinator',
+        accreditations: ['Run Jump Throw'],
         card: '/team/ash.png',
         qa: [
           {
@@ -144,6 +162,38 @@ export const committee: PeopleGroup[] = [
       { name: 'Esme', role: 'ASB Get Set Go Assistant Coach' },
       { name: 'Jordyn', role: 'ASB Get Set Go Assistant Coach' },
       { name: 'Libby', role: 'ASB Get Set Go Assistant Coach' },
+    ],
+  },
+  {
+    id: 'rjt',
+    title: 'ASB Run Jump Throw Coaches',
+    tone: 'signal',
+    people: [
+      {
+        name: 'Joseph',
+        role: 'ASB Run Jump Throw Coach',
+        accreditations: ['Run Jump Throw', 'Long Jump'],
+      },
+      {
+        name: 'Fleur',
+        role: 'ASB Run Jump Throw Coach',
+        accreditations: ['Run Jump Throw'],
+      },
+      {
+        name: 'Fiona',
+        role: 'ASB Run Jump Throw Coach',
+        accreditations: ['Run Jump Throw'],
+      },
+      {
+        name: 'Jemma',
+        role: 'ASB Run Jump Throw Coach',
+        accreditations: ['Long Jump', 'Shot Put'],
+      },
+      {
+        name: 'Chris',
+        role: 'ASB Run Jump Throw Coach',
+        accreditations: ['Long Jump'],
+      },
     ],
   },
   {

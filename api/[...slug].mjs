@@ -7,12 +7,13 @@
 // /api/membermail, /api/notice, /api/resultsemail and /api/unsubscribe — and
 // this router forwards each to its handler.
 import familyemails from './_familyemails.mjs';
+import incidents from './_incidents.mjs';
 import membermail from './_membermail.mjs';
 import notice from './_notice.mjs';
 import resultsemail from './_resultsemail.mjs';
 import unsubscribe from './_unsubscribe.mjs';
 
-const routes = { familyemails, membermail, notice, resultsemail, unsubscribe };
+const routes = { familyemails, incidents, membermail, notice, resultsemail, unsubscribe };
 
 export const config = { maxDuration: 60 };
 

@@ -1019,6 +1019,7 @@ function renderAdmin() {
     ${section('codes', 'key', 'Access Codes')}
     ${section('email', 'mail', 'Email Members')}
     ${section('certs', 'workspace_premium', 'Certificates')}
+    <a class="sidenav__item" href="/admin/incidents" target="_blank" rel="noopener"><span class="material-symbols-outlined filled">health_and_safety</span> Incident Reports</a>
     <button class="sidenav__item" id="logout-btn"><span class="material-symbols-outlined">logout</span> Logout</button>`;
 
   $$('#sidenav [data-section]').forEach((b) => {

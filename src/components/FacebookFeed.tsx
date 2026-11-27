@@ -39,7 +39,7 @@ export function FacebookFeed({ className = '' }: { className?: string }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <section className={className} aria-labelledby="facebook-feed-heading">
+    <section className={`max-w-[500px] ${className}`} aria-labelledby="facebook-feed-heading">
       <div className="flex items-center gap-2">
         <Facebook className="h-5 w-5 text-primary" aria-hidden />
         <h2 id="facebook-feed-heading" className="font-display text-2xl font-bold text-on-surface">
@@ -58,7 +58,7 @@ export function FacebookFeed({ className = '' }: { className?: string }) {
         {open ? 'Hide the Facebook feed' : 'Show the Facebook feed'}
       </button>
 
-      <div id="facebook-feed-frame" className={open ? 'mt-5' : 'mt-5 hidden lg:block'}>
+      <div id="facebook-feed-frame" className={open ? 'mt-4' : 'mt-4 hidden lg:block'}>
         <iframe
           src={PLUGIN_SRC}
           title={`${clubName} on Facebook`}
@@ -66,7 +66,7 @@ export function FacebookFeed({ className = '' }: { className?: string }) {
           width={PLUGIN_WIDTH}
           height={PLUGIN_HEIGHT}
           style={{ height: PLUGIN_HEIGHT }}
-          className="w-full rounded-xl border border-outline-variant bg-white"
+          className="w-full max-w-[500px] rounded-xl border border-outline-variant bg-white"
           sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
         />
       </div>

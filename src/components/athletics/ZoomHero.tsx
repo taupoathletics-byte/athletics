@@ -157,11 +157,8 @@ export function ZoomHero() {
 
   const headline = (
     <h1 className="display-xl text-center text-cream drop-shadow-[0_6px_0_rgba(12,32,51,0.35)]">
-      <span className="sr-only">Taupō Athletics Club — </span>
-      <span className="block text-[clamp(4.2rem,15vw,7rem)] md:text-[clamp(6rem,10.5vw,10.5rem)]">Run. Jump.</span>
-      <span className="block text-[clamp(4.2rem,15vw,7rem)] md:text-[clamp(6rem,10.5vw,10.5rem)]">
-        Thr<span className="text-signal">o</span>w.
-      </span>
+      <span className="block text-[clamp(3rem,12vw,8.5rem)]">Taupō</span>
+      <span className="block text-[clamp(3rem,12vw,8.5rem)]">Athletics Club</span>
     </h1>
   )
 
@@ -270,10 +267,10 @@ export function ZoomHero() {
         >
           <div className="container-page pb-20 md:pb-16">
             <p className="font-display text-lg font-extrabold uppercase tracking-[0.12em] text-signal-light md:text-xl">
-              Thursdays · 5:30pm · {venue.name}
+              Mondays &amp; Thursdays · 5:30pm · {venue.name}
             </p>
             <p className="display-xl mt-2 max-w-4xl text-[clamp(2.6rem,7vw,5.5rem)] text-cream">
-              Fun, whānau-friendly athletics for every kid
+              Fun, whānau-friendly athletics for everyone
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <RegisterButton className="px-7 py-3 text-base">Register for {registration.seasonLabel}</RegisterButton>

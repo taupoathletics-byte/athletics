@@ -12,7 +12,9 @@ import Volunteer from '@/pages/Volunteer'
 import Brand from '@/pages/Brand'
 import MyResults from '@/pages/MyResults'
 import Unsubscribe from '@/pages/Unsubscribe'
-import ExploreEvents from '@/pages/ExploreEvents'
+import DevelopmentSquad from '@/pages/DevelopmentSquad'
+import Policies from '@/pages/Policies'
+import AdminIncidents from '@/pages/AdminIncidents'
 import CheckIn from '@/pages/CheckIn'
 import NotFound from '@/pages/NotFound'
 
@@ -23,8 +25,8 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="registration" element={<Registration />} />
         <Route path="club-nights" element={<ClubNights />} />
+        <Route path="devsquad" element={<DevelopmentSquad />} />
         <Route path="events" element={<Events />} />
-        <Route path="explore-events" element={<ExploreEvents />} />
         <Route path="team" element={<Team />} />
         <Route path="club-records" element={<ClubRecords />} />
         <Route path="my-results" element={<MyResults />} />
@@ -32,6 +34,9 @@ export default function App() {
         <Route path="check-in" element={<CheckIn />} />
         <Route path="calendar" element={<Calendar />} />
         <Route path="faqs" element={<Faqs />} />
+        <Route path="policies" element={<Policies />} />
+        <Route path="policies/:slug" element={<Policies />} />
+        <Route path="admin/incidents" element={<AdminIncidents />} />
         <Route path="volunteer" element={<Volunteer />} />
         <Route path="brand" element={<Brand />} />
         <Route path="*" element={<NotFound />} />

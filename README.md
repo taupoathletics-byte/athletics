@@ -118,15 +118,50 @@ These are marked `TODO confirm` in the code and should not be guessed:
    slot each fills rather than what is actually in frame. `src/data/photos.ts`.
 5. **Cards for the five people without one** — Ben McHale, Nicola Chamberlain,
    and the Get Set Go assistants Esme, Jordyn and Libby currently fall back to
-   initials placeholders. This also needs a decision on Noel Bennett's role: his own
-   profile card reads "Friend of the Committee" while the committee list has him
-   as a Committee Member. `src/data/committee.ts`.
+   initials placeholders. The Run Jump Throw coaches (Joseph, Fleur, Fiona,
+   Jemma, Chris) also need headshots. This also needs a decision on Noel
+   Bennett's role: his own profile card reads "Friend of the Committee" while
+   the committee list has him as a Committee Member. `src/data/committee.ts`.
+6. **Safeguarding, Complaints and Refunds wording** — `/policies` currently
+   summarises the club's published position. Replace `src/data/policies.ts`
+   with the committee's approved text when it is supplied.
 
 ## API and admin
 
 `api/` holds the Vercel serverless functions. `api/_guard.mjs` protects every
 write endpoint and the attendance read; see `SECURITY.md` if present and the
 environment variables in `.env.example`.
+
+### Policies and incident reports
+
+`/policies` holds Safeguarding, Complaints, Refunds and Health & Safety. The
+Health & Safety page is transcribed from the club's December 2023 policy; the
+other three are summaries written from wording the club already publishes — see
+`src/data/policies.ts` before changing them.
+
+Committee members record first-aid/incidents at **`/admin/incidents`** (linked
+from the admin portal's sidebar). Reports are written to a Notion database
+(`INCIDENTS_DB_ID` in `.env.example` has the required properties); the endpoint
+is `api/_incidents.mjs`, dispatched by the `/api/[...slug]` catch-all so the
+project stays within Vercel's function limit. It requires the same admin
+session cookie as the rest of the portal.
+
+### Backdated measurements
+
+`src/data/history.ts` is generated from the club's measurement spreadsheets in
+`data/measurements/`. Athletes are matched to current members by full name.
+
+```bash
+# all athletes, all seasons
+node scripts/import_measurements.mjs data/measurements/2024-25.csv data/measurements/2025-26.csv
+# just a couple, to sanity-check a new export
+node scripts/import_measurements.mjs data/measurements/2025-26.csv --only "Arlo Anderson,Connor White"
+```
+
+The table on **My Results** shows one row per event and one column per season,
+with the athlete's PB for each event above it. Athletes who are no longer
+registered stay in the history file but cannot sign in — access codes still come
+from Notion membership.
 
 ## Get Set Go volunteer dashboard
 

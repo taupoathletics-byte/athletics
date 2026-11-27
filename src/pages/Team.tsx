@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import { HeartHandshake, X } from 'lucide-react'
+import { BadgeCheck, HeartHandshake, X } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { Photo } from '@/components/Photo'
 import { buttonVariants } from '@/components/ui/button'
@@ -10,6 +10,7 @@ import { contactEmail } from '@/data/site'
 const TONE: Record<string, string> = {
   blue: 'bg-primary-container text-on-primary-container',
   teal: 'bg-tertiary-container/60 text-on-tertiary-container',
+  signal: 'bg-signal/15 text-signal',
   neutral: 'bg-surface-container-high text-on-surface',
 }
 
@@ -25,7 +26,17 @@ function initials(name: string) {
 
 /** A card only opens a dialog when there is something more to show. */
 function hasProfile(p: Person) {
-  return Boolean(p.bio || p.card || (p.qa && p.qa.length > 0))
+  return Boolean(p.bio || p.card || (p.qa && p.qa.length > 0) || p.accreditations?.length)
+}
+
+/** Shown on cards and in the dialog for coaches who hold accredited courses. */
+function AccreditedBadge() {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full bg-signal px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-signal-ink">
+      <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
+      Accredited coach
+    </span>
+  )
 }
 
 function PersonCard({ p, tone, onOpen }: { p: Person; tone: string; onOpen?: () => void }) {
@@ -50,6 +61,11 @@ function PersonCard({ p, tone, onOpen }: { p: Person; tone: string; onOpen?: () 
         <span className="block font-semibold text-on-surface">{p.name}</span>
         <span className="block text-sm text-on-surface-variant">{p.role}</span>
         {p.extra && <span className="block text-sm text-primary">{p.extra}</span>}
+        {p.accreditations?.length ? (
+          <span className="mt-1.5 block">
+            <AccreditedBadge />
+          </span>
+        ) : null}
       </span>
     </>
   )
@@ -74,6 +90,7 @@ function PersonCard({ p, tone, onOpen }: { p: Person; tone: string; onOpen?: () 
 const RECRUIT_COPY: Partial<Record<string, string>> = {
   committee: 'We’re looking for committee members.',
   getsetgo: 'Help with ASB Get Set Go on Thursdays.',
+  rjt: 'Help coach ASB Run Jump Throw on Thursdays.',
 }
 
 export default function Team() {
@@ -103,7 +120,8 @@ export default function Team() {
         <Photo
           id={42}
           sizes="100vw"
-          className="mb-10 aspect-[21/9] w-full rounded-xl shadow-soft"
+          focal={{ x: 0.5, y: 0.05 }}
+          className="mb-10 aspect-[2/1] w-full rounded-xl shadow-soft"
         />
 
         {committee.map((group) => (
@@ -189,6 +207,22 @@ export default function Team() {
               />
             )}
             {open.bio && <p className="mt-4 text-on-surface-variant">{open.bio}</p>}
+            {open.accreditations?.length ? (
+              <div className="mt-4 rounded-lg bg-signal/10 p-4">
+                <div className="flex flex-wrap items-center gap-2">
+                  <AccreditedBadge />
+                  <span className="text-sm font-semibold text-on-surface">Accredited coach</span>
+                </div>
+                <p className="mt-2 text-sm text-on-surface-variant">Accredited courses held:</p>
+                <ul className="mt-1 flex flex-wrap gap-1.5">
+                  {open.accreditations.map((course) => (
+                    <li key={course} className="rounded-full bg-white px-2.5 py-1 text-sm text-on-surface ring-1 ring-outline-variant">
+                      {course}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
             {open.qa && (
               <dl className="mt-4 space-y-3">
                 {open.qa.map((item) => (

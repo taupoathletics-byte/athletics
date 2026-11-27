@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CalendarDays, Car, Clock, CloudRain, Facebook, HandHeart, MapPin, QrCode, Timer } from 'lucide-react'
+import { CalendarDays, Car, Clock, CloudRain, Facebook, HandHeart, MapPin, QrCode, Timer, X } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { Photo } from '@/components/Photo'
 import { FacebookFeed } from '@/components/FacebookFeed'
@@ -9,34 +9,17 @@ import { buttonVariants } from '@/components/ui/button'
 import { clubName, links, seasonDates, venue } from '@/data/site'
 import { GSG, RJT, developmentSquad, developmentSquadTimeLabel, eveningTimeline } from '@/data/clubNights'
 
-/** Reveals children one by one as the list scrolls into view. */
-function useReveal<T extends HTMLElement>() {
-  const ref = useRef<T>(null)
-  const [shown, setShown] = useState(false)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setShown(true)
-      return
-    }
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setShown(true)
-          io.disconnect()
-        }
-      },
-      { threshold: 0.2 },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
-  return { ref, shown }
-}
-
 export default function ClubNights() {
-  const { ref, shown } = useReveal<HTMLOListElement>()
+  const [timelineOpen, setTimelineOpen] = useState(false)
+
+  useEffect(() => {
+    if (!timelineOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setTimelineOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [timelineOpen])
 
   return (
     <>
@@ -68,14 +51,18 @@ export default function ClubNights() {
             <Clock className="mt-0.5 h-5 w-5 shrink-0 text-signal" aria-hidden />
             <span>
               <span className="block font-bold text-on-surface">Thursdays from 5:30pm</span>
-              <span className="text-on-surface-variant">{GSG} until 6:30pm · {RJT} until 7:00pm</span>
+              <span className="text-on-surface-variant">
+                {GSG} until 6:30pm
+                <br />
+                {RJT} until 7:00pm
+              </span>
             </span>
           </li>
           <li className="flex items-start gap-3 rounded-xl bg-white p-gutter-sm shadow-soft">
             <Car className="mt-0.5 h-5 w-5 shrink-0 text-signal" aria-hidden />
             <span>
               <span className="block font-bold text-on-surface">Parking</span>
-              <span className="text-on-surface-variant">{venue.parking}</span>
+              <span className="text-on-surface-variant">Park opposite the netball courts and walk down to the field.</span>
             </span>
           </li>
           <li>
@@ -83,7 +70,7 @@ export default function ClubNights() {
               <QrCode className="mt-0.5 h-5 w-5 shrink-0 text-signal" aria-hidden />
               <span>
                 <span className="block font-bold text-on-surface">Check in when you arrive</span>
-                <span className="text-on-surface-variant">At the check-in desk, or on your phone — it takes a few seconds.</span>
+                <span className="text-on-surface-variant">At the check-in desk, or on your phone.</span>
               </span>
             </Link>
           </li>
@@ -131,9 +118,13 @@ export default function ClubNights() {
                 Running races and other game-based activities in small groups, run by our coaches with parents helping
                 at every station. Parents stay for the whole session.
               </p>
-              <Link to="/volunteer" className={`${buttonVariants({ variant: 'outline' })} mt-4`}>
-                Ways to help →
-              </Link>
+              <button
+                type="button"
+                onClick={() => setTimelineOpen(true)}
+                className={`${buttonVariants({ variant: 'outline' })} mt-4`}
+              >
+                How the Night runs →
+              </button>
             </div>
           </article>
 
@@ -148,46 +139,15 @@ export default function ClubNights() {
                 event-specific practice, with coaching on safe and proper use of equipment. If there&rsquo;s time, we
                 finish with a relay.
               </p>
-              <Link to="/volunteer" className={`${buttonVariants({ variant: 'outline' })} mt-4`}>
-                Ways to help →
-              </Link>
+              <button
+                type="button"
+                onClick={() => setTimelineOpen(true)}
+                className={`${buttonVariants({ variant: 'outline' })} mt-4`}
+              >
+                How the Night runs →
+              </button>
             </div>
           </article>
-        </div>
-      </section>
-
-      {/* Evening timeline */}
-      <section className="band-alt">
-        <div className="container-page section-pad">
-          <h2 className="font-display text-3xl font-bold text-on-surface">How the evening runs</h2>
-          <ol ref={ref} className="mt-8 space-y-0">
-            {eveningTimeline.map((step, i) => (
-              <li
-                key={step.time}
-                className="relative flex gap-5 pb-8 last:pb-0"
-                style={{
-                  opacity: shown ? 1 : 0,
-                  transform: shown ? 'none' : 'translateY(12px)',
-                  transition: `opacity .5s ease ${i * 0.12}s, transform .5s ease ${i * 0.12}s`,
-                }}
-              >
-                {i < eveningTimeline.length - 1 && (
-                  <span
-                    className="absolute left-[15px] top-8 h-full w-0.5 bg-outline-variant"
-                    aria-hidden
-                  />
-                )}
-                <span className="relative z-10 mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
-                  {i + 1}
-                </span>
-                <div>
-                  <p className="font-display text-lg font-bold text-primary">{step.time}</p>
-                  <h3 className="font-bold text-on-surface">{step.title}</h3>
-                  <p className="mt-1 text-on-surface-variant">{step.detail}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
         </div>
       </section>
 
@@ -252,9 +212,57 @@ export default function ClubNights() {
                 <li key={d}>{d}</li>
               ))}
             </ul>
+            <Link to="/devsquad" className={`${buttonVariants({ variant: 'outline' })} mt-4`}>
+              About Development Squad
+            </Link>
           </div>
         </div>
       </section>
+
+      {timelineOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setTimelineOpen(false)
+          }}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="evening-runs-heading"
+            className="relative max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-xl bg-white p-gutter-md shadow-floating"
+          >
+            <button
+              type="button"
+              onClick={() => setTimelineOpen(false)}
+              aria-label="Close"
+              className="absolute right-3 top-3 rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low"
+            >
+              <X className="h-5 w-5" aria-hidden />
+            </button>
+            <h2 id="evening-runs-heading" className="font-display text-2xl font-bold text-on-surface">
+              How the evening runs
+            </h2>
+            <ol className="mt-6 space-y-0">
+              {eveningTimeline.map((step, i) => (
+                <li key={step.time} className="relative flex gap-5 pb-6 last:pb-0">
+                  {i < eveningTimeline.length - 1 && (
+                    <span className="absolute left-[15px] top-8 h-full w-0.5 bg-outline-variant" aria-hidden />
+                  )}
+                  <span className="relative z-10 mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="font-display text-lg font-bold text-primary">{step.time}</p>
+                    <h3 className="font-bold text-on-surface">{step.title}</h3>
+                    <p className="mt-1 text-on-surface-variant">{step.detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      )}
     </>
   )
 }

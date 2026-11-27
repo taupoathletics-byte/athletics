@@ -13,6 +13,8 @@ interface PhotoProps {
   priority?: boolean
   /** Override the alt text (rare — prefer fixing it in photos.ts). */
   alt?: string
+  /** Override the stored focal point, e.g. { x: 0.5, y: 0.1 } to show more of the top. */
+  focal?: { x: number; y: number }
 }
 
 function srcset(id: number, ext: string) {
@@ -28,8 +30,9 @@ export function focalStyle(p: PhotoData) {
  * Responsive club photo: AVIF, then WebP, then JPG. Width and height are set
  * from the real aspect ratio so nothing shifts as images load.
  */
-export function Photo({ id, className, sizes = '100vw', priority = false, alt }: PhotoProps) {
+export function Photo({ id, className, sizes = '100vw', priority = false, alt, focal }: PhotoProps) {
   const p = lookup(id)
+  const point = focal ?? p.focal
   return (
     // The layout classes go on <picture>, not the <img>.
     //
@@ -53,7 +56,7 @@ export function Photo({ id, className, sizes = '100vw', priority = false, alt }:
         loading={priority ? 'eager' : 'lazy'}
         decoding={priority ? 'sync' : 'async'}
         {...(priority ? { fetchPriority: 'high' as const } : {})}
-        style={focalStyle(p)}
+        style={{ objectPosition: `${point.x * 100}% ${point.y * 100}%` }}
         className="h-full w-full object-cover"
       />
     </picture>

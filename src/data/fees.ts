@@ -28,7 +28,7 @@ export const registration = {
    */
   spacesNote: '',
   /** Shown once registrations have closed for the season. */
-  closedNote: 'Registrations have now closed and will re-open September 2027.',
+  closedNote: 'Registrations have now closed for Grades 3–14 and will re-open September 2027.',
 }
 
 export const fees: FeeRow[] = [

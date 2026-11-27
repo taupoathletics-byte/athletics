@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { AlertTriangle, CalendarDays, ExternalLink, Info, Mail, Users } from 'lucide-react'
+import { AlertTriangle, CalendarDays, Info, Mail, Users } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { PageHero } from '@/components/PageHero'
 import { RegisterButton } from '@/components/RegisterButton'
 import { Badge } from '@/components/ui/badge'
+import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { contactEmail, seasonDates } from '@/data/site'
 import { capsNote, fees, noWaitlistNote, registration } from '@/data/fees'
@@ -42,9 +43,18 @@ export default function Registration() {
             <CardContent className="space-y-2 p-0">
               <div className="flex items-center gap-2 text-sky-info">
                 <Info className="h-5 w-5" aria-hidden />
-                <h2 className="font-display text-xl font-bold text-on-surface">Registrations are closed</h2>
+                <h2 className="font-display text-xl font-bold text-on-surface">Registrations are closed for Grades 3–14</h2>
               </div>
               <p className="text-on-surface-variant">{registration.closedNote}</p>
+              <p className="pt-1 font-semibold text-on-surface">Registrations are still open for College and Masters.</p>
+              <a
+                href={registration.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonVariants({ size: 'sm' })}
+              >
+                Register Here
+              </a>
             </CardContent>
           </Card>
 
@@ -211,13 +221,6 @@ export default function Registration() {
               <span>
                 <strong className="text-on-surface">Age group.</strong> Your child&rsquo;s grade is their age at{' '}
                 <strong>31 December {competitionYear}</strong>.
-              </span>
-            </li>
-            <li className="flex items-start gap-3">
-              <ExternalLink className="mt-0.5 h-5 w-5 shrink-0 text-sky-info" aria-hidden />
-              <span>
-                <strong className="text-on-surface">The GameDay form times out after 15 minutes.</strong> Have your
-                payment method ready before you start.
               </span>
             </li>
           </ul>

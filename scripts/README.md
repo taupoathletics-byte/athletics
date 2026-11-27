@@ -19,6 +19,7 @@ npm run dev                              # portal at /getsetgo/
 |---|---|
 | `notion_pull_lessons.mjs` | Pulls the weekly lesson pages + Series Rotations board from Notion and merges them with the local `data/series-meta.json` into `data/lessons.json`. Read-only. |
 | `build_sessions.mjs` | Turns `data/lessons.json` + `data/season-extras.json` into the gated `api/_data/sessions.mjs`. |
+| `import_measurements.mjs` | Turns the club's measurement spreadsheets (`data/measurements/*.csv`) into `src/data/history.ts` for the My Results history table. Read-only on the CSVs. |
 
 **Sources of truth**
 

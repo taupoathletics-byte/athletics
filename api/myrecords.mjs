@@ -4,6 +4,7 @@
 // family's names, a date of birth, or the roster. In-memory rate limits slow
 // guessing.
 import { clientIp, publicError, rateLimiter } from './_safety.mjs';
+import { buildBoard } from './_clubrecords.mjs';
 
 export const config = { maxDuration: 60 };
 
@@ -164,24 +165,45 @@ export default async function handler(req, res) {
     const recordRows = await queryAll(RECORDS_DB, {
       or: ids.map((id) => ({ property: 'Member', relation: { contains: id } })),
     });
-    const records = recordRows
-      .map((r) => {
-        const p = r.properties;
-        const memberId = (p.Member?.relation || [])[0]?.id || '';
-        const event = p.Event?.select?.name || '';
-        const result = rich(p.Result);
-        return {
-          memberName: nameById[memberId] || '',
-          event,
-          grade: p.Grade?.select?.name || '',
-          gender: p.Gender?.select?.name || '',
-          date: p.Date?.date?.start || '',
-          result,
-          season: p.Season?.select?.name || '',
-          value: parseValue(event, result),
-          isTime: TIME_EVENTS.includes(event),
-        };
-      })
+    const rows = recordRows.map((r) => {
+      const p = r.properties;
+      const memberId = (p.Member?.relation || [])[0]?.id || '';
+      const event = p.Event?.select?.name || '';
+      const result = rich(p.Result);
+      return {
+        id: r.id,
+        memberId,
+        memberName: nameById[memberId] || '',
+        event,
+        grade: p.Grade?.select?.name || '',
+        gender: p.Gender?.select?.name || '',
+        date: p.Date?.date?.start || '',
+        result,
+        season: p.Season?.select?.name || '',
+      };
+    });
+
+    // Flag the rows that are (or equal) a club record, using the same merge the
+    // public Club Records board uses. The key mirrors buildBoard's slot.
+    const normGender = (g) => {
+      const c = String(g || '').trim().charAt(0).toUpperCase()
+      return c === 'F' || c === 'G' ? 'F' : c === 'M' || c === 'B' ? 'M' : ''
+    }
+    const holder = new Set();
+    for (const slot of buildBoard(rows)) {
+      for (const h of slot.holders) {
+        if (h.source !== 'club-night') continue;
+        holder.add(`${slot.event}|${slot.grade}|${slot.gender}|${h.name}|${h.date}`);
+      }
+    }
+
+    const records = rows
+      .map((r) => ({
+        ...r,
+        value: parseValue(r.event, r.result),
+        isTime: TIME_EVENTS.includes(r.event),
+        record: holder.has(`${r.event}|${String(r.grade).trim()}|${normGender(r.gender)}|${r.memberName}|${r.date}`),
+      }))
       .sort((a, b) => (a.date || '').localeCompare(b.date || ''));
 
     return send(res, 200, { members, records });

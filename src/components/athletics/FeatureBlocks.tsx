@@ -30,7 +30,7 @@ const BLOCKS: Block[] = [
     eyebrow: `${developmentSquad.day} · ${developmentSquadTimeLabel}`,
     title: 'Development Squad',
     body: `${developmentSquad.detail} ${developmentSquad.who} No extra fee.`,
-    cta: { label: 'Club nights & squad', to: '/club-nights' },
+    cta: { label: 'About Development Squad', to: '/devsquad' },
     band: 'bg-ink-3',
   },
   {

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Copy, KeyRound, Search } from 'lucide-react'
 import { PageHero } from '@/components/PageHero'
 import { buttonVariants } from '@/components/ui/button'
+import { historyFor } from '@/data/history'
 
 interface FamilyMember {
   name: string
@@ -18,6 +19,8 @@ interface ResultRow {
   result: string
   season: string
   isTime: boolean
+  /** True when this mark is (or equals) a club record for its event/grade/gender. */
+  record?: boolean
 }
 
 /**
@@ -79,6 +82,93 @@ function personalBests(records: ResultRow[]): { name: string; bests: Best[] }[] 
     }
     return { name, bests }
   })
+}
+
+const TIME_EVENTS = new Set(['60m', '100m', '200m', '400m', '800m', '1500m'])
+
+/** A mark as a number: seconds for track events, metres for field. */
+function parseMark(event: string, raw: string): number | null {
+  const s = String(raw || '').trim().replace(/,/g, '.').replace(/[a-z\s]/gi, '')
+  if (!s) return null
+  if (!TIME_EVENTS.has(event)) {
+    const v = parseFloat(s)
+    return Number.isFinite(v) && v > 0 ? v : null
+  }
+  const parts = s.split(':')
+  if (parts.length === 1) {
+    const v = parseFloat(parts[0])
+    return Number.isFinite(v) && v > 0 ? v : null
+  }
+  // The measurement sheet writes the fraction after a colon: "9:87" = 9.87s.
+  if (parts.length === 2) {
+    const [sec, frac = ''] = parts
+    const v = Number(sec) + (frac ? Number(frac) / 10 ** frac.length : 0)
+    return Number.isFinite(v) && v > 0 ? v : null
+  }
+  const [min, sec, frac = ''] = parts
+  const v = Number(min) * 60 + Number(sec) + (frac ? Number(frac) / 10 ** frac.length : 0)
+  return Number.isFinite(v) && v > 0 ? v : null
+}
+
+const trimZeros = (n: string) => n.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '')
+
+/** Seconds/metres as the site writes them: 15.34s, 1:28.15, 4.75m. */
+function formatMark(event: string, v: number) {
+  if (!TIME_EVENTS.has(event)) return `${trimZeros(v.toFixed(2))}m`
+  if (v >= 60) {
+    const m = Math.floor(v / 60)
+    return `${m}:${trimZeros((v - m * 60).toFixed(2).padStart(5, '0'))}`
+  }
+  return `${trimZeros(v.toFixed(2))}s`
+}
+
+const betterMark = (event: string, a: number, b: number) => (TIME_EVENTS.has(event) ? a < b : a > b)
+
+interface SeasonCell {
+  season: string
+  value: number
+  text: string
+  /** Set when the mark came from the live results API rather than the import. */
+  live: boolean
+}
+
+/**
+ * One row per event, one column per season — the best mark the athlete has in
+ * each season, from the live results plus the backdated measurement imports.
+ */
+function seasonsTable(name: string, records: ResultRow[]) {
+  const byEvent = new Map<string, Map<string, SeasonCell>>()
+  const add = (event: string, season: string, v: number, text: string, live: boolean) => {
+    const label = season || '—'
+    let cells = byEvent.get(event)
+    if (!cells) {
+      cells = new Map()
+      byEvent.set(event, cells)
+    }
+    const prev = cells.get(label)
+    if (!prev || betterMark(event, v, prev.value)) cells.set(label, { season: label, value: v, text, live })
+  }
+
+  for (const r of records) {
+    const v = value(r)
+    if (v == null) continue
+    add(r.event, r.season, v, fmt(r), true)
+  }
+  for (const m of historyFor(name)?.marks ?? []) {
+    const v = parseMark(m.event, m.result)
+    if (v == null) continue
+    add(m.event, m.season, v, formatMark(m.event, v), false)
+  }
+
+  const seasons = [...new Set([...byEvent.values()].flatMap((cells) => [...cells.keys()]))].sort()
+  const rows = EVENT_ORDER.filter((event) => byEvent.has(event)).map((event) => {
+    const cells = byEvent.get(event)!
+    let best: SeasonCell | undefined
+    for (const cell of cells.values()) if (!best || betterMark(event, cell.value, best.value)) best = cell
+    return { event, best: best!, cells: seasons.map((s) => cells.get(s)) }
+  })
+
+  return { seasons, rows }
 }
 
 /** "2026-10-22" → "22 Oct 2026". */
@@ -217,6 +307,19 @@ export default function MyResults() {
     resultsRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  // One block per child: personal bests first, then the season-by-season table
+  // (live results plus any backdated measurements from src/data/history.ts).
+  const familyTables = data.members
+    .map((m) => {
+      const records = data.records.filter((r) => r.memberName === m.name)
+      const table = seasonsTable(m.name, records)
+      const fresh = new Set(
+        (personalBests(records)[0]?.bests ?? []).filter((b) => b.fresh).map((b) => b.event),
+      )
+      return { member: m, table, fresh, hasLive: records.length > 0 }
+    })
+    .filter((x) => x.hasLive || x.table.rows.length > 0)
+
   return (
     <>
       <PageHero
@@ -348,20 +451,25 @@ export default function MyResults() {
             <h2 className="text-lg font-bold text-on-surface">Your family&rsquo;s results</h2>
             <p className="mt-1 text-sm text-on-surface-variant">{data.members.map((m) => m.name).join(', ')}</p>
 
-            {data.records.length > 0 && (
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                {personalBests(data.records).map((c) => (
-                  <div key={c.name} className="rounded-xl bg-white p-gutter-sm shadow-soft">
-                    <h3 className="font-bold text-on-surface">{c.name}</h3>
+            {familyTables.length > 0 && (
+              <div className="mt-6 space-y-10">
+                {familyTables.map(({ member, table, fresh }) => (
+                  <div key={member.name}>
+                    <h3 className="font-bold text-on-surface">{member.name}</h3>
                     <p className="text-xs text-on-surface-variant">Personal bests</p>
-                    {c.bests.length ? (
-                      <ul className="mt-2 grid gap-1.5">
-                        {c.bests.map((b) => (
-                          <li key={b.event} className="flex flex-wrap items-baseline justify-between gap-x-3 border-b border-surface-container pb-1.5 last:border-0">
-                            <span className="text-on-surface">{b.event}</span>
-                            <span className="font-semibold text-on-surface">
-                              {fmt(b.row)}
-                              {b.fresh && (
+
+                    {table.rows.length ? (
+                      <ul className="mt-2 grid gap-1.5 sm:grid-cols-2">
+                        {table.rows.map((row) => (
+                          <li
+                            key={row.event}
+                            className="flex flex-wrap items-baseline justify-between gap-x-3 rounded-lg bg-white px-3 py-2 shadow-soft"
+                          >
+                            <span className="text-on-surface">{row.event}</span>
+                            <span className="text-right font-semibold text-on-surface">
+                              {row.best.text}
+                              <span className="ml-1.5 text-xs font-normal text-on-surface-variant">{row.best.season}</span>
+                              {fresh.has(row.event) && (
                                 <span className="ml-2 rounded-full bg-signal px-2 py-0.5 align-middle text-[11px] font-bold uppercase tracking-wide text-signal-ink">
                                   New PB
                                 </span>
@@ -372,6 +480,42 @@ export default function MyResults() {
                       </ul>
                     ) : (
                       <p className="mt-2 text-sm text-on-surface-variant">No measured marks yet.</p>
+                    )}
+
+                    {table.seasons.length > 0 && (
+                      <div className="mt-4 overflow-hidden rounded-xl bg-white shadow-soft">
+                        <div className="overflow-x-auto">
+                          <table className="w-full min-w-[420px] text-left text-sm">
+                            <caption className="sr-only">
+                              {member.name} — best result for each event, by season
+                            </caption>
+                            <thead>
+                              <tr className="bg-surface-container-low text-on-surface-variant">
+                                <th scope="col" className="px-4 py-3 font-semibold">Event</th>
+                                {table.seasons.map((s) => (
+                                  <th key={s} scope="col" className="px-4 py-3 font-semibold">
+                                    {s}
+                                  </th>
+                                ))}
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {table.rows.map((row) => (
+                                <tr key={row.event} className="border-t border-surface-container">
+                                  <th scope="row" className="px-4 py-2.5 font-semibold text-on-surface">
+                                    {row.event}
+                                  </th>
+                                  {row.cells.map((cell, i) => (
+                                    <td key={i} className="whitespace-nowrap px-4 py-2.5 text-on-surface">
+                                      {cell?.text ?? '—'}
+                                    </td>
+                                  ))}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     )}
                   </div>
                 ))}
@@ -404,7 +548,14 @@ export default function MyResults() {
                           <td className="px-4 py-2.5 font-semibold text-on-surface">{r.memberName}</td>
                           <td className="px-4 py-2.5 text-on-surface">{r.event}</td>
                           <td className="whitespace-nowrap px-4 py-2.5 text-on-surface">{fmtGrade(r)}</td>
-                          <td className="px-4 py-2.5 text-on-surface">{fmt(r)}</td>
+                          <td className="px-4 py-2.5 text-on-surface">
+                            {fmt(r)}
+                            {r.record && (
+                              <span className="ml-2 rounded-full bg-signal px-2 py-0.5 align-middle text-[11px] font-bold uppercase tracking-wide text-signal-ink">
+                                New
+                              </span>
+                            )}
+                          </td>
                           <td className="whitespace-nowrap px-4 py-2.5 text-on-surface-variant">{fmtDate(r.date)}</td>
                           <td className="px-4 py-2.5 text-on-surface-variant">{r.season}</td>
                         </tr>

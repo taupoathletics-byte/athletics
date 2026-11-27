@@ -48,12 +48,6 @@ export function NextNightPanel() {
       <JavelinLanding className="right-[9%] top-[4%] md:top-[7%] xl:right-[8%] xl:top-[45%]" />
 
       <div className="container-page relative">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="font-display text-2xl font-extrabold leading-tight text-cream md:text-3xl">
-            Sprints, jumps, throws and relays for ages 3–14 — every Thursday through Term 4 and Term 1 at {venue.name}.
-          </p>
-        </Reveal>
-
         <Reveal delay={0.1} className="mx-auto mt-12 max-w-4xl">
           <div className="lane-frame rounded-[6px] bg-cream px-5 py-8 md:px-12 md:py-10">
             <SectionLabel>{next?.isTonight ? 'Club night is tonight' : 'Next club night'}</SectionLabel>
