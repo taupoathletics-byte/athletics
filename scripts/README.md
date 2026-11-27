@@ -20,6 +20,7 @@ npm run dev                              # portal at /getsetgo/
 | `notion_pull_lessons.mjs` | Pulls the weekly lesson pages + Series Rotations board from Notion and merges them with the local `data/series-meta.json` into `data/lessons.json`. Read-only. |
 | `build_sessions.mjs` | Turns `data/lessons.json` + `data/season-extras.json` into the gated `api/_data/sessions.mjs`. |
 | `import_measurements.mjs` | Turns the club's measurement spreadsheets (`data/measurements/*.csv`) into `src/data/history.ts` for the My Results history table. Read-only on the CSVs. |
+| `notion_safety_setup.mjs` | Creates the Incident, Hazard and Accident Investigation databases in Notion and prints `INCIDENTS_DB_ID`, `HAZARDS_DB_ID`, `INVESTIGATIONS_DB_ID`. Safe to re-run (reuses databases with the same title). |
 
 **Sources of truth**
 

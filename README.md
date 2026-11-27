@@ -139,12 +139,26 @@ Health & Safety page is transcribed from the club's December 2023 policy; the
 other three are summaries written from wording the club already publishes — see
 `src/data/policies.ts` before changing them.
 
-Committee members record first-aid/incidents at **`/admin/incidents`** (linked
-from the admin portal's sidebar). Reports are written to a Notion database
-(`INCIDENTS_DB_ID` in `.env.example` has the required properties); the endpoint
-is `api/_incidents.mjs`, dispatched by the `/api/[...slug]` catch-all so the
-project stays within Vercel's function limit. It requires the same admin
-session cookie as the rest of the portal.
+Committee members record safety reports at **`/admin/incidents`** (linked from
+the admin portal's sidebar). There are three separate registers, each its own
+Notion database:
+
+| Register | Notion | Env var |
+|---|---|---|
+| Incident / first aid | Incident Register (First Aid) | `INCIDENTS_DB_ID` |
+| Hazard register | Hazard Register | `HAZARDS_DB_ID` |
+| Accident investigation | Accident Investigation | `INVESTIGATIONS_DB_ID` |
+
+Create them (or reuse existing ones with the same titles) and get the IDs:
+
+```bash
+NOTION_TOKEN=secret_… node scripts/notion_safety_setup.mjs
+# optional: --parent <notion-page-id>  (defaults to the page the Members board lives under)
+```
+
+The endpoint is `api/_incidents.mjs`, dispatched by the `/api/[...slug]`
+catch-all so the project stays within Vercel's function limit. It requires the
+same admin session cookie as the rest of the portal.
 
 ### Backdated measurements
 
